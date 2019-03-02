@@ -3,15 +3,7 @@ const db = require('../dbConfig.js');
 module.exports = {
   // get - with and without id
   get: function(id) {
-    let query = db('users');
-
-    if(id) {
-      query = query
-        .where('user_id', id)
-        .first();
-    }
-
-    return query;
+    return id ? db('users').where('user_id', id).first() : db('users');
   },
 
 
