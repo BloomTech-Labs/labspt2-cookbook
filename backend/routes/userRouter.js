@@ -10,9 +10,8 @@ const user = require('../data/helpers/userModel');
 
 /* GET (list) */
 router.get( '/', (req, res) => {
-  const { id } = req.params;
 
-  user.get(id)
+  user.get()
     .then( (users) => {
       res.json(users);
     })
@@ -23,6 +22,21 @@ router.get( '/', (req, res) => {
 
 
 /* GET by id */
+router.get( '/:id', (req, res) => {
+  const { id } = req.params;
+
+  user.get(id)
+    .then( (users) => {
+      if( users ) {
+        res.json(users);
+      } else {
+        res.status(404).json({ error: "User not found." });
+      }
+    })
+    .catch( (err) => {
+      res.status(500).json({ error: "User information could not be retrieved." });
+    });
+});
 
 
 
