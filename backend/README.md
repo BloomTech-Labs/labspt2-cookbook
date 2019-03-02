@@ -1,11 +1,12 @@
-Backend API 
+# Backend API 
 
-Startup: yarn server
+Startup: *yarn server*
 
 
-Users
+## Users
 
 Returns:
+```json
   {
     "user_id": 3,
     "auth_id": "cdef345",
@@ -13,7 +14,8 @@ Returns:
     "type": "0",
     "billing_date": null
   }
+```
 
-Routes:
-  /api/user       -- Get list of all users
-  /api/user/:id   -- Get one user
+##Routes:
+**/api/user**       -- Get list of all users
+**/api/user/:id**   -- Get one user
