@@ -16,9 +16,9 @@ class Calendar extends Component{
                             <div>Snack</div>
                         </div>
                         <input type="search" placeholder="Search"/>
-                        <input type = "number" min ="1" />
-                        <input type ="checkbox" /> Duplicate Previous Week
-                        <input type = "submit" value ="save"/>
+                        <input type="number" min="1" />
+                        <input type="checkbox" /> Duplicate Previous Week
+                        <input type="submit" value="save"/>
                     </form>
                 </div>
             </div>           
