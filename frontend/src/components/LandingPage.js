@@ -8,16 +8,28 @@ class LandingPage extends React.Component{
         return(
             <div className = 'landing-page-container'>
                 <div className = 'landing-page-nav-bar'>
-                    <div className = 'landing-page-nav-bar-sub-container'>   
-                        <div  className = 'logo-and-header-container'>
-                            <p>icon</p>     
-                            <h1 className = '?'>Header</h1>
-                        </div>
-                        <div className = 'login-container'>
-                            <p>Login</p>
-                            <p>Register</p>
-                        </div>
+                    <div className = 'logo-container'>
+                        <div className = 'icon-border'>
+                            <img className = 'icon' src = 'https://image.flaticon.com/icons/svg/1530/1530648.svg'/>
+                        </div>    
+                        <h1 className = 'landing-header'>kookr
+                        </h1>
                     </div>    
+                    <div className = 'landing-page-nav-buttons'>
+                        <h3 className = 'login-button'>Login</h3>
+                        <h3 className = 'registration-button'>Register</h3>
+                    </div>
+                </div>
+                <div className = 'landing-page-sub-container'>
+                    <div className = 'blurb-outline'>
+                        <div className= 'landing-page-blurb-container'>
+                            <div className = 'blurb'>
+                                <div className = 'blurb-p'>
+                                    Bringing fun and focus back to meal planning.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>   
                 <div className = 'main-content'>
                     
