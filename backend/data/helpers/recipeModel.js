@@ -10,12 +10,6 @@ module.exports = {
     const query3 = db.select('order','directions').from('directions').where('recipe_id',id).orderBy('order');
 
     return Promise.all([query1, query2, query3]);
-    // Promise.all([query1, query2]).then( (values) => {
-    //    let [recipe, ingredients] = values;
-    // //   //recipe = recipe[0];
-    //    return ({...recipe, ingredients: ingredients});
-    // });
-    //return query2;
   },
 
 
