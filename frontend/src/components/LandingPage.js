@@ -6,7 +6,7 @@ class LandingPage extends React.Component{
     //Verifying user login?
     render(){
         return(
-            <div className = 'landing-page-container'>
+            <div className = 'Landing-Page'>
                 <div className = 'landing-page-nav-bar'>
                     <div className = 'logo-container'>
                         <div className = 'icon-border'>

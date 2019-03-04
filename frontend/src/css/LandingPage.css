@@ -1,7 +1,7 @@
-.landing-page-container{
+.Landing-Page{
     background-image: url('https://images.pexels.com/photos/988865/pexels-photo-988865.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=800');
     width: 100%;
-    height: 950px;
+    height: 900px;
 }
 .landing-page-nav-bar{
     width:100%;
@@ -32,7 +32,7 @@
     -5px 5px 0 #FAF8FB,
      5px 5px 0 #FAF8FB;
      letter-spacing: 8px;
-     margin-top:15px;
+     margin-top:10px;
      width:500px;
      
 }
@@ -40,68 +40,76 @@
     height:95px;
     border:5px solid #FAF8FB;
     border-radius:100%;
-    margin-top:30px;
+    margin-top:26px;
 
 }
 
 .landing-page-nav-buttons{
-  width:18%;
- margin-top:30px;
-    color:white;
-    font-family: 'Open Sans', sans-serif;
-    
+  width:180px;
+  color:#FAF8FB;
+  font-family: 'Titillium Web', sans-serif;
   font-size:24px;
-  margin-right:7%;
-  text-align: center;
-display:flex;
-justify-content:space-between;
+  display:flex;
+  flex-direction:column;
+  justify-content: space-around;
+  text-align:right;
+  margin-right:50px;
+  
 }
-.login-button, .registration-button{
+.login-button{
     cursor:pointer;
+    margin-bottom:0px;
+    
+}
+.registration-button{
+    cursor:pointer;
+    margin-top:0px;
 }
 
 .landing-page-sub-container{
-    width:50%;
-    padding-top:120px;
+    width:600px;
+    padding-top:160px;
     
    
 }
-.blurb-outline{
+/* .blurb-outline{
     width:496px;
     height:412px;
     border-radius:3.5px;
     background-color:rgb(255, 192, 56);
     margin-left:50px;
     padding-top:8px;
-}
+} */
 .landing-page-blurb-container{
     width:480px;
     background-color:white;
     padding:2px 0px;
     border-radius:3.5px;
     margin:0px auto;
-    height:400px;
+    height:276px;
 }
 
 .blurb{
     width:468px;
-    height:372px;
-    background-color:rgb(201, 23, 103);
+    height:244px;
+    background-color:rgb(182, 20, 93);
     border-radius:3.5px;
     margin:4px auto;
-    padding-top:20px;
+    padding-top:24px;
 
 }
 
 .blurb-p{
     width:400px;
     height:300px;
-    font-size:60px;
-    letter-spacing: 1px;
+    font-size:46px;
     margin:0px auto;
     color:white;
     text-align:center;
-    font-family: 'Open Sans', sans-serif;
-    font-weight:bolder;
+    font-family: 'Titillium Web', sans-serif;
+    
 }
 
+/* Fix login buttons
+    shorten blurb height(raise bottom)
+    Mayb lose yellow box on blurb*/
