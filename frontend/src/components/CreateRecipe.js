@@ -8,7 +8,7 @@ class CreateRecipe extends React.Component{
     render(){
         return(
             <div className = 'Create-Recipe'>
-                <NavBar className = 'nav'/> 
+                <NavBar /> 
                 <div className = 'create-page-container'>
                     <div className = 'url-add-recipe-section'> 
                         <form className = 'add-recipe-form'>

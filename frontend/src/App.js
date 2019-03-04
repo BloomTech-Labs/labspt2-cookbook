@@ -11,8 +11,8 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Route path = '/' component = {LandingPage} />
-            <Route path = '/create' component = {CreateRecipe} />
+            <Route exact path = '/' component = {LandingPage} />
+            <Route exact path = '/create' component = {CreateRecipe} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/billing" component={Billing} />
           

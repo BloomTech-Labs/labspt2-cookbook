@@ -1,0 +1,28 @@
+.Nav-Bar{
+    background-color:rgb(255, 192, 56);
+    width:20%;
+}
+.nav-logo{
+    font-size:54px;
+    color:#FF318E;
+    font-family: 'Aleo', serif;
+    text-shadow:
+   -2px -2px 0 #FAF8FB,  
+    2px -2px 0 #FAF8FB,
+    -2px 2px 0 #FAF8FB,
+     2px 2px 0 #FAF8FB;
+     letter-spacing: 3px;
+     margin: 40px auto;
+     width:85%;
+    
+}
+.nav-link-container{
+    display:flex;
+    flex-direction:column;
+    width:85%;
+    margin: 0px auto;
+
+}
+.nav-link{
+    margin:10px;
+}
