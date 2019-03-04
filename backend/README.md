@@ -5,7 +5,7 @@ Startup: *yarn server*
 
 ## Users
 
-Returns:
+### Returns:
 ```json
   {
     "user_id": 3,
@@ -16,8 +16,6 @@ Returns:
   }
 ```
 
-## Routes:
-
-**/api/user**       -- Get list of all users
-
-**/api/user/:id**   -- Get one user
+### Routes:
+* **/api/user**       -- Get list of all users
+* **/api/user/:id**   -- Get one user
