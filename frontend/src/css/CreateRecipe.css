@@ -1,0 +1,22 @@
+.Create-Recipe{
+    display:flex;
+}
+
+.create-page-container{
+    background-color: rgb(2, 176, 219);
+    width:80%;
+    display:flex;
+}
+.url-add-recipe-section{
+    width: 70%;
+    display:flex;
+    flex-direction: column;
+}
+.recipe-modification-section{
+    width:30%;
+    display:flex;
+    flex-direction: column;
+}
+.meal-tag-section{
+    
+}
