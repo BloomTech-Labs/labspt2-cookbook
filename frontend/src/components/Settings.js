@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
+import  '../css/Settings.css';
 
 class Settings extends Component {
     render() {
@@ -25,7 +26,7 @@ class Settings extends Component {
                         
                         <label htmlFor="passNew">New Password: </label>
                         <input type="password" name="passNew"></input>
-                        
+
                         <input type="submit" name="save" value="Save"></input>
                     </form>
                 </div>

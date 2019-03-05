@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
+import  '../css/Billing.css';
 
 class Billing extends Component {
     render() {
         return (
-            <div>
+            <div className="billing-page">
                 <NavBar />
-                <div>
-                    <div>
+                <div className="billing-main">
+                    <div>BILLING</div>
+                    <div className="billing-form-container">
                         Payment Info
-                        <form>
-                            <input type="number" name="cardNum" placeholder="CC#"></input>
-                            <input type="number" name="expDate" placeholder="EXP"></input>
-                            <input type="number" name="cvv" placeholder="CVV"></input>
-                            <input type="submit" value="Buy Now" />
+                        <form className="billing-form">
+                            <input className="billing-form-item" type="text" name="cardNum" placeholder="CC#"></input>
+                            <input className="billing-form-item" type="text" name="expDate" placeholder="EXP"></input>
+                            <input className="billing-form-item" type="text" name="cvv" placeholder="CVV"></input>
+                            <input className="billing-form-item" type="submit" value="Buy Now" />
                         </form>
                     </div>
                 </div>
