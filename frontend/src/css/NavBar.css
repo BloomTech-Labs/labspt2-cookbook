@@ -1,28 +1,44 @@
 .Nav-Bar{
-    background-color:rgb(255, 192, 56);
+    background-color:#FBBF00;
     width:20%;
 }
+.nav-logo-container{
+    width:62.5%;
+    height:190px;
+    display:flex;
+    margin:0px auto;
+}
 .nav-logo{
-    font-size:54px;
+    font-size:84px;
     color:#FF318E;
     font-family: 'Aleo', serif;
     text-shadow:
-   -2px -2px 0 #FAF8FB,  
-    2px -2px 0 #FAF8FB,
-    -2px 2px 0 #FAF8FB,
-     2px 2px 0 #FAF8FB;
+   -3px -3px 0 #FAF8FB,  
+    3px -3px 0 #FAF8FB,
+    -3px 3px 0 #FAF8FB,
+     3px 3px 0 #FAF8FB;
      letter-spacing: 3px;
-     margin: 40px auto;
-     width:85%;
-    
+     padding-left:2%;    
+}
+.nav-icon{
+    height:60px;
+    border:3px solid #FAF8FB;
+    border-radius:100%;
+    margin-top:68px;
 }
 .nav-link-container{
     display:flex;
     flex-direction:column;
-    width:85%;
+    width:75%;
     margin: 0px auto;
 
 }
+
 .nav-link{
-    margin:10px;
+    margin:15px;
+    font-family: 'Josefin Sans', sans-serif;
+    text-decoration: none;
+    color:white;
+    font-size: 24px;
+    font-weight:bold;
 }
