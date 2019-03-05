@@ -1,0 +1,83 @@
+.Create-Recipe{
+    display:flex;
+}
+
+.create-page-container{
+    background-color: #1489FC;
+    width:80%;
+    display:flex;
+}
+.url-add-recipe-section{
+    width: 75%;
+    display:flex;
+    flex-direction: column;
+    padding-top:86px;
+    padding-bottom:120px;
+}
+.url-input-container{
+    width:89%;
+    
+   
+}
+.url-drop-input{
+    width:100%;
+    margin-left:6%;
+    height:44px;
+    border-radius:2px;
+}
+.recipe-preview{
+    background-color:white;
+    width:90%;
+    height:500px;
+    margin:60px auto;
+    border-radius:2px;
+}
+.add-recipe-button{
+    width:25%;
+    height:50px;
+    background-color: rgba(0, 53, 226, 0.815);
+    border:3px solid white;
+    border-radius:3.5px;
+    text-align:center;
+    margin-right:5%;
+    color:white;
+    float:right;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size:24px;
+    font-weight:bolder;
+    padding-top:20px;
+    
+}
+.recipe-modification-section{
+    width:25%;
+    display:flex;
+    flex-direction: column;
+    border:1px solid yellow;
+    padding-top:80px;
+}
+.meal-tag-section{
+    color:white;
+    font-family: 'Josefin Sans', sans-serif;
+    
+}
+.meal-tag-header{
+    font-size:28px;
+    text-align:center;
+}
+.meal-tag{
+    
+    display:flex;
+    justify-content:space-between;
+    width:50%;
+    margin:0px auto;
+
+}
+.meal-tag-p{
+    font-size:20px;
+    font-weight:bold;
+}
+.meal-tag-icon{
+    height:50px;
+    border:3px solid #FAF8FB;
+    border-radius:100%;
+}

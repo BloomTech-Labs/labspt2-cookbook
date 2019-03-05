@@ -1,0 +1,44 @@
+.Nav-Bar{
+    background-color:#FBBF00;
+    width:20%;
+}
+.nav-logo-container{
+    width:62.5%;
+    height:190px;
+    display:flex;
+    margin:0px auto;
+}
+.nav-logo{
+    font-size:84px;
+    color:#FF318E;
+    font-family: 'Aleo', serif;
+    text-shadow:
+   -3px -3px 0 #FAF8FB,  
+    3px -3px 0 #FAF8FB,
+    -3px 3px 0 #FAF8FB,
+     3px 3px 0 #FAF8FB;
+     letter-spacing: 3px;
+     padding-left:2%;    
+}
+.nav-icon{
+    height:60px;
+    border:3px solid #FAF8FB;
+    border-radius:100%;
+    margin-top:68px;
+}
+.nav-link-container{
+    display:flex;
+    flex-direction:column;
+    width:75%;
+    margin: 0px auto;
+
+}
+
+.nav-link{
+    margin:15px;
+    font-family: 'Josefin Sans', sans-serif;
+    text-decoration: none;
+    color:white;
+    font-size: 24px;
+    font-weight:bold;
+}
