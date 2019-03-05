@@ -1,30 +1,19 @@
 .Nav-Bar{
     background-color:#FBBF00;
-    width:20%;
+    width:15%;
 }
 .nav-logo-container{
-    width:62.5%;
+    width:80%;
     height:190px;
     display:flex;
     margin:0px auto;
 }
-.nav-logo{
-    font-size:84px;
-    color:#FF318E;
-    font-family: 'Aleo', serif;
-    text-shadow:
-   -3px -3px 0 #FAF8FB,  
-    3px -3px 0 #FAF8FB,
-    -3px 3px 0 #FAF8FB,
-     3px 3px 0 #FAF8FB;
-     letter-spacing: 3px;
-     padding-left:2%;    
-}
+
 .nav-icon{
-    height:60px;
+    height:80px;
     border:3px solid #FAF8FB;
     border-radius:100%;
-    margin-top:68px;
+   
 }
 .nav-link-container{
     display:flex;
