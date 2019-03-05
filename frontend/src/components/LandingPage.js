@@ -10,7 +10,7 @@ class LandingPage extends React.Component{
                 <div className='landing-page-nav-bar'>
                     <div className='logo-container'>
                         <div className='icon-border'>
-                            <img className='icon' src='https://image.flaticon.com/icons/svg/1530/1530648.svg' alt = 'whisk icon'/>
+                            <img className='icon' src='https://image.flaticon.com/icons/svg/1530/1530649.svg' alt = 'logo icon'/>
                         </div>    
                         <h1 className='landing-header'>kookr
                         </h1>
