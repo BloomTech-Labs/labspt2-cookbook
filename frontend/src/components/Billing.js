@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NavBar from "../components/NavBar";
+import NavBar from "./NavBar";
 
 class Billing extends Component {
     render() {
