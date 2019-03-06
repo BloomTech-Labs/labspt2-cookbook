@@ -15,11 +15,18 @@
 
 .landing-page-nav-bar{
     width:100%;
-    background-color:rgb(215, 216, 165);
-    height:180px;
+    background-image:url('http://chevronbackgrounds.com/pics/b8860b-dark-goldenrod-yellow-808000-olive-green-wide-chevron-background.svg');
+    /* background-color:rgb(172, 172, 116); */
+    height:190px;
+    
+    
+}
+.nav-bar-overlay{
+    width:100%;
+    background-color:rgba(202, 189, 194, 0.541);
     display:flex;
     justify-content: space-between;
-    
+    height:190px;
 }
 
 .logo-container{
@@ -32,12 +39,22 @@
 }
 
 .landing-header{
-    font-size:128px;
+    font-size:144px;
     margin-left:3.5%;
-   
-     letter-spacing: 8px;
+  font-weight:400;
+  letter-spacing:-6px;
+    /* letter-spacing:2px; */
      margin-top:0px;
+     /* font-family: 'Rubik', sans-serif; */
+     /* font-family: 'Libre Franklin', sans-serif;
+     font-family: 'Abhaya Libre', serif; */
+     /* font-family: 'Fira Sans', sans-serif; */
+     /* font-family: 'Source Serif Pro', serif; */
+     
+     font-family: 'Libre Baskerville', serif;
     
+     /* font-family: 'Cabin', sans-serif; */
+     /* font-family: 'Cabin Condensed', sans-serif; */
      
 }
 .icon{
@@ -49,28 +66,27 @@
 }
 
 .landing-page-nav-buttons{
-  width:14%;
-  margin-right:5%;
+  width:18%;
+  margin-right:3%;
   color:black;
-  font-family: 'Josefin Sans', sans-serif;
-  font-weight:bold;
+  
+  
   font-size:24px;
   display:flex;
-  flex-direction:column;
-  justify-content: space-around;
+  
+  justify-content: space-between;
   text-align:right;
+  font-family: 'Lato', sans-serif;
+  
+ 
 
   
   
 }
-.login-button{
+.login-button, .registration-button{
     cursor:pointer;
-    margin-bottom:0px;
+   
     
-}
-.registration-button{
-    cursor:pointer;
-    margin-top:0px;
 }
 
 .landing-page-sub-container{
