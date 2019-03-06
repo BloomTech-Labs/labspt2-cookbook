@@ -1,59 +1,57 @@
 .Landing-Page{
     /* background-image: url('https://images.pexels.com/photos/988865/pexels-photo-988865.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=800'); */
-    background-color: #1E67F7;
+    /* background-color: #1E67F7; */
     width: 100%;
-    height: 940px;
+    height: 1000px;
+    background-image: url('https://foodrevolution.org/wp-content/uploads/2018/10/blog-featured-fall_foods-20181015.jpg');
+
 }
-.landing-page-img-container{
+/* .landing-page-img-container{
     width:70%;
     height:800px;
     margin:0px auto;
     background-image: url('https://images.pexels.com/photos/405031/pexels-photo-405031.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=400&w=1000');
-}
+} */
+
 .landing-page-nav-bar{
     width:100%;
-    background-color:#FFBC03;
-    height:140px;
+    background-color:rgb(215, 216, 165);
+    height:180px;
     display:flex;
     justify-content: space-between;
     
 }
 
 .logo-container{
-    width:600px;
+    width:60%;
     display:flex;
     
-    padding-left:20px;
-    margin-left:30%;
+    padding-left:5%;
+    
     
 }
 
 .landing-header{
     font-size:128px;
-    margin-left:1%;
-    color:#1E67F7;
-    font-family: 'Aleo', serif;
-    text-shadow:
-   -5px -5px 0 #FAF8FB,  
-    5px -5px 0 #FAF8FB,
-    -5px 5px 0 #FAF8FB,
-     5px 5px 0 #FAF8FB;
+    margin-left:3.5%;
+   
      letter-spacing: 8px;
      margin-top:0px;
-     width:40%;
+    
      
 }
 .icon{
-    height:95px;
-    border:5px solid #FAF8FB;
-    border-radius:100%;
-    margin-top:16px;
+    height:160px;
+    
+  
+    margin-top:12px;
 
 }
 
 .landing-page-nav-buttons{
-  width:10%;
-  color:#FAF8FB;
+  width:14%;
+  margin-right:5%;
+  color:black;
   font-family: 'Josefin Sans', sans-serif;
   font-weight:bold;
   font-size:24px;
@@ -61,7 +59,8 @@
   flex-direction:column;
   justify-content: space-around;
   text-align:right;
-  margin-right:50px;
+
+  
   
 }
 .login-button{
@@ -75,40 +74,15 @@
 }
 
 .landing-page-sub-container{
-    width:720px;
+    width:50%;
     padding-top:140px;
     
    
 }
-/* .blurb-outline{
-    width:496px;
-    height:412px;
-    border-radius:3.5px;
-    background-color:rgb(255, 192, 56);
-    margin-left:50px;
-    padding-top:8px;
-} */
-/* .landing-page-blurb-container{
-    width:480px;
-    background-color:white;
-    padding:2px 0px;
-    border-radius:3.5px;
-    margin:0px auto;
-    height:276px;
-}
 
-.blurb{
-    width:468px;
-    height:244px;
-    background-color:#FF318E;
-    border-radius:3.5px;
-    margin:4px auto;
-    padding-top:24px;
-
-} */
 
 .blurb-p{
-    width:600px;
+    width:70%;
     height:300px;
     font-size:64px;
     margin:0px auto;

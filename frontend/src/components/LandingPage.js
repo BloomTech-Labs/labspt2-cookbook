@@ -9,8 +9,8 @@ class LandingPage extends React.Component{
             <div className='Landing-Page'>
                 <div className='landing-page-nav-bar'>
                         <div className='logo-container'>
-                            <div className='icon-border'>
-                                <img className='icon' src='https://image.flaticon.com/icons/svg/1034/1034680.svg' alt = 'logo icon'/>
+                            <div className='icon-container'>
+                                <img className='icon' src='https://image.flaticon.com/icons/svg/1460/1460085.svg' alt = 'logo icon'/>
                             </div>    
                             <h1 className='landing-header'>kookr
                             </h1>
@@ -23,15 +23,7 @@ class LandingPage extends React.Component{
                 <div className='landing-page-img-container'>
                     
                     <div className='landing-page-sub-container'>
-                        <div className='blurb-outline'>
-                            <div className='landing-page-blurb-container'>
-                                <div className='blurb'>
-                                    <div className='blurb-p'>
-                                        Bringing fun and focus back to meal planning.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>  
                 </div>     
             </div>
