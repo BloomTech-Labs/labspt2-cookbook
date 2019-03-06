@@ -17,10 +17,10 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Route exact path = '/' component = {LandingPage} />
-            <Route exact path = '/create' component = {CreateRecipe} />
+            <Route exact path='/' component={LandingPage} />
+            <Route exact path='/create' component={CreateRecipe} />
             <Route exact path="/recipes" component={RecipeList}/>
-            <Route exact path ="/recipes/:id" component = {IndividualRecipe}/>
+            <Route exact path="/recipes/:id" component={IndividualRecipe}/>
             <Route exact path="/calendar" component={Calendar}/>
             <Route exact path="/grocery-list" component={GroceryList}/>
             <Route exact path="/settings" component={Settings} />
