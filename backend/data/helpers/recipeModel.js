@@ -1,4 +1,5 @@
 const db = require('../dbConfig.js');
+const ingredientHelper = require('./ingredientModel');
 
 module.exports = {
   // get full recipe by id
@@ -14,6 +15,19 @@ module.exports = {
 
 
   // post
+  insert: function(rec) {
+    
+    console.log("rec:", rec);
+    return db('recipes').insert({ 
+      name: rec.name,
+      image: rec.image,
+      link: rec.link
+    })
+    .then( ([id]) => {
+      ingredientHelper.multiInsert(id, rec.ingredients);
+      return this.get(id);
+    });
+  },
 
   // put
 
