@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "server": "node index.js"
+    "server": "node index.js",
+    "devserver": "nodemon index.js"
   },
   "repository": "https://github.com/Lambda-School-Labs/labspt2-cookbook.git",
   "author": "The Kookr Team",
@@ -11,6 +12,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "faker": "^4.1.0",
     "helmet": "^3.15.1",
     "knex": "^0.16.3",
     "morgan": "^1.9.1",
