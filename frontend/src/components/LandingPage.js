@@ -23,12 +23,26 @@ class LandingPage extends React.Component{
                     </div>    
                 </div>
                 <div className='landing-page-img-container'>
-                    
-                    <div className='landing-page-sub-container'>
-                       
-                    </div>  
-                </div>     
-            </div>
+                    <div className='landing-content-container'>
+                       <div className = 'landing-blurb-container row-one'>
+                            <div className ='blurb' id ='blurb-one'>
+                                <div className = 'blurb-header'>
+                                    <div className='blurb-header-overlay'>Header
+                                    </div>
+                                </div>    
+                                <div className = 'blurb-content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                            </div>
+                            <div className ='blurb' id ='blurb-two'>
+                                <div className = 'blurb-header'>
+                                    <div className='blurb-header-overlay'>Header
+                                    </div>
+                                </div>    
+                                <div className = 'blurb-content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                            </div>
+                       </div>
+                </div>  
+            </div>     
+        </div>
         )
     }cd 
 }

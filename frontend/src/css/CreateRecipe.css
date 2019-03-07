@@ -4,15 +4,15 @@
 }
 
 .create-page-container{
-    background-image: url('https://lonelyplanetstatic.imgix.net/op-video-sync/assets/food_and_drink_masthead2.jpg');
     
+    background-color:rgba(159, 212, 235, 0.253);
     display:flex;
 }
 .url-add-recipe-section{
     width: 75%;
     display:flex;
     flex-direction: column;
-    padding-top:160px;
+    padding-top:100px;
     padding-bottom:120px;
     
 }
@@ -26,24 +26,23 @@
     margin-left:6%;
     height:44px;
     border-radius:2px;
+    background-color:rgb(255, 255, 255);
 }
 .recipe-preview{
-    background-color:white;
+    background-color:rgb(253, 253, 253);
     width:90%;
     height:500px;
-    margin:60px auto;
+    margin:80px auto;
     border-radius:2px;
    
 }
 .add-recipe-button{
     width:25%;
     height:50px;
-    
-    
     border-radius:3.5px;
     text-align:center;
     margin-right:5%;
-    color:white;
+   
     float:right;
     font-family: 'Lato', sans-serif;
     font-size:24px;
@@ -55,25 +54,26 @@
     width:25%;
     display:flex;
     flex-direction: column;
-    
-    
     font-family: 'Lato', sans-serif;
-    padding-top:80px;
+    padding-top:100px;
 }
 .meal-tag-section{
-    background-color:rgb(221, 221, 191);
+    background-color:rgba(132, 192, 214, 0.699); 
+    width:86%;
+    padding-bottom:10px;
+
 }
 .meal-tag-header{
-    font-size:28px;
+    font-size:24px;
+    padding:5px;
     text-align:center;
+    font-family: 'PT Sans', sans-serif;
 }
 .meal-tag{
-    
     display:flex;
     justify-content:space-between;
-    width:50%;
+    width:86%;
     margin:0px auto;
-
 }
 .meal-tag-p{
     font-size:20px;
@@ -81,5 +81,29 @@
 }
 .meal-tag-icon{
     height:50px;
-    
+}
+.edit-servings-section{
+    background-color:rgba(132, 192, 214, 0.699);  
+    width:86%;
+    margin-top:40px;
+    display:flex;
+    height:60px;
+}
+.calendar-section{
+    background-color:rgba(132, 192, 214, 0.699);    
+    width:86%;
+    margin-top:40px;
+    display:flex;
+    flex-direction:column;
+
+}
+.date-selector{
+    width:90%;
+    text-align: center;
+}
+.calendar-mini{
+    width:86%;
+    background-color:rgb(255, 255, 255);
+    height:140px;
+    margin:20px auto;
 }

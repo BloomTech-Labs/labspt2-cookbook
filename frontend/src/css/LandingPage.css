@@ -1,118 +1,114 @@
 .Landing-Page{
-    /* background-image: url('https://images.pexels.com/photos/988865/pexels-photo-988865.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=800'); */
-    /* background-color: #1E67F7; */
     width: 100%;
     height: 1000px;
-    background-image: url('https://foodrevolution.org/wp-content/uploads/2018/10/blog-featured-fall_foods-20181015.jpg');
-
+    /* background-image: url('https://foodrevolution.org/wp-content/uploads/2018/10/blog-featured-fall_foods-20181015.jpg'); */
+    /* background-image:url('https://images.pexels.com/photos/1660030/pexels-photo-1660030.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=900'); */
+    background-image: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=700&w=800');
 }
-/* .landing-page-img-container{
-    width:70%;
-    height:800px;
-    margin:0px auto;
-    background-image: url('https://images.pexels.com/photos/405031/pexels-photo-405031.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=400&w=1000');
-} */
 
 .landing-page-nav-bar{
     width:100%;
-    background-image:url('http://chevronbackgrounds.com/pics/b8860b-dark-goldenrod-yellow-808000-olive-green-wide-chevron-background.svg');
-    /* background-color:rgb(172, 172, 116); */
-    height:190px;
-    
-    
+    background-image:url('https://i.pinimg.com/originals/a7/08/34/a70834326879e95651b23a3ee444a1e8.jpg');
+    height:180px;    
+   
 }
 .nav-bar-overlay{
     width:100%;
-    background-color:rgba(202, 189, 194, 0.541);
+    background-color:rgba(107, 172, 196, 0.959);
     display:flex;
     justify-content: space-between;
-    height:190px;
+    height:180px;
 }
 
 .logo-container{
     width:60%;
     display:flex;
-    
     padding-left:5%;
-    
-    
 }
 
 .landing-header{
     font-size:144px;
     margin-left:3.5%;
-  font-weight:400;
-  letter-spacing:-6px;
-    /* letter-spacing:2px; */
-     margin-top:0px;
-     /* font-family: 'Rubik', sans-serif; */
-     /* font-family: 'Libre Franklin', sans-serif;
-     font-family: 'Abhaya Libre', serif; */
-     /* font-family: 'Fira Sans', sans-serif; */
-     /* font-family: 'Source Serif Pro', serif; */
-     
-     font-family: 'Libre Baskerville', serif;
+    font-weight:400;
+    letter-spacing:-5px;
+    margin-top:0px;
+    font-family: 'PT Sans', sans-serif;
+  
+/*    
+    font-family: 'Hind Siliguri', sans-serif; */
+   
+    /* font-family: 'Cabin Condensed', sans-serif; */
+   
     
-     /* font-family: 'Cabin', sans-serif; */
-     /* font-family: 'Cabin Condensed', sans-serif; */
-     
 }
 .icon{
     height:160px;
-    
-  
     margin-top:12px;
-
 }
 
 .landing-page-nav-buttons{
   width:18%;
   margin-right:3%;
   color:black;
-  
-  
-  font-size:24px;
+  font-size:26px;
   display:flex;
-  
   justify-content: space-between;
   text-align:right;
-  font-family: 'Lato', sans-serif;
-  
- 
+  font-family: 'PT Sans', sans-serif;
+  letter-spacing:-1px;
 
-  
-  
 }
+
 .login-button, .registration-button{
     cursor:pointer;
-   
-    
 }
 
-.landing-page-sub-container{
-    width:50%;
-    padding-top:140px;
-    
-   
+.landing-content-container{
+    display:flex;
+    flex-direction:column;
+    background-color:rgba(252, 252, 252, 0.11);
 }
 
 
-.blurb-p{
-    width:70%;
-    height:300px;
-    font-size:64px;
+.row-one{
     margin:0px auto;
-    color:white;
-    font-weight:bold;
-    text-align:center;
-    line-height: 80px;
-    font-family: 'Josefin Sans', sans-serif;
-/* font-family: 'Hind Siliguri', sans-serif; */
-
-
-    
+    margin-top:160px;
+    display:flex;
+    justify-content: space-between;
+    width:85%;
 }
 
-/* Fix login buttons
-    shorten blurb height(raise bottom)
-    Mayb lose yellow box on blurb*/
+.blurb{
+    width:45%;
+    opacity:0.96;
+    display:flex;
+    flex-direction:column;
+    border-radius:100%;
+    
+}
+.blurb-header{
+    /* background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3z59x0yWJ5FpC_0fTf0YCtiGHr8BkE9FT8ra6EKPyawZoP6pZUg'); */
+    font-family: 'PT Sans', sans-serif;
+    letter-spacing:-1.5px;
+    font-size:36px;
+    text-align:center;
+    height:60px;
+}
+.blurb-header-overlay{
+    background-color:rgb(107, 172, 196);
+    height:60px;
+    padding-top:10px;
+}
+
+.blurb-content{
+    
+    background-color:rgb(255, 255, 255);
+    height:180px;
+    padding:30px 5%;
+}
+#blurb-two{
+    margin-top:160px;
+}
+#blurb-three{
+    margin-left:15%;
+}
