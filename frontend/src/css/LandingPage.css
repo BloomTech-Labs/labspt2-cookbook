@@ -1,114 +1,121 @@
 .Landing-Page{
+    background-image: url('https://images.pexels.com/photos/988865/pexels-photo-988865.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=800');
     width: 100%;
-    height: 1000px;
-    /* background-image: url('https://foodrevolution.org/wp-content/uploads/2018/10/blog-featured-fall_foods-20181015.jpg'); */
-    /* background-image:url('https://images.pexels.com/photos/1660030/pexels-photo-1660030.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=900'); */
-    background-image: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=700&w=800');
+    height: 900px;
 }
-
 .landing-page-nav-bar{
     width:100%;
-    background-image:url('https://i.pinimg.com/originals/a7/08/34/a70834326879e95651b23a3ee444a1e8.jpg');
-    height:180px;    
-   
-}
-.nav-bar-overlay{
-    width:100%;
-    background-color:rgba(107, 172, 196, 0.959);
+    background-color:#FBBF00;
+    height:160px;
     display:flex;
     justify-content: space-between;
-    height:180px;
+    
 }
 
 .logo-container{
-    width:60%;
+    width:600px;
     display:flex;
-    padding-left:5%;
+    
+    padding-left:20px;
+    margin-left:40px;
+    
 }
 
 .landing-header{
-    font-size:144px;
-    margin-left:3.5%;
-    font-weight:400;
-    letter-spacing:-5px;
-    margin-top:0px;
-    font-family: 'PT Sans', sans-serif;
-  
-/*    
-    font-family: 'Hind Siliguri', sans-serif; */
-   
-    /* font-family: 'Cabin Condensed', sans-serif; */
-   
-    
+    font-size:128px;
+    margin-left:15px;
+    color:#FF318E;
+    font-family: 'Aleo', serif;
+    text-shadow:
+   -5px -5px 0 #FAF8FB,  
+    5px -5px 0 #FAF8FB,
+    -5px 5px 0 #FAF8FB,
+     5px 5px 0 #FAF8FB;
+     letter-spacing: 8px;
+     margin-top:10px;
+     width:500px;
+     
 }
 .icon{
-    height:160px;
-    margin-top:12px;
+    height:95px;
+    border:5px solid #FAF8FB;
+    border-radius:100%;
+    margin-top:26px;
+
 }
 
 .landing-page-nav-buttons{
-  width:18%;
-  margin-right:3%;
-  color:black;
-  font-size:26px;
+  width:180px;
+  color:#FAF8FB;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight:bold;
+  font-size:24px;
   display:flex;
-  justify-content: space-between;
+  flex-direction:column;
+  justify-content: space-around;
   text-align:right;
-  font-family: 'PT Sans', sans-serif;
-  letter-spacing:-1px;
-
+  margin-right:50px;
+  
 }
-
-.login-button, .registration-button{
+.login-button{
     cursor:pointer;
+    margin-bottom:0px;
+    
+}
+.registration-button{
+    cursor:pointer;
+    margin-top:0px;
 }
 
-.landing-content-container{
-    display:flex;
-    flex-direction:column;
-    background-color:rgba(252, 252, 252, 0.11);
+.landing-page-sub-container{
+    width:630px;
+    padding-top:90px;
+    
+   
 }
-
-
-.row-one{
+/* .blurb-outline{
+    width:496px;
+    height:412px;
+    border-radius:3.5px;
+    background-color:rgb(255, 192, 56);
+    margin-left:50px;
+    padding-top:8px;
+} */
+/* .landing-page-blurb-container{
+    width:480px;
+    background-color:white;
+    padding:2px 0px;
+    border-radius:3.5px;
     margin:0px auto;
-    margin-top:160px;
-    display:flex;
-    justify-content: space-between;
-    width:85%;
+    height:276px;
 }
 
 .blurb{
-    width:45%;
-    opacity:0.96;
-    display:flex;
-    flex-direction:column;
-    border-radius:100%;
-    
-}
-.blurb-header{
-    /* background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3z59x0yWJ5FpC_0fTf0YCtiGHr8BkE9FT8ra6EKPyawZoP6pZUg'); */
-    font-family: 'PT Sans', sans-serif;
-    letter-spacing:-1.5px;
-    font-size:36px;
+    width:468px;
+    height:244px;
+    background-color:#FF318E;
+    border-radius:3.5px;
+    margin:4px auto;
+    padding-top:24px;
+
+} */
+
+.blurb-p{
+    width:420px;
+    height:300px;
+    font-size:64px;
+    margin:0px auto;
+    color:white;
+    font-weight:bold;
     text-align:center;
-    height:60px;
-}
-.blurb-header-overlay{
-    background-color:rgb(107, 172, 196);
-    height:60px;
-    padding-top:10px;
+    line-height: 80px;
+    font-family: 'Josefin Sans', sans-serif;
+/* font-family: 'Hind Siliguri', sans-serif; */
+
+
+    
 }
 
-.blurb-content{
-    
-    background-color:rgb(255, 255, 255);
-    height:180px;
-    padding:30px 5%;
-}
-#blurb-two{
-    margin-top:160px;
-}
-#blurb-three{
-    margin-left:15%;
-}
+/* Fix login buttons
+    shorten blurb height(raise bottom)
+    Mayb lose yellow box on blurb*/
