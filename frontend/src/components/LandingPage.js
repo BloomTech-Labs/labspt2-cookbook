@@ -1,8 +1,23 @@
 import React from 'react';
 
+import RegisterModal from  "./RegisterModal";
 import  '../css/LandingPage.css';
 
 class LandingPage extends React.Component{
+    state={ show: false };
+
+    openModal = () =>{
+        this.setState({show: true});
+        console.log(this.state)
+    };
+
+    closeModal = (e) =>{
+        e.preventDefault();
+        this.setState({show: false});
+        console.log(this.state)
+
+    };
+
     //Verifying user login?
     render(){
         return(
@@ -16,8 +31,8 @@ class LandingPage extends React.Component{
                         </h1>
                     </div>    
                     <div className='landing-page-nav-buttons'>
-                        <h3 className='login-button'>Login</h3>
-                        <h3 className='registration-button'>Register</h3>
+                        <h3 className='login-button' >Login</h3>
+                        <h3 className='registration-button' onClick={this.openModal}>Register</h3>
                     </div>
                 </div>
                 <div className='landing-page-sub-container'>
@@ -30,6 +45,9 @@ class LandingPage extends React.Component{
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="landing-page-modal">
+                    <RegisterModal show={this.state.show} closeHandle={this.closeModal} />
                 </div>   
             </div>
         )
