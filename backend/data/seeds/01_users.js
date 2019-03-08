@@ -1,14 +1,24 @@
+const faker = require('faker');
 
-exports.seed = function(knex, Promise) {
-  // Deletes ALL existing entries
-  return knex('users').truncate()
-    .then(function () {
-      // Inserts seed entries
-      return knex('users').insert([
-        {user_id: 1, auth_id: 'abcd123', email: 'user1@none.com', type: 0, billing_date:null},
-        {user_id: 2, auth_id: 'bcde234', email: 'user2@none.com', type: 0, billing_date:null},
-        {user_id: 3, auth_id: 'cdef345', email: 'user3@none.com', type: 0, billing_date:null}
-      ]);
-    });
+
+const createFakeUser = () => ({
+ 
+  auth_id: faker.random.alphaNumeric(25),
+  email: faker.internet.email(),
+  type: 0,
+  billing_date: faker.date.future()
+});
+
+exports.seed = async function(knex, Promise) {
+  await knex('users').truncate();
+  
+  const fakeUsers = [];
+  const desiredFakeUsers = process.env.SEEDS || 5;
+
+  for( let i = 0; i < desiredFakeUsers; i++ ) {
+    fakeUsers.push( createFakeUser() );
+  }
+  await knex("users").insert(fakeUsers);
 };
+
  
