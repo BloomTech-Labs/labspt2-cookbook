@@ -1,0 +1,33 @@
+/*Page Structure*/
+.billing-page{
+    display: flex;
+}
+
+.billing-main{
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+}
+
+/*Page Content*/
+.billing-form-container{
+    border: 1px solid gray;
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 5px;
+}
+
+.billing-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.billing-form-item{
+    margin-bottom: 15px;
+    padding-left: 5px;
+}
+
+.billing-form-item:first-child{
+    margin-top: 15px;
+}
+

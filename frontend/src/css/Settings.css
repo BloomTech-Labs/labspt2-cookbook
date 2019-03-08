@@ -1,0 +1,32 @@
+/*Page Structure*/
+.settings-page{
+    display: flex;
+}
+
+.settings-main{
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+}
+
+/*Page Content*/
+.settings-form-container{
+    border: 1px solid gray;
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 5px;
+}
+
+.settings-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-form-item{
+    margin-bottom: 15px;
+    padding-left: 5px;
+}
+
+.settings-form-item:first-child{
+    margin-top: 15px;
+}

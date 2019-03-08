@@ -30,7 +30,11 @@ router.get( '/:id', (req, res) => {
 
 
 /* POST */
+router.post( '/', (req, res) => {
+  const recipeData = req.body;
 
+  recipes.insert(recipeData).then( (newId) => {res.json(newId);}).catch( (err) => {res.status(500).json({ error: err})});
+});
 
 
 /* PUT */

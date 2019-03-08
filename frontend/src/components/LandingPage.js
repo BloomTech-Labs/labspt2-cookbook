@@ -1,6 +1,8 @@
 import React from 'react';
 
 import  '../css/LandingPage.css';
+import { connect } from 'react-redux';
+
 
 class LandingPage extends React.Component{
     //Verifying user login?
@@ -10,7 +12,7 @@ class LandingPage extends React.Component{
                 <div className='landing-page-nav-bar'>
                     <div className='logo-container'>
                         <div className='icon-border'>
-                            <img className='icon' src='https://image.flaticon.com/icons/svg/1530/1530648.svg' alt = 'whisk icon'/>
+                            <img className='icon' src='https://image.flaticon.com/icons/svg/1530/1530649.svg' alt = 'logo icon'/>
                         </div>    
                         <h1 className='landing-header'>kookr
                         </h1>
@@ -35,4 +37,16 @@ class LandingPage extends React.Component{
         )
     }
 }
-export default LandingPage;
+
+
+const mapStateToProps = function(state) {
+    return {
+        user: state.UserReducer
+    }
+}
+
+
+export default connect(mapStateToProps)(LandingPage)
+
+
+//export default LandingPage;
