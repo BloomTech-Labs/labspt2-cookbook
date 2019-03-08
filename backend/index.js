@@ -16,11 +16,16 @@ const PORT = process.env.PORT || 1234;
 
 
 /* ---------- Middleware ---------- */
+var corsOptions = {
+  origin: 'https://kookr.netlify.com/',
+  optionsSuccessStatus: 200
+};
+
 server.use(
   express.json(),
   morgan('dev'),
   helmet(),
-  cors()
+  cors(corsOptions)
 );
 
 
