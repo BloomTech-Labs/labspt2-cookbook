@@ -57,11 +57,11 @@ router.put('/:id', (req, res) => {
   const { id } = req.params;
   const recipeEdit = req.body;
 
-  if (recipe.name && recipe.link) {
+  if (recipeEdit.name && recipeEdit.link) {
     recipes.update(id, recipeEdit)
       .then((recipe) => {
         if (id) {
-          res.json({ messag: "Recipe has been updated." })
+          res.json({ message: "Recipe has been updated." })
         } else {
           res.status(400).json({ message: "Recipe with specified ID does not exist." })
         }
@@ -81,7 +81,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
 
-  recipe.remove(id)
+  recipes.remove(id)
     .then((recipe) => {
       if (id) {
         res.json({ message: "User has been deleted." })

@@ -41,11 +41,51 @@ router.get( '/:id', (req, res) => {
 
 
 /* POST */
+router.post('/', (req, res) => {
+  const newUser = req.body;
+
+  if (newUser.auth_id && newUser.email && newUser.type) {
+    user.insert(newUser)
+      .then((user) => {
+        res.json(user)
+      })
+      .catch((err) => {
+        res.status(500).json({ error: "Failed to create user." });
+      })
+  } else {
+    res.status(400).json({
+      message: "Missing email auth ID or type."
+    });
+  }
+})
 
 
 
 /* PUT */
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const userEdit = req.body;
 
+  if (userEdit.auth_id && userEdit.email &&  userEdit.type) {
+    user.update(id, userEdit)
+      .then((user) => {
+        if (id) {
+          res.json({ message: "User has been updated." })
+        } else {
+          res.status(400).json({ message: "User with specified ID does not exist" })
+        }
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: "Failed to update User."
+        })
+      })
+  } else {
+    res.status(400).json({
+      message: "Missing email auth ID or type."
+    });
+  }
+})
 
 
 /* DELETE */

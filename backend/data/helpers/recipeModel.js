@@ -49,13 +49,16 @@ module.exports = {
 
   // put
 
-  update: function (id, changes) {
+  update: function(id, changes) {
+    console.log(changes);
+    console.log(id);
     return db('recipes').where('recipe_id', id).update(changes).then(count => (count > 0 ? this.get(id) : null));
   },
 
+
   // delete
 
-  delete: function (id) {
+  remove: function (id) {
     return db('recipes').where('recipe_id', id).del();
 }
 
