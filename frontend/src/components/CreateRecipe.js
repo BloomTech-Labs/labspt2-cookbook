@@ -29,23 +29,23 @@ class CreateRecipe extends React.Component{
                             <h3 className='meal-tag-header'>Click to add meal tag</h3>
                             <div className='meal-tag'>
                                 <p className='meal-tag-p'>Breakfast</p>
-                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/135/135398.svg' alt = 'egg-icon'/>
+                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/1590/1590858.svg' alt = 'bacon-icon'/>
                             </div>
                             <div className='meal-tag'>
                                 <p className='meal-tag-p'>Lunch</p>
-                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/135/135406.svg' alt = 'salad-icon'/>
+                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/1034/1034648.svg' alt = 'salad-icon'/>
                             </div>
                             <div className='meal-tag'>
                                 <p className='meal-tag-p'>Dinner</p>
-                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/103/103172.svg' alt = 'fish-icon'/>
+                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/1005/1005468.svg' alt = 'fish-icon'/>
                             </div>
                             <div className='meal-tag'>
                                 <p className='meal-tag-p'>Dessert</p>
-                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/103/103147.svg' alt = 'cupcake-icon'/>
+                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/1499/1499251.svg' alt = 'cupcake-icon'/>
                             </div>
                             <div className='meal-tag'>
                                 <p className='meal-tag-p'>Snack</p>
-                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/738/738096.svg' alt = 'watermelon-icon'/>
+                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/1005/1005484.svg' alt = 'watermelon-icon'/>
                             </div>
                         </div>
                         <div className='edit-servings-section'>
