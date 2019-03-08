@@ -2,7 +2,7 @@ const faker = require('faker');
 
 
 const createFakeUser = () => ({
-  //auth_id: faker.finance.mask(25),
+ 
   auth_id: faker.random.alphaNumeric(25),
   email: faker.internet.email(),
   type: 0,
@@ -11,7 +11,7 @@ const createFakeUser = () => ({
 
 exports.seed = async function(knex, Promise) {
   await knex('users').truncate();
-  // 600 users
+  
   const fakeUsers = [];
   const desiredFakeUsers = process.env.SEEDS || 5;
 

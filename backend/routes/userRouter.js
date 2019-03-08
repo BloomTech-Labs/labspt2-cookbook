@@ -26,9 +26,9 @@ router.get( '/:id', (req, res) => {
   const { id } = req.params;
 
   user.get(id)
-    .then( (users) => {
-      if( users ) {
-        res.json(users);
+    .then( (user) => {
+      if( user) {
+        res.json(user);
       } else {
         res.status(404).json({ error: "User not found." });
       }

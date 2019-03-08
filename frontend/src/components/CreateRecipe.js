@@ -49,12 +49,12 @@ class CreateRecipe extends React.Component{
                             </div>
                         </div>
                         <div className='edit-servings-section'>
-                            <div className = 'servings-counter'>Counter</div>
-                            <p className = 'servings-p'>Servings</p>
+                            <div className='servings-counter'>Counter</div>
+                            <p className='servings-p'>Servings</p>
                         </div>
                         <div className='calendar-section'>
-                            <div className = 'date-selector'>Date selection placeholder</div>
-                            <div className = 'calendar-mini'>Calendar placeholder</div>
+                            <div className='date-selector'>Date selection placeholder</div>
+                            <div className='calendar-mini'>Calendar placeholder</div>
                         </div>
                     </div>
                 </div>           
