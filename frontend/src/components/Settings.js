@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import  '../css/Settings.css';
+import { connect } from 'react-redux';
 
 class Settings extends Component {
     render() {
@@ -48,4 +49,13 @@ class Settings extends Component {
     }
 };
 
-export default Settings;
+
+const mapStateToProps = function(state) {
+    return {
+        user: state.UserReducer
+    }
+}
+
+
+export default connect(mapStateToProps)(Settings)
+//export default Settings;

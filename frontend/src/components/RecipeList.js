@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-
+import { connect } from 'react-redux';
 import IndividualRecipe from "./IndividualRecipe"
 
 class RecipeList extends Component{
@@ -36,4 +36,15 @@ class RecipeList extends Component{
     }
 } 
 
-export default RecipeList
+const mapStateToProps = function(state) {
+    return {
+        user: state.UserReducer
+    }
+}
+
+
+export default connect(mapStateToProps)(RecipeList)
+
+
+
+//export default RecipeList

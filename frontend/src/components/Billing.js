@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import  '../css/Billing.css';
+import { connect } from 'react-redux';
+
 
 class Billing extends Component {
     render() {
@@ -24,4 +26,15 @@ class Billing extends Component {
     }
 };
 
-export default Billing;
+const mapStateToProps = function(state) {
+    return {
+        user: state.UserReducer
+    }
+}
+
+
+export default connect(mapStateToProps)(Billing)
+
+
+
+//export default Billing;
