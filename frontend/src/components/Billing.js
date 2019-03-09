@@ -3,7 +3,6 @@ import NavBar from "./NavBar";
 import  '../css/Billing.css';
 import { connect } from 'react-redux';
 
-
 class Billing extends Component {
     render() {
         return (
