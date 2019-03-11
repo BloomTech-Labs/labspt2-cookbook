@@ -33,7 +33,22 @@ router.get( '/:id', (req, res) => {
 router.post( '/', (req, res) => {
   const recipeData = req.body;
 
-  recipes.insert(recipeData).then( (newId) => {res.json(newId);}).catch( (err) => {res.status(500).json({ error: err})});
+  recipes.insert(recipeData)
+    .then( (id) => {
+      recipes.get(id)
+      .then( (rec) => {
+        let [recipe, ingredients, directions] = rec;
+        recipe = recipe[0];
+        res.json({...recipe, ingredients: ingredients, directions: directions });
+      })
+      .catch( (err) => {
+        res.status(500).json({ error: err});
+      });
+      //res.json(id);
+    })
+    .catch( (err) => {
+      res.status(500).json({ error: err})
+    });
 });
 
 
