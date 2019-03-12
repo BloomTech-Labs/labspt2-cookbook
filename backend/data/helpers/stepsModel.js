@@ -26,7 +26,6 @@ module.exports = {
         directions: step.directions
       })
       .then( ([id]) => {
-        // console.log(`insert: ${id}`);
         return id;
       });
   },
