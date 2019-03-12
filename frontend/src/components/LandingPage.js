@@ -28,7 +28,7 @@ class LandingPage extends React.Component{
                             </div>    
                             <h1 className='landing-header'>Kookr
                             </h1>
-                        </div>    
+                        </div>  
                         <div className='landing-page-nav-buttons'>
                             <h3 className='login-button'>Login</h3>
                             <h3 className='registration-button' onClick={this.openModal}>Register</h3>
@@ -41,8 +41,8 @@ class LandingPage extends React.Component{
                 </div>
                 <div className='landing-page-img-container'>
                     <div className='landing-content-container'>
-                       <div className='landing-blurb-container row-one'>
-                            <div className='blurb' id ='blurb-one'>
+                        <div className='landing-blurb-container row-one'>
+                            <div className='blurb' id='blurb-one'>
                                 <div className='blurb-header'>
                                     <div className='blurb-header-overlay'>Header
                                     </div>
