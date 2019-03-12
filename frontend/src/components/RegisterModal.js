@@ -15,12 +15,10 @@ class RegisterModal extends Component{
         this.setState({
             [e.target.name]: e.target.value
         })
-        console.log(this.state.email)
     }
 
     submitHandler = (e) =>{
         e.preventDefault();
-        console.log("it ran")
         axios
             .post(`localhost:1234/api/user/`, {
                 auth_id: "defg456", 
@@ -42,7 +40,7 @@ class RegisterModal extends Component{
 
     render(){
         return (
-            <div className={this.props.show ? "modal display-block" : "modal display-none"}>
+            <div className={`modal display-${this.props.show ? "block" : "none"}`}>
                 <div className="modal-main">
                     <form onSubmit={this.submitHandler}>
                         <input type="text" placeholder="Username"/>

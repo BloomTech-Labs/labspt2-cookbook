@@ -8,13 +8,11 @@ class LandingPage extends React.Component{
 
     openModal = () =>{
         this.setState({show: true});
-        console.log(this.state)
     };
 
     closeModal = (e) =>{
         e.preventDefault();
         this.setState({show: false});
-        console.log(this.state)
 
     };
 
