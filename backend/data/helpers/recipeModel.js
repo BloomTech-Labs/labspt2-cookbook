@@ -40,28 +40,12 @@ module.exports = {
     })
     .then( (result) => {
       // Transaction success.
-      // console.log("success", result);
       return(result);
     })
     .catch(function(err) {
       console.log("error: ", err);
     })
   },
-  // insert: function(rec) {
-    
-  //   console.log("rec:", rec);
-  //   return db('recipes').insert({ 
-  //     name: rec.name,
-  //     image: rec.image,
-  //     link: rec.link
-  //   })
-  //   .then( ([id]) => {
-  //     const query1 = ingredientHelper.multiInsert(id, rec.ingredients);
-  //     const query2 = stepsHelper.multiInsert(id, rec.directions);
-  //     const query3 = this.get(id);
-  //     return Promise.all([query1, query2, query3]);
-  //   });
-  // },
 
   // put
 
