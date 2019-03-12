@@ -15,7 +15,7 @@ class RecipeList extends Component{
                         <div className="filterButton"> Filter </div>
                         <div className="filterContent">
                             <form>
-                                {["Breakfast", "Lunch", "Dinner", "Dessert", "Snack"].map(item=> <input name="filter" type="radio">{item}</input>)}
+                                {["Breakfast", "Lunch", "Dinner", "Dessert", "Snack"].map(item=> <label><input name="filter" type="radio"/>{item}</label>)}
                             </form>
                         </div>
                     </div>
