@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class GroceryList extends Component{
 
@@ -25,4 +26,14 @@ class GroceryList extends Component{
     }
 } 
 
-export default GroceryList
+const mapStateToProps = function(state) {
+    return {
+        user: state.UserReducer
+    }
+}
+
+
+export default connect(mapStateToProps)(GroceryList)
+
+
+//export default GroceryList

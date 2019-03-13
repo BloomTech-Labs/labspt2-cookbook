@@ -2,6 +2,8 @@ import React from 'react';
 
 import RegisterModal from  "./RegisterModal";
 import  '../css/LandingPage.css';
+import { connect } from 'react-redux';
+
 
 class LandingPage extends React.Component{
     state={ show: false };
@@ -66,4 +68,16 @@ class LandingPage extends React.Component{
         )
     }
 }
-export default LandingPage;
+
+
+const mapStateToProps = function(state) {
+    return {
+        user: state.UserReducer
+    }
+}
+
+
+export default connect(mapStateToProps)(LandingPage)
+
+
+//export default LandingPage;

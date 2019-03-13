@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Calendar extends Component{
 
@@ -26,4 +27,13 @@ class Calendar extends Component{
     }
 } 
 
-export default Calendar
+const mapStateToProps = function(state) {
+    return {
+        user: state.UserReducer
+    }
+}
+
+
+export default connect(mapStateToProps)(Calendar)
+
+//export default Calendar

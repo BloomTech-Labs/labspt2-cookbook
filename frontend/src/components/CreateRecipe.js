@@ -3,6 +3,8 @@ import '../css/CreateRecipe.css';
 
 import  '../css/CreateRecipe.css';
 import NavBar from './NavBar';
+import { connect } from 'react-redux';
+
 
 class CreateRecipe extends React.Component{
     //Verifying user login?
@@ -62,4 +64,16 @@ class CreateRecipe extends React.Component{
         )
     }
 }
-export default CreateRecipe;
+
+const mapStateToProps = function(state) {
+    return {
+        user: state.UserReducer
+    }
+}
+
+
+export default connect(mapStateToProps)(CreateRecipe)
+
+
+
+//export default CreateRecipe;
