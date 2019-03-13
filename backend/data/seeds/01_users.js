@@ -13,7 +13,7 @@ exports.seed = async function(knex, Promise) {
   await knex('users').truncate();
   // 600 users
   const fakeUsers = [];
-  const desiredFakeUsers = process.env.SEEDS || 5;
+  const desiredFakeUsers = process.env.SEEDS || 3;
 
   for( let i = 0; i < desiredFakeUsers; i++ ) {
     fakeUsers.push( createFakeUser() );

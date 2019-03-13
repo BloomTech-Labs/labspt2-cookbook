@@ -1,5 +1,6 @@
 const db = require('../dbConfig.js');
 const ingredientHelper = require('./ingredientModel');
+const stepsHelper = require('./stepsModel');
 
 module.exports = {
   // get full recipe by id
@@ -14,19 +15,35 @@ module.exports = {
   },
 
 
-  // post
-  insert: function(rec) {
-    
-    console.log("rec:", rec);
-    return db('recipes').insert({ 
-      name: rec.name,
-      image: rec.image,
-      link: rec.link
+  // post full recipe
+  insert: function(recipe) {
+    return db.transaction( (trans) => {
+      return db('recipes')
+        .transacting(trans)
+        .insert({
+          name: recipe.name,
+          image: recipe.image,
+          link: recipe.link
+        })
+        .then( (result) => {
+          const id = result[0];
+          ingredientHelper.multiInsert(id, recipe.ingredients);
+          return id;
+        })
+        .then( (id) => {
+          stepsHelper.multiInsert(id, recipe.directions);
+          return id;
+        })
+        .then(trans.commit)
+        .catch(trans.rollback)
     })
-    .then( ([id]) => {
-      ingredientHelper.multiInsert(id, rec.ingredients);
-      return this.get(id);
-    });
+    .then( (result) => {
+      // Transaction success.
+      return(result);
+    })
+    .catch(function(err) {
+      console.log("error: ", err);
+    })
   },
 
   // put

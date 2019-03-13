@@ -11,7 +11,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
 const rootReducer = combineReducers({
-    UserReducer
+    UserReducer: UserReducer
 });
 
 const middleware = [thunk, logger]
