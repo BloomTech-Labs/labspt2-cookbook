@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "devserver": "nodemon index.js"
   },
   "repository": "https://github.com/Lambda-School-Labs/labspt2-cookbook.git",
   "author": "The Kookr Team",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "faker": "^4.1.0",
     "helmet": "^3.15.1",
@@ -17,9 +19,10 @@
     "morgan": "^1.9.1",
     "node": "11.6.0",
     "npm": "6.5.0",
-    "sqlite3": "^4.0.6"
+    "pg": "^7.8.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "sqlite3": "^4.0.6"
   }
 }

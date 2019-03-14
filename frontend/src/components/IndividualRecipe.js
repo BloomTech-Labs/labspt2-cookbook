@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 
 class IndividualRecipe extends Component{
 
@@ -32,4 +34,14 @@ class IndividualRecipe extends Component{
     }
 } 
 
-export default IndividualRecipe
+
+const mapStateToProps = function(state) {
+    return {
+        user: state.UserReducer
+    }
+}
+
+
+export default connect(mapStateToProps)(IndividualRecipe)
+
+//export default IndividualRecipe

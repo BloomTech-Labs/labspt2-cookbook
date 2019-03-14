@@ -1,5 +1,8 @@
 // Update with your config settings.
 
+// Must require the dotEnv file to connect with pg:
+require('dotenv').config('/.env');
+
 module.exports = {
 
   development: {
@@ -17,18 +20,14 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
+    client: 'pq',
+    connection: process.env.DATABASE_URL,
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: 'knex_migrations',
+      directory: __dirname + '/data/migrations'
+    },
+    seeds: {
+      directory: __dirname + '/data/seeds'
     }
   }
 
