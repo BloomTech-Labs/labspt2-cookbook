@@ -63,7 +63,7 @@ router.put('/:id', (req, res) => {
         if (id) {
           res.json({ message: "Recipe has been updated." })
         } else {
-          res.status(400).json({ message: "Recipe with specified ID does not exist." })
+          res.status(400).json({ message: "ID not provided." })
         }
       })
       .catch((err) => {
@@ -86,7 +86,7 @@ router.delete('/:id', (req, res) => {
       if (id) {
         res.json({ message: "User has been deleted." })
       } else {
-        res.status(400).json({ message: "Recipe with specified ID does not exist." })
+        res.status(400).json({ message: "ID not provided." })
       }
     })
     .catch((err) => {

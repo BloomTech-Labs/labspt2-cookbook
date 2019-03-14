@@ -72,7 +72,7 @@ router.put('/:id', (req, res) => {
         if (id) {
           res.json({ message: "User has been updated." })
         } else {
-          res.status(400).json({ message: "User with specified ID does not exist" })
+          res.status(400).json({ message: "ID not provided." })
         }
       })
       .catch((err) => {
