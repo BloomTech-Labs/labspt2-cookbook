@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
     table.integer('order').notNullable().defaultTo(0);
     table.text('directions').notNullable();
 
-    table.foreign('recipe_id').references('recipe_id').inTable('recipes');
+    // table.foreign('recipe_id').references('recipe_id').inTable('recipes');
   });
 };
 

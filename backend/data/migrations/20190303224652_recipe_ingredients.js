@@ -7,8 +7,8 @@ exports.up = function(knex, Promise) {
     table.string('measurement');
     table.integer('ing_id').unsigned().notNullable();
 
-    table.foreign('recipe_id').references('recipe_id').inTable('recipes');
-    table.foreign('ing_id').references('ing_id').inTable('ingredients');
+    // table.foreign('recipe_id').references('recipe_id').inTable('recipes');
+    // table.foreign('ing_id').references('ing_id').inTable('ingredients');
   });
 };
 
