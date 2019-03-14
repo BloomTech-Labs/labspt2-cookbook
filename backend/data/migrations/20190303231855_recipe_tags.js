@@ -5,8 +5,8 @@ exports.up = function(knex, Promise) {
     table.integer('recipe_id').unsigned().notNullable();
     table.integer('tag_id').unsigned().notNullable();
 
-    table.foreign('recipe_id').references('recipe_id').inTable('recipes');
-    table.foreign('tag_id').references('tag_id').inTable('tags');
+    // table.foreign('recipe_id').references('recipe_id').inTable('recipes');
+    // table.foreign('tag_id').references('tag_id').inTable('tags');
   });
 };
 
