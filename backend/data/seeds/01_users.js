@@ -10,7 +10,8 @@ const createFakeUser = () => ({
 });
 
 exports.seed = async function(knex, Promise) {
-  await knex('users').truncate();
+  await knex('users').del();
+  // 600 users
   const fakeUsers = [];
   const desiredFakeUsers = process.env.SEEDS || 3;
 
