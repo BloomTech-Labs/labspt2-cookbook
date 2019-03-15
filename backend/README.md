@@ -19,8 +19,10 @@ Startup: *yarn server*
 ```
 
 ### Routes:
-* **/api/user**       -- Get list of all users
-* **/api/user/:id**   -- Get one user
+* **GET : /api/user**       -- Get list of all users
+* **GET : /api/user/:id**   -- Get one user
+* **POST: /api/user**       -- Add new user
+* **PUT : /api/user/:id**   -- Edit user
 
 ---
 
@@ -53,4 +55,5 @@ Startup: *yarn server*
 ```
 
 ### Routes:
-* **/api/recipes/:id**   -- Get one complete recipe
+* **GET : /api/recipes/:id**   -- Get one complete recipe
+* **POST: /api/recipes**       -- Add new recipe
