@@ -23,11 +23,11 @@ class RegisterModal extends Component{
     submitHandler = (e) =>{
         e.preventDefault();
         axios
-            .post(`localhost:1234/api/user/`, {
+            .post('https://kookr.herokuapp.com/api/user/', {
                 auth_id: this.state.id, 
                 email: this.state.email,
-                // type: 0,
-                // billing_date: null
+                type: 0,
+                billing_date: null
             })
             .then(response => {
                 console.log(response);
