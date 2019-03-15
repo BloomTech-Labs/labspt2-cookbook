@@ -6,11 +6,10 @@
 }
 .landing-page-nav-bar{
     width:100%;
-    background-color:#FBBF00;
-    height:160px;
+    background-color:rgba(255, 255, 255, 0.87);
     display:flex;
     justify-content: space-between;
-    
+    height:140px;
 }
 
 .logo-container{
@@ -28,16 +27,7 @@
     font-weight:400;
     letter-spacing:-5px;
     margin-top:0px;
-    font-family: 'PT Sans', sans-serif;
 }
-.icon{
-    height:95px;
-    border:5px solid #FAF8FB;
-    border-radius:100%;
-    margin-top:26px;
-
-}
-
 .landing-page-nav-buttons{
   width:180px;
   color:#FAF8FB;
@@ -48,66 +38,29 @@
   flex-direction:column;
   justify-content: space-around;
   text-align:right;
-  margin-right:50px;
-  
+  font-family: 'PT Sans', sans-serif;
+  letter-spacing:-1px;
 }
-.login-button{
+.login-button, .registration-button{
     cursor:pointer;
     margin-bottom:0px;
     
 }
-.registration-button{
-    cursor:pointer;
-    margin-top:0px;
-}
-
-.landing-page-sub-container{
-    width:630px;
-    padding-top:90px;
-    
-   
-}
-/* .blurb-outline{
-    width:496px;
-    height:412px;
-    border-radius:3.5px;
-    background-color:rgb(255, 192, 56);
-    margin-left:50px;
-    padding-top:8px;
-} */
-/* .landing-page-blurb-container{
-    width:480px;
-    background-color:white;
-    padding:2px 0px;
-    border-radius:3.5px;
-    margin:0px auto;
-    height:276px;
-}
-
-.blurb{
-    width:45%;
-    opacity:0.96;
+.landing-blurb-container{
+    width:60%;
+    margin: 200px auto;
+    text-align:center;
     display:flex;
     flex-direction:column;
-    border-radius:100%;
-    
+    justify-content:space-around;
+    background-color:rgba(255, 255, 255, 0.87);
+
 }
-.blurb-header{
-    font-family: 'PT Sans', sans-serif;
-    letter-spacing:-1.5px;
-    font-size:36px;
-    text-align:center;
-    line-height: 80px;
-    font-family: 'Josefin Sans', sans-serif;
-/* font-family: 'Hind Siliguri', sans-serif; */
-
-
-.blurb-content{
-    background-color:rgb(255, 255, 255);
-    height:180px;
-    padding:30px 5%;
+.landing-blurb-header{
+    color:rgb(87, 144, 161);
+    font-size:48px;
+    margin-bottom:0px;
 }
-
-/* Fix login buttons
-    shorten blurb height(raise bottom)
-    Mayb lose yellow box on blurb*/
+.landing-page-blurb{
+    padding:0px 10%;
+}

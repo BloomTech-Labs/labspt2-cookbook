@@ -46,7 +46,18 @@ module.exports = {
     })
   },
 
+
   // put
 
+  update: function(id, changes) {
+    return db('recipes').where('recipe_id', id).update(changes).then(count => (count > 0 ? this.get(id) : null));
+  },
+
+
   // delete
+
+  remove: function (id) {
+    return db('recipes').where('recipe_id', id).del();
+}
+
 };

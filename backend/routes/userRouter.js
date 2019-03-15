@@ -60,7 +60,7 @@ router.get('/:authId', (req, res) =>{
 router.post('/', (req, res) => {
   const newUser = req.body;
 
-  if (newUser.email) {
+  if (newUser.auth_id && newUser.email && newUser.type) {
     user.insert(newUser)
       .then((user) => {
         res.json(user)
@@ -70,7 +70,7 @@ router.post('/', (req, res) => {
       })
   } else {
     res.status(400).json({
-      message: "Missing email."
+      message: "Missing email auth ID or type."
     });
   }
 })
@@ -82,13 +82,13 @@ router.put('/:id', (req, res) => {
   const { id } = req.params;
   const userEdit = req.body;
 
-  if (userEdit.email) {
+  if (userEdit.auth_id && userEdit.email &&  userEdit.type) {
     user.update(id, userEdit)
       .then((user) => {
         if (id) {
           res.json({ message: "User has been updated." })
         } else {
-          res.status(400).json({ message: "User with specified ID does not exist" })
+          res.status(400).json({ message: "ID not provided." })
         }
       })
       .catch((err) => {
@@ -98,7 +98,7 @@ router.put('/:id', (req, res) => {
       })
   } else {
     res.status(400).json({
-      message: "Missing email."
+      message: "Missing email auth ID or type."
     });
   }
 })
