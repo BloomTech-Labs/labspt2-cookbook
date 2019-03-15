@@ -1,8 +1,8 @@
+
 const faker = require('faker');
 
 
 const createFakeUser = () => ({
-  //auth_id: faker.finance.mask(25),
   auth_id: faker.random.alphaNumeric(25),
   email: faker.internet.email(),
   type: 0,
@@ -19,6 +19,4 @@ exports.seed = async function(knex, Promise) {
     fakeUsers.push( createFakeUser() );
   }
   await knex("users").insert(fakeUsers);
-};
-
- 
+}
