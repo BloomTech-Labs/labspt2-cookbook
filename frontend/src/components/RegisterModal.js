@@ -26,8 +26,8 @@ class RegisterModal extends Component{
             .post(`localhost:1234/api/user/`, {
                 auth_id: this.state.id, 
                 email: this.state.email,
-                type: 0,
-                billing_date: null
+                // type: 0,
+                // billing_date: null
             })
             .then(response => {
                 console.log(response);
@@ -41,32 +41,36 @@ class RegisterModal extends Component{
             closeProp: true
         })
     }
-    responseGoogle = (response) => {
+    responseGoogleSuccess = (response) => {
         console.log(response);
         this.setState({
             email: response.profileObj.email,
             id: response.googleId
-        })
+        });
+        this.props.history.push('/create');
       }
+    responseGoogleFailure = (response) => {
+        console.log(response);
+        alert('Failure logging in. Please try again');
+    } 
     render(){
         
         return (
             <div className={`modal display-${this.props.show ? "block" : "none"}`}>
                 <div className="modal-main">
-                    <form onSubmit={this.submitHandler}>
-                        <input type="text" placeholder="Username"/>
-                        <input type="text" placeholder="Password"/>
-                        <input type="email" name="email" value={this.state.email} placeholder="JohnDoe@email.com" onChange={this.inputHandler}/>
-                        <input type="submit"/>
+                    <form className='register-form' onSubmit={this.submitHandler}>
+                        <div className = 'google-facebook-container'>
+                            <h3 className='login-header'>Login with Google or Facebook</h3>
+                            <GoogleLogin
+                                clientId="682401182106-dj5u5r18qhs0hu730pkl7brs330gkt3l.apps.googleusercontent.com"
+                                buttonText="Login"
+                                onSuccess={this.responseGoogleSuccess}
+                                onFailure={this.responseGoogleFailure}
+                                className='google-login'
+                            />
+                            <div className='facebook-login'>I am a facebook button</div>
+                        </div>
                     </form>
-                    <div className = 'google-facebook-container'>
-                        <GoogleLogin
-                            clientId="682401182106-dj5u5r18qhs0hu730pkl7brs330gkt3l.apps.googleusercontent.com"
-                            buttonText="Login"
-                            onSuccess={this.responseGoogle}
-                            onFailure={this.responseGoogle}
-                        />
-                    </div>
                 </div>
             </div>
         )

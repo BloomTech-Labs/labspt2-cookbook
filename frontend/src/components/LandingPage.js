@@ -1,8 +1,9 @@
 import React from 'react';
-
+import {Route} from 'react-router-dom';
 import RegisterModal from  "./RegisterModal";
 import  '../css/LandingPage.css';
 import { connect } from 'react-redux';
+// import { domainToASCII } from 'url';
 
 
 class LandingPage extends React.Component{
@@ -42,7 +43,7 @@ class LandingPage extends React.Component{
                     </div>
                 </div>
             <div className="landing-page-modal">
-                    <RegisterModal show={this.state.show} closeHandle={this.closeModal} />
+                    <Route exact path = '/' render = {(props) => <RegisterModal show={this.state.show} closeHandle={this.closeModal} {...props}/>}/>
             </div>     
         </div>
         )
