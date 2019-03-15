@@ -50,7 +50,7 @@ class LandingPage extends React.Component{
 }
 
 
-const mapStateToProps = function(state) {
+const mapStateToProps = state => {
     return {
         user: state.UserReducer
     }
@@ -58,6 +58,3 @@ const mapStateToProps = function(state) {
 
 
 export default connect(mapStateToProps)(LandingPage)
-
-
-//export default LandingPage;

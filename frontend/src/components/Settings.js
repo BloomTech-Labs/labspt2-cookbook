@@ -50,7 +50,7 @@ class Settings extends Component {
 };
 
 
-const mapStateToProps = function(state) {
+const mapStateToProps = state => {
     return {
         user: state.UserReducer
     }
@@ -58,4 +58,3 @@ const mapStateToProps = function(state) {
 
 
 export default connect(mapStateToProps)(Settings)
-//export default Settings;
