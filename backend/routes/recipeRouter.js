@@ -9,7 +9,19 @@ const recipes = require('../data/helpers/recipeModel');
 /* ---------- Endpoints for /api/recipes ---------- */
 
 /* GET (list) */
+router.get( '/user/:id', (req, res) => {
+  const { id } = req.params;
 
+  recipes.getByUserId(id)
+    .then( (list) => {
+      let [recipe] = list;
+      //recipe = recipe[0];
+      res.json({...recipe});
+    })
+    .catch( (err) => {
+      res.status(500).json({ error: `Could not get list of recipes. ${err}`});
+    });
+});
 
 /* GET by id */
 router.get( '/:id', (req, res) => {

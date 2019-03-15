@@ -58,5 +58,6 @@ Startup: *yarn server*
 
 ### Routes:
 * **GET : /api/recipes/:id**   -- Get one complete recipe
+* **GET : /api/recipes/user/:id** -- Get list of recipes by user_id
 * **POST: /api/recipes**       -- Add new recipe
 * * -- Requires: user_id, name, link

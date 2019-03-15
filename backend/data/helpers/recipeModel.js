@@ -21,9 +21,15 @@ module.exports = {
   /*
    * getByUserId:
    *   -- Get a list of recipes by user id.
-   *   -- Returns recipe info
+   *   -- Returns recipe info: id, name, image (scheduling info)
    */
-  
+  getByUserId: function(user_id) {
+    // Setting this up to use Promise so that scheduling info can be added.
+    // TODO: Add scheduling info!
+    const query1 = db('user_recipes as u').join('recipes as r', 'u.recipe_id', 'r.recipe_id').select('r.*').where('u.user_id', user_id);
+    
+    return Promise.all([query1]);
+  },
 
   /*
    * insert:
