@@ -3,7 +3,10 @@ const ingredientHelper = require('./ingredientModel');
 const stepsHelper = require('./stepsModel');
 
 module.exports = {
-  // get full recipe by id
+  /*
+   * get:
+   *   -- Get a full recipe by id.
+   */
   get: function(id) {
     const query1 = db('recipes').where('recipe_id', id);
     const query2 = db.select('a.id','a.amount','a.measurement','b.name')
@@ -15,7 +18,18 @@ module.exports = {
   },
 
 
-  // post full recipe
+  /*
+   * getByUserId:
+   *   -- Get a list of recipes by user id.
+   *   -- Returns recipe info
+   */
+  
+
+  /*
+   * insert:
+   *   -- Insert a full recipe.
+   *   -- Returns recipe id: int (1)
+   */
   insert: function(recipe) {
     return db.transaction( (trans) => {
       return db('recipes')
@@ -26,18 +40,32 @@ module.exports = {
           link: recipe.link
         })
         .then( (result) => {
-          const id = result[0];
-          ingredientHelper.multiInsert(id, recipe.ingredients);
-          return id;
+          // Add all ingredients
+          const recipe_id = result[0];
+          ingredientHelper.multiInsert(recipe_id, recipe.ingredients);
+          return recipe_id;
         })
-        .then( (id) => {
-          stepsHelper.multiInsert(id, recipe.directions);
-          return id;
+        .then( (recipe_id) => {
+          // Add all directions
+          stepsHelper.multiInsert(recipe_id, recipe.directions);
+          return recipe_id;
+        })
+        .then( (recipe_id) => {
+          // Inserting to user_recipe
+          return db('user_recipes')
+            .transacting(trans)
+            .insert({
+              user_id: recipe.user_id,
+              recipe_id: recipe_id
+            })
+            .return(recipe_id);
+          // end insert to user_recipes
         })
         .then(trans.commit)
         .catch(trans.rollback)
     })
     .then( (result) => {
+      console.log("Result: ", result);
       // Transaction success.
       return(result);
     })
@@ -46,18 +74,7 @@ module.exports = {
     })
   },
 
-
   // put
 
-  update: function(id, changes) {
-    return db('recipes').where('recipe_id', id).update(changes).then(count => (count > 0 ? this.get(id) : null));
-  },
-
-
   // delete
-
-  remove: function (id) {
-    return db('recipes').where('recipe_id', id).del();
-}
-
 };

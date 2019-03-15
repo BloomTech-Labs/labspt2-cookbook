@@ -22,7 +22,9 @@ Startup: *yarn server*
 * **GET : /api/user**       -- Get list of all users
 * **GET : /api/user/:id**   -- Get one user
 * **POST: /api/user**       -- Add new user
+* * -- Requires: auth_id, email, type(?)
 * **PUT : /api/user/:id**   -- Edit user
+* * -- Requires: auth_id, email, type(?)
 
 ---
 
@@ -57,3 +59,4 @@ Startup: *yarn server*
 ### Routes:
 * **GET : /api/recipes/:id**   -- Get one complete recipe
 * **POST: /api/recipes**       -- Add new recipe
+* * -- Requires: user_id, name, link
