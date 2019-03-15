@@ -65,7 +65,6 @@ module.exports = {
         .catch(trans.rollback)
     })
     .then( (result) => {
-      console.log("Result: ", result);
       // Transaction success.
       return(result);
     })

@@ -22,9 +22,9 @@ Startup: *yarn server*
 * **GET : /api/user**       -- Get list of all users
 * **GET : /api/user/:id**   -- Get one user
 * **POST: /api/user**       -- Add new user
-* * -- Requires: auth_id, email, type(?)
+* * -- Requires: auth_id, email
 * **PUT : /api/user/:id**   -- Edit user
-* * -- Requires: auth_id, email, type(?)
+* * -- Requires: auth_id, email
 
 ---
 
