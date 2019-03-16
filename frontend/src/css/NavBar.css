@@ -1,47 +1,44 @@
 .Nav-Bar{
-    background-image:url('https://i.pinimg.com/originals/a7/08/34/a70834326879e95651b23a3ee444a1e8.jpg');
-    height:140px;
+    background-color:#FBBF00;
+    width:20%;
+}
+.nav-logo-container{
+    width:62.5%;
+    height:190px;
     display:flex;
-   
-   
+    margin:0px auto;
 }
-.nav-link-overlay{
-    background-color:rgba(107, 172, 196, 0.959);
-    width:100%;
-    
-    
-}
-
-.nav-icon-container{
-    width:10%;
+.nav-logo{
+    font-size:84px;
+    color:#FF318E;
+    font-family: 'Aleo', serif;
+    text-shadow:
+   -3px -3px 0 #FAF8FB,  
+    3px -3px 0 #FAF8FB,
+    -3px 3px 0 #FAF8FB,
+     3px 3px 0 #FAF8FB;
+     letter-spacing: 3px;
+     padding-left:2%;    
 }
 .nav-icon{
-    height:120px;
-    width:80%;
-    margin:0px auto;
-    padding-left:10%;
-  
-   
+    height:60px;
+    border:3px solid #FAF8FB;
+    border-radius:100%;
+    margin-top:68px;
 }
 .nav-link-container{
-    font-family: 'PT Sans', sans-serif;
     display:flex;
-    height:80px;
-    justify-content:space-around;
-    align-items:center;
-    text-align:center;
-    padding-top:30px;
-    padding-right:1%;
-    
+    flex-direction:column;
+    width:75%;
+    margin: 0px auto;
+
 }
-
-
 
 .nav-link{
     margin:15px;
-    
+    font-family: 'Josefin Sans', sans-serif;
     text-decoration: none;
-    color:black;
+    color:white;
     font-size: 24px;
-    font-weight:bolder;
+    font-weight:bold;
 }

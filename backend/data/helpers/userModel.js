@@ -6,12 +6,17 @@ module.exports = {
     return id ? db('users').where('user_id', id).first() : db('users');
   },
 
+  //get - with auth_id
+
+  getByAuth: function (authId) {
+    return db('users').where('auth_id', authId).first()
+  },
+
 
   // post - new user data
   insert: function (user) {
     return db('users').insert(user).then(([id]) => this.get(id));
   },
-
 
   // put - update user
   update: function (id, changes) {
@@ -25,3 +30,6 @@ module.exports = {
   },
 
 };
+
+
+
