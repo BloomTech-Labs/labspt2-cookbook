@@ -15,31 +15,33 @@
 .logo-container{
     width:600px;
     display:flex;
-    
-    padding-left:20px;
-    margin-left:40px;
+    padding-left:5%;
+
     
 }
 
 .landing-header{
     font-size:144px;
-    margin-left:3.5%;
+    margin-left:2%;
     font-weight:400;
-    letter-spacing:-5px;
+    letter-spacing:-3px;
     margin-top:0px;
+    font-family: 'PT Sans', sans-serif;
+    color:rgb(87, 144, 161);
+    
 }
 .landing-page-nav-buttons{
-  width:180px;
-  color:#FAF8FB;
-  font-family: 'Josefin Sans', sans-serif;
-  font-weight:bold;
-  font-size:24px;
+
+  width:18%;
+  margin-right:2%;
+  color:black;
+  font-size:20px;
   display:flex;
   flex-direction:column;
   justify-content: space-around;
   text-align:right;
   font-family: 'PT Sans', sans-serif;
-  letter-spacing:-1px;
+  
 }
 .login-button, .registration-button{
     cursor:pointer;
@@ -54,13 +56,33 @@
     flex-direction:column;
     justify-content:space-around;
     background-color:rgba(255, 255, 255, 0.87);
-
+    border-radius:5px;
 }
 .landing-blurb-header{
     color:rgb(87, 144, 161);
-    font-size:48px;
-    margin-bottom:0px;
-}
+    font-size:54px;
+    margin:20px auto;
+    font-family: 'PT Sans', sans-serif;
+    letter-spacing:-1px;
+    width:80%;
+    border-bottom: 5px solid rgb(87, 144, 161)
+ }
 .landing-page-blurb{
     padding:0px 10%;
+    /* font-family: 'PT Sans', sans-serif; */
+    font-size:20px;
+    font-weight:200;
+    font-family: 'Source Sans Pro', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+}
+.get-started-button{
+    font-family: 'PT Sans', sans-serif;
+    font-size:24px;
+    color:white;
+    width:50%;
+    margin:40px auto;
+    background-color:rgb(87, 144, 161);
+    height:50px;
+    padding-top:15px;
+    border-radius:5px;
 }
