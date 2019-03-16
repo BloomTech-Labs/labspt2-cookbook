@@ -44,7 +44,6 @@ router.get('/auth/:authId', (req, res) =>{
 
   user.getByAuth(authId)
     .then( (user) =>{
-      console.log(user)
       if( user) {
         res.json(user);
       } else {
