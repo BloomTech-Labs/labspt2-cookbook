@@ -9,56 +9,79 @@ const user = require('../data/helpers/userModel');
 /* ---------- Endpoints for /api/user ---------- */
 
 /* GET (list) */
-router.get( '/', (req, res) => {
+router.get('/', (req, res) => {
 
   user.get()
-    .then( (users) => {
+    .then((users) => {
       res.json(users);
     })
-    .catch( (err) => {
+    .catch((err) => {
       res.status(500).json({ error: "User information could not be retrieved." });
     });
 });
 
 
 /* GET by id */
-router.get( '/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const { id } = req.params;
 
   user.get(id)
-    .then( (users) => {
-      if( users ) {
-        res.json(users);
+    .then( (user) => {
+      if( user) {
+        res.json(user);
       } else {
         res.status(404).json({ error: "User not found." });
       }
     })
-    .catch( (err) => {
+    .catch((err) => {
       res.status(500).json({ error: "User information could not be retrieved." });
     });
 });
 
+//Get by AuthId 
+router.get('/auth/:authId', (req, res) =>{
+  const {authId} = req.params;
+
+  user.getByAuth(authId)
+    .then( (user) =>{
+      if( user) {
+        res.json(user);
+      } else {
+        res.status(404).json({error: "Authentication ID not found"})
+      }
+    })
+    .catch((err) => {
+      res.status(404).json({error: "User information could not be retrieved "})
+    })
+});
 
 
-/* POST */
+/* POST */ 
+
 router.post('/', (req, res) => {
   const newUser = req.body;
-
-  if (newUser.auth_id && newUser.email && newUser.type) {
-    user.insert(newUser)
-      .then((user) => {
-        res.json(user)
+    if(newUser.auth_id && newUser.email){
+      user.getByAuth(newUser.auth_id)
+      .then((querydUser) =>{
+        if(querydUser == null){
+          user.insert(newUser)
+          .then(userInfo =>{
+            res.json(userInfo)
+          })
+          .catch(err=>{
+            res.json({error: "Could not add user to db"})
+          })
+          
+        } else{
+          res
+          .json({error: "User already exists"})
+        }
       })
-      .catch((err) => {
-        res.status(500).json({ error: "Failed to create user." });
+      .catch(err =>{
+        res.json({error: "Could not retrieve user data"})
       })
-  } else {
-    res.status(400).json({
-      message: "Missing email auth ID or type."
-    });
-  }
+    }
 })
-
 
 
 /* PUT */
@@ -89,7 +112,22 @@ router.put('/:id', (req, res) => {
 
 
 /* DELETE */
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  const userDel = req.body;
 
+  user.remove(id)
+    .then((user) => {
+      if (user) {
+        res.json(userDel)
+      } else {
+        res.status(404).json({ message: "User with specified ID does not exist." })
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Failed to delete user." })
+    })
+})
 
 /* ---------- Export ---------- */
 module.exports = router;
