@@ -38,12 +38,13 @@ router.get('/:id', (req, res) => {
     });
 });
 
-/* Get by AuthId */
-router.get('/:authId', (req, res) =>{
+//Get by AuthId 
+router.get('/auth/:authId', (req, res) =>{
   const {authId} = req.params;
 
   user.getByAuth(authId)
     .then( (user) =>{
+      console.log(user)
       if( user) {
         res.json(user);
       } else {
@@ -56,25 +57,32 @@ router.get('/:authId', (req, res) =>{
 });
 
 
-/* POST */
+/* POST */ 
+
 router.post('/', (req, res) => {
   const newUser = req.body;
-
-  if (newUser.auth_id && newUser.email && newUser.type) {
-    user.insert(newUser)
-      .then((user) => {
-        res.json(user)
+    if(newUser.auth_id && newUser.email){
+      user.getByAuth(newUser.auth_id)
+      .then((querydUser) =>{
+        if(querydUser == null){
+          user.insert(newUser)
+          .then(userInfo =>{
+            res.json(userInfo)
+          })
+          .catch(err=>{
+            res.json({error: "Could not add user to db"})
+          })
+          
+        } else{
+          res
+          .json({error: "User already exists"})
+        }
       })
-      .catch((err) => {
-        res.status(500).json({ error: "Failed to create user." });
+      .catch(err =>{
+        res.json({error: "Could not retrieve user data"})
       })
-  } else {
-    res.status(400).json({
-      message: "Missing email auth ID or type."
-    });
-  }
+    }
 })
-
 
 
 /* PUT */

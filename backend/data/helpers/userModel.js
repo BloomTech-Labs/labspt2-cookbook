@@ -9,14 +9,14 @@ module.exports = {
   //get - with auth_id
 
   getByAuth: function (authId) {
-    return db('users').where('auth_id', authId)
+    return db('users').where('auth_id', authId).first()
   },
+
 
   // post - new user data
   insert: function (user) {
     return db('users').insert(user).then(([id]) => this.get(id));
   },
-
 
   // put - update user
   update: function (id, changes) {
@@ -32,7 +32,4 @@ module.exports = {
 };
 
 
-///email and userid
 
-///if user doesnt exist add in type as 0, billing date null
-//if they do exist then post the auth id and email with new accoutn type of 0
