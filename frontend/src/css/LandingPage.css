@@ -1,4 +1,5 @@
 .Landing-Page{
+    background-image: url('https://images.pexels.com/photos/988865/pexels-photo-988865.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=800');
     width: 100%;
     height: 1000px;
     background-image: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=700&w=800');
@@ -12,9 +13,10 @@
 }
 
 .logo-container{
-    width:60%;
+    width:600px;
     display:flex;
     padding-left:5%;
+
     
 }
 
@@ -29,18 +31,22 @@
     
 }
 .landing-page-nav-buttons{
+
   width:18%;
   margin-right:2%;
   color:black;
   font-size:20px;
   display:flex;
-  justify-content: space-between;
+  flex-direction:column;
+  justify-content: space-around;
   text-align:right;
   font-family: 'PT Sans', sans-serif;
   
 }
 .login-button, .registration-button{
     cursor:pointer;
+    margin-bottom:0px;
+    
 }
 .landing-blurb-container{
     width:60%;
