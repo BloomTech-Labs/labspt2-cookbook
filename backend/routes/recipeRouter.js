@@ -9,20 +9,32 @@ const recipes = require('../data/helpers/recipeModel');
 /* ---------- Endpoints for /api/recipes ---------- */
 
 /* GET (list) */
+router.get( '/user/:id', (req, res) => {
+  const { id } = req.params;
 
+  recipes.getByUserId(id)
+    .then( (list) => {
+      let [recipe] = list;
+      //recipe = recipe[0];
+      res.json({...recipe});
+    })
+    .catch( (err) => {
+      res.status(500).json({ error: `Could not get list of recipes. ${err}`});
+    });
+});
 
 /* GET by id */
-router.get('/:id', (req, res) => {
+router.get( '/:id', (req, res) => {
   const { id } = req.params;
 
   recipes.get(id)
-    .then((rec) => {
+    .then( (rec) => {
       let [recipe, ingredients, directions] = rec;
       recipe = recipe[0];
-      res.json({ ...recipe, ingredients: ingredients, directions: directions });
+      res.json({...recipe, ingredients: ingredients, directions: directions });
     })
-    .catch((err) => {
-      res.status(500).json({ error: err });
+    .catch( (err) => {
+      res.status(500).json({ error: err});
     });
 
 });
@@ -33,66 +45,37 @@ router.get('/:id', (req, res) => {
 router.post( '/', (req, res) => {
   const recipeData = req.body;
 
-  recipes.insert(recipeData)
-    .then( (id) => {
-      recipes.get(id)
-      .then( (rec) => {
-        let [recipe, ingredients, directions] = rec;
-        recipe = recipe[0];
-        res.json({...recipe, ingredients: ingredients, directions: directions });
+  if( !recipeData.user_id || !recipeData.name || !recipeData.link )
+  {
+    res.status(400).json({ error: "Missing data." });
+  }
+  else {
+    recipes.insert(recipeData)
+      .then( (id) => {
+        recipes.get(id)
+        .then( (rec) => {
+          let [recipe, ingredients, directions] = rec;
+          recipe = recipe[0];
+          res.json({...recipe, ingredients: ingredients, directions: directions });
+        })
+        .catch( (err) => {
+          res.status(500).json({ error: err});
+        });
       })
       .catch( (err) => {
-        res.status(500).json({ error: err});
+        res.status(500).json({ error: err})
       });
-      //res.json(id);
-    })
-    .catch( (err) => {
-      res.status(500).json({ error: err})
-    });
-});
-
-
-/* PUT */
-router.put('/:id', (req, res) => {
-  const { id } = req.params;
-  const recipeEdit = req.body;
-
-  if (recipeEdit.name && recipeEdit.link) {
-    recipes.update(id, recipeEdit)
-      .then((recipe) => {
-        if (id) {
-          res.json({ message: "Recipe has been updated." })
-        } else {
-          res.status(400).json({ message: "ID not provided." })
-        }
-      })
-      .catch((err) => {
-        res.status(500).json({ message: "Failed to update recipe." })
-      })
-  } else {
-    res.status(404).json({
-      message: "Missing name or link."
-    })
+    // end-recipe-insert
   }
 });
 
 
-/* DELETE */
-router.delete('/:id', (req, res) => {
-  const { id } = req.params;
+/* PUT */
 
-  recipes.remove(id)
-    .then((recipe) => {
-      if (id) {
-        res.json({ message: "User has been deleted." })
-      } else {
-        res.status(400).json({ message: "ID not provided." })
-      }
-    })
-    .catch((err) => {
-      res.status(500).json({ message: "Failed to delete recipe." })
-    })
-});
+
+
+/* DELETE */
+
 
 /* ---------- Export ---------- */
 module.exports = router;
