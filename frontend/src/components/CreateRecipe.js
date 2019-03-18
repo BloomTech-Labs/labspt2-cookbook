@@ -7,7 +7,33 @@ import { connect } from 'react-redux';
 
 
 class CreateRecipe extends React.Component{
-    //Verifying user login?
+  constructor(){
+      super()
+      this.state = {
+        content: ''
+      }
+  }
+  loadData = (url) => {
+    fetch(url)
+      .then(function (response) {
+        console.log(url + " -> " + response.ok);
+        return response.body;
+      })
+      .then(function (data) {
+        console.log("data: ", data);
+        this.setState({ content: data });
+      }.bind(this))
+      .catch(function (err) {
+        console.log("failed to load ", url, err.stack);
+      });
+  }
+
+ dropHandler = event =>{
+      event.preventDefault();
+      const url = event.dataTransfer.getData('text');
+    this.loadData(url);
+      console.log(url);
+  }
     render(){
         return(
             <div className='Create-Recipe'>
@@ -18,7 +44,8 @@ class CreateRecipe extends React.Component{
                             <div className='url-input-container'>
                                 <input 
                                     className='url-drop-input' 
-                                    placeholder='  Drag and drop url here'/>
+                                    placeholder='  Drag and drop url here'
+                                    onDrop={this.dropHandler}/>
                             </div>        
                             <div className='recipe-preview'>
                                 I am the recipe preview
