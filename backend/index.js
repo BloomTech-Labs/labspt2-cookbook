@@ -9,6 +9,7 @@ const helmet = require('helmet');
 // Route requires:
 const userRouter = require('./routes/userRouter');
 const recipeRouter = require('./routes/recipeRouter');
+const tagsRouter = require('./routes/tagsRouter')
 
 // Server:
 const server = express();
@@ -32,6 +33,7 @@ server.use(
 /* ---------- Routes ---------- */
 server.use('/api/user', userRouter);
 server.use('/api/recipes', recipeRouter);
+server.use('/api/tags', tagsRouter)
 
 
 /* ---------- Listener ---------- */
