@@ -8,7 +8,7 @@ const recipes = require('../data/helpers/recipeModel');
 
 /* ---------- Endpoints for /api/recipes ---------- */
 
-/* GET (list) */
+/* GET (list) by user ID */
 router.get( '/user/:id', (req, res) => {
   const { id } = req.params;
 
@@ -23,7 +23,7 @@ router.get( '/user/:id', (req, res) => {
     });
 });
 
-/* GET by id */
+/* GET by recipe id */
 router.get( '/:id', (req, res) => {
   const { id } = req.params;
 
@@ -45,6 +45,7 @@ router.get( '/:id', (req, res) => {
 router.post( '/', (req, res) => {
   const recipeData = req.body;
 
+  // Check for missing data first.
   if( !recipeData.user_id || !recipeData.name || !recipeData.link )
   {
     res.status(400).json({ error: "Missing data." });
@@ -75,7 +76,15 @@ router.post( '/', (req, res) => {
 
 
 /* DELETE */
-
+router.delete( '/:rid/user/:uid', (req, res) => {
+  const { rid, uid } = req.params;
+  
+  recipes.delete(uid, rid)
+    .then( res.json({ success: "Deleted recipe from user." }) )
+    .catch( (err) => {
+      res.status(500).json({ error: "Could not delete recipe from user." });
+    });
+});
 
 /* ---------- Export ---------- */
 module.exports = router;
