@@ -81,8 +81,7 @@ class IndividualRecipe extends Component{
 } 
 
 
-
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         user: state.UserReducer.user,
         recipes: state.RecipeReducer.recipes,
@@ -95,5 +94,3 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps)(IndividualRecipe)
-
-//export default IndividualRecipe

@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "devserver": "nodemon index.js"
+    "server": "nodemon index.js"
   },
   "repository": "https://github.com/Lambda-School-Labs/labspt2-cookbook.git",
   "author": "The Kookr Team",

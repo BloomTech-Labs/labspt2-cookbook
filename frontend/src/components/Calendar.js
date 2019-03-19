@@ -27,7 +27,7 @@ class Calendar extends Component{
     }
 } 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         user: state.UserReducer.user
     }
@@ -35,5 +35,3 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps)(Calendar)
-
-//export default Calendar
