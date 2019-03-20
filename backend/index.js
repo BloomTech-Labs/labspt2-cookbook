@@ -18,7 +18,8 @@ const PORT = process.env.PORT || 1234;
 
 /* ---------- Middleware ---------- */
 var corsOptions = {
-  origin: 'https://kookr.netlify.com/',
+//  origin: 'https://kookr.netlify.com/',
+  origin: '*',
   optionsSuccessStatus: 200
 };
 
