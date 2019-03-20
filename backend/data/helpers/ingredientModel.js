@@ -25,10 +25,11 @@ module.exports = {
    *  -- Gets ingredients by name
    */ 
   getByName: function(name) {
-    return db.select('rec.recipe_id', 'rec.ing_id', 'ing.name')
+    return db.select('rec.recipe_id', 'r.name as recipe_name', 'rec.ing_id', 'ing.name')
       .from('ingredients as ing')
       .innerJoin('recipe_ingredients as rec', 'ing.ing_id', 'rec.ing_id')
-      .where('name', 'like', '%'+name+'%');
+      .join('recipes as r', 'r.recipe_id', 'rec.recipe_id')
+      .where('ing.name', 'like', '%'+name+'%');
     //return db('ingredients').where('name', 'like', '%'+name+'%');
   },
 

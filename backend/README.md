@@ -70,4 +70,5 @@ Startup: *yarn server*
 ### Routes:
 * **GET : /api/ingredients/recipe/:id**   -- Get list of ingredients by recipe id
 * **GET : /api/ingredients/name** -- Get list of ingredients by name
-* * -- Requires: name (in body)
+* * -- Requires: name (in body) 
+* * -- Returns: recipe_id, recipe_name, ing_id, name
