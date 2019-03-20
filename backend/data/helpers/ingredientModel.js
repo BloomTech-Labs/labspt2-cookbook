@@ -24,6 +24,13 @@ module.exports = {
    * getByName:
    *  -- Gets ingredients by name
    */ 
+  getByName: function(name) {
+    return db.select('rec.recipe_id', 'rec.ing_id', 'ing.name')
+      .from('ingredients as ing')
+      .innerJoin('recipe_ingredients as rec', 'ing.ing_id', 'rec.ing_id')
+      .where('name', 'like', '%'+name+'%');
+    //return db('ingredients').where('name', 'like', '%'+name+'%');
+  },
 
   /*
    * multiInsert:
@@ -53,7 +60,6 @@ module.exports = {
           if( !ing_id || ing_id <= 0 ) {
 
             // No ingredient found. Insert it.
-            // console.log('no ingredient found');
             return db('ingredients')
               .transacting(trans)
               .insert({name: ing.name})

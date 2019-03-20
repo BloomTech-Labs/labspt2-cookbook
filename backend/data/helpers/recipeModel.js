@@ -37,7 +37,6 @@ module.exports = {
    *   -- Used for checking if recipe exists already.
    */
   recipeExists: function(link) {
-    console.log("Checking recipe exists");
     return db('recipes').where('link', link).pluck('recipe_id');
   },
 
