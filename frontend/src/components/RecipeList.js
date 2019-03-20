@@ -7,20 +7,28 @@ class RecipeList extends Component{
 
     render(){
         return (
-            <div className="recipeListPage">
-                <div className="topBar">
+           
+             <div className="recipeListPage">
+                 <div className="topBar">
                     <div className="newRecipeLink"><Link to="/create-recipe">Add Recipe</Link></div>
-                    <input />
-                    <div className="filterSection">
-                        <div className="filterButton"> Filter </div>
-                        <div className="filterContent">
-                            <form>
-                                {["Breakfast", "Lunch", "Dinner", "Dessert", "Snack"].map(item=> <label key={item} ><input name="filter" type="radio"/>{item}</label>)}
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div className="recipeContent">
+                     <input />
+                     <div className="filterSection">
+                         <div className="filterButton"> Filter </div>
+                         <div className="filterContent">
+                             <form>
+                                 {["Breakfast", "Lunch", "Dinner", "Dessert", "Snack"].map(item=> <label key={item} ><input name="filter" type="radio"/>{item}</label>)}
+                             </form>
+                         </div>
+                     </div>
+                 </div>
+                 <div className="recipeContent">
+
+                {this.props.recipes.map((item) => (
+                    <Link key={item.toString()} to={`/recipe/${item.recipe_id}`}>
+                        <IndividualRecipe key={item.recipe_id} />
+                    </Link>
+                )   )}
+
                     {/* Will map out something like this...
 
                     {this.state.recipes.map( item => (
@@ -29,9 +37,11 @@ class RecipeList extends Component{
                     </Link>
                     ))}
                     */}
-
+ 
                 </div>
-            </div>           
+            </div>  
+
+                      
         )
     }
 } 

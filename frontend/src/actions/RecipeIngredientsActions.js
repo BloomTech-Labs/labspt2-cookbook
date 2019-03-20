@@ -30,7 +30,7 @@ export function deleteRecipeIngredients(recipeingredients) {
 
 }
 
-export function updateRecipeIngredients(directions) {
+export function updateRecipeIngredients(recipeingredients) {
 
     return {
         type: UPDATE_RECIPE_INGREDIENTS,
@@ -39,7 +39,7 @@ export function updateRecipeIngredients(directions) {
 
 }
 
-export function getRecipeIngredients(directions) {
+export function getRecipeIngredients(recipeingredients) {
 
     return {
         type: GET_RECIPE_INGREDIENTS,

@@ -7,7 +7,19 @@ const initialState = {
                 recipe_id: 0,
                 order: 0,
                 directions: 'directions string'
-                }]
+                },
+                {
+                    dir_id: 0,
+                    recipe_id: 1,
+                    order: 0,
+                    directions: 'directions string'
+                    },
+                    {
+                        dir_id: 0,
+                        recipe_id: 0,
+                        order: 0,
+                        directions: 'directions string'
+                        }]
 }
 
 const DirectionsReducer = ((state = initialState, action) => {
@@ -15,9 +27,11 @@ const DirectionsReducer = ((state = initialState, action) => {
 
         case GET_DIRECTIONS:
         //need to have a filter by recipe_id
-        return state
-
-        case ADD_DIRECTIONS:
+            //need to review the filter requirements
+           
+            return state.filter(item =>  action.recipe_id = item.recipe_id)
+        
+            case ADD_DIRECTIONS:
             return state
 
         case DELETE_DIRECTIONS:

@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import { ADD_INGREDIENTS, DELETE_INGREDIENTS, UPDATE_INGREDIENTS, GET_INGREDIENTS } from '../actions/RecipeIngredientsActions';
+import { ADD_INGREDIENTS, DELETE_INGREDIENTS, UPDATE_INGREDIENTS, GET_INGREDIENTS } from '../actions/IngredientsActions';
 
 
 const initialState = {
@@ -10,7 +10,7 @@ const initialState = {
 }
 
 // not complete
-const RecipeIngredientsReducer = ((state = initialState, action) => {
+const IngredientsReducer = ((state = initialState, action) => {
     switch (action.type) {
 
         case GET_INGREDIENTS:
@@ -32,4 +32,4 @@ const RecipeIngredientsReducer = ((state = initialState, action) => {
     }
 })
 
-export {RecipeIngredientsReducer}
+export {IngredientsReducer}

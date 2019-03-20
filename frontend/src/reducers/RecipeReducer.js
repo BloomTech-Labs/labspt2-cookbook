@@ -30,23 +30,24 @@ const RecipeReducer = ((state = initialState, action) => {
             
         case GET_SELECTED_RECIPE: 
             
-            return Object.assign({}, state, {
-                recipes: state.recipes.map(recipes => {
-                    // if exists
-                    if(state.recipe_id !== action.recipe_id) 
-                    {
-                        return state
-                    }
-                    // find if its been selected
-                    if(recipes.isSelected = true) {
-                        //return object of the recipe in question has true for isSelected
-                        return state.recipes.filter(item => item.isSelected === action.isSelected)
-                    } else {
-                        return state
-                    }
-                })
+            return state;
+            // Object.assign({}, state, {
+            //     recipes: state.recipes.map(recipes => {
+            //         // if exists
+            //         if(state.recipe_id !== action.recipe_id) 
+            //         {
+            //             return state
+            //         }
+            //         // find if its been selected
+            //         if(recipes.isSelected = true) {
+            //             //return object of the recipe in question has true for isSelected
+            //             return state.recipes.filter(item => item.isSelected === action.isSelected)
+            //         } else {
+            //             return state
+            //         }
+            //     })
                
-            });
+            // });
         
 
         default:
