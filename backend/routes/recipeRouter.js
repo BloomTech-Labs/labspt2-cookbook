@@ -71,10 +71,6 @@ router.post( '/', (req, res) => {
 });
 
 
-/* PUT */
-
-
-
 /* DELETE */
 router.delete( '/:rid/user/:uid', (req, res) => {
   const { rid, uid } = req.params;

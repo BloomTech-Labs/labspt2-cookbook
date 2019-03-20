@@ -62,3 +62,10 @@ Startup: *yarn server*
 * **POST: /api/recipes**       -- Add new recipe
 * * -- Requires: user_id, name, link
 * **DELETE: /api/recipes/:rid/user/:uid** -- Unlink recipe from user
+
+---
+
+## Recipes
+
+### Routes:
+* **GET : /api/ingredients/recipe/:id**   -- Get list of ingredients by recipe id

@@ -14,6 +14,16 @@ module.exports = {
    * getByRecipe:
    *   -- Gets a list of ingredients by Recipe ID
    */
+  getByRecipe: function(recipe_id) {
+    return db.select('a.id','a.amount','a.measurement','b.name')
+      .from('recipe_ingredients as a').innerJoin('ingredients as b', 'a.ing_id', 'b.ing_id')
+      .where('recipe_id', recipe_id);
+  },
+
+  /*
+   * getByName:
+   *  -- Gets ingredients by name
+   */ 
 
   /*
    * multiInsert:
