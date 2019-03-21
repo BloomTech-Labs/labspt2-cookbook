@@ -11,40 +11,39 @@ export const GET_INGREDIENTS = "GET_INGREDIENTS"
 
 
 
-export function addIngredients(ingredients) {
+export const addIngredients = (ingredients) => (dispatch) => {
 
-    return {
+    dispatch({
         type: ADD_INGREDIENTS,
-        INGREDIENTS: ingredients
-    }
+        payload: {ingredients}
+    })
 
 }
 
 
-export function deleteIngredients(ingredients) {
+export const deleteIngredients = (ingredients) => (dispatch) => {
 
-    return {
+    dispatch({
         type: DELETE_INGREDIENTS,
-        INGREDIENTS: ingredients
-    }
+        payload: {ingredients}
+    })
 
 }
 
-export function updateIngredients(ingredients) {
+export const updateIngredients = (ingredients) => (dispatch) => {
 
-    return {
+    dispatch({
         type: UPDATE_INGREDIENTS,
-        INGREDIENTS: ingredients
-    }
+        payload: {ingredients}
+    })
 
 }
 
-export function getIngredients(ingredients) {
+export const getIngredients = (ingredients) => (dispatch) => {
 
-    return {
+    dispatch({
         type: GET_INGREDIENTS,
-        recipe_id: ingredients.recipe_id,
-        INGREDIENTS: ingredients
-    }
+        payload: {ingredients, ing_id: ingredients.ing_id}
+    })
 
 }

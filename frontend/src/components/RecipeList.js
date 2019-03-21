@@ -2,8 +2,26 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import IndividualRecipe from "./IndividualRecipe"
+import axios from 'axios';
+import { bindActionCreators } from '../../../../../../../../AppData/Local/Microsoft/TypeScript/3.3/node_modules/redux';
+import  {getUser} from '../actions/UserActions'
+
 
 class RecipeList extends Component{
+
+    componentDidMount() {
+        this.props.getUser(user)
+        let id = this.props.user[0].user_id
+        // axios.get(`https://kookr.herokuapp.com/api/recipes/user/${id}`, (req, res) => {
+        //     console.log(res)
+        //     //gets all recipes for a particular user
+        // })
+
+        let user = {
+            id: 0
+        }
+
+    }
 
     render(){
         return (
@@ -24,27 +42,18 @@ class RecipeList extends Component{
                  <div className="recipeContent">
 
                 {this.props.recipes.map((item) => (
-                    <Link key={item.toString()} to={`/recipe/${item.recipe_id}`}>
+                    <Link key={item.image.toString()} to={`/recipes/${item.recipe_id}`} >
                         <IndividualRecipe key={item.recipe_id} />
                     </Link>
                 )   )}
-
-                    {/* Will map out something like this...
-
-                    {this.state.recipes.map( item => (
-                    <Link to={`/recipe/${item.id}`}>
-                        <IndividualRecipe />
-                    </Link>
-                    ))}
-                    */}
  
                 </div>
-            </div>  
-
-                      
+            </div>             
         )
     }
 } 
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({getUser}, dispatch)
 
 const mapStateToProps = state => {
     return {
@@ -54,6 +63,6 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps)(RecipeList)
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeList)
 
 

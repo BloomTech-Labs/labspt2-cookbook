@@ -1,10 +1,10 @@
 
-import { ADD_USER, DELETE_USER, UPDATE_USER } from '../actions/UserActions';
+import { ADD_USER, DELETE_USER, UPDATE_USER, GET_USER } from '../actions/UserActions';
 
 
 const initialState = {
     user: [{
-        user_id: 0,
+        user_id: 1,
         auth_id: 'string',
         email: 'string email',
         type: 'string',
@@ -15,6 +15,11 @@ const initialState = {
 // not complete
 const UserReducer = ((state = initialState, action) => {
     switch (action.type) {
+
+        case GET_USER:
+            console.log(state)
+            
+            return state
 
         case ADD_USER:
             return state

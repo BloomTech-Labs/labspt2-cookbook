@@ -1,5 +1,5 @@
 
-import { ADD_RECIPE, DELETE_RECIPE, UPDATE_RECIPE, GET_SELECTED_RECIPE } from '../actions/RecipeActions';
+import { ADD_RECIPE, DELETE_RECIPE, UPDATE_RECIPE, GET_SELECTED_RECIPE} from '../actions/RecipeActions';
 
 
 const initialState = {
@@ -48,7 +48,7 @@ const RecipeReducer = ((state = initialState, action) => {
             //     })
                
             // });
-        
+    
 
         default:
             return state;

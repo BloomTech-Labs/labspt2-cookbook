@@ -6,7 +6,15 @@ const initialState = {
     ingredients: [{
       ing_id: 0,
       name: 'string name'
-    }]
+    },
+    {
+        ing_id: 1,
+        name: 'string name'
+      },
+      {
+        ing_id: 2,
+        name: 'string name'
+      }]
 }
 
 // not complete
@@ -15,7 +23,7 @@ const IngredientsReducer = ((state = initialState, action) => {
 
         case GET_INGREDIENTS:
         //need to get by recipe ID
-            return state
+            return Object.assign({}, state, {ingredients: state.directions.filter(item => action.payload.ing_id === item.ing_id)} )
         
         case ADD_INGREDIENTS:
             return state

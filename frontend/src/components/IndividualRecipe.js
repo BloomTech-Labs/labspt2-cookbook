@@ -4,18 +4,14 @@ import axios from 'axios';
 import { GET_DIRECTIONS, getDirections } from '../actions/DirectionsActions';
 import { getIngredients } from '../actions/IngredientsActions';
 import { getSelectedRecipe } from '../actions/RecipeActions';
-
+import {bindActionCreators} from 'redux';
 
 
 
 class IndividualRecipe extends Component{
 
-
-    
-
 componentDidMount()
     {
-
     let sendingObject = {
         recipe_id: 1
     }
@@ -23,25 +19,23 @@ componentDidMount()
     let receivedObject = {
 
     }
+        
+    this.props.getDirections(sendingObject)
+
     
 
-    receivedObject = getSelectedRecipe(sendingObject.recipe_id)
-    
-    getIngredients(0)
-    getDirections(sendingObject)
-      
-      //console.log(sendingObject.recipe_id)
 //take recipe ID and get from the server.
 //commented out to prevent cors errors
-//     axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`, (req, res) => {
-     
+    // axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`, (req, res) => {
+        
     
-
+    
+    //console.log(res)
 //     //let value = req.body
 //      console.log(sendingObject)
 // // need to pull out directions
 // // needs to be a full directions object pased might need loops
- 
+        
 
 // // need to pull out ingredients
 // // needs to be a full object might need loops
@@ -53,7 +47,7 @@ componentDidMount()
 // // we need to have a default value for the Calendar information
     
 // // need to construct the object that gets passed to the body
-//   })
+  // })
 }
 
     render(){
@@ -62,6 +56,8 @@ componentDidMount()
                 <div className="individualRecipeHeader" >
                     <h1>Title</h1>
                     <div>{this.props.recipes.map((recipe) =>  <div key={recipe}> {recipe.recipe_id} </div> )}</div>
+                    <div>{this.props.directions.map((direction) =>   <div key={direction.directions}>  {direction.recipe_id} {direction.directions} </div>   )}</div>
+                    
                     <div className="editButton">Edit Button</div>
                     <div className="deleteButton">Delete Button</div>
                 </div>
@@ -87,27 +83,7 @@ componentDidMount()
     }
 } 
 
-const mapDispatchToProps = dispatch => {
-    let sendingObject = {
-        recipe_id: 0
-    }
-    return {
-        getSelectedRecipe: (id) => {
-            dispatch(getSelectedRecipe(id))
-        },
-        getDirections: (id) => {
-            // need to loop to get the directions. need to know how many directions
-            // exist for this function
-            dispatch(getDirections(id))
-        },
-        getIngredients: (id) => {
-            // need to loop to get the ingredients. need to know how many ingredients
-            // exist for this function
-            dispatch(getIngredients(id))
-        }
-
-    }
-}
+const mapDispatchToProps = (dispatch) => bindActionCreators({getDirections, getIngredients, getSelectedRecipe}, dispatch)
 
 const mapStateToProps = state => {
     return {
@@ -117,7 +93,6 @@ const mapStateToProps = state => {
         recipeingredients: state.RecipeIngredientsReducer.recipeingredients,
         ingredients: state.IngredientsReducer.ingredients
     }
-
 }
 
 

@@ -11,43 +11,38 @@ export const GET_SELECTED_RECIPE = "GET_SELECTED_RECIPE"
 
 
 
-export function addRecipe(recipe) {
+export const addRecipe = (recipe) => (dispatch) => {
 
-    return {
+    dispatch({
         type: ADD_RECIPE,
-        recipe_id: recipe.recipe_id,
-        RECIPE: recipe
-    }
+        payload: {recipe, recipe_id: recipe.recipe_id}
+    })
 
 }
 
-export function deleteRecipe(recipe) {
+export const deleteRecipe = (recipe) => (dispatch) => {
 
-    return {
+    dispatch({
         type: DELETE_RECIPE,
-        recipe_id: recipe.recipe_id,
-        RECIPE: recipe
-    }
+        payload: {recipe, recipe_id: recipe.recipe_id}
+    })
 
 }
 
-export function updateRecipe(recipe) {
+export const updateRecipe = (recipe) => (dispatch) => {
 
-    return {
+    dispatch({
         type: UPDATE_RECIPE,
-        recipe_id: recipe.recipe_id,
-        RECIPE: recipe
-    }
+        payload: {recipe, recipe_id: recipe.recipe_id}
+    })
 
 }
 
-export function getSelectedRecipe(recipe) {
+export const getSelectedRecipe = (recipe) => (dispatch) => {
 
-    return {
+    dispatch({
         type: GET_SELECTED_RECIPE,
-        recipe_id: recipe.recipe_id,
-        isSelected: true,
-        RECIPE: recipe
-    }
+        payload: {recipe, recipe_id: recipe.recipe_id, isSelected: true}
+    })
 
 }
