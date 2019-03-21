@@ -9,6 +9,7 @@ const helmet = require('helmet');
 // Route requires:
 const userRouter = require('./routes/userRouter');
 const recipeRouter = require('./routes/recipeRouter');
+const ingredRouter = require('./routes/ingredientRouter');
 
 // Server:
 const server = express();
@@ -17,7 +18,8 @@ const PORT = process.env.PORT || 1234;
 
 /* ---------- Middleware ---------- */
 var corsOptions = {
-  origin: 'https://kookr.netlify.com/',
+//  origin: 'https://kookr.netlify.com/',
+  origin: '*',
   optionsSuccessStatus: 200
 };
 
@@ -32,6 +34,7 @@ server.use(
 /* ---------- Routes ---------- */
 server.use('/api/user', userRouter);
 server.use('/api/recipes', recipeRouter);
+server.use('/api/ingredients', ingredRouter);
 
 
 /* ---------- Listener ---------- */
