@@ -15,7 +15,7 @@ class RecipeList extends Component{
                         <div className="filterButton"> Filter </div>
                         <div className="filterContent">
                             <form>
-                                {["Breakfast", "Lunch", "Dinner", "Dessert", "Snack"].map(item=> <label><input name="filter" type="radio"/>{item}</label>)}
+                                {["Breakfast", "Lunch", "Dinner", "Dessert", "Snack"].map(item=> <label key={item} ><input name="filter" type="radio"/>{item}</label>)}
                             </form>
                         </div>
                     </div>
@@ -38,7 +38,8 @@ class RecipeList extends Component{
 
 const mapStateToProps = state => {
     return {
-        user: state.UserReducer
+        user: state.UserReducer.user,
+        recipes: state.RecipeReducer.recipes
     }
 }
 

@@ -27,7 +27,7 @@ class Billing extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.UserReducer
+        user: state.UserReducer.user
     }
 }
 

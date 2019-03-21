@@ -1,9 +1,15 @@
-import { createStore } from 'redux'
+
 import { ADD_USER, DELETE_USER, UPDATE_USER } from '../actions/UserActions';
 
 
 const initialState = {
-    value: 1
+    user: [{
+        user_id: 0,
+        auth_id: 'string',
+        email: 'string email',
+        type: 'string',
+        billing_date: null
+    }]
 }
 
 // not complete

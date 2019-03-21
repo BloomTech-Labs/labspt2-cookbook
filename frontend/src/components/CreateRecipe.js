@@ -94,7 +94,7 @@ class CreateRecipe extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        user: state.UserReducer
+        user: state.UserReducer.user
     }
 }
 
