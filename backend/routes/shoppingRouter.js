@@ -22,6 +22,21 @@ router.get('/user/:id/date/:date', (req, res) => {
 });
 
 
+/* Get by shopping list id */
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+
+  shopping.getById(id)
+    .then( (item) => {
+      res.json(item);
+    })
+    .catch( (err) => {
+      res.status(500).json({ error: `Could not get shopping list item` });
+    });
+});
+
+
+
 /* POST new list item */
 router.post('/user/:id', (req, res) => {
   const { id } = req.params;
@@ -59,7 +74,7 @@ router.put( '/:id', (req, res) => {
         res.json(list);
       })
       .catch( (err) => {
-        res.status(500).json({ error: `Could not update shopping liste item: ${err}` });
+        res.status(500).json({ error: `Could not update shopping list item: ${err}` });
       });
     // end update
   }
