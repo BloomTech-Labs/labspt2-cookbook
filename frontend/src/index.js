@@ -13,13 +13,16 @@ import { RecipeReducer } from './reducers/RecipeReducer';
 import { DirectionsReducer } from './reducers/DirectionsReducer';
 import { RecipeIngredientsReducer } from './reducers/RecipeIngredientsReducer';
 import { IngredientsReducer } from './reducers/IngredientsReducer';
+import { TagsReducer } from './reducers/TagsReducer';
+
 
 const rootReducer = combineReducers({
     UserReducer: UserReducer,
     RecipeReducer: RecipeReducer,
     DirectionsReducer: DirectionsReducer,
     RecipeIngredientsReducer: RecipeIngredientsReducer,
-    IngredientsReducer: IngredientsReducer
+    IngredientsReducer: IngredientsReducer,
+    TagsReducer: TagsReducer
 });
 
 const middleware = [thunk, logger]

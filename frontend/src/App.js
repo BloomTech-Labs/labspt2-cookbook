@@ -9,6 +9,7 @@ import Calendar from "./components/Calendar";
 import GroceryList from "./components/GroceryList";
 import Settings from "./components/Settings";
 import Billing from "./components/Billing";
+import SingleRecipe from "./components/SingleRecipe";
 
 
 class App extends Component {
@@ -20,7 +21,7 @@ class App extends Component {
             <Route exact path='/' render = {(props) => < LandingPage {...props}/>} />
             <Route exact path='/create' component={CreateRecipe} />
             <Route exact path="/recipes" component={RecipeList}/>
-            <Route exact path="/recipes/:id" component={IndividualRecipe}/>
+            <Route exact path="/recipes/:id" component={SingleRecipe}/>
             <Route exact path="/calendar" component={Calendar}/>
             <Route exact path="/grocery-list" component={GroceryList}/>
             <Route exact path="/settings" component={Settings} />

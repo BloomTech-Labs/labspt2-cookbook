@@ -5,12 +5,13 @@ import IndividualRecipe from "./IndividualRecipe"
 import axios from 'axios';
 import { bindActionCreators } from '../../../../../../../../AppData/Local/Microsoft/TypeScript/3.3/node_modules/redux';
 import  {getUser} from '../actions/UserActions'
-
+import NavBar from "./NavBar";
 
 class RecipeList extends Component{
 
     componentDidMount() {
         this.props.getUser(user)
+        //should only be one user
         let id = this.props.user[0].user_id
         // axios.get(`https://kookr.herokuapp.com/api/recipes/user/${id}`, (req, res) => {
         //     console.log(res)
@@ -27,6 +28,7 @@ class RecipeList extends Component{
         return (
            
              <div className="recipeListPage">
+             <NavBar />
                  <div className="topBar">
                     <div className="newRecipeLink"><Link to="/create-recipe">Add Recipe</Link></div>
                      <input />
@@ -56,6 +58,7 @@ class RecipeList extends Component{
 const mapDispatchToProps = (dispatch) => bindActionCreators({getUser}, dispatch)
 
 const mapStateToProps = state => {
+    console.log(state)
     return {
         user: state.UserReducer.user,
         recipes: state.RecipeReducer.recipes
