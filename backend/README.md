@@ -72,3 +72,16 @@ Startup: *yarn server*
 * **GET : /api/ingredients/name** -- Get list of ingredients by name
 * * -- Requires: name (in body) 
 * * -- Returns: recipe_id, recipe_name, ing_id, name
+
+---
+
+## Tags
+
+### Routes:
+
+---
+
+## Shopping List
+
+### Routes:
+* **GET : /api/list/user/:id/**  -- Gets shopping list for date & user
