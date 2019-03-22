@@ -6,7 +6,8 @@ exports.up = function(knex, Promise) {
     table.float('amount');
     table.string('measurement');
     table.integer('ing_id').unsigned().notNullable();
-    table.timestamps(false, true);
+    table.date('start');
+    table.date('end');
   });
 };
 
