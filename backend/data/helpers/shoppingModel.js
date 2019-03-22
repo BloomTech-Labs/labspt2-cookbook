@@ -10,6 +10,13 @@ module.exports = {
    * insert:
    *  -- Insert new shopping list
    */
+  insert: async function(id, item) {
+    return await db('shopping_list').insert({
+      user_id: id,
+      ...item
+    })
+    .then( ([id]) => this.getById(id) );
+  },
 
   /*
    * update:
@@ -22,10 +29,10 @@ module.exports = {
    */
 
   /*
-   * get:
+   * getUserDate:
    *  -- Get shopping list by user
    */
-  get: function(id, date) {
+  getUserDate: function(id, date) {
     return db.select( 's.id', 's.amount', 's.measurement', 'ing.name', 's.start', 's.end')
       .from('shopping_list as s')
       .innerJoin('ingredients as ing', 's.ing_id', 'ing.ing_id')
@@ -33,7 +40,18 @@ module.exports = {
       .andWhere( function () {
         this.where('start', '<=', date)
           .andWhere('end', '>=', date)
-      })
+      });
+  },
+
+  /* 
+   * getById:
+   *  -- Get shopping list item by id
+   */
+  getById: function(id) {
+    return db.select( 's.id', 's.amount', 's.measurement', 'ing.name', 's.start', 's.end')
+      .from('shopping_list as s')
+      .innerJoin('ingredients as ing', 's.ing_id', 'ing.ing_id')
+      .where('id', id);
   }
 };
 
