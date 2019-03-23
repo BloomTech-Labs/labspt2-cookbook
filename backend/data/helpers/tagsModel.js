@@ -54,7 +54,6 @@ insert: async function(tag, recId) {
     
     //Check if tag exists
     if(tagId > 0) {
-        console.log(tagId);
 
         //Tag exists. Check if already part of recipe
         return db('recipe_tags').where({

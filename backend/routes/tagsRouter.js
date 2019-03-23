@@ -102,7 +102,6 @@ router.delete('/recipe/:id/:tagId', (req, res) =>{
 /* DELETE from all */
 router.delete('/:id', (req, res) =>{
     const tagId = req.params.id;
-    console.log(tagId)
 
     tags.totalRemove(tagId)
     .then(count =>{

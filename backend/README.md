@@ -78,6 +78,18 @@ Startup: *yarn server*
 ## Tags
 
 ### Routes:
+* **GET : /api/tags**  -- Get all available tags 
+* **GET : /api/tags/recipe/:id** -- Get list of tags by recipe id
+* **PUT : /api/tags/:id** -- Update tag by tag id
+* * -- Requires: tag (in body)
+* * -- Returns: Entire tag object(id and name)
+* **POST : /api/tags/recipe/:id** -- Add new tag
+* * -- Requires: tag (in body), recipe_id as param
+* * -- Returns: new tag id
+* **Delete : /api/tags/recipe/:id/:tagId** -- Delete tag from specific recipe
+* * -- Requires: recipe_id as id,  tag_id as tagId
+* **Delete : /api/tags/:id** -- Deletes tag from main tag table  
+* * -- Requires: tag_id as param
 
 ---
 
@@ -85,3 +97,4 @@ Startup: *yarn server*
 
 ### Routes:
 * **GET : /api/list/user/:id/**  -- Gets shopping list for date & user
+
