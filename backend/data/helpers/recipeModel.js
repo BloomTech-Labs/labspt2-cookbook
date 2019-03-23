@@ -86,12 +86,16 @@ module.exports = {
           .then( (result) => {
             // Add all ingredients
             const recipe_id = result[0];
-            ingredientHelper.multiInsert(recipe_id, recipe.ingredients);
+            if( recipe.ingredients && recipe.ingredients !== null ) {
+              ingredientHelper.multiInsert(recipe_id, recipe.ingredients);
+            }
             return recipe_id;
           })
           .then( (recipe_id) => {
             // Add all directions
-            stepsHelper.multiInsert(recipe_id, recipe.directions);
+            if( recipe.directions && recipe.directions !== null ){
+              stepsHelper.multiInsert(recipe_id, recipe.directions);
+            }
             return recipe_id;
           })
           .then( (recipe_id) => {

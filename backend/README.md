@@ -90,3 +90,11 @@ Startup: *yarn server*
 * * -- Requires: recipe_id as id,  tag_id as tagId
 * **Delete : /api/tags/:id** -- Deletes tag from main tag table  
 * * -- Requires: tag_id as param
+
+---
+
+## Shopping List
+
+### Routes:
+* **GET : /api/list/user/:id/**  -- Gets shopping list for date & user
+
