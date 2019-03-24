@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Calendar from 'react-calendar';
 import NavBar from './NavBar';
-import CalendarEditModal from './CalendarEditModal';
+
 import axios from 'axios';
-import CalendarRecipe from './CalendarRecipe';
+
 
 
 
