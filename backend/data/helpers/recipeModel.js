@@ -1,6 +1,7 @@
 const db = require('../dbConfig.js');
 const ingredientHelper = require('./ingredientModel');
 const stepsHelper = require('./stepsModel');
+const checkUrl = require('./recipeScraper');
 
 module.exports = {
   /*
@@ -37,6 +38,9 @@ module.exports = {
    *   -- Returns recipe id: int (1)
    */
   insert: function(recipe) {
+    
+    checkUrl(recipe); /////??????????????
+    
     return db.transaction( (trans) => {
       return db('recipes')
         .transacting(trans)
