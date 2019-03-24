@@ -33,10 +33,20 @@ module.exports = {
   },
 
   /*
+   * recipeExists:
+   *   -- Get a recipe by link (unique field).
+   *   -- Used for checking if recipe exists already.
+   */
+  recipeExists: function(link) {
+    return db('recipes').where('link', link).pluck('recipe_id');
+  },
+
+  /*
    * insert:
    *   -- Insert a full recipe.
    *   -- Returns recipe id: int (1)
    */
+<<<<<<< HEAD
   insert: function(recipe) {
     
     checkUrl(recipe); /////??????????????
@@ -49,41 +59,96 @@ module.exports = {
           image: recipe.image,
           link: recipe.link
         })
+=======
+  insert: async function(recipe) {
+    const [recId] = await this.recipeExists(recipe.link);
+    
+    // Check if recipe exists first.
+    if( recId > 0 ) {
+      
+      // Recipe already exists. Check if linked to customer.
+      return db('user_recipes').where({
+        user_id: recipe.user_id,
+        recipe_id: recId
+      }).pluck('id')
+>>>>>>> b6b6d179f8f769c81ff876e815a9641791bf2b98
         .then( (result) => {
-          // Add all ingredients
-          const recipe_id = result[0];
-          ingredientHelper.multiInsert(recipe_id, recipe.ingredients);
-          return recipe_id;
-        })
-        .then( (recipe_id) => {
-          // Add all directions
-          stepsHelper.multiInsert(recipe_id, recipe.directions);
-          return recipe_id;
-        })
-        .then( (recipe_id) => {
-          // Inserting to user_recipe
-          return db('user_recipes')
-            .transacting(trans)
-            .insert({
-              user_id: recipe.user_id,
-              recipe_id: recipe_id
-            })
-            .return(recipe_id);
-          // end insert to user_recipes
-        })
-        .then(trans.commit)
-        .catch(trans.rollback)
-    })
-    .then( (result) => {
-      // Transaction success.
-      return(result);
-    })
-    .catch(function(err) {
-      console.log("error: ", err);
-    })
+          if( result.length <= 0 ){
+
+            // Recipe is not linked to customer. Link it now.
+            return db('user_recipes')
+              .insert({
+                user_id: recipe.user_id,
+                recipe_id: recId
+              })
+              .return(recId);    
+            // end db.insert
+          }
+          else{
+            // Recipe is already linked. Return the recipe id.
+            return recId;
+          }
+        });
+      // end db.where
+    } else {
+      return db.transaction( (trans) => {
+        return db('recipes')
+          .transacting(trans)
+          .insert({
+            name: recipe.name,
+            image: recipe.image,
+            link: recipe.link
+          })
+          .then( (result) => {
+            // Add all ingredients
+            const recipe_id = result[0];
+            if( recipe.ingredients && recipe.ingredients !== null ) {
+              ingredientHelper.multiInsert(recipe_id, recipe.ingredients);
+            }
+            return recipe_id;
+          })
+          .then( (recipe_id) => {
+            // Add all directions
+            if( recipe.directions && recipe.directions !== null ){
+              stepsHelper.multiInsert(recipe_id, recipe.directions);
+            }
+            return recipe_id;
+          })
+          .then( (recipe_id) => {
+            // Inserting to user_recipe
+            return db('user_recipes')
+              .transacting(trans)
+              .insert({
+                user_id: recipe.user_id,
+                recipe_id: recipe_id
+              })
+              .return(recipe_id);
+            // end insert to user_recipes
+          })
+          .then(trans.commit)
+          .catch(trans.rollback)
+      })
+      .then( (result) => {
+        // Transaction success.
+        return(result);
+      })
+      .catch(function(err) {
+        console.log("error: ", err);
+      })
+    }
   },
 
-  // put
+  // put? Do we need an edits?
 
-  // delete
+  /*
+   * delete:
+   *  -- We don't actually want to delete the recipe.
+   *  -- Just unlink from user
+   */
+  delete: function(userId, recipeId) {
+    return db('user_recipes').where({
+      user_id: userId,
+      recipe_id: recipeId
+    }).del();
+  }
 };
