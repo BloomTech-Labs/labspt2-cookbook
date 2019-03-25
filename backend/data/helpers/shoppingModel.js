@@ -1,11 +1,7 @@
 const db = require('../dbConfig.js');
 
 module.exports = {
-  /*
-   * deleteOld:
-   * Delete shopping lists older than x days.
-   */
-
+  
   /*
    * insert:
    *  -- Insert new shopping list
@@ -22,11 +18,20 @@ module.exports = {
    * update:
    *  -- Update shopping list entry
    */
+  update: function(id, newItem) {
+    return db('shopping_list').where('id', id).update(newItem)
+      .then( () => this.getById(id) );
+  },
+
 
   /*
    * delete:
    *  -- Delete shopping list entry
    */
+  remove: function(id) {
+    return db('shopping_list').where('id', id).del();
+  },
+
 
   /*
    * getUserDate:
@@ -42,6 +47,7 @@ module.exports = {
           .andWhere('end', '>=', date)
       });
   },
+
 
   /* 
    * getById:
