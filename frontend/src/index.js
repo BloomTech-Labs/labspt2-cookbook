@@ -10,10 +10,16 @@ import {createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { RecipeReducer } from './reducers/RecipeReducer';
+import { DirectionsReducer } from './reducers/DirectionsReducer';
+import { RecipeIngredientsReducer } from './reducers/RecipeIngredientsReducer';
+import { IngredientsReducer } from './reducers/IngredientsReducer';
 
 const rootReducer = combineReducers({
     UserReducer: UserReducer,
-    RecipeReducer: RecipeReducer
+    RecipeReducer: RecipeReducer,
+    DirectionsReducer: DirectionsReducer,
+    RecipeIngredientsReducer: RecipeIngredientsReducer,
+    IngredientsReducer: IngredientsReducer
 });
 
 const middleware = [thunk, logger]

@@ -4,10 +4,28 @@ import { ADD_DIRECTIONS, DELETE_DIRECTIONS, UPDATE_DIRECTIONS, GET_DIRECTIONS} f
 const initialState = {
    directions: [{
                 dir_id: 0,
-                recipe_id: 0,
+                recipe_id: 1,
                 order: 0,
-                directions: 'directions string'
-                }]
+                directions: 'directions string1'
+                },
+                {
+                dir_id: 0,
+                recipe_id: 1,
+                order: 0,
+                directions: 'directions string2'
+                },
+                {
+                dir_id: 0,
+                recipe_id: 3,
+                order: 0,
+                directions: 'directions string3'
+                },
+                {
+                    dir_id: 0,
+                    recipe_id: 1,
+                    order: 0,
+                    directions: 'directions string4'
+                    }]
 }
 
 const DirectionsReducer = ((state = initialState, action) => {
@@ -15,9 +33,13 @@ const DirectionsReducer = ((state = initialState, action) => {
 
         case GET_DIRECTIONS:
         //need to have a filter by recipe_id
-        return state
-
-        case ADD_DIRECTIONS:
+            //need to review the filter requirements
+           console.log(action)
+           console.log(state)
+            return Object.assign({}, state, {directions: state.directions.filter(item => action.payload.recipe_id === item.recipe_id)} )
+            
+           //return [...]
+            case ADD_DIRECTIONS:
             return state
 
         case DELETE_DIRECTIONS:

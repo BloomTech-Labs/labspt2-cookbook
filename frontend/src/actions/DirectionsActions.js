@@ -1,3 +1,4 @@
+//import { bindActionCreators } from "../../../../../../../../AppData/Local/Microsoft/TypeScript/3.3/node_modules/redux";
 
 export const ADD_DIRECTIONS = "ADD_DIRECTIONS"
 export const DELETE_DIRECTIONS = "DELETE_DIRECTIONS"
@@ -11,40 +12,40 @@ export const GET_DIRECTIONS = "GET_DIRECTIONS"
 
 
 
-export function addDirections(directions) {
+export const addDirections = (directions) => (dispatch) => {
 
-    return {
+    dispatch({
         type: ADD_DIRECTIONS,
-        DIRECTIONS: directions
-    }
+        payload: {directions} 
+    })
 
 }
 
 
-export function deleteDirections(directions) {
+export const deleteDirections = (directions) => (dispatch) => {
 
-    return {
+    dispatch({
         type: DELETE_DIRECTIONS,
-        DIRECTIONS: directions
-    }
+        payload: {directions}
+    })
 
 }
 
-export function updateDirections(directions) {
+export const updateDirections = (directions) => (dispatch) => {
 
-    return {
+    dispatch({
         type: UPDATE_DIRECTIONS,
-        DIRECTIONS: directions
-    }
+        payload: {directions}
+    })
 
 }
 
-export function getDirections(directions) {
+export const getDirections = (directions) => (dispatch) => {
 
-    return {
+    dispatch({
         type: GET_DIRECTIONS,
-        recipe_id: directions.recipe_id,
-        DIRECTIONS: directions
-    }
+        payload: {directions, recipe_id: directions.recipe_id }
+    })
 
 }
+

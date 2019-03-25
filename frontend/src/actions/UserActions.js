@@ -2,6 +2,7 @@
 export const ADD_USER = "ADD_USER"
 export const DELETE_USER = "DELETE_USER"
 export const UPDATE_USER = "UPDATE_USER"
+export const GET_USER = "GET_USER"
 
 
 
@@ -10,30 +11,37 @@ export const UPDATE_USER = "UPDATE_USER"
 
 
 
-
-export function addUser(user) {
-
-    return {
+export const addUser = (user) => (dispatch) => {
+    
+    dispatch({
         type: ADD_USER,
-        USER: user
-    }
+        payload: {user, id: user.id}
+    })
 
 }
 
-export function deleteUser(user) {
+export const deleteUser = (user) => (dispatch) => {
 
-    return {
+    dispatch({
         type: DELETE_USER,
-        USER: user
-    }
+        payload: {user}
+    })
 
 }
 
-export function updateUser(user) {
+export const updateUser = (user) => (dispatch) => {
 
-    return {
+    dispatch({
         type: UPDATE_USER,
-        USER: user
-    }
+        payload: {user}
+    })
+
+}
+export const getUser = (user) => (dispatch) => {
+
+    dispatch({
+        type: GET_USER,
+        payload: {user}
+    })
 
 }

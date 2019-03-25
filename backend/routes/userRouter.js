@@ -51,7 +51,7 @@ router.get('/auth/:authId', (req, res) =>{
       }
     })
     .catch((err) => {
-      res.status(404).json({error: "User information could not be retrieved "})
+      res.status(500).json({error: "User information could not be retrieved "})
     })
 });
 
@@ -69,16 +69,21 @@ router.post('/', (req, res) => {
             res.json(userInfo)
           })
           .catch(err=>{
-            res.json({error: "Could not add user to db"})
+            res
+            .status(500)
+            .json({error: "Could not add user to db"})
           })
           
         } else{
           res
+          .status(403)
           .json({error: "User already exists"})
         }
       })
       .catch(err =>{
-        res.json({error: "Could not retrieve user data"})
+        res
+        .status(500)
+        .json({error: "Could not retrieve user data"})
       })
     }
 })

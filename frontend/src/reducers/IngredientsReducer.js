@@ -1,21 +1,29 @@
 import { createStore } from 'redux'
-import { ADD_INGREDIENTS, DELETE_INGREDIENTS, UPDATE_INGREDIENTS, GET_INGREDIENTS } from '../actions/RecipeIngredientsActions';
+import { ADD_INGREDIENTS, DELETE_INGREDIENTS, UPDATE_INGREDIENTS, GET_INGREDIENTS } from '../actions/IngredientsActions';
 
 
 const initialState = {
     ingredients: [{
       ing_id: 0,
       name: 'string name'
-    }]
+    },
+    {
+        ing_id: 1,
+        name: 'string name'
+      },
+      {
+        ing_id: 2,
+        name: 'string name'
+      }]
 }
 
 // not complete
-const RecipeIngredientsReducer = ((state = initialState, action) => {
+const IngredientsReducer = ((state = initialState, action) => {
     switch (action.type) {
 
         case GET_INGREDIENTS:
         //need to get by recipe ID
-            return state
+            return Object.assign({}, state, {ingredients: state.directions.filter(item => action.payload.ing_id === item.ing_id)} )
         
         case ADD_INGREDIENTS:
             return state
@@ -32,4 +40,4 @@ const RecipeIngredientsReducer = ((state = initialState, action) => {
     }
 })
 
-export {RecipeIngredientsReducer}
+export {IngredientsReducer}

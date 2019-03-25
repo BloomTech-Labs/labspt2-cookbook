@@ -1,6 +1,7 @@
 const db = require('../dbConfig.js');
 const ingredientHelper = require('./ingredientModel');
 const stepsHelper = require('./stepsModel');
+const checkUrl = require('./recipeScraper');
 
 module.exports = {
   /*
@@ -45,6 +46,20 @@ module.exports = {
    *   -- Insert a full recipe.
    *   -- Returns recipe id: int (1)
    */
+<<<<<<< HEAD
+  insert: function(recipe) {
+    
+    checkUrl(recipe); /////??????????????
+    
+    return db.transaction( (trans) => {
+      return db('recipes')
+        .transacting(trans)
+        .insert({
+          name: recipe.name,
+          image: recipe.image,
+          link: recipe.link
+        })
+=======
   insert: async function(recipe) {
     const [recId] = await this.recipeExists(recipe.link);
     
@@ -56,6 +71,7 @@ module.exports = {
         user_id: recipe.user_id,
         recipe_id: recId
       }).pluck('id')
+>>>>>>> b6b6d179f8f769c81ff876e815a9641791bf2b98
         .then( (result) => {
           if( result.length <= 0 ){
 
@@ -86,12 +102,16 @@ module.exports = {
           .then( (result) => {
             // Add all ingredients
             const recipe_id = result[0];
-            ingredientHelper.multiInsert(recipe_id, recipe.ingredients);
+            if( recipe.ingredients && recipe.ingredients !== null ) {
+              ingredientHelper.multiInsert(recipe_id, recipe.ingredients);
+            }
             return recipe_id;
           })
           .then( (recipe_id) => {
             // Add all directions
-            stepsHelper.multiInsert(recipe_id, recipe.directions);
+            if( recipe.directions && recipe.directions !== null ){
+              stepsHelper.multiInsert(recipe_id, recipe.directions);
+            }
             return recipe_id;
           })
           .then( (recipe_id) => {

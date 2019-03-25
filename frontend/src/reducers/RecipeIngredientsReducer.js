@@ -13,7 +13,7 @@ const initialState = {
 }
 
 // not complete
-const IngredientsReducer = ((state = initialState, action) => {
+const RecipeIngredientsReducer = ((state = initialState, action) => {
     switch (action.type) {
 
         case GET_RECIPE_INGREDIENTS:
@@ -35,4 +35,4 @@ const IngredientsReducer = ((state = initialState, action) => {
     }
 })
 
-export {IngredientsReducer}
+export {RecipeIngredientsReducer}

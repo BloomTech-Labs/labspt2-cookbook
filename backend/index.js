@@ -9,7 +9,9 @@ const helmet = require('helmet');
 // Route requires:
 const userRouter = require('./routes/userRouter');
 const recipeRouter = require('./routes/recipeRouter');
+const tagsRouter = require('./routes/tagsRouter')
 const ingredRouter = require('./routes/ingredientRouter');
+const shoppingRouter = require('./routes/shoppingRouter');
 
 // Server:
 const server = express();
@@ -34,7 +36,9 @@ server.use(
 /* ---------- Routes ---------- */
 server.use('/api/user', userRouter);
 server.use('/api/recipes', recipeRouter);
+server.use('/api/tags', tagsRouter)
 server.use('/api/ingredients', ingredRouter);
+server.use('/api/list', shoppingRouter);
 
 
 /* ---------- Listener ---------- */
