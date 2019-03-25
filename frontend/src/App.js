@@ -30,7 +30,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Route exact path='/' render = {(props) => < LandingPage {...props}/>} />
+            <Route exact path='/' render = {(props) => < LandingPage {...props} idClickHandler ={this.idClickHandler}/>} />
             <Route exact path='/create' render = {(props) => <CreateRecipe {...props} userId = {this.state.id} />}/>
             <Route exact path="/recipes" component={RecipeList}/>
             <Route exact path="/recipes/:id" component={IndividualRecipe}/>

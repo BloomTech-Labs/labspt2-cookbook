@@ -46,21 +46,8 @@ module.exports = {
    *   -- Insert a full recipe.
    *   -- Returns recipe id: int (1)
    */
-<<<<<<< HEAD
-  insert: function(recipe) {
-    
-    checkUrl(recipe); /////??????????????
-    
-    return db.transaction( (trans) => {
-      return db('recipes')
-        .transacting(trans)
-        .insert({
-          name: recipe.name,
-          image: recipe.image,
-          link: recipe.link
-        })
-=======
   insert: async function(recipe) {
+    checkUrl(recipe);
     const [recId] = await this.recipeExists(recipe.link);
     
     // Check if recipe exists first.
@@ -71,7 +58,6 @@ module.exports = {
         user_id: recipe.user_id,
         recipe_id: recId
       }).pluck('id')
->>>>>>> b6b6d179f8f769c81ff876e815a9641791bf2b98
         .then( (result) => {
           if( result.length <= 0 ){
 
