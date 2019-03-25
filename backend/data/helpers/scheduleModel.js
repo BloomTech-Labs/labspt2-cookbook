@@ -7,7 +7,7 @@ module.exports = {
    *   -- Returns: int (1)
    */
   getById: function(id) {
-    return db('schedule').where('id', id).first().pluck('id');
+    return db('schedule').where('id', id).first();
   },
 
   /*
