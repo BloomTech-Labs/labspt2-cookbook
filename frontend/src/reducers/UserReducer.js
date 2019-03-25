@@ -8,7 +8,10 @@ const initialState = {
         auth_id: 'string',
         email: 'string email',
         type: 'string',
-        billing_date: null
+        billing_date: null,
+        phone: 'string number',
+        email_notifications: true,
+        text_notifications: true
     }]
 }
 

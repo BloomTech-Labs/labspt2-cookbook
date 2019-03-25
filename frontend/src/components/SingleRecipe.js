@@ -25,7 +25,7 @@ componentDidMount()
 
 //take recipe ID and get from the server.
 //commented out to prevent cors errors
-    // axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`, (req, res) => {
+// axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`, (req, res) => {
         
     
     

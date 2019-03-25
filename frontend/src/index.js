@@ -14,6 +14,7 @@ import { DirectionsReducer } from './reducers/DirectionsReducer';
 import { RecipeIngredientsReducer } from './reducers/RecipeIngredientsReducer';
 import { IngredientsReducer } from './reducers/IngredientsReducer';
 import { TagsReducer } from './reducers/TagsReducer';
+import { CalendarReducer } from './reducers/CalendarReducer';
 
 
 const rootReducer = combineReducers({
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
     DirectionsReducer: DirectionsReducer,
     RecipeIngredientsReducer: RecipeIngredientsReducer,
     IngredientsReducer: IngredientsReducer,
-    TagsReducer: TagsReducer
+    TagsReducer: TagsReducer,
+    CalendarReducer: CalendarReducer
 });
 
 const middleware = [thunk, logger]

@@ -12,16 +12,15 @@ class RecipeList extends Component{
     componentDidMount() {
         this.props.getUser(user)
         //should only be one user
-        let id = this.props.user[0].user_id
-        // axios.get(`https://kookr.herokuapp.com/api/recipes/user/${id}`, (req, res) => {
+       // let id = this.props.user[0].user_id
+        let id = 3
+        // axios.get(`https://kookr.herokuapp.com/api/recipes/${id}`, (req, res) => {
         //     console.log(res)
         //     //gets all recipes for a particular user
-        // })
-
+        //})
         let user = {
             id: 0
         }
-
     }
 
     render(){
