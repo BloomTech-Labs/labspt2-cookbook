@@ -4,7 +4,7 @@ import '../css/CreateRecipe.css';
 import  '../css/CreateRecipe.css';
 import NavBar from './NavBar';
 import { connect } from 'react-redux';
-import { bindActionCreators } from '../../../../../../../../AppData/Local/Microsoft/TypeScript/3.3/node_modules/redux';
+import { bindActionCreators } from 'redux';
 import { addDirections } from '../actions/DirectionsActions';
 import { addIngredients } from '../actions/IngredientsActions';
 import { addRecipeIngredients } from '../actions/RecipeIngredientsActions';

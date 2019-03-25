@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from '../../../../../../../../AppData/Local/Microsoft/TypeScript/3.3/node_modules/redux';
+import { bindActionCreators } from 'redux';
 import { getCalendarItem } from '../actions/CalendarActions';
 
 class GroceryList extends Component{

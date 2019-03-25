@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import IndividualRecipe from "./IndividualRecipe"
 import axios from 'axios';
-import { bindActionCreators } from '../../../../../../../../AppData/Local/Microsoft/TypeScript/3.3/node_modules/redux';
+import { bindActionCreators } from 'redux';
 import  {getUser} from '../actions/UserActions'
 import NavBar from "./NavBar";
 
