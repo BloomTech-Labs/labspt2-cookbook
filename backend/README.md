@@ -61,3 +61,47 @@ Startup: *yarn server*
 * **GET : /api/recipes/user/:id** -- Get list of recipes by user_id
 * **POST: /api/recipes**       -- Add new recipe
 * * -- Requires: user_id, name, link
+* **DELETE: /api/recipes/:rid/user/:uid** -- Unlink recipe from user
+
+---
+
+## Ingredients
+
+### Routes:
+* **GET : /api/ingredients/recipe/:id**   -- Get list of ingredients by recipe id
+* **GET : /api/ingredients/name** -- Get list of ingredients by name
+* * -- Requires: name (in body) 
+* * -- Returns: recipe_id, recipe_name, ing_id, name
+
+---
+
+## Tags
+
+### Routes:
+* **GET : /api/tags**  -- Get all available tags 
+* **GET : /api/tags/recipe/:id** -- Get list of tags by recipe id
+* **PUT : /api/tags/:id** -- Update tag by tag id
+* * -- Requires: tag (in body)
+* * -- Returns: Entire tag object(id and name)
+* **POST : /api/tags/recipe/:id** -- Add new tag
+* * -- Requires: tag (in body), recipe_id as param
+* * -- Returns: new tag id
+* **Delete : /api/tags/recipe/:id/:tagId** -- Delete tag from specific recipe
+* * -- Requires: recipe_id as id,  tag_id as tagId
+* **Delete : /api/tags/:id** -- Deletes tag from main tag table  
+* * -- Requires: tag_id as param
+
+---
+
+## Shopping List
+
+### Routes:
+* **GET : /api/list/user/:id/**  -- Gets shopping list for date & user
+* **GET : /api/list/:id** -- Gets a shopping list item by it's ID
+* **POST: /api/list/user/:id/** -- Posts new shopping list item for user
+* * -- Requires: ing_id, start, end (dates: 2019-04-10)
+* * -- Optional: amount, measurement
+* **PUT: /api/list/:id** -- Edits shopping list item
+* * -- Requires: ing_id, start, end
+* * -- Optional: amount, measurement
+* **DELETE: /api/list/:id** -- Deletes shopping list item

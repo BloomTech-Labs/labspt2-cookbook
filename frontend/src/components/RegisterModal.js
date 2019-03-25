@@ -14,14 +14,14 @@ class RegisterModal extends Component{
         }
     }
 
-    inputHandler = (e) =>{
+    submitHandler = (googleObj) =>{
         this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    submitHandler = (e) =>{
-        e.preventDefault();
+            email: googleObj.profileObj.email,
+            id: googleObj.googleId
+        });
+        //console.log(this.state);
+        this.props.idClickHandler(this.state.id);
+       
         axios
             .post('https://kookr.herokuapp.com/api/user/', {
                 auth_id: this.state.id, 
@@ -42,14 +42,13 @@ class RegisterModal extends Component{
         })
     }
     responseGoogleSuccess = (response) => {
-        console.log(response);
-        this.setState({
-            email: response.profileObj.email,
-            id: response.googleId
-        });
+        console.log(response)
+        this.submitHandler(response);
         this.props.history.push('/create');
       }
-    responseGoogleFailure = (response) => {
+    
+    
+      responseGoogleFailure = (response) => {
         console.log(response);
         alert('Failure logging in. Please try again');
     } 
