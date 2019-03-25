@@ -18,7 +18,10 @@ class LandingPage extends React.Component{
         this.setState({show: false});
 
     };
-
+   
+    idClickHandler = (userId) =>{
+       this.props.idClickHandler(userId)
+    }
     //Verifying user login?
     render(){
         return(
@@ -43,7 +46,7 @@ class LandingPage extends React.Component{
                     </div>
                 </div>
             <div className="landing-page-modal">
-                    <Route exact path = '/' render = {(props) => <RegisterModal show={this.state.show} closeHandle={this.closeModal} {...props}/>}/>
+                    <Route exact path = '/' render = {(props) => <RegisterModal show={this.state.show} closeHandle={this.closeModal} {...props} idClickHandler = {this.idClickHandler}/>}/>
             </div>     
         </div>
         )
@@ -53,7 +56,7 @@ class LandingPage extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        user: state.UserReducer
+        user: state.UserReducer.user
     }
 }
 

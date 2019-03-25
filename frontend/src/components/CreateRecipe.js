@@ -1,85 +1,95 @@
 import React from 'react';
 import '../css/CreateRecipe.css';
-
+import axios from 'axios';
 import  '../css/CreateRecipe.css';
 import NavBar from './NavBar';
 import { connect } from 'react-redux';
 
 
 class CreateRecipe extends React.Component{
-  constructor(){
-      super()
+  constructor(props){
+      super(props)
       this.state = {
-        content: ''
+        recipeUrl: '',
+        userId: this.props.userId
+       
       }
   }
-  loadData = (url) => {
-    fetch(url)
-      .then(function (response) {
-        console.log(url + " -> " + response.ok);
-        return response.body;
-      })
-      .then(function (data) {
-        console.log("data: ", data);
-        this.setState({ content: data });
-      }.bind(this))
-      .catch(function (err) {
-        console.log("failed to load ", url, err.stack);
-      });
-  }
+ componentDidMount(){
+     console.log('I am create user Id', this.state.userId)
+ }
 
  dropHandler = event =>{
-      event.preventDefault();
       const url = event.dataTransfer.getData('text');
-    this.loadData(url);
-      console.log(url);
-  }
+    this.setState({
+        recipeUrl : url
+    })
+      console.log(url)
+}
+postRecipe = () =>{
+   //console.log(this.state.userId);
+   const recipeAndUser = {user_id : `${this.state.userId}`, recipeUrl : `${this.state.recipeUrl}`};
+   
+    //onsole.log(this.state.recipeUrl);
+    const newRecipeObj = Object.assign({},recipeAndUser);
+    axios
+        .post('https://kookr.herokuapp.com/api/recipes/', {newRecipeObj})
+            .then(res =>{
+                console.log(res)
+            })
+            .catch(err =>{
+                console.log('Could not add new recipe obj', err);
+            })
+    console.log(newRecipeObj);
+}
     render(){
         return(
             <div className='Create-Recipe'>
                 <NavBar /> 
                 <div className='create-page-container'>
+                    <h2 className='add-recipe-header'>Add Your Recipes!</h2>
                     <div className='url-add-recipe-section'> 
-                        <form className='add-recipe-form'>
-                            <div className='url-input-container'>
-                                <input 
-                                    className='url-drop-input' 
-                                    placeholder='  Drag and drop url here'
-                                    onDrop={this.dropHandler}/>
-                            </div>        
-                            <div className='recipe-preview'>
-                                I am the recipe preview
-                            </div>   
-                            <div className='add-recipe-button'> Save </div> 
-                        </form>
+                        <div className='url-input-container'>
+                            <input 
+                                className='url-drop-input' 
+                                placeholder='  Drag and drop url here'
+                                onDrop={this.dropHandler}/>
+                        </div>       
+                        <div onClick = {this.postRecipe} className='url-add-arrow'>></div> 
                     </div>
+                    <div className='recipe-preview-container'>
+                        <div className='recipe-preview'>
+                                I am the recipe preview
+                        </div>   
+                    </div>    
                     <div className='recipe-modification-section'>
                         <div className='meal-tag-section'>
                             <h3 className='meal-tag-header'>Click to add meal tag</h3>
                             <div className='meal-tag'>
                                 <p className='meal-tag-p'>Breakfast</p>
-                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/1590/1590858.svg' alt = 'bacon-icon'/>
+                               
                             </div>
                             <div className='meal-tag'>
                                 <p className='meal-tag-p'>Lunch</p>
-                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/1034/1034648.svg' alt = 'salad-icon'/>
+                               
                             </div>
                             <div className='meal-tag'>
                                 <p className='meal-tag-p'>Dinner</p>
-                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/1005/1005468.svg' alt = 'fish-icon'/>
+                               
                             </div>
                             <div className='meal-tag'>
                                 <p className='meal-tag-p'>Dessert</p>
-                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/1499/1499251.svg' alt = 'cupcake-icon'/>
+                               
                             </div>
                             <div className='meal-tag'>
                                 <p className='meal-tag-p'>Snack</p>
-                                <img className='meal-tag-icon' src = 'https://image.flaticon.com/icons/svg/1005/1005484.svg' alt = 'watermelon-icon'/>
+                               
                             </div>
                         </div>
                         <div className='edit-servings-section'>
                             <div className='servings-counter'>Counter</div>
                             <p className='servings-p'>Servings</p>
+                            <div className='add-recipe-button'> Save </div> 
                         </div>
                         <div className='calendar-section'>
                             <div className='date-selector'>Date selection placeholder</div>
@@ -94,11 +104,10 @@ class CreateRecipe extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        user: state.UserReducer
+        user: state.UserReducer.user
     }
 }
 
 
 export default connect(mapStateToProps)(CreateRecipe)
-
 

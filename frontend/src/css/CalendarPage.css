@@ -1,0 +1,51 @@
+.open-calendar-modal{
+    background-color:red;
+    width:200px;
+    height:200px;
+    position: absolute;
+    width:100%;
+    height:400px;
+    margin-top:-300px;
+}
+.closed-calendar-modal{
+    display:none;
+}
+.CalendarPage{
+    display:flex;
+}
+.calendar-container{
+    width:80%;
+    background-color:green;
+    display:flex;
+    flex-direction:column;
+}
+.react-calendar{
+    width:90%;
+    height:280px;
+    margin:40px auto;
+}
+.calendar-edit-form{
+    width:90%;
+    display:flex;
+    margin: 0 auto;
+}
+.toggle-day-container{
+    width:40%;
+    height:160px;
+    display:flex;
+    flex-direction:column;
+    justify-content: space-around;
+    background-color:purple;
+}
+.edit-servings-container{
+    width:60%;
+    background-color:orange;
+}
+.single-day-button, .range-selector-button{
+    width:160px;
+    height:50px;
+    background-color:blue;
+    color:white;
+    margin:0px auto;
+    cursor:pointer;
+}
