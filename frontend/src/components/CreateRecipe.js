@@ -47,12 +47,15 @@ class CreateRecipe extends React.Component{
 }
 postRecipe = () =>{
    //console.log(this.state.userId);
+
+
+   /////Figure this outtttttt
    const recipeAndUser = {user_id : `${this.state.userId}`, recipeUrl : `${this.state.recipeUrl}`};
    
     //onsole.log(this.state.recipeUrl);
     const newRecipeObj = Object.assign({},recipeAndUser);
     axios
-        .post('https://kookr.herokuapp.com/api/recipes/', {newRecipeObj})
+        .post('https://kookr.herokuapp.com/api/recipes', {newRecipeObj})
             .then(res =>{
                 console.log(res)
             })
