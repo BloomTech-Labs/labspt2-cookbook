@@ -23,6 +23,8 @@ class CreateRecipe extends React.Component{
 //Get / Set recipe Id in state
 //Put id in post tag route
 
+//iFrame handled w front end
+
  componentDidMount(){
      console.log('I am create user Id', this.state.userId)
  }

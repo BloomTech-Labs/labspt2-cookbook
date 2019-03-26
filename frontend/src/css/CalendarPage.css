@@ -7,10 +7,18 @@
     display:flex;
     flex-direction:column;
 }
+.calendar-page-header{
+    text-align:center;
+    font-size:50px;
+    font-weight:bold;
+    color: rgb(87, 144, 161);
+}
 .react-calendar{
     width:90%;
     height:280px;
-    margin:40px auto;
+    margin:0px auto;
+    margin-bottom:10px;
+    
 }
 .calendar-recipe-section{
     width:90%;
@@ -18,12 +26,15 @@
     
 }
 .recipe-search-section{
+    
     display:flex;
     flex-direction:column;
+    
 }
 .recipe-search{
     display:flex;
     justify-content:space-between;
+    width:90%;
    
 }
 .recipe-search-input{
@@ -35,6 +46,7 @@
     border:2px solid black;
     height:160px;
     margin-top:20px;
+    width:50%;
 }
 .edit-recipe-section{
     
