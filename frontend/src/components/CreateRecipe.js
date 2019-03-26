@@ -4,7 +4,16 @@ import axios from 'axios';
 import  '../css/CreateRecipe.css';
 import NavBar from './NavBar';
 import { connect } from 'react-redux';
+
+import { bindActionCreators } from 'redux';
+import { addDirections } from '../actions/DirectionsActions';
+import { addIngredients } from '../actions/IngredientsActions';
+import { addRecipeIngredients } from '../actions/RecipeIngredientsActions';
+import { addRecipe } from '../actions/RecipeActions';
+import { addTag } from '../actions/TagsActions';
+
 import Calendar from 'react-calendar'
+
 
 class CreateRecipe extends React.Component{
   constructor(props){
@@ -23,6 +32,8 @@ class CreateRecipe extends React.Component{
 //Get / Set recipe Id in state
 //Put id in post tag route
 
+//iFrame handled w front end
+
  componentDidMount(){
      console.log('I am create user Id', this.state.userId)
  }
@@ -36,12 +47,15 @@ class CreateRecipe extends React.Component{
 }
 postRecipe = () =>{
    //console.log(this.state.userId);
+
+
+   /////Figure this outtttttt
    const recipeAndUser = {user_id : `${this.state.userId}`, recipeUrl : `${this.state.recipeUrl}`};
    
     //onsole.log(this.state.recipeUrl);
     const newRecipeObj = Object.assign({},recipeAndUser);
     axios
-        .post('https://kookr.herokuapp.com/api/recipes/', {newRecipeObj})
+        .post('https://kookr.herokuapp.com/api/recipes', {newRecipeObj})
             .then(res =>{
                 console.log(res)
             })
@@ -152,12 +166,20 @@ postTagToRecipe = () =>{
     }
 }
 
+const mapDispatchtoProps = (dispatch) => bindActionCreators({addDirections, addIngredients, addRecipe, addRecipeIngredients, addTag},dispatch)
+
 const mapStateToProps = state => {
     return {
-        user: state.UserReducer.user
+        user: state.UserReducer.user,
+        recipes: state.RecipeReducer.recipes,
+        directions: state.DirectionsReducer.directions,
+        recipeingredients: state.RecipeIngredientsReducer.recipeingredients,
+        ingredients: state.IngredientsReducer.ingredients,
+        tags: state.TagsReducer.tags,
+        calendar: state.CalendarReducer.calendarItems
     }
 }
 
 
-export default connect(mapStateToProps)(CreateRecipe)
+export default connect(mapStateToProps, mapDispatchtoProps)(CreateRecipe)
 

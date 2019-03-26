@@ -21,6 +21,7 @@ const RecipeIngredientsReducer = ((state = initialState, action) => {
             return state
         
         case ADD_RECIPE_INGREDIENTS:
+        state = Object.assign({}, state, {recipeingredients: state.recipeingredients.push(action.payload)})
             return state
 
         case DELETE_RECIPE_INGREDIENTS:

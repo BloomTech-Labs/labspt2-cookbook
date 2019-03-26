@@ -165,7 +165,13 @@ class CalendarPage extends Component{
 
 const mapStateToProps = state => {
     return {
-        user: state.UserReducer.user
+        user: state.UserReducer.user,
+        calendar: state.CalendarReducer.calendar,
+        recipes: state.RecipeReducer.recipes,
+        directions: state.DirectionsReducer.directions,
+        recipeingredients: state.RecipeIngredientsReducer.recipeingredients,
+        ingredients: state.IngredientsReducer.ingredients,
+        tags: state.TagsReducer.tags,
     }
 }
 

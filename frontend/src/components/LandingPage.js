@@ -30,7 +30,7 @@ class LandingPage extends React.Component{
         this.props.idClickHandler(this.state.id);
        
         axios
-            .post('https://kookr.herokuapp.com/api/user/', {
+            .post('https://kookr.herokuapp.com/api/user', {
                 auth_id: this.state.id, 
                 email: this.state.email,
                 type: 0,

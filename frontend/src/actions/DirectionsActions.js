@@ -1,4 +1,3 @@
-//import { bindActionCreators } from "../../../../../../../../AppData/Local/Microsoft/TypeScript/3.3/node_modules/redux";
 
 export const ADD_DIRECTIONS = "ADD_DIRECTIONS"
 export const DELETE_DIRECTIONS = "DELETE_DIRECTIONS"
