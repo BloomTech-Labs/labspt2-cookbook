@@ -5,12 +5,14 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
+const bodyParser = require('body-parser')
 
 // Route requires:
 const userRouter = require('./routes/userRouter');
 const recipeRouter = require('./routes/recipeRouter');
-const tagsRouter = require('./routes/tagsRouter')
+const tagsRouter = require('./routes/tagsRouter');
 const ingredRouter = require('./routes/ingredientRouter');
+const chargeRouter = require('./routes/chargeRouter')
 
 // Server:
 const server = express();
@@ -28,15 +30,18 @@ server.use(
   express.json(),
   morgan('dev'),
   helmet(),
-  cors(corsOptions)
+  cors(corsOptions),
+  bodyParser.text()
+
 );
 
 
 /* ---------- Routes ---------- */
 server.use('/api/user', userRouter);
 server.use('/api/recipes', recipeRouter);
-server.use('/api/tags', tagsRouter)
+server.use('/api/tags', tagsRouter);
 server.use('/api/ingredients', ingredRouter);
+server.use('/api/charge', chargeRouter)
 
 
 /* ---------- Listener ---------- */
