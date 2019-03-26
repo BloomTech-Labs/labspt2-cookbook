@@ -2,8 +2,41 @@ import React, { Component } from "react";
 import NavBar from "./NavBar";
 import  '../css/Settings.css';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class Settings extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            userId : '',
+            billingDate : '',
+            email: '',
+            accountType: '',
+
+        }
+    }    
+componentDidMount(){
+    this.getUserToShowChrisThatWeCan();
+    console.log(this.state);
+}
+
+getUserToShowChrisThatWeCan = async() =>{
+    await axios
+        .get('https://kookr.herokuapp.com/api/user/1')
+            .then(res =>{
+                console.log(res)
+                this.setState({
+                    userId : res.data.user_id,
+                    billingDate : res.data.billing_date,
+                    email : res.data.email,
+                    accountType : res.data.type
+                 })
+            })
+            .catch(err =>{
+                console.log('This did not work out well', err)
+            })
+            console.log(this.state);
+}
     render() {
         return (
             <div className="settings-page">
@@ -43,6 +76,11 @@ class Settings extends Component {
                             <input type="submit" name="save" value="Save"></input>
                         </form>
                     </div>
+                </div>
+                <div className = 'display-for-chris'>
+                    <div>{this.state.userId}</div>
+                    <div>{this.state.email}</div>
+                    <div>{this.state.billingDate}</div>
                 </div>
             </div>
         );
