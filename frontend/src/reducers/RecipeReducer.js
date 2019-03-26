@@ -12,7 +12,39 @@ const initialState = {
                 cook_time: 0,
                 servings: 0,
                 isSelected: false
-}]
+},
+{
+    recipe_id: 1,
+    name: 'name string',
+    image: 'image url string',
+    link: 'recipe url string',
+    prep_time: 0,
+    cook_time: 0,
+    servings: 0,
+    isSelected: false
+},
+{
+    recipe_id: 2,
+    name: 'name string',
+    image: 'image url string',
+    link: 'recipe url string',
+    prep_time: 0,
+    cook_time: 0,
+    servings: 0,
+    isSelected: false
+},
+{
+    recipe_id: 3,
+    name: 'name string',
+    image: 'image url string',
+    link: 'recipe url string',
+    prep_time: 0,
+    cook_time: 0,
+    servings: 0,
+    isSelected: false
+}
+
+]
 }
 
 // not complete

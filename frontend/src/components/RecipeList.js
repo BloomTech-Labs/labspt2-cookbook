@@ -6,6 +6,7 @@ import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import  {getUser} from '../actions/UserActions'
 import NavBar from "./NavBar";
+import '../css/RecipeList.css';
 
 class RecipeList extends Component{
 
@@ -28,9 +29,11 @@ class RecipeList extends Component{
            
              <div className="recipeListPage">
              <NavBar />
-                 <div className="topBar">
-                    <div className="newRecipeLink"><Link to="/create-recipe">Add Recipe</Link></div>
-                     <input />
+
+            <div className="recipeList-container">
+                 <div className="calendar-topBar" >
+                    <div className="newRecipeLink"><Link className="create-tag-p" to="/create">Add Recipe</Link></div>
+                     <div className="search-bar">Search<input className="search-bar" /></div>
                      <div className="filterSection">
                          <div className="filterButton"> Filter </div>
                          <div className="filterContent">
@@ -40,8 +43,8 @@ class RecipeList extends Component{
                          </div>
                      </div>
                  </div>
-                 <div className="recipeContent">
 
+                 <div className="recipeContent">
                 {this.props.recipes.map((item) => (
                     <Link key={item.image.toString()} to={`/recipes/${item.recipe_id}`} >
                         <IndividualRecipe key={item.recipe_id} />
@@ -49,7 +52,8 @@ class RecipeList extends Component{
                 )   )}
  
                 </div>
-            </div>             
+            </div>   
+        </div>          
         )
     }
 } 
