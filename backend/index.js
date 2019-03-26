@@ -12,6 +12,7 @@ const recipeRouter = require('./routes/recipeRouter');
 const tagsRouter = require('./routes/tagsRouter')
 const ingredRouter = require('./routes/ingredientRouter');
 const shoppingRouter = require('./routes/shoppingRouter');
+const scheduleRouter = require('./routes/scheduleRouter');
 
 // Server:
 const server = express();
@@ -39,6 +40,7 @@ server.use('/api/recipes', recipeRouter);
 server.use('/api/tags', tagsRouter)
 server.use('/api/ingredients', ingredRouter);
 server.use('/api/list', shoppingRouter);
+server.use('/api/schedule', scheduleRouter);
 
 
 /* ---------- Listener ---------- */

@@ -41,6 +41,8 @@ module.exports = {
     return db('recipes').where('link', link).pluck('recipe_id');
   },
 
+  
+
   /*
    * insert:
    *   -- Insert a full recipe.
@@ -77,6 +79,9 @@ module.exports = {
         });
       // end db.where
     } else {
+      // Might need to add another endpoint specifically for this.
+      checkUrl(recipe); /////??????????????
+
       return db.transaction( (trans) => {
         return db('recipes')
           .transacting(trans)
