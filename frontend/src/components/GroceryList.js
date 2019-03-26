@@ -27,7 +27,7 @@ class GroceryList extends Component{
         
         var stopDate = moment(this.statestopDate);
         while (currentDate <= stopDate) {
-            dateArray.push( moment(currentDate).format('YYYY-MM-DD') )
+            dateArray.push( moment(currentDate).format('MM-DD-YYYY') )
             currentDate = moment(currentDate).add(1, 'days');
         }
         console.log(dateArray);

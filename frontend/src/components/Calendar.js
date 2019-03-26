@@ -19,13 +19,11 @@ class CalendarPage extends Component{
             recipeArr : ['cheeseburger', 'mac&cheese', 'queso'],
             filteredRecipeArr : [],
             selectedRecipe : '',
-            date: '',
-            tag: ''
+            date: null,
+            tag: null
          
         }
     }
-    //organize array by date
-    //calendar back end should take date, recipe, tags
     async componentDidMount(){
        await this.setState({
            userId: this.props.userId,
@@ -46,28 +44,21 @@ class CalendarPage extends Component{
                 })
                 .catch(err =>{
                     console.log('Error fetching recipes by user Id', err);
-                })
-
-                
+                })             
     }
-    dayClickModalOpen = (clickedDay) =>{
+    dayClick = (clickedDay) =>{
         this.setState({
             openDayModal : true,
             // date : clickedDay.getDate()
         });
         var MyDate = clickedDay;
         var MyDateString;
-        MyDateString = ('0' + MyDate.getDate()).slice(-2) + '/'
-             + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
-             + MyDate.getFullYear();
+        MyDateString = ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
+        + ('0' + MyDate.getDate()).slice(-2) + '/'
+        + MyDate.getFullYear();
         console.log(MyDateString);
         this.setState({
             date: MyDateString
-        })
-    }
-    modalCloser = () =>{
-        this.setState({
-            openDayModal: false
         })
     }
     calendarSearchFunction = (event) =>{
@@ -94,12 +85,10 @@ class CalendarPage extends Component{
     }
     calendarEventPost = () =>{
         console.log('State: ', this.state);
-        // const calendarEvent = {
-        //     date: this.state.date, recipeEventObj : 
-        //         {selectedRecipe: this.state.selectedRecipe, 
-                
-        //         }
-        // }
+        const calendarEvent = {
+            date: this.state.date, 
+            recipe  : this.state.selectedRecipe
+        }
     }
     
     postTagToRecipe = () =>{
@@ -108,14 +97,14 @@ class CalendarPage extends Component{
         //const recipeId = this.state.selectedRecipe.recipe_id //??????Make sure it's recipe_id
         const recipeId = 2
         console.log('I am selected recipe from post', this.state.selectedRecipe)
-        // axios
-        //     .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, tag)
-        //         .then(res =>{
-        //             console.log(res)
-        //         })
-        //         .catch(err =>{
-        //             console.log('Error adding tag to recipe by id', err)
-        //         })
+        axios
+            .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, tag)
+                .then(res =>{
+                    console.log(res)
+                })
+                .catch(err =>{
+                    console.log('Error adding tag to recipe by id', err)
+                })
     }
     onSaveFunction = () =>{
         this.postTagToRecipe();
@@ -125,54 +114,51 @@ class CalendarPage extends Component{
         return (
             <div className="CalendarPage">
                 <NavBar />
-                <div className='calendar-container'>
-                    <div className='calendar-body'>   
-                        <Calendar onClickDay = {this.dayClickModalOpen} className = 'react-calendar'/>
-                        
-                        <div className = {this.state.openDayModal ? 'open-calendar-modal' : 'closed-calendar-modal'}>
-                        <div>
-                <input type="text" placeholder="Search"  onChange = {this.calendarSearchFunction}/>
-                <div className='calendar-recipe-list'>
-                    {this.state.filteredRecipeArr.map(recipe =>{
-                        return(
-                            <div  key = {Math.random()}>
-                                {/* <CalendarRecipe name='selectedRecipe' value={this.state.selectedRecipe} recipe = {recipe}
-                               
-                                /> */}
-                                <div onClick = {() =>this.onSelectRecipe(recipe)}>{recipe}</div>
-                            </div>    
-                        )
-                    })}
-                </div>
-                <div className="calendar-meal-tag-section">
-                    <h3>Select Tag to Add</h3>
-                    <div className='meal-tag-button'>
-                        <div data-txt = 'breakfast' onClick = {this.tagSelector}>Breakfast</div>
-                        <div  data-txt = 'lunch' onClick = {this.tagSelector}>Lunch</div>
-                        <div  data-txt = 'dinner' onClick = {this.tagSelector}>Dinner</div>
-                        <div  data-txt = 'dessert' onClick = {this.tagSelector}>Dessert</div>
-                        <div  data-txt = 'snack' onClick = {this.tagSelector}>Snack</div>
-                    </div>    
-                    <div onClick = {this.postTagToRecipe}>
-                        Add Recipe and tags//save
+                <div className='calendar-page-container'>
+                    <div className='calendar-and-header'>
+                        <h2 className='calendar-page-header'>Start by Selecting a Day</h2>
+                        <Calendar onClickDay = {this.dayClick} className = 'react-calendar'/>   
                     </div>
-                    <input type="number" min="1" />
+                    <div className='calendar-recipe-section'>
+                        <div className='recipe-search-section'>
+                            <div className='recipe-search'>
+                                <h4>Search Your Recipes:</h4>
+                                <input className='recipe-search-input' type="text" placeholder="Search"  onChange = {this.calendarSearchFunction}/>
+                            </div>
+                            <div className='calendar-recipe-list'>
+                                {this.state.filteredRecipeArr.map(recipe =>{
+                                    return(
+                                        <div  key = {Math.random()}>
+                                            <div onClick = {() =>this.onSelectRecipe(recipe)}>{recipe}</div>
+                                        </div>    
+                                    )
+                                })}
+                            </div>
+                        </div>
+                        <div className='edit-recipe-section'>  
+                            <div className="calendar-meal-tag-container">
+                                <h4>Select Tag to Add</h4>
+                                <div className='meal-tag-button-section'>
+                                    <div data-txt = 'breakfast' onClick = {this.tagSelector}>Breakfast</div>
+                                    <div  data-txt = 'lunch' onClick = {this.tagSelector}>Lunch</div>
+                                    <div  data-txt = 'dinner' onClick = {this.tagSelector}>Dinner</div>
+                                    <div  data-txt = 'dessert' onClick = {this.tagSelector}>Dessert</div>
+                                    <div  data-txt = 'snack' onClick = {this.tagSelector}>Snack</div>
+                                </div>    
+                            </div>
+                            <div className='servings-and-duplicate-container'>
+                                <input type="number" min="1" />
+                                <input type="checkbox" /> Duplicate Previous Week
+                            </div>    
+                            <div onClick = {this.onSaveFunction} className='save-button'>
+                                Save 
+                            </div>
+                        </div>     
+                    </div>    
                 </div>
             </div>
-            <div onClick = {this.onSaveFunction}>
-                        Save 
-                    </div>
-                            <div onClick = {this.modalCloser} className='calendar-modal-close-button'>x</div>
-                        </div>
-                    </div>
-                    <form className='calendar-edit-form'>
-                        <div className='edit-servings-container'>
-                            <input type="checkbox" /> Duplicate Previous Week
-                            
-                        </div>    
-                    </form>
-                </div>  
-            </div>             
+            
+                 
         )
     }
 } 
