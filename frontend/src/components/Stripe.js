@@ -16,7 +16,7 @@ class CheckoutForm extends Component {
         token: token
     };
     axios
-        .post("http://localhost:1234/api/charge/", body)
+        .post("https://kookr.herokuapp.com/api/charge/", body)
         .then(response => {
             console.log(response);
             alert("Payment Success");
