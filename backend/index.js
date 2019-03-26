@@ -12,7 +12,11 @@ const userRouter = require('./routes/userRouter');
 const recipeRouter = require('./routes/recipeRouter');
 const tagsRouter = require('./routes/tagsRouter');
 const ingredRouter = require('./routes/ingredientRouter');
+<<<<<<< HEAD
 const chargeRouter = require('./routes/chargeRouter')
+=======
+const shoppingRouter = require('./routes/shoppingRouter');
+>>>>>>> b8505b2d31021a5005391fcbf183f6e494b23925
 
 // Server:
 const server = express();
@@ -41,7 +45,8 @@ server.use('/api/user', userRouter);
 server.use('/api/recipes', recipeRouter);
 server.use('/api/tags', tagsRouter);
 server.use('/api/ingredients', ingredRouter);
-server.use('/api/charge', chargeRouter)
+server.use('/api/charge', chargeRouter);
+server.use('/api/list', shoppingRouter);
 
 
 /* ---------- Listener ---------- */
