@@ -26,6 +26,7 @@ const IngredientsReducer = ((state = initialState, action) => {
             return Object.assign({}, state, {ingredients: state.directions.filter(item => action.payload.ing_id === item.ing_id)} )
         
         case ADD_INGREDIENTS:
+        state = Object.assign({}, state, {ingredients: state.ingredients.push(action.payload)})
             return state
 
         case DELETE_INGREDIENTS:

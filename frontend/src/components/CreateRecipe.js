@@ -4,7 +4,16 @@ import axios from 'axios';
 import  '../css/CreateRecipe.css';
 import NavBar from './NavBar';
 import { connect } from 'react-redux';
+
+import { bindActionCreators } from 'redux';
+import { addDirections } from '../actions/DirectionsActions';
+import { addIngredients } from '../actions/IngredientsActions';
+import { addRecipeIngredients } from '../actions/RecipeIngredientsActions';
+import { addRecipe } from '../actions/RecipeActions';
+import { addTag } from '../actions/TagsActions';
+
 import Calendar from 'react-calendar'
+
 
 class CreateRecipe extends React.Component{
   constructor(props){
@@ -154,12 +163,20 @@ postTagToRecipe = () =>{
     }
 }
 
+const mapDispatchtoProps = (dispatch) => bindActionCreators({addDirections, addIngredients, addRecipe, addRecipeIngredients, addTag},dispatch)
+
 const mapStateToProps = state => {
     return {
-        user: state.UserReducer.user
+        user: state.UserReducer.user,
+        recipes: state.RecipeReducer.recipes,
+        directions: state.DirectionsReducer.directions,
+        recipeingredients: state.RecipeIngredientsReducer.recipeingredients,
+        ingredients: state.IngredientsReducer.ingredients,
+        tags: state.TagsReducer.tags,
+        calendar: state.CalendarReducer.calendarItems
     }
 }
 
 
-export default connect(mapStateToProps)(CreateRecipe)
+export default connect(mapStateToProps, mapDispatchtoProps)(CreateRecipe)
 
