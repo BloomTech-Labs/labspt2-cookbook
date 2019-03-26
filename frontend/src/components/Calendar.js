@@ -19,13 +19,11 @@ class CalendarPage extends Component{
             recipeArr : ['cheeseburger', 'mac&cheese', 'queso'],
             filteredRecipeArr : [],
             selectedRecipe : '',
-            date: '',
-            tag: ''
+            date: null,
+            tag: null
          
         }
     }
-    //organize array by date
-    //calendar back end should take date, recipe, tags
     async componentDidMount(){
        await this.setState({
            userId: this.props.userId,
@@ -55,19 +53,14 @@ class CalendarPage extends Component{
         });
         var MyDate = clickedDay;
         var MyDateString;
-        MyDateString = ('0' + MyDate.getDate()).slice(-2) + '/'
-             + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
-             + MyDate.getFullYear();
+        MyDateString = ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
+        + ('0' + MyDate.getDate()).slice(-2) + '/'
+        + MyDate.getFullYear();
         console.log(MyDateString);
         this.setState({
             date: MyDateString
         })
     }
-    // modalCloser = () =>{
-    //     this.setState({
-    //         openDayModal: false
-    //     })
-    // }
     calendarSearchFunction = (event) =>{
         event.preventDefault();
         var updatedArr = this.state.recipeArr;
@@ -104,14 +97,14 @@ class CalendarPage extends Component{
         //const recipeId = this.state.selectedRecipe.recipe_id //??????Make sure it's recipe_id
         const recipeId = 2
         console.log('I am selected recipe from post', this.state.selectedRecipe)
-        // axios
-        //     .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, tag)
-        //         .then(res =>{
-        //             console.log(res)
-        //         })
-        //         .catch(err =>{
-        //             console.log('Error adding tag to recipe by id', err)
-        //         })
+        axios
+            .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, tag)
+                .then(res =>{
+                    console.log(res)
+                })
+                .catch(err =>{
+                    console.log('Error adding tag to recipe by id', err)
+                })
     }
     onSaveFunction = () =>{
         this.postTagToRecipe();
