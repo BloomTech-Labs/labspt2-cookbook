@@ -1,0 +1,78 @@
+
+.CalendarPage{
+    display:flex;
+}
+.calendar-container{
+    width:80%;
+    display:flex;
+    flex-direction:column;
+}
+.calendar-page-header{
+    text-align:center;
+    font-size:50px;
+    font-weight:bold;
+    color: rgb(87, 144, 161);
+}
+.react-calendar{
+    width:90%;
+    height:280px;
+    margin:0px auto;
+    margin-bottom:10px;
+    
+}
+.calendar-recipe-section{
+    width:90%;
+    margin:0px auto;
+    
+}
+.recipe-search-section{
+    
+    display:flex;
+    flex-direction:column;
+    
+}
+.recipe-search{
+    display:flex;
+    justify-content:space-between;
+    width:90%;
+   
+}
+.recipe-search-input{
+    height:30px;
+    width:65%;
+    margin-top:15px;
+}
+.calendar-recipe-list{
+    border:2px solid black;
+    height:160px;
+    margin-top:20px;
+    width:50%;
+}
+.edit-recipe-section{
+    
+}
+
+/* .calendar-edit-form{
+    width:90%;
+    display:flex;
+    margin: 0 auto;
+}
+.toggle-day-container{
+    width:40%;
+    height:160px;
+    display:flex;
+    flex-direction:column;
+    justify-content: space-around;
+    background-color:purple;
+}
+.edit-servings-container{
+    width:60%;
+    background-color:orange;
+}
+.single-day-button, .range-selector-button{
+    width:160px;
+    height:50px;
+    background-color:blue;
+    color:white;
+    margin:0px auto;
+    cursor:pointer; */

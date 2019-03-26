@@ -9,33 +9,29 @@
     background-color:rgba(255, 255, 255, 0.87);
     display:flex;
     justify-content: space-between;
-    height:140px;
+    height:120px;
 }
 
 .logo-container{
     width:600px;
     display:flex;
-    padding-left:5%;
-
-    
+    padding-left:5%;  
 }
-
 .landing-header{
-    font-size:144px;
+    font-size:124px;
     margin-left:2%;
     font-weight:400;
     letter-spacing:-3px;
-    margin-top:0px;
+    margin-top:-20px;
     font-family: 'PT Sans', sans-serif;
     color:rgb(87, 144, 161);
-    
 }
 .landing-page-nav-buttons{
-
   width:18%;
   margin-right:2%;
+  margin-top:-88px;
   color:black;
-  font-size:20px;
+  font-size:18px;
   display:flex;
   flex-direction:column;
   justify-content: space-around;
@@ -45,12 +41,12 @@
 }
 .login-button, .registration-button{
     cursor:pointer;
-    margin-bottom:0px;
-    
+    margin-bottom:0px;   
 }
 .landing-blurb-container{
     width:60%;
-    margin: 200px auto;
+    margin: 0px auto;
+    margin-top:140px;
     text-align:center;
     display:flex;
     flex-direction:column;
@@ -85,4 +81,87 @@
     height:50px;
     padding-top:15px;
     border-radius:5px;
+    cursor:pointer;
 }
+
+
+/*Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(14, 21, 24, 0.87);
+}
+
+.modal-main {
+    position:fixed;
+    background: white;
+    padding-top:15px;
+    margin-top:80px;
+    width: 40%;
+    height: 560px;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    display:flex;
+    flex-direction:column;
+    border-radius:5px;
+}
+
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+.login-header{
+    width:75%;
+    text-align:center;
+    margin:0px auto;
+    margin-top:80px;
+    font-size:28px;
+}
+.x-box{
+    background-color:rgb(87, 144, 161);
+    width:8%;
+    height:28px;
+    margin-left:88%;
+    text-align:center;
+    color:white;
+    font-weight:bolder;
+    font-size:20px;
+    border-radius: 5px;
+    padding-top:4px;
+}
+.close-registration-x{
+    cursor:pointer;
+}
+.google-facebook-container{
+    margin: 0px auto;
+    width:100%;
+    
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;   
+}
+.google-login{
+   width:50%;
+   border-radius:5px;
+   margin-left:25%;
+   text-align:center;
+   margin-top:100px;
+   
+}
+.facebook-login{
+    width:50%;
+    border-radius:3px;
+    margin-left:25%;
+    text-align:center;
+    background-color:rgb(18, 45, 161);
+    margin-top:40px;
+    height: 50px;
+}
+

@@ -1,6 +1,7 @@
 const db = require('../dbConfig.js');
 const ingredientHelper = require('./ingredientModel');
 const stepsHelper = require('./stepsModel');
+const checkUrl = require('./recipeScraper');
 
 module.exports = {
   /*
@@ -40,12 +41,15 @@ module.exports = {
     return db('recipes').where('link', link).pluck('recipe_id');
   },
 
+  
+
   /*
    * insert:
    *   -- Insert a full recipe.
    *   -- Returns recipe id: int (1)
    */
   insert: async function(recipe) {
+    checkUrl(recipe);
     const [recId] = await this.recipeExists(recipe.link);
     
     // Check if recipe exists first.
@@ -75,6 +79,9 @@ module.exports = {
         });
       // end db.where
     } else {
+      // Might need to add another endpoint specifically for this.
+      checkUrl(recipe); /////??????????????
+
       return db.transaction( (trans) => {
         return db('recipes')
           .transacting(trans)
