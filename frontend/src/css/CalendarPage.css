@@ -1,21 +1,9 @@
-.open-calendar-modal{
-    background-color:red;
-    width:200px;
-    height:200px;
-    position: absolute;
-    width:100%;
-    height:400px;
-    margin-top:-300px;
-}
-.closed-calendar-modal{
-    display:none;
-}
+
 .CalendarPage{
     display:flex;
 }
 .calendar-container{
     width:80%;
-    background-color:green;
     display:flex;
     flex-direction:column;
 }
@@ -24,7 +12,35 @@
     height:280px;
     margin:40px auto;
 }
-.calendar-edit-form{
+.calendar-recipe-section{
+    width:90%;
+    margin:0px auto;
+    
+}
+.recipe-search-section{
+    display:flex;
+    flex-direction:column;
+}
+.recipe-search{
+    display:flex;
+    justify-content:space-between;
+   
+}
+.recipe-search-input{
+    height:30px;
+    width:65%;
+    margin-top:15px;
+}
+.calendar-recipe-list{
+    border:2px solid black;
+    height:160px;
+    margin-top:20px;
+}
+.edit-recipe-section{
+    
+}
+
+/* .calendar-edit-form{
     width:90%;
     display:flex;
     margin: 0 auto;
@@ -47,5 +63,4 @@
     background-color:blue;
     color:white;
     margin:0px auto;
-    cursor:pointer;
-}
+    cursor:pointer; */
