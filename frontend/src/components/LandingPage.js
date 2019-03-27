@@ -9,7 +9,7 @@ class LandingPage extends React.Component{
     state={ 
         show: false,
         email: "",
-        id: '',
+        authId: '',
     };
 
     openModal = () =>{
@@ -21,23 +21,27 @@ class LandingPage extends React.Component{
         this.setState({show: false});
 
     };
+
+//Post user not working
+//How to grab user Id after post ?? res.data? set user Id to local storage -change instances of user id in routes on other pages
     submitHandler = (googleObj) =>{
         this.setState({
             email: googleObj.profileObj.email,
-            id: googleObj.googleId
+            authId: googleObj.googleId
         });
         //console.log(this.state);
-        this.props.idClickHandler(this.state.id);
+        // this.props.idClickHandler(this.state.authId);
        
         axios
             .post('https://kookr.herokuapp.com/api/user', {
-                auth_id: this.state.id, 
+                auth_id: this.state.authId, 
                 email: this.state.email,
                 type: 0,
                 billing_date: null
             })
             .then(response => {
                 console.log(response);
+                //localStorage.setItem('userId', response.data.user_id) ///??
             })
             .catch( err =>{
                 console.log(err);

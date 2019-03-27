@@ -4,7 +4,7 @@
 }
 
 .create-page-container{
-    width:80%;
+    width:88%;
     display:flex;
     flex-direction:column;
 
@@ -18,41 +18,77 @@
 .url-add-recipe-section{
     width: 95%;
     display:flex;
-    padding-top:20px;
+    justify-content: space-between;
+    padding-top:5px;
     padding-bottom:30px;  
 }
-.url-input-container{
-    width:100%;   
-}
+
 .url-drop-input{
-    width:100%;
+    width:80%;
     margin-left:6%;
     height:34px;
     border-radius:2px;
-    background-color:rgb(255, 255, 255);
+   
 }
 .url-add-arrow{
     background-color:rgb(87, 144, 161);
     color:white;
     font-weight:bolder;
-    padding-left:20px;;
-    padding-top:15px;
-    width:5%;
-   
+   cursor:pointer;
+   width:10%;
+   padding-top:10px;
+   text-align:center;
+   border-radius:2px;
 }
 .recipe-preview{
     width:90%;
-    height:290px;
+    height:300px;
     margin:0px auto;
     display:flex;
-    margin-top:20px;
-   border:2px solid gray;
+    margin:10px auto;
+   
 }
-.recipe-preview-info{
-    width:50%;
+.recipe-preview-title-and-info{
+    width:40%;
+    border-right: 2px solid rgba(199, 203, 204, 0.322);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+
+}
+.recipe-preview-header{
+    width:90%;
+    font-size:24px;
+    margin:0px auto;
+    margin-top:40px;
+    text-align:center;
+    
+}
+.recipe-info-container{
+    widows: 90%;
+    display:flex;
+    justify-content:space-around;
+}
+.prep-time-container, .cook-time-container, .servings-amount-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width:30%;
+    text-align:center;
+    
+}
+h4{
+    font-weight:bold;
+    font-size:16px;
 }
 .recipe-preview-image{
-    width:50%;
+    width:60%;
+}
+.recipe-preview-img{
+   margin-left:7.5%;
+    width:90%;
+    height:300px;
+    
 }
 .recipe-modification-section{
     width:90%;
@@ -63,13 +99,13 @@
 }
 .meal-tag-section{
     width:23%;
-    border-right: 2px solid rgba(199, 203, 204, 0.24);
+    border-right: 2px solid rgba(199, 203, 204, 0.322);
     height:280px;
     margin-top:40px;
  
 }
 .meal-tag-header{
-   /* text-align:center; */
+   padding-left:5%;
    margin-top:-14px;
    font-size:16px;
 }
@@ -89,8 +125,8 @@
     font-weight:bold;
 }
 .edit-servings-section{
-    width:23%;
-    border-left: 2px solid rgba(199, 203, 204, 0.24);
+    width:24%;
+    border-left: 2px solid rgba(199, 203, 204, 0.322);
     height:280px;
     margin-top:40px;
     display:flex;
@@ -98,6 +134,8 @@
     align-items:flex-end;
 }
 .edit-servings-header{
+    padding-left:6%;
+    margin-bottom:40px;
     margin-top:-14px;
    font-size:16px;
 }
@@ -123,6 +161,27 @@
 }
 .calendar-section{
     width:50%;
-    margin-top:5px;
+    margin-top:50px;
+    border-radius: 2px;
+}
+.react-calendar__navigation__label, .react-calendar__navigation__arrow{
+    /* font-size:10px; */
+    font-weight:bolder;
+    color:white;
+}
+.react-calendar__navigation{
+    background-color:rgb(87, 144, 161);
+}
+.react-calendar__tile--active{
+    background-color:rgb(87, 144, 161);
+    border-radius:2px;
+}
+.react-calendar__month-view__weekdays__weekday{
+    text-decoration: underline;
+    border:none;
+}
+.react-calendar__tile{
+    color:black;
+    font-size:12px;
 }
 
