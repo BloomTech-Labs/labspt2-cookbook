@@ -9,7 +9,7 @@ module.exports = {
   //get - with auth_id
 
   getByAuth: function (authId) {
-    return db('users').where('auth_id', authId).first()
+    return db('users').where('auth_id', authId).first().pluck('user_id');
   },
 
 

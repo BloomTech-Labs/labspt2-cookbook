@@ -30,11 +30,9 @@ module.exports = {
    * insert:
    *   -- Inserts a new scheduled recipe
    */
-  insert: function(userId, sched) {
-    return db('schedule').insert({
-      user_id: userId,
-      ...sched
-    });
+  insert: async function(sched) {
+    return await db('schedule').insert(sched)
+    .then( ([id]) => this.getById(id) );
   },
 
   /*
@@ -42,7 +40,8 @@ module.exports = {
    *   -- Edits a scheduled recipe
    */
   update: function(id, sched) {
-    return db('schedule').where('id', id).update(sched);
+    return db('schedule').where('id', id).update(sched)
+      .then( ([id]) => this.getById(id) );
   },
 
   /*
