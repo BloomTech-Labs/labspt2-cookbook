@@ -53,9 +53,10 @@ class CalendarPage extends Component{
         });
         var MyDate = clickedDay;
         var MyDateString;
-        MyDateString = ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
+        MyDateString =  MyDate.getFullYear() + '/'
+        + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
         + ('0' + MyDate.getDate()).slice(-2) + '/'
-        + MyDate.getFullYear();
+       
         console.log(MyDateString);
         this.setState({
             date: MyDateString
@@ -117,7 +118,7 @@ class CalendarPage extends Component{
                 <div className='calendar-page-container'>
                     <div className='calendar-and-header'>
                         <h2 className='calendar-page-header'>Start by Selecting a Day</h2>
-                        <Calendar onClickDay = {this.dayClick} className = 'react-calendar'/>   
+                        <Calendar calendarType = {'US'} onClickDay = {this.dayClick} className = 'react-calendar'/>   
                     </div>
                     <div className='calendar-recipe-section'>
                         <div className='recipe-search-section'>

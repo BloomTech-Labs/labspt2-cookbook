@@ -20,9 +20,10 @@ class CreateRecipe extends React.Component{
       super(props)
       this.state = {
         recipeUrl: '',
-        userId: this.props.userId,
+        userId: '', //this.props.userId, ///Should I be doing this with auth id or retriving the user id?
         tag: null,
-        recipeId:null
+        recipeId:null, 
+        servings: ''
        
       }
   }
@@ -34,8 +35,15 @@ class CreateRecipe extends React.Component{
 
 //iFrame handled w front end
 
- componentDidMount(){
-     console.log('I am create user Id', this.state.userId)
+ async componentDidMount(){
+     //console.log('I am create user Id', this.state.userId)
+    const userId = localStorage.getItem('userId');
+     //console.log(authId);
+     await this.setState({
+         userId : userId
+     });
+     console.log(this.state.userId)
+
  }
 
  dropHandler = event =>{
@@ -50,7 +58,7 @@ postRecipe = () =>{
 
 
    /////Figure this outtttttt
-   const recipeAndUser = {user_id : `${this.state.userId}`, recipeUrl : `${this.state.recipeUrl}`};
+   const recipeAndUser = { name : '', user_id : `${this.state.userId}`, recipeUrl : `${this.state.recipeUrl}`};
    
     //onsole.log(this.state.recipeUrl);
     const newRecipeObj = Object.assign({},recipeAndUser);
@@ -71,9 +79,9 @@ dayClick = (clickedDay) =>{
     });
     var MyDate = clickedDay;
     var MyDateString;
-    MyDateString = ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
+    MyDateString = MyDate.getFullYear() + '/'
+    + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
     + ('0' + MyDate.getDate()).slice(-2) + '/'
-    + MyDate.getFullYear();
     console.log(MyDateString);
     this.setState({
         date: MyDateString
@@ -89,6 +97,7 @@ tagSelector = async(event) =>{
 postTagToRecipe = () =>{
     const tag = this.state.tag;
     console.log('I am tag from post',this.state.tag);
+    console.log(this.state.servings);
     //const recipeId = this.state.selectedRecipe.recipe_id //??????Make sure it's recipe_id
     const recipeId = this.state.recipeId;
     axios
@@ -100,6 +109,13 @@ postTagToRecipe = () =>{
                 console.log('Error adding tag to recipe by id', err)
             })
 }
+servingsAdjustor = async (event) =>{
+    await this.setState({
+        [event.target.name] : event.target.value
+    });
+    console.log(this.state.servings);
+    
+}
     render(){
         return(
             <div className='Create-Recipe'>
@@ -107,22 +123,32 @@ postTagToRecipe = () =>{
                 <div className='create-page-container'>
                     <h2 className='create-recipe-header'>Add Your Recipes!</h2>
                     <div className='url-add-recipe-section'> 
-                        <div className='url-input-container'>
-                            <input 
-                                className='url-drop-input' 
-                                placeholder='  Drag and drop url here'
-                                onDrop={this.dropHandler}/>
-                        </div>       
-                        <div onClick = {this.postRecipe} className='url-add-arrow'>></div> 
+                        <input 
+                            className='url-drop-input' 
+                            placeholder='  Drag and drop url here'
+                            onDrop={this.dropHandler}/>
+                        <div onClick = {this.postRecipe} className='url-add-arrow'>Add</div>        
                     </div>
                     <div className='recipe-preview'>
-                        <div className='recipe-preview-info'>
-                            <h3>Recipe Title</h3>
-                            <p>Recipe Info</p>
+                        <div className='recipe-preview-title-and-info'>
+                            <h3 className='recipe-preview-header'>Slammin' Salmon</h3>
+                            <div className='recipe-info-container'>  
+                                <div className='prep-time-container'>
+                                    <h4>Prep Time</h4>
+                                    <p>3 years</p>
+                                </div>
+                                <div className='cook-time-container'>
+                                    <h4>Cook Time</h4>
+                                    <p>1 year</p>
+                                </div>
+                                <div className='servings-amount-container'>
+                                    <h4>Servings</h4>
+                                    <p>4</p>
+                                </div>
+                            </div>      
                         </div>
                         <div className='recipe-preview-image'> 
-                            <img></img>
-                            Image Placeholder
+                            <img className ='recipe-preview-img'src ='https://food.fnr.sndimg.com/content/dam/images/food/fullset/2013/11/25/0/FNK_pan-seared-salmon-with-kale-apple-salad_s4x3.jpg.rend.hgtvcom.616.462.suffix/1387918756116.jpeg' alt ='fish-dish' />
                         </div>
                     </div>     
                     <div className='recipe-modification-section'>
@@ -155,7 +181,7 @@ postTagToRecipe = () =>{
                         <div className='edit-servings-section'>
                             <div className='servings-container'>
                                 <h3 className='edit-servings-header'>How many servings?</h3>
-                                <input className ='servings-input'type="number" min="1" /> 
+                                <input className ='servings-input' name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" /> 
                                 <div className='add-recipe-button' onClick={this.postTagToRecipe}> Save </div> 
                             </div>
                         </div>
