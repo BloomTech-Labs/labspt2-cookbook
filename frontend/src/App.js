@@ -8,7 +8,6 @@ import IndividualRecipe from "./components/IndividualRecipe";
 import Calendar from "./components/Calendar";
 import GroceryList from "./components/GroceryList";
 import Settings from "./components/Settings";
-import Billing from "./components/Billing";
 
 
 class App extends Component {
@@ -24,7 +23,6 @@ class App extends Component {
             <Route exact path="/calendar" component={Calendar}/>
             <Route exact path="/grocery-list" component={GroceryList}/>
             <Route exact path="/settings" component={Settings} />
-            <Route exact path="/billing" component={Billing} />
           
           </div>
         </Router>

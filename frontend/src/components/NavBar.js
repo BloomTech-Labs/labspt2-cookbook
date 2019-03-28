@@ -4,7 +4,7 @@ import '../css/NavBar.css'
 
 const NavBar = props => (
     <div className='Nav-Bar'>
-       <div className='nav-link-overlay'>
+        <div className='nav-link-overlay'>
             <div className = 'nav-link-container'>
                 <Link className='nav-link' to='/create'>Create</Link>
                 <Link className='nav-link' to="/recipes">Recipes</Link>
@@ -14,7 +14,6 @@ const NavBar = props => (
                 </div>
                 <Link className='nav-link' to='/calendar'>Calendar</Link>
                 <Link className='nav-link' to="/settings">Settings</Link>
-                <Link className='nav-link' to="/billing">Billing</Link>
             </div>    
         </div>
     </div>
