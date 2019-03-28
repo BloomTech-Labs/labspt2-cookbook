@@ -12,9 +12,8 @@ const NavBar = props => (
                 <Link className='nav-link' to="/grocery-list">Grocery List</Link>
                 <Link className='nav-link' to='/calendar'>Calendar</Link>
                 <Link className='nav-link' to="/settings">Settings</Link>
-                <Link className='nav-link' to="/billing">Billing</Link>
-            </div>
-        </div>        
+            </div>    
+        </div>
     </div>
 );
 
