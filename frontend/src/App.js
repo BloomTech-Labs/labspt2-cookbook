@@ -8,7 +8,6 @@ import IndividualRecipe from "./components/IndividualRecipe";
 import Calendar from "./components/Calendar";
 import GroceryList from "./components/GroceryList";
 import Settings from "./components/Settings";
-import Billing from "./components/Billing";
 import SingleRecipe from "./components/SingleRecipe";
 
 
@@ -38,7 +37,6 @@ class App extends Component {
             <Route exact path="/calendar" render = {(props) => <Calendar {...props} userId = {this.state.id}/>}/>
             <Route exact path="/grocery-list" component={GroceryList}/>
             <Route exact path="/settings" component={Settings} />
-            <Route exact path="/billing" component={Billing} />
           
           </div>
         </Router>
