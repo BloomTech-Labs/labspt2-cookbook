@@ -2,16 +2,17 @@
 .CalendarPage{
     display:flex;
 }
-.calendar-container{
-    width:88%;
+.calendar-page-container{
+    width:80%;
     display:flex;
     flex-direction:column;
+    background-color: rgba(233, 221, 219, 0.164); 
 }
 .calendar-page-header{
     text-align:center;
-    font-size:50px;
-    font-weight:bold;
-    color: rgb(87, 144, 161);
+    font-size:72px;
+    font-family: 'Cabin Sketch', cursive;
+    color: rgb(98, 139, 151);
 }
 .react-calendar{
     width:90%;

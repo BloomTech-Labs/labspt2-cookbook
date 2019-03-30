@@ -27,23 +27,10 @@
     font-weight:bolder;
     color: rgb(98, 139, 151);
    margin-bottom:40px;
-font-family: 'Nanum Gothic', sans-serif;
-/* font-family: 'Oxygen', sans-serif; */
-/* font-family: 'Asap', sans-serif; */
-/* font-family: 'Barlow Condensed', sans-serif; */
-/* font-family: 'Istok Web', sans-serif; */
-
-/* font-family: 'Barlow Semi Condensed', sans-serif; */
-/* font-family: 'Molengo', sans-serif; */
-
-
-font-family: 'Cabin Sketch', cursive;
-/* font-family: 'Pompiere', cursive; */
-/* font-family: 'Amiko', sans-serif; */
+   font-family: 'Cabin Sketch', cursive;
 }
 .create-recipe-p{
     width:30%;
-  
     margin-top:20px;
     height:90px;
     font-size:20px;

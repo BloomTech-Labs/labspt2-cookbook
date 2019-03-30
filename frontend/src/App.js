@@ -5,7 +5,7 @@ import LandingPage from './components/LandingPage';
 import CreateRecipe from './components/CreateRecipe';
 import RecipeList from "./components/RecipeList";
 import IndividualRecipe from "./components/IndividualRecipe";
-import Calendar from "./components/Calendar";
+import CalendarPage from "./components/CalendarPage";
 import GroceryList from "./components/GroceryList";
 import Settings from "./components/Settings";
 import SingleRecipe from "./components/SingleRecipe";
@@ -19,7 +19,7 @@ class App extends Component {
     }
   }
   idClickHandler = (userId) =>{
-    //console.log(userId);
+    
     this.setState({
       id: userId
     });
@@ -34,7 +34,7 @@ class App extends Component {
             <Route exact path='/create' render = {(props) => <CreateRecipe {...props} userId = {this.state.id} />}/>
             <Route exact path="/recipes" component={RecipeList}/>
             <Route exact path="/recipes/:id" component={SingleRecipe}/>
-            <Route exact path="/calendar" render = {(props) => <Calendar {...props} userId = {this.state.id}/>}/>
+            <Route exact path="/calendar" render = {(props) => <CalendarPage {...props} userId = {this.state.id}/>}/>
             <Route exact path="/grocery-list" component={GroceryList}/>
             <Route exact path="/settings" component={Settings} />
           

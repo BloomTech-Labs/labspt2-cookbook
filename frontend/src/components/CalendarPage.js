@@ -25,11 +25,11 @@ class CalendarPage extends Component{
         }
     }
     async componentDidMount(){
-       await this.setState({
-           userId: this.props.userId,
-           
-       })
-       //console.log(this.state);
+        console.log(localStorage.getItem('userId'))
+        const userId = localStorage.getItem('userId');
+        await this.setState({
+            userId : userId
+     });
        this.recipeGetById();
        
     }
@@ -37,10 +37,11 @@ class CalendarPage extends Component{
         console.log(this.state.userId);
         axios   
             .get(`https://kookr.herokuapp.com/api/recipes/user/${this.state.userId}`)
-                .then(res =>{
-                    // this.setState({
-                    //     recipeArr: res   //( .data?)
-                    // })
+                .then(response =>{
+                    console.log(response);
+                    this.setState({
+                        recipeArr: response.data   ///.waht?
+                    })
                 })
                 .catch(err =>{
                     console.log('Error fetching recipes by user Id', err);
@@ -117,7 +118,11 @@ class CalendarPage extends Component{
                 <NavBar />
                 <div className='calendar-page-container'>
                     <div className='calendar-and-header'>
-                        <h2 className='calendar-page-header'>Start by Selecting a Day</h2>
+                        <div>
+                            <h2 className='calendar-page-header'>Your Calendar</h2>
+                            <p>Start by selecting a day on the calendar. Create a customized meal plan for that day to populate your shopping list.</p>
+                        </div>
+                        
                         <Calendar calendarType = {'US'} onClickDay = {this.dayClick} className = 'react-calendar'/>   
                     </div>
                     <div className='calendar-recipe-section'>
