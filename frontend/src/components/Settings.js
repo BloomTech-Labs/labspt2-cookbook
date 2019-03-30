@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import  '../css/Settings.css';
+import  '../css/Billing.css';
+import CheckoutForm from './Stripe';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -42,8 +44,8 @@ getUserToShowChrisThatWeCan = async() =>{
             <div className="settings-page">
                 <NavBar />
                 <div className="settings-main">
-                <div>SETTINGS</div>
                     <div className="settings-form-container">
+                        <div>SETTINGS</div>
                         <form className="settings-form">
                             <div className="settings-form-item">
                                 <label htmlFor="email">Email Address: </label>
@@ -75,6 +77,14 @@ getUserToShowChrisThatWeCan = async() =>{
 
                             <input type="submit" name="save" value="Save"></input>
                         </form>
+                    </div>
+
+                    <div className="billing-main">
+                        <div>SUBSCRIPTION</div>
+                        <div className="billing-form-container">
+                            <h1>Premium Subscription</h1>
+                            <CheckoutForm />
+                        </div>
                     </div>
                 </div>
                 <div className = 'display-for-chris'>
