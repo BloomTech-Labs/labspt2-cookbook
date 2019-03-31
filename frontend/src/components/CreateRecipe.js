@@ -18,9 +18,11 @@ import Calendar from 'react-calendar'
 class CreateRecipe extends React.Component{
   constructor(props){
       super(props)
+      
       this.state = {
         recipeUrl: '',
-        userId: this.props.userId,
+        //this is how you call the User state from the reducer
+        userId: this.props.user[0].user_id,
         tag: null,
         recipeId:null
        
@@ -38,6 +40,7 @@ class CreateRecipe extends React.Component{
 
  dropHandler = event =>{
       const url = event.dataTransfer.getData('text');
+      console.log(url)
     this.setState({
         recipeUrl : url
     })
@@ -164,6 +167,7 @@ postTagToRecipe = () =>{
 const mapDispatchtoProps = (dispatch) => bindActionCreators({addDirections, addIngredients, addRecipe, addRecipeIngredients, addTag},dispatch)
 
 const mapStateToProps = state => {
+    console.log(state)
     return {
         user: state.UserReducer.user,
         recipes: state.RecipeReducer.recipes,
