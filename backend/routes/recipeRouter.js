@@ -46,7 +46,7 @@ router.post( '/', (req, res) => {
   const recipeData = req.body;
 
   // Check for missing data first.
-  if( !recipeData.user_id || !recipeData.name || !recipeData.link )
+  if( !recipeData.user_id || !recipeData.link )
   {
     res.status(400).json({ error: "Missing data." });
   }

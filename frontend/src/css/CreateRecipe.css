@@ -7,71 +7,181 @@
     width:80%;
     display:flex;
     flex-direction:column;
-
+    background-color: rgba(233, 221, 219, 0.164); 
+}
+.create-page-sub-container{
+    width:85%;
+    margin:0px auto;
+}
+.create-intro-container{
+    display:flex;
+    justify-content:space-around;
+   
+ 
 }
 .create-recipe-header{
+    width:70%;
+    font-size:72px;
+    margin-top:35px;
     text-align:center;
-    font-size:50px;
-    font-weight:bold;
-    color: rgb(87, 144, 161);
+    font-weight:bolder;
+    color: rgb(98, 139, 151);
+   margin-bottom:40px;
+font-family: 'Nanum Gothic', sans-serif;
+/* font-family: 'Oxygen', sans-serif; */
+/* font-family: 'Asap', sans-serif; */
+/* font-family: 'Barlow Condensed', sans-serif; */
+/* font-family: 'Istok Web', sans-serif; */
+
+/* font-family: 'Barlow Semi Condensed', sans-serif; */
+/* font-family: 'Molengo', sans-serif; */
+
+
+font-family: 'Cabin Sketch', cursive;
+/* font-family: 'Pompiere', cursive; */
+/* font-family: 'Amiko', sans-serif; */
+}
+.create-recipe-p{
+    width:30%;
+  
+    margin-top:20px;
+    height:90px;
+    font-size:20px;
+    /* background-color:rgb(255, 255, 255); */
+    /* border-radius:5px; */
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:normal;
+    text-align:center;
+    padding:10px 2%;
+    padding-top:15px;
+    margin-bottom:40px;
+  
 }
 .url-add-recipe-section{
-    width: 95%;
+   width:100%;
     display:flex;
-    padding-top:20px;
-    padding-bottom:30px;  
+    margin:0px auto;
+    padding-top:5px;
+    padding-bottom:25px;  
+    margin-right:10%;
 }
-.url-input-container{
-    width:100%;   
-}
+
 .url-drop-input{
     width:100%;
     margin-left:6%;
     height:34px;
     border-radius:2px;
-    background-color:rgb(255, 255, 255);
-}
-.url-add-arrow{
-    background-color:rgb(87, 144, 161);
-    color:white;
-    font-weight:bolder;
-    padding-left:20px;;
-    padding-top:15px;
-    width:5%;
+    margin:0px auto;
+    border:none;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
    
 }
+.url-add{
+    background-color:rgb(52, 98, 112);
+    color:white;
+    font-weight:bolder;
+   cursor:pointer;
+   width:10%;
+   padding-top:10px;
+   text-align:center;
+   border-radius:0px 2px 2px 0px;
+   font-family: 'Barlow Semi Condensed', sans-serif;
+   text-transform: uppercase;
+   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
 .recipe-preview{
+    width:100%;
+    height:320px;
+    background-color:rgb(255, 255, 255);
+    padding:40px 0%;
+    border-radius:5px;
+    display:flex;
+    justify-content:space-around;
+    margin:0px auto;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+   
+}
+.recipe-preview-title-and-info{
+    width:30%;
+    display:flex;
+    flex-direction:column;
+    height:300px;
+    /* justify-content:space-around; */
+
+}
+.recipe-preview-header{
     width:90%;
-    height:290px;
+    font-size:24px;
+    margin:0px auto;
+    margin-top:30px;
+    margin-bottom:80px;
+    text-align:center;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+   text-transform: uppercase;
+   font-weight: bold;
+    
+}
+.recipe-info-container{
+    width: 65%;
     margin:0px auto;
     display:flex;
-    margin-top:20px;
-   border:2px solid gray;
+    flex-direction:column;
+    justify-content:space-around;
+    height:120px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:normal;
+    font-size:18px;
+  
 }
-.recipe-preview-info{
-    width:50%;
+.prep-time-container, .cook-time-container, .servings-amount-container{
+    display:flex;
+}
+h4{
+    font-weight:bold;
+    font-size:16px;
 }
 .recipe-preview-image{
-    width:50%;
+    width:35%;
+    margin: 0px auto;
+    margin-right:6%;
+   
+ 
 }
-.recipe-modification-section{
+.recipe-image-sub{
+    background-image:url('https://images.fabric.com/images/693/693/0473337.jpg');
+    height:320px;
+   width:100%;
+   border-radius: 2px;
+   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+   
+  
+}
+.recipe-preview-img{
     width:90%;
-    margin:0px auto;
-    display:flex;
-    justify-content: space-between;
-   font-family: 'Lato', sans-serif;
+    margin-left:5%;
+    height:290px;
+    margin-top:15px;
+    border-radius: 2px;
+   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+    /* border:2px solid rgb(52, 98, 112); */
+    
 }
 .meal-tag-section{
-    width:23%;
-    border-right: 2px solid rgba(199, 203, 204, 0.24);
+    width:28%;
     height:280px;
-    margin-top:40px;
+    margin-top:20px;
  
 }
 .meal-tag-header{
-   /* text-align:center; */
    margin-top:-14px;
-   font-size:16px;
+   font-size:20px;
+   text-align:center;
+   padding-right:15%;
+   font-family: 'Barlow Semi Condensed', sans-serif;
+   font-weight:normal;
 }
 .meal-tag{
     width:85%;
@@ -83,26 +193,70 @@
     text-align:center;
     cursor:pointer;
 }
+
+.selected{
+    background-color:rgb(52, 98, 112);
+    height:30px;
+    border-radius:2px;
+}
 .meal-tag-p{
-    padding-top:12px;
+    padding-top:10px;
     font-size:16px;
     font-weight:bold;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+   text-transform: uppercase;
+}
+
+.recipe-modification-section{
+    display:flex;
+    justify-content: space-between;
+}
+.calendar-section{
+    display:flex;
+    flex-direction:column;
+    width:70%;
+    margin-top:40px;
+    border-radius: 2px;
+    background-color:white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    padding-bottom:20px;
+}
+.react-calendar__navigation__label, .react-calendar__navigation__arrow{
+  
+ 
+}
+.calendar-directions-header{
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size:20px;
+    font-weight:normal;
+    text-align:center;
 }
 .edit-servings-section{
-    width:23%;
-    border-left: 2px solid rgba(199, 203, 204, 0.24);
-    height:280px;
+    width:26%;
     margin-top:40px;
     display:flex;
     flex-direction:column;
-    align-items:flex-end;
+   
 }
 .edit-servings-header{
-    margin-top:-14px;
-   font-size:16px;
+    padding-left:6%;
+    margin-bottom:40px;
+
+   font-size:20px;
+   font-family: 'Barlow Semi Condensed', sans-serif;
+   font-weight:normal;
+}
+.edit-servings-p{
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:normal;
+    font-size:20px;
 }
 .servings-container{
     text-align:center;
+    background-color:white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    padding-top:10px;
+    padding-bottom:30px;
 }
 .servings-input{
     height:30px;
@@ -112,7 +266,7 @@
     margin:0 auto;
     margin-top:50px;
     height:40px;
-    background-color:rgb(87, 144, 161);
+    background-color:rgb(52, 98, 112);
     color:white;
     font-weight:bold;
     text-align:center;
@@ -120,9 +274,8 @@
     font-size:26px;
     padding-top:12px;
     cursor:pointer;
-}
-.calendar-section{
-    width:50%;
-    margin-top:5px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+   text-transform: uppercase;
+   
 }
 
