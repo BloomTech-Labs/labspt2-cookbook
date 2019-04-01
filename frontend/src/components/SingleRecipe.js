@@ -15,7 +15,7 @@ class SingleRecipe extends Component{
 
     constructor(props) {
         super(props)
-
+        
         this.state = { 
             name: '',
             link: '',
@@ -32,17 +32,20 @@ class SingleRecipe extends Component{
 componentDidMount()
    // this.props.recipes.filter(item => item.isSelected ===)
     {
-        let sendingObject = {
-            recipe_id: 3
-        }
-     
-    this.props.getCalendarItem(sendingObject)
 
+        let sendingObject = {
+            recipe_id: 2
+        }
+    //get the calendarItem for the selected object
+    this.props.getCalendarItem(sendingObject)
+    //assigns the newly created calendar state and pulls the tag id for that scheduled item
     let tagObject = {
         tag_id: this.props.calendar[0].tag_id
     }
+    // get the word for that tag from the tag reducer and sets that tag as state.
     this.props.getTags(tagObject)
 
+    
    
     console.log(this.props.calendar[0].tag_id)
    
