@@ -117,54 +117,60 @@ class CalendarPage extends Component{
             <div className="CalendarPage">
                 <NavBar />
                 <div className='calendar-page-container'>
-                    <div className='calendar-and-header'>
-                        <div>
-                            <h2 className='calendar-page-header'>Your Calendar</h2>
-                            <p>Start by selecting a day on the calendar. Create a customized meal plan for that day to populate your shopping list.</p>
-                        </div>
-                        
-                        <Calendar calendarType = {'US'} onClickDay = {this.dayClick} className = 'react-calendar'/>   
-                    </div>
-                    <div className='calendar-recipe-section'>
-                        <div className='recipe-search-section'>
-                            <div className='recipe-search'>
-                                <h4>Search Your Recipes:</h4>
-                                <input className='recipe-search-input' type="text" placeholder="Search"  onChange = {this.calendarSearchFunction}/>
+                    <div className='calendar-page-sub-container'>
+                        <div className='calendar-and-intro'>
+                            <div className='calendar-intro-container'>
+                                <h2 className='calendar-page-header'>Your Calendar</h2>
+                                <p className='calendar-page-p'>Start by selecting a day on the calendar. Create a customized meal plan for that day to populate your shopping list.</p>
                             </div>
-                            <div className='calendar-recipe-list'>
-                                {this.state.filteredRecipeArr.map(recipe =>{
-                                    return(
-                                        <div  key = {Math.random()}>
-                                            <div onClick = {() =>this.onSelectRecipe(recipe)}>{recipe}</div>
-                                        </div>    
-                                    )
-                                })}
-                            </div>
-                        </div>
-                        <div className='edit-recipe-section'>  
-                            <div className="calendar-meal-tag-container">
-                                <h4>Select Tag to Add</h4>
-                                <div className='meal-tag-button-section'>
-                                    <div data-txt = 'breakfast' onClick = {this.tagSelector}>Breakfast</div>
-                                    <div  data-txt = 'lunch' onClick = {this.tagSelector}>Lunch</div>
-                                    <div  data-txt = 'dinner' onClick = {this.tagSelector}>Dinner</div>
-                                    <div  data-txt = 'dessert' onClick = {this.tagSelector}>Dessert</div>
-                                    <div  data-txt = 'snack' onClick = {this.tagSelector}>Snack</div>
+                            <div className='calendar-and-duplicate'>
+                                <div className='calendar-housing'>
+                                    <Calendar calendarType = {'US'} onClickDay = {this.dayClick} className = 'calendar-page-react-calendar'/>
+                                </div>    
+                                <div className='servings-and-duplicate-container'>
+                                    <p>How many servings?</p>
+                                    <input className = 'servings-input'type="number" min="1" />
+                                    <p>Check box to duplicate previous week from selected date</p>
+                                    <input type="checkbox" id='check-box' name =''/>
+                                    <label for="check-box"></label>
                                 </div>    
                             </div>
-                            <div className='servings-and-duplicate-container'>
-                                <input type="number" min="1" />
-                                <input type="checkbox" /> Duplicate Previous Week
-                            </div>    
-                            <div onClick = {this.onSaveFunction} className='save-button'>
-                                Save 
+                        </div>
+                        <div className='calendar-recipe-section'>
+                            <div className='recipe-search-section'>
+                                <div className='recipe-search'>
+                                    <h4>Search Your Recipes:</h4>
+                                    <input className='recipe-search-input' type="text" placeholder="Search"  onChange = {this.calendarSearchFunction}/>
+                                </div>
+                                <div className='calendar-recipe-list'>
+                                    {this.state.filteredRecipeArr.map(recipe =>{
+                                        return(
+                                            <div  key = {Math.random()}>
+                                                <div onClick = {() =>this.onSelectRecipe(recipe)}>{recipe}</div>
+                                            </div>    
+                                        )
+                                    })}
+                                </div>
                             </div>
-                        </div>     
-                    </div>    
+                            <div className='edit-recipe-section'>  
+                                <div className="calendar-meal-tag-container">
+                                    <h4>Select Tag to Add</h4>
+                                    <div className='meal-tag-button-section'>
+                                        <div data-txt = 'breakfast' onClick = {this.tagSelector}>Breakfast</div>
+                                        <div  data-txt = 'lunch' onClick = {this.tagSelector}>Lunch</div>
+                                        <div  data-txt = 'dinner' onClick = {this.tagSelector}>Dinner</div>
+                                        <div  data-txt = 'dessert' onClick = {this.tagSelector}>Dessert</div>
+                                        <div  data-txt = 'snack' onClick = {this.tagSelector}>Snack</div>
+                                    </div>    
+                                </div>
+                                <div onClick = {this.onSaveFunction} className='save-button'>
+                                    Save 
+                                </div>
+                            </div>     
+                        </div>
+                    </div>        
                 </div>
-            </div>
-            
-                 
+            </div>       
         )
     }
 } 

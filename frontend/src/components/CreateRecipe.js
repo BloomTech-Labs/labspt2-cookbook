@@ -187,7 +187,7 @@ servingsAdjustor = async (event) =>{
                         <div className='recipe-modification-section'>
                             <div className='calendar-section'>
                                 <h4 className='calendar-directions-header'>Select a calendar date to assign your recipe to.</h4>
-                                <Calendar onClickDay = {this.dayClick} className='react-calendar'/>
+                                <Calendar calendarType = {'US'} onClickDay = {this.dayClick} className='create-page-calendar'/>
                             </div>
                             <div className='edit-servings-section'>
                                 <div className='servings-container'>
