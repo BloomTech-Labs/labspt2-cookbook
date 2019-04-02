@@ -14,8 +14,8 @@ const TagsReducer = ((state = initialState, action) => {
     switch (action.type) {
 
         case GET_TAGS:
-            console.log(state)
-            return 
+        Object.assign({}, state, {tags: state.tags.filter(item => action.payload.tag_id  === item.tag_id)} )
+            return state
         case ADD_TAG:
         
         Object.assign({}, state, {tags: state.tags.push(action.payload)})

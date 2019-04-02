@@ -5,7 +5,7 @@ import { GET_DIRECTIONS, getDirections } from '../actions/DirectionsActions';
 import { getIngredients } from '../actions/IngredientsActions';
 import { getSelectedRecipe } from '../actions/RecipeActions';
 import {bindActionCreators} from 'redux';
-
+import {Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle} from 'reactstrap';
 
 
 class IndividualRecipe extends Component{
@@ -19,7 +19,8 @@ componentDidMount()
     let receivedObject = {
 
     }
-        
+    console.log(this.props.recipes)
+ 
     this.props.getDirections(sendingObject)
 
     
@@ -53,31 +54,27 @@ componentDidMount()
     render(){
         return (
             <div className="individualRecipePage">
+                <Card>
+                    <CardTitle>title</CardTitle>
+                    <CardText>text some card text some card text</CardText>
+                </Card>
+
                 <div className="individualRecipeHeader" >
                     <h1>Title</h1>
-                    <div>{this.props.recipes.map((recipe) =>  <div key={recipe}> {recipe.recipe_id} </div> )}</div>
+                    {/* <div>{this.props.recipes.map((recipe) =>  <div key={recipe}> {recipe.recipe_id} </div> )}</div>
                     <div>{this.props.directions.map((direction) =>   <div key={direction.directions}>  {direction.recipe_id} {direction.directions} </div>   )}</div>
-                    
-                    <div className="editButton">Edit Button</div>
-                    <div className="deleteButton">Delete Button</div>
+                     */}
+                    <div>image link</div>
                 </div>
                 <div className="recipeInfo">
                     <div>
-                        <img />
-                        <div>Schedule Info</div>
+                  <div>scheduled for</div>
                     </div>
-                    <div className="infoCard">
-                        <div></div>
-                        <div>Cook Time</div>
-                        <div>Servings</div>
-                    </div>
-                    <div className="Ingredients">
-                        Map out here
-                    </div>
+                    <div> link button </div>
+                    <div className="editButton">Edit Button</div>
+                    <div className="deleteButton">Delete Button</div>
                 </div>
-                <div className="recipeInstructions">
-                    Map out here
-                </div>
+               
             </div>           
         )
     }

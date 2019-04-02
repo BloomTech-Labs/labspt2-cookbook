@@ -41,7 +41,7 @@ export const getTags = (tag) => (dispatch) => {
 
     dispatch({
         type: GET_TAGS,
-        payload: {tag}
+        payload: {tag, tag_id: tag.tag_id}
     })
 
 }

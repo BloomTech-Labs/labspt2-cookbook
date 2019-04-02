@@ -18,9 +18,13 @@ import Calendar from 'react-calendar'
 class CreateRecipe extends React.Component{
   constructor(props){
       super(props)
+      
       this.state = {
         recipeUrl: '',
+
+
         userId: '', //this.props.userId, ///Should I be doing this with auth id or retriving the user id?
+
         tag: null,
         recipeId:null, 
         servings: ''
@@ -44,6 +48,7 @@ class CreateRecipe extends React.Component{
 s
  dropHandler = event =>{
       const url = event.dataTransfer.getData('text');
+      console.log(url)
     this.setState({
         recipeUrl : url
     })
@@ -208,6 +213,7 @@ servingsAdjustor = async (event) =>{
 const mapDispatchtoProps = (dispatch) => bindActionCreators({addDirections, addIngredients, addRecipe, addRecipeIngredients, addTag},dispatch)
 
 const mapStateToProps = state => {
+    console.log(state)
     return {
         user: state.UserReducer.user,
         recipes: state.RecipeReducer.recipes,

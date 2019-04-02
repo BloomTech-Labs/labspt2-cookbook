@@ -1,18 +1,20 @@
 
-import { ADD_RECIPE, DELETE_RECIPE, UPDATE_RECIPE, GET_SELECTED_RECIPE} from '../actions/RecipeActions';
+import { GET_RECIPES, ADD_RECIPE, DELETE_RECIPE, UPDATE_RECIPE, GET_SELECTED_RECIPE, ADD_RECIPE_SUCCESS} from '../actions/RecipeActions';
 
 
 const initialState = {
-   recipes: [{
-                recipe_id: 0,
-                name: 'name string',
-                image: 'image url string',
-                link: 'recipe url string',
-                prep_time: 0,
-                cook_time: 0,
-                servings: 0,
-                isSelected: false
-}]
+   recipes: [
+//        {
+//     recipe_id: 0,
+//     name: 'name string1',
+//     image: 'image url string',
+//     link: 'recipe url string',
+//     prep_time: 0,
+//     cook_time: 0,
+//     servings: 0,
+//     isSelected: false
+// }
+   ]
 }
 
 // not complete
@@ -20,11 +22,19 @@ const RecipeReducer = ((state = initialState, action) => {
     switch (action.type) {
 
         case ADD_RECIPE:
-            //makes .isSelected === false if something was still true
-            state = state.recipes.map(item => {if(item.isSelected === true) {item.isSelected = false}}) 
-            state = Object.assign({}, state, {recipes: state.recipes.push(action.payload)})
-                return state
+                //might not need anything to return. the state will take care of the rest
+                console.log(action.payload)
+                return {
+                    recipes: [ ...state.recipes, action.payload.recipe]
+                }
+                
 
+        case GET_RECIPES:
+                console.log(action.payload)
+                return {
+                    recipes: [ ...state.recipes, ...action.payload.recipes]
+                }
+                
         case DELETE_RECIPE:
              return state
 
@@ -38,7 +48,12 @@ const RecipeReducer = ((state = initialState, action) => {
             return state;
 
         case GET_SELECTED_RECIPE: 
-            Object.assign({}, state, {recipes: state.recipes.filter(item => item.isSelected === action.payload.isSelected)})
+            console.log(action.payload)
+            //state = Object.assign({}, state, {recipes: state.recipes.filter(item => item.recipe_id === action.payload.recipe_id)})
+            return state;
+
+        case ADD_RECIPE_SUCCESS:
+        console.log(state.recipes)
             return state;
 
         default:
@@ -50,3 +65,45 @@ const RecipeReducer = ((state = initialState, action) => {
 })
 
 export {RecipeReducer}
+
+
+// {
+//     recipe_id: 0,
+//     name: 'name string1',
+//     image: 'image url string',
+//     link: 'recipe url string',
+//     prep_time: 0,
+//     cook_time: 0,
+//     servings: 0,
+//     isSelected: false
+// },
+// {
+// recipe_id: 1,
+// name: 'name string2',
+// image: 'image url string',
+// link: 'recipe url string',
+// prep_time: 0,
+// cook_time: 0,
+// servings: 0,
+// isSelected: false
+// },
+// {
+// recipe_id: 2,
+// name: 'name string3',
+// image: 'image url string',
+// link: 'recipe url string',
+// prep_time: 0,
+// cook_time: 0,
+// servings: 0,
+// isSelected: false
+// },
+// {
+// recipe_id: 3,
+// name: 'name string4',
+// image: 'image url string',
+// link: 'recipe url string',
+// prep_time: 0,
+// cook_time: 0,
+// servings: 0,
+// isSelected: false
+// }
