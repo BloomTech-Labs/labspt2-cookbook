@@ -8,7 +8,10 @@ const initialState = {
         auth_id: 'string',
         email: 'string email',
         type: 'string',
-        billing_date: null
+        billing_date: null,
+        phone: 'string number',
+        email_notifications: true,
+        text_notifications: true
     }]
 }
 
@@ -17,11 +20,12 @@ const UserReducer = ((state = initialState, action) => {
     switch (action.type) {
 
         case GET_USER:
-            console.log(state)
+           
             
             return state
 
         case ADD_USER:
+        state = Object.assign({}, state, {recipes: state.recipes.push(action.payload)})
             return state
 
         case DELETE_USER:

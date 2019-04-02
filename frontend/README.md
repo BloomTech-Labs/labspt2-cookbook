@@ -66,3 +66,50 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+### How to use the Reducer 
+
+The reducer is meant to keep state while the application is running between pages. it is also meant to abstract some loading processes away from the dom like through componentDidMount. 
+
+##RecipeReducer
+
+dispatchs available
+
+this.props.getRecipes(userid)
+    takes = USERID
+    related action: GET_RECIPES
+    action file: RecipeActions
+    axios call inside of actions? : yes axios.get()
+
+    gets recipes based on the userId that is loaded into the application currently the user id is set to "1"
+
+this.props.getSelectedRecipe(object_with_recipe_id_as_a_value)
+    takes = object with recipe id as a value
+    related action: GET_SELECTED_RECIPE
+    action file: RecipeActions
+    no axios call necessary filters by available recipes in the reducer
+
+##UserReducer
+
+// more detail to come
+
+##CalendarReducer
+
+// more detail to come
+
+##DirectionsReducer
+
+// more detail to come
+
+##IngredientsReducer
+
+// more detail to come
+
+##RecipeIngredientsReducer
+
+// more detail to come
+
+##TagsReducer
+
+// more detail to come

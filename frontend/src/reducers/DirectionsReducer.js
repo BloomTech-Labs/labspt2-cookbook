@@ -40,6 +40,7 @@ const DirectionsReducer = ((state = initialState, action) => {
             
            //return [...]
             case ADD_DIRECTIONS:
+            state = Object.assign({}, state, {directions: state.directions.push(action.payload)})
             return state
 
         case DELETE_DIRECTIONS:

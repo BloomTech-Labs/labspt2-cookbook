@@ -49,6 +49,7 @@ module.exports = {
    *   -- Returns recipe id: int (1)
    */
   insert: async function(recipe) {
+    
     const [recId] = await this.recipeExists(recipe.link);
     
     // Check if recipe exists first.

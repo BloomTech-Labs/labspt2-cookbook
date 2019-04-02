@@ -1,30 +1,78 @@
-.open-calendar-modal{
-    background-color:red;
-    width:200px;
-    height:200px;
-    position: absolute;
-    width:100%;
-    height:400px;
-    margin-top:-300px;
-}
-.closed-calendar-modal{
-    display:none;
-}
+
 .CalendarPage{
     display:flex;
 }
 .calendar-container{
-    width:80%;
-    background-color:green;
+    width:88%;
     display:flex;
     flex-direction:column;
 }
+.calendar-page-header{
+    text-align:center;
+    font-size:50px;
+    font-weight:bold;
+    color: rgb(87, 144, 161);
+}
 .react-calendar{
     width:90%;
-    height:280px;
-    margin:40px auto;
+    height:300px;
+    margin:0px auto;
+    margin-bottom:10px;
+    border-radius:3px;
 }
-.calendar-edit-form{
+.react-calendar__navigation__label, .react-calendar__navigation__arrow{
+    font-size:20px;
+    font-weight:bolder;
+    color:white;
+}
+.react-calendar__navigation{
+    background-color:rgb(87, 144, 161);
+}
+.react-calendar__tile--active{
+    background-color:rgb(87, 144, 161);
+    border-radius:2px;
+}
+.react-calendar__month-view__weekdays__weekday{
+    text-decoration: underline;
+    border:none;
+}
+.react-calendar__tile{
+    color:black;
+    font-size:12px;
+}
+.calendar-recipe-section{
+    width:90%;
+    margin:0px auto;
+    
+}
+.recipe-search-section{
+    
+    display:flex;
+    flex-direction:column;
+    
+}
+.recipe-search{
+    display:flex;
+    justify-content:space-between;
+    width:90%;
+   
+}
+.recipe-search-input{
+    height:30px;
+    width:65%;
+    margin-top:15px;
+}
+.calendar-recipe-list{
+    border:2px solid black;
+    height:160px;
+    margin-top:20px;
+    width:50%;
+}
+.edit-recipe-section{
+    
+}
+
+/* .calendar-edit-form{
     width:90%;
     display:flex;
     margin: 0 auto;
@@ -47,5 +95,4 @@
     background-color:blue;
     color:white;
     margin:0px auto;
-    cursor:pointer;
-}
+    cursor:pointer; */

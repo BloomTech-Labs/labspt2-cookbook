@@ -1,13 +1,16 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
-import RegisterModal from  "./RegisterModal";
+import GoogleLogin from 'react-google-login';
 import  '../css/LandingPage.css';
 import { connect } from 'react-redux';
-// import { domainToASCII } from 'url';
+import axios from 'axios';
 
 
 class LandingPage extends React.Component{
-    state={ show: false };
+    state={ 
+        show: false,
+        email: "",
+        authId: '',
+    };
 
     openModal = () =>{
         this.setState({show: true});
@@ -18,36 +21,151 @@ class LandingPage extends React.Component{
         this.setState({show: false});
 
     };
-   
-    idClickHandler = (userId) =>{
-       this.props.idClickHandler(userId)
+    
+//Post user not working
+//How to grab user Id after post ?? res.data? set user Id to local storage -change instances of user id in routes on other pages
+    submitHandler = async (googleObj) =>{
+        await this.setState({
+            email: googleObj.profileObj.email,
+            authId: googleObj.googleId
+        });
+        console.log(this.state);
+        //console.log(this.state);
+        // this.props.idClickHandler(this.state.authId);
+       axios
+            .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
+            .then(response =>{
+                console.log(response);
+                const existingUser = response.data.user_id;
+                if(!existingUser){
+                    this.postNewUser()
+                }else{
+                    console.log('user  already exists, redirecting');
+                    localStorage.setItem('userId', existingUser);
+                }
+            })
+            .catch(err =>{
+                console.log(err);
+            })
     }
-    //Verifying user login?
+    postNewUser = () =>{
+        axios
+            .post('https://kookr.herokuapp.com/api/user', {
+                auth_id: this.state.authId, 
+                email: this.state.email,
+                type: 0,
+                billing_date: null
+            })
+            .then(response => {
+                const newUser = response.data.user_id;
+                console.log(response);
+                localStorage.setItem('userId', newUser) //??  Test this bad boy
+            })
+            .catch( err =>{
+                console.log(err);
+            })
+
+        this.setState({
+            email: "",
+            
+        })
+    }
+    responseGoogleSuccess = (response) => {
+        console.log(response)
+        this.submitHandler(response);
+        this.props.history.push('/create');
+      }
+    
+    
+      responseGoogleFailure = (response) => {
+        console.log(response);
+        alert('Failure logging in. Please try again');
+    } 
     render(){
         return(
             <div className='Landing-Page'>
+                <div className = 'landing-page-background'></div>
                 <div className='landing-page-nav-bar'>
-                    <div className='logo-container'>
-                        <h1 className='landing-header'>Kookr
-                        </h1>
+                    <div className='social-media-container'>
+                        <i class="fab fa-google-plus-g" ></i>
+                        <i class="fab fa-facebook-f" ></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-twitter" ></i>
                     </div>  
+                    <h1 className='landing-header'>Kookr Logo</h1>
                     <div className='landing-page-nav-buttons'>
                         <h3 className='registration-button' onClick={this.openModal}>Login / Register</h3>
                     </div>
                 </div>
                 <div className='landing-page-body'>
                     <div className='landing-blurb-container'>
-                        <h2 className='landing-blurb-header'>Simplify Your Meals</h2>
-                        <p className='landing-page-blurb'>At Kookr, our mission is to streamline the meal planning and shopping process- time we feel much better spent around the 
-                            dinner table with family, or enjoying the bounty of social and physical 	experiences that food provides. The Kookr 
-                            application allows the user to add and organize recipes, plan meals, and create custom shopping lists. By creating a simplified,
-                             stress-free user experience we help our users make the most out of their day, and bring focus back to mealtimes.</p>
-                         <div className='get-started-button' onClick={this.openModal}>Get Started For Free</div>    
+                        <div className='landing-blurb-sub-container'>
+                            <h2 className='landing-blurb-header'>Simplify Your Meals</h2>
+                            <p className='landing-page-blurb'>At Kookr, our mission is to streamline the meal planning and shopping process- time we feel much better spent around the 
+                                dinner table with family, or enjoying the bounty of social and physical 	experiences that food provides. The Kookr 
+                                application allows the user to add and organize recipes, plan meals, and create custom shopping lists. By creating a simplified,
+                                stress-free user experience we help our users make the most out of their day, and bring focus back to mealtimes.</p>
+                            <div className='get-started-button' onClick={this.openModal}>Get Started For Free</div>    
+                        </div>
+                    </div>
+                    <div className='how-it-works-section'>
+                        <h2 className='how-it-works-header'>How Does Kookr Work?</h2>
+                        <div className='how-it-works-sub-container'>
+                            <div className='sub-blurb'>
+                                <div className='mini-blurb-header-container'>
+                                    <div className='sub-container'>
+                                        <h4 className = 'mini-blurb-header'>Add Recipes to Your Profile</h4>
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>       
+                                </div>    
+                                <p className = 'mini-blurb-p'>Find your favorite recipes from the internet and add them to your profile. Add meal designations to recipes.
+                                </p>
+                            </div>
+                            <div className='sub-blurb'>
+                                <div className='mini-blurb-header-container'>
+                                    <div className='sub-container'> 
+                                        <h4 className = 'mini-blurb-header'>Assign Recipes to Your Calendar</h4>
+                                        <i class="fas fa-calendar-plus"></i>
+                                    </div>    
+                                </div>    
+                                <p className = 'mini-blurb-p'>Search through your recipes by meal or keyword, and add them to your custom calendar.
+                                </p>
+                            </div>
+                            <div className='sub-blurb'>
+                                <div className='mini-blurb-header-container'>
+                                    <div className='sub-container'>
+                                        <h4 className = 'mini-blurb-header'>Create a Shopping List </h4>
+                                        <i class="fas fa-list-ul"></i>
+                                    </div>    
+                                </div>    
+                                <p className = 'mini-blurb-p'>Select date ranges and populate a shopping list for all of your scheduled meals.
+                                </p>
+                            </div>
+                        </div>    
                     </div>
                 </div>
-            <div className="landing-page-modal">
-                    <Route exact path = '/' render = {(props) => <RegisterModal show={this.state.show} closeHandle={this.closeModal} {...props} idClickHandler = {this.idClickHandler}/>}/>
-            </div>     
+                <div className="landing-page-modal">
+                    <div className={`modal display-${this.state.show ? "block" : "none"}`} >
+                        <div className="modal-main">
+                            <div className='x-box'> 
+                                <div onClick ={this.closeModal} className='close-registration-x'>x</div>
+                            </div>       
+                            <form className='register-form' onSubmit={this.submitHandler}>
+                                <div className = 'google-facebook-container'>
+                                    <h3 className='login-header'>Login with Google or Facebook</h3>
+                                    <GoogleLogin
+                                        clientId="682401182106-dj5u5r18qhs0hu730pkl7brs330gkt3l.apps.googleusercontent.com"
+                                        buttonText="Login"
+                                        onSuccess={this.responseGoogleSuccess}
+                                        onFailure={this.responseGoogleFailure}
+                                        className='google-login'
+                                    />
+                                    <div className='facebook-login'>I am a facebook button</div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>     
         </div>
         )
     }

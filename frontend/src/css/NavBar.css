@@ -3,31 +3,61 @@
     
 }
 .nav-container{
+    background-image:url('https://images.fabric.com/images/693/693/0473337.jpg');
+    height:140vh;
+    padding:25px 8%;
+    /* border-right:15px solid rgb(52, 98, 112); */
+}
+.nav-overlay{
+    /* background-color:rgba(93, 157, 177, 0.459); */
+    background-color:white;
+    border-radius:3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     display:flex;
     flex-direction:column;
-    padding:20px 10%;
+    padding:40px 10%;
+  
 }
 .nav-link-container{
     display:flex;
     flex-direction:column;
     justify-content:space-around;
-    height:500px;
+    height:400px;
     margin-top:10px;
+    
 }
 .nav-link{
     cursor: pointer;
     text-decoration:none;
-    border-bottom:2px solid rgb(199, 203, 204);
+    border-bottom:2px solid rgba(135, 185, 197, 0.219);
     text-transform: uppercase;
-    font-weight:bold;
+    /* font-weight:bold; */
     color:black;
-    padding-left:5%;
-    padding-bottom:20px;
+    /* color:rgb(54, 103, 117); */
+    padding-bottom:15px;
+    font-size:26px;
+    text-align:center;
+    
+
+
+
+/* font-family: 'Barlow Condensed', sans-serif; */
+
+
+font-family: 'Barlow Semi Condensed', sans-serif;
+
+
+
+
+/* font-family: 'Pompiere', cursive; */
+
+
 }
 .nav-bar-logo{
     color:rgb(87, 144, 161);
     font-size:34px;
     font-weight:bolder;
-    border-bottom:2px solid rgb(199, 203, 204);
+    border-bottom:2px solid rgba(135, 185, 197, 0.322);
     padding-bottom:40px;
+    text-align:center;
 }

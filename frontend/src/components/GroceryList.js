@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getCalendarItem } from '../actions/CalendarActions';
 
 import NavBar from './NavBar';
 import '../css/GroceryList.css';
@@ -66,14 +68,24 @@ class GroceryList extends Component{
     }
 } 
 
-
+const mapDispatchToProps = (dispatch) => bindActionCreators({getCalendarItem},dispatch)
 
 
 const mapStateToProps = state => {
+    //use this.props to call these
     return {
-        user: state.UserReducer.user
+        user: state.UserReducer.user,
+        recipes: state.RecipeReducer.recipes,
+        directions: state.DirectionsReducer.directions,
+        recipeingredients: state.RecipeIngredientsReducer.recipeingredients,
+        ingredients: state.IngredientsReducer.ingredients,
+        tags: state.TagsReducer.tags,
+        calendar: state.CalendarReducer.calendar
     }
 }
 
 
-export default connect(mapStateToProps)(GroceryList)
+
+export default connect(mapStateToProps, mapDispatchToProps)(GroceryList)
+
+

@@ -1,88 +1,275 @@
 .Landing-Page{
-    background-image: url('https://images.pexels.com/photos/988865/pexels-photo-988865.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=800');
-    width: 100%;
-    height: 1000px;
-    background-image: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=700&w=800');
+   width: 100%;
+   background-color: rgba(220, 208, 206, 0.281); 
+   height:1300px; 
+}
+.landing-page-background{
+    background-image: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=600&w=700');
+    border-radius:5px;
+    height:800px;
+    width:80%;
+    margin:0 auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .landing-page-nav-bar{
-    width:100%;
-    background-color:rgba(255, 255, 255, 0.87);
+    width:80%;
+    background-color:rgba(255, 255, 255, 0.938);
+    position:absolute;
+    top:0;
     display:flex;
     justify-content: space-between;
-    height:140px;
+    height:110px;
+    margin-left:10%;
 }
-
+.social-media-container{
+    width:15%;
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+    margin-left:10px; 
+}
+.fab{
+    color:rgb(255, 255, 255);
+    font-size:22px;
+    height:30px;
+    width:30px;
+    background-color:rgb(98, 139, 151);
+    border-radius:100%;
+    padding-top:10px;
+    padding-left:10px;
+   
+}
 .logo-container{
     width:600px;
-    display:flex;
-    padding-left:5%;
-
-    
 }
-
 .landing-header{
-    font-size:144px;
+    font-size:80px;
     margin-left:2%;
     font-weight:400;
     letter-spacing:-3px;
     margin-top:0px;
     font-family: 'PT Sans', sans-serif;
-    color:rgb(87, 144, 161);
-    
+    font-family: 'Cabin Sketch', cursive;
+    color:rgb(98, 139, 151);
 }
 .landing-page-nav-buttons{
-
   width:18%;
   margin-right:2%;
+  margin-top:-88px;
   color:black;
-  font-size:20px;
+  font-size:18px;
   display:flex;
   flex-direction:column;
   justify-content: space-around;
   text-align:right;
-  font-family: 'PT Sans', sans-serif;
-  
+  font-family: 'PT Sans', sans-serif; 
 }
 .login-button, .registration-button{
     cursor:pointer;
-    margin-bottom:0px;
-    
+    margin-bottom:0px;   
 }
 .landing-blurb-container{
-    width:60%;
-    margin: 200px auto;
-    text-align:center;
+    width:50%;
+    margin: 0px auto;
+    margin-top:-600px;
+    background-image: url('https://images.fabric.com/images/693/693/0473337.jpg');
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius:5px;
+    height:460px;
+    padding-top:40px;
+}
+.landing-blurb-sub-container{
+    width:90%;
+    height:420px;
     display:flex;
     flex-direction:column;
     justify-content:space-around;
-    background-color:rgba(255, 255, 255, 0.87);
-    border-radius:5px;
+    background-color:rgba(255, 255, 255, 0.945);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    text-align:center;
+    margin:0px auto;
 }
 .landing-blurb-header{
-    color:rgb(87, 144, 161);
-    font-size:54px;
+    color:rgb(98, 139, 151);
+    font-size:44px;
     margin:20px auto;
-    font-family: 'PT Sans', sans-serif;
+    /* font-family: 'PT Sans', sans-serif; */
+    font-family: 'Cabin Sketch', cursive;
     letter-spacing:-1px;
     width:80%;
-    border-bottom: 5px solid rgb(87, 144, 161)
+    border-bottom: 4px solid rgb(98, 139, 151);
  }
 .landing-page-blurb{
     padding:0px 10%;
-    /* font-family: 'PT Sans', sans-serif; */
-    font-size:20px;
+    font-size:18px;
     font-weight:200;
-    font-family: 'Source Sans Pro', sans-serif;
-    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Barlow Semi Condensed', sans-serif;
 }
 .get-started-button{
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Barlow Semi Condensed', sans-serif;
     font-size:24px;
     color:white;
-    width:50%;
+    width:40%;
     margin:40px auto;
-    background-color:rgb(87, 144, 161);
-    height:50px;
+    background-color:rgb(98, 139, 151);
+    padding-bottom:15px;
     padding-top:15px;
     border-radius:5px;
+    cursor:pointer;
 }
+.how-it-works-section{
+    width:80%;
+    margin:0 auto;
+    margin-top:100px;
+    padding-top:60px;
+    display:flex;
+    flex-direction:column;
+    font-size:42px;
+  
+}
+.how-it-works-header{
+   
+    text-align: center;
+   margin-top:-20px;
+    margin-bottom:48px;
+    font-size:72px;
+    letter-spacing:1px;
+    font-family: 'Cabin Sketch', cursive;
+    color: rgb(80, 132, 150);
+ 
+}
+.how-it-works-sub-container{
+    display:flex;
+    justify-content: space-between;
+    
+}
+.sub-blurb{
+    width:30%;
+    background-color:white;
+    border-radius:5px;
+    display:flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.mini-blurb-header-container{
+    /* background-color:rgb(80, 132, 150); */
+    background-image:url('https://images.fabric.com/images/693/693/0473337.jpg');
+    border-radius: 5px 5px 0px 0px;
+    width:100%;
+    height:90px;
+   margin:0px auto;
+}
+.sub-container{
+     color:white;
+    display:flex;
+    justify-content:space-around;
+}
+
+.fas{
+    font-size:28px;
+    padding-top:25px;
+    width:15%;
+    color:white;
+}
+.mini-blurb-header{
+    font-size:22px;
+   text-align:center;
+  margin-top:25px;
+  width:75%;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  text-transform:uppercase;
+  
+}
+.mini-blurb-p{
+    font-size:20px;
+    font-weight:200;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    padding:15px 10%;
+}
+
+
+/*Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(14, 21, 24, 0.87);
+}
+
+.modal-main {
+    position:fixed;
+    background: white;
+    padding-top:15px;
+    margin-top:10px;
+    width: 40%;
+    height: 360px;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    display:flex;
+    flex-direction:column;
+    border-radius:5px;
+    border:5px solid rgb(52, 98, 112);
+}
+
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+.login-header{
+    width:75%;
+    text-align:center;
+    margin:0px auto;
+    margin-top:30px;
+    font-size:28px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    text-transform:uppercase;
+}
+.x-box{
+    background-color:rgb(80, 132, 150);
+    width:8%;
+    height:28px;
+    margin-left:88%;
+    text-align:center;
+    color:white;
+    font-weight:bolder;
+    font-size:20px;
+    border-radius: 5px;
+    padding-top:4px;
+}
+.close-registration-x{
+    cursor:pointer;
+}
+.google-facebook-container{
+    margin: 0px auto;
+    width:100%;
+    
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;   
+}
+.google-login{
+   width:50%;
+   border-radius:5px;
+   margin-left:25%;
+   text-align:center;
+   margin-top:50px;
+   
+}
+.facebook-login{
+    width:50%;
+    border-radius:3px;
+    margin-left:25%;
+    text-align:center;
+    color:white;
+    background-color:rgb(26, 41, 105);
+    margin-top:40px;
+    height: 50px;
+}
+
