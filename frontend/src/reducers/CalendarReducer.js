@@ -27,7 +27,12 @@ const CalendarReducer = ((state = initialState, action) => {
         case GET_CALENDAR_ITEM:
            console.log(action)
            console.log(state)
-            state = Object.assign({}, state, {calendar: state.calendar.filter(item => action.payload.recipe_id === item.recipe_id)} )
+           let i 
+        for(i = 0; i <= state.length + 1; i++ ){
+            if(action.payload.recipe_id === state.calendar[i].recipe_id) {
+                state = [state.calendar[i]]
+            }
+        } 
             console.log(state)
            return state
             

@@ -34,7 +34,7 @@ componentDidMount()
     {
 
         let sendingObject = {
-            recipe_id: 2
+            recipe_id: this.props.match.params.id 
         }
     //get the calendarItem for the selected object
     this.props.getCalendarItem(sendingObject)
@@ -45,7 +45,7 @@ componentDidMount()
     // get the word for that tag from the tag reducer and sets that tag as state.
     this.props.getTags(tagObject)
 
-    
+
    
     console.log(this.props.calendar[0].tag_id)
    
