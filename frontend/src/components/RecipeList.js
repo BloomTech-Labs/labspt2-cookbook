@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import IndividualRecipe from "./IndividualRecipe"
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
-import  {getUser} from '../actions/UserActions'
+import  {getUser} from '../actions/UserActions';
+import {addRecipe, addRecipeSuccess, getSelectedRecipe, getRecipes} from '../actions/RecipeActions';
 import NavBar from "./NavBar";
 
 import { Button ,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Modal, ModalHeader, Form, FormGroup, Label, Input, legend, FormText } from 'reactstrap';
@@ -16,36 +17,39 @@ import {Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle} from 'reacts
 
 class RecipeList extends Component{
 
-    componentDidMount() {
-        //this.props.getUser(user)
-        //should only be one user
-       // let id = this.props.user[0].user_id
-        let id = 3
-         axios.get(`https://kookr.herokuapp.com/api/recipes/${id}`, (req, res) => {
-             console.log(res)
-        //     //gets all recipes for a particular user
-        })
-        let user = {
-            id: 0
-        }
-       
-        
-    }
 
     constructor(props) {
         super(props)
         
         this.state = {
             modal: false,
-            modal2: false
+            modal2: false,
+            recipes: []
            
         }
         this.toggle = this.toggle.bind(this);
         this.toggle2 = this.toggle2.bind(this);
-
+       
      
     }
 
+
+    // constructor(props) {
+    //     super(props)
+    //     this.state = {
+    //         recipes: []
+    //     } 
+    // }
+
+    componentDidMount() {
+        let id = 1
+        let addedRecipe = {
+            recipe_id: 1
+        }
+        this.props.getRecipes(id)
+}
+
+   
     toggle() {
         this.setState(prevState => ({
             modal: !prevState.modal
@@ -132,6 +136,7 @@ class RecipeList extends Component{
                         <Form style={{padding:'10px'}} >
                             <FormGroup>
                                <FormText>Please enter a new date in format MMDDYYYY with no spaces or slashes and select one new meal type then hit save</FormText>
+                               <Input type="datetime" name="datetime" placeholder="MMDDYYYY" />
                                <FormGroup  style={{ display: 'flex', flexDirection: 'row'}} >
                                <div  style={{width: '20px', height: '20px', paddingTop: '10px', paddingLeft: '10px'}} >
                                    <Input style={{margin: 'auto'}} type="checkbox" />{"   "}
@@ -162,10 +167,10 @@ class RecipeList extends Component{
     }
 } 
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({getUser}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({getRecipes, getUser, addRecipe, addRecipeSuccess, getSelectedRecipe}, dispatch)
 
 const mapStateToProps = state => {
-    
+    console.log(state)
     return {
         user: state.UserReducer.user,
         recipes: state.RecipeReducer.recipes
