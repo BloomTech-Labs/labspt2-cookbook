@@ -19,7 +19,9 @@ class Settings extends Component {
         }
     }    
 componentDidMount(){
-    this.getUserToShowChrisThatWeCan();
+    //this.getUserToShowChrisThatWeCan();
+    //console.log(localStorage.getItem(userId))
+    
     console.log(this.state);
 }
 
@@ -29,7 +31,7 @@ getUserToShowChrisThatWeCan = async() =>{
             .then(res =>{
                 console.log(res)
                 this.setState({
-                    userId : res.data.user_id,
+                    exampleUserId : res.data.user_id,
                     billingDate : res.data.billing_date,
                     email : res.data.email,
                     accountType : res.data.type
@@ -92,11 +94,11 @@ getUserToShowChrisThatWeCan = async() =>{
                         </StripeProvider>
                     </div>
                 </div>
-                <div className = 'display-for-chris'>
+                {/* <div className = 'display-for-chris'>
                     <div>{this.state.userId}</div>
                     <div>{this.state.email}</div>
                     <div>{this.state.billingDate}</div>
-                </div>
+                </div> */}
             </div>
         );
     }

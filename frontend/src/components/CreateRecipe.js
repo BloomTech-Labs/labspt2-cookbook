@@ -40,6 +40,7 @@ class CreateRecipe extends React.Component{
 //iFrame handled w front end
 
  componentDidMount(){
+     console.log("from local storage", localStorage.getItem('userId'));
     const userId = localStorage.getItem('userId');
     this.setState({
          userId : userId
