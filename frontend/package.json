@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-    "bootstrap": "^4.3.1",
     "jquery": "^1.12.4",
     "logger": "0.0.1",
     "moment": "^2.24.0",
@@ -15,7 +14,6 @@
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
-    "reactstrap": "^7.1.0",
     "react-stripe-checkout": "^2.6.3",
     "react-stripe-elements": "^2.0.3",
     "redux": "^4.0.1",
