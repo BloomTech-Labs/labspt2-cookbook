@@ -75,7 +75,7 @@
     background-image: url('https://images.fabric.com/images/693/693/0473337.jpg');
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius:5px;
-    height:460px;
+    height:470px;
     padding-top:40px;
 }
 .landing-blurb-sub-container{
@@ -89,6 +89,7 @@
     border-radius: 5px;
     text-align:center;
     margin:0px auto;
+    border:3px solid rgb(52, 98, 112);
 }
 .landing-blurb-header{
     color:rgb(98, 139, 151);
@@ -98,7 +99,7 @@
     font-family: 'Cabin Sketch', cursive;
     letter-spacing:-1px;
     width:80%;
-    border-bottom: 4px solid rgb(98, 139, 151);
+    border-bottom: 3px solid rgb(98, 139, 151);
  }
 .landing-page-blurb{
     padding:0px 10%;
@@ -136,7 +137,7 @@
     font-size:72px;
     letter-spacing:1px;
     font-family: 'Cabin Sketch', cursive;
-    color: rgb(80, 132, 150);
+    color: rgb(98, 139, 151);
  
 }
 .how-it-works-sub-container{
@@ -203,7 +204,7 @@
     position:fixed;
     background: white;
     padding-top:15px;
-    margin-top:10px;
+    margin-top:15px;
     width: 40%;
     height: 360px;
     top:50%;

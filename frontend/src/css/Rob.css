@@ -1,0 +1,92 @@
+.Recipe-List-Page{
+    width:100%;
+    display:flex;
+}
+
+.recipe-list-container{
+    width:80%;
+    display:flex;
+    flex-direction:column;
+    background-color: rgba(233, 221, 219, 0.164); 
+}
+.recipe-list-sub-container{
+    width:85%;
+    margin:0px auto;
+}
+.recipe-list-intro-container{
+    display:flex;
+    justify-content:space-around;
+}   
+.recipe-list-header{
+    width:65%;
+    font-size:72px;
+    margin-top:35px;
+    font-weight:bolder;
+    color: rgb(98, 139, 151);
+    margin-bottom:40px;
+    font-family: 'Cabin Sketch', cursive;
+    padding-left:10%;
+}
+.recipe-list-p{
+    width:30%;
+    margin-top:20px;
+    font-size:20px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:normal;
+    text-align:center;
+    padding:10px 2%;
+    padding-top:15px;
+    margin-bottom:40px;
+}
+.create-recipe-link{
+    width:15%;
+    background-color:rgb(98, 139, 151);
+    border-radius:2px;
+    text-decoration:none;
+    color:white;
+}
+
+.recipe-list-search-section{
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    margin:0px auto;
+    margin-bottom:20px;
+}
+.filter-button{
+    cursor:pointer;
+}
+.filter-modal-open{
+    position:absolute;
+    width:30%;
+    margin:0px auto;
+    height:200px;
+    border:1px solid red;
+}
+.filter-modal-closed{
+    display:none;
+}
+.recipe-list{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    width:100%;
+    border:1px solid green;
+}
+.recipe-card{
+    width:30%;
+    border:1px solid orange;
+}
+.recipe-edit-modal-open{
+    position: absolute;
+    width:30%;
+    margin:0px auto;
+    height:200px;
+    border:1px solid red;
+}
+.recipe-edit-modal-closed{
+    display:none;
+}
+.recipe-card-edit-button{
+    cursor:pointer;
+}
