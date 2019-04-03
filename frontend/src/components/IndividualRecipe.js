@@ -25,13 +25,13 @@ componentDidMount()
 
     
 
-//take recipe ID and get from the server.
-//commented out to prevent cors errors
-    // axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`, (req, res) => {
+// take recipe ID and get from the server.
+// commented out to prevent cors errors
+//     axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`, (req, res) => {
         
     
     
-    //console.log(res)
+//     console.log(res)
 //     //let value = req.body
 //      console.log(sendingObject)
 // // need to pull out directions
@@ -48,7 +48,7 @@ componentDidMount()
 // // we need to have a default value for the Calendar information
     
 // // need to construct the object that gets passed to the body
-  // })
+//   })
 }
 
     render(){
