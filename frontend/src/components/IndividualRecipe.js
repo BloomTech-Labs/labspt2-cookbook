@@ -5,7 +5,7 @@ import { GET_DIRECTIONS, getDirections } from '../actions/DirectionsActions';
 import { getIngredients } from '../actions/IngredientsActions';
 import { getSelectedRecipe } from '../actions/RecipeActions';
 import {bindActionCreators} from 'redux';
-import {Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle} from 'reactstrap';
+
 
 
 class IndividualRecipe extends Component{
@@ -54,10 +54,7 @@ componentDidMount()
     render(){
         return (
             <div className="individualRecipePage">
-                <Card>
-                    <CardTitle>title</CardTitle>
-                    <CardText>text some card text some card text</CardText>
-                </Card>
+               
 
                 <div className="individualRecipeHeader" >
                     <h1>Title</h1>

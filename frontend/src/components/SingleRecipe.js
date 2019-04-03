@@ -55,8 +55,9 @@ componentDidMount()
 
     }
 
- axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`).then(res => {
-    this.setState({name: res.data.name, 
+axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`).then(res => {
+    this.setState({
+        name: res.data.name, 
         link: res.data.link, 
         cook_time: res.data.cook_time, 
         image: res.data.image, 
