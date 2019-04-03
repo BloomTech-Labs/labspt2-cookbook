@@ -1,46 +1,41 @@
 import React, {Component} from 'react';
-import StripeCheckout from 'react-stripe-checkout';
+import {CardElement, injectStripe} from 'react-stripe-elements';
 import axios from 'axios';
 
 class CheckoutForm extends Component {
     constructor(props){
         super(props)
-        this.state={  
-            publishableKey : "pk_test_FnFtpYb3dVyUAFLHmDnjgP8g00XZuu408f"
-        }
+        this.submit = this.submit.bind(this);
+        
     }
     
-    onToken = token => {
-        const body = {
-        amount: 1000,
-        token: token
-    };
-    axios
-        .post("https://kookr.herokuapp.com/api/charge/", body)
+    
+    async submit(e) {
+        e.preventDefault();
+        let {token} = await this.props.stripe.createToken({name: "Name"});
+        console.log(token.id)
+        
+        await axios
+        .post("http://localhost:1234/api/charge/", token)
         .then(response => {
             console.log(response);
             alert("Payment Success");
         })
-        .catch(error => {
-            console.log("Payment Error: ", error);
+        .catch(err => {
+            console.log("Payment Error: ", err);
             alert("Payment Error");
         });
     };
     render(){
         return (
-            <StripeCheckout
-            label="Go Premium" //Component button text
-            name="Kookr" //Modal Header
-            description="Upgrade to a premium account today."
-            panelLabel="Go Premium" //Submit button in modal
-            amount={1000} //Amount in cents $9.99
-            token={this.onToken}
-            stripeKey={this.state.publishableKey}
-            billingAddress={false}
-            />
+            <div className="checkout">
+                <p>Would you like to complete the purchase?</p>
+                <CardElement />
+                <button onClick={this.submit}>Send</button>
+            </div>
         );
     }
 };
 
 
-export default CheckoutForm;
+export default injectStripe(CheckoutForm);

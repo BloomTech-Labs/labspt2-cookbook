@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import  '../css/Settings.css';
 import  '../css/Billing.css';
 import CheckoutForm from './Stripe';
+import {Elements, StripeProvider} from 'react-stripe-elements';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -32,7 +33,7 @@ getUserToShowChrisThatWeCan = async() =>{
                     billingDate : res.data.billing_date,
                     email : res.data.email,
                     accountType : res.data.type
-                 })
+                })
             })
             .catch(err =>{
                 console.log('This did not work out well', err)
@@ -81,10 +82,14 @@ getUserToShowChrisThatWeCan = async() =>{
 
                     <div className="billing-main">
                         <div>SUBSCRIPTION</div>
-                        <div className="billing-form-container">
-                            <h1>Premium Subscription</h1>
-                            <CheckoutForm />
-                        </div>
+                        <StripeProvider apiKey="pk_test_FnFtpYb3dVyUAFLHmDnjgP8g00XZuu408f">
+                            <div className="billing-form-container">
+                                <h1>Premium Subscription</h1>
+                                <Elements>
+                                    <CheckoutForm />
+                                </Elements>
+                            </div>
+                        </StripeProvider>
                     </div>
                 </div>
                 <div className = 'display-for-chris'>

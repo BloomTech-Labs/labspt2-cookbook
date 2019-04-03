@@ -38,7 +38,7 @@ export const updateTag = (tag) => (dispatch) => {
 
 }
 export const getTags = (tag) => (dispatch) => {
-
+    console.log(tag)
     dispatch({
         type: GET_TAGS,
         payload: {tag, tag_id: tag.tag_id}

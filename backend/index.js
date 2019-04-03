@@ -5,7 +5,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 // Route requires:
 const userRouter = require('./routes/userRouter');
@@ -34,9 +34,10 @@ server.use(
   morgan('dev'),
   helmet(),
   cors(corsOptions),
-  bodyParser.text()
-
+  bodyParser.text(),
 );
+
+//server.use(require("body-parser").text());
 
 
 /* ---------- Routes ---------- */
