@@ -40,12 +40,13 @@ class RecipeList extends Component{
     //         recipes: []
     //     } 
     // }
-
+   
     componentDidMount() {
         let id = 1
         let addedRecipe = {
             recipe_id: 1
         }
+        
         this.props.getRecipes(id)
 }
 

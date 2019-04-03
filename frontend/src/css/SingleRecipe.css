@@ -1,0 +1,126 @@
+
+
+.windowContainer {
+    display: flex
+}
+
+
+
+.recipeWrapper {
+    display: flex;
+    padding-top: 150px;
+}
+
+.firstColumn {
+    flex-direction: column;
+    padding: 10px
+}
+
+.recipeNameTitle {
+    float: left;
+    padding-left: 30px;
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.firstRow {
+    display: flex;
+    flex-direction: row;
+    width: 400px;
+    justify-content: space-between;
+}
+
+.secondRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.recipeImage {
+    width: auto;
+    max-width: 300px;
+    height: auto;
+    max-height: 300px;
+}
+
+.RecipeCalendarInfo {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    padding: 10px;
+
+}
+.borderClass {
+    border-style: solid;
+    border-width: 3px; 
+    border-color: rgb(199,203,204);
+    width: 90px;
+}
+.thisRecipeTag{
+    width: 40px;
+    margin-top: 30px;
+    padding: 4px;
+}
+.thisRecipeDate{
+    padding: 4px;
+}
+.recipeInfo{
+    display: flex;
+    flex-direction: column;
+}
+.recipeInfo2{
+    display: flex;
+    border-style: solid;
+    border-width: 3px;
+    border-color: rgb(199,203,204);
+}
+.recInfo {
+    padding: 5px;
+}
+.recipeInfoTitle {
+    float: left;
+    padding-left: 30px;
+    font-size: 1.25em;
+    font-weight: bold;
+}
+.ingInfo{
+    display: flex;
+    flex-direction: column;
+}
+.ingInfo2{
+    display: flex;
+    border-style: solid;
+    border-width: 3px;
+    border-color: rgb(199,203,204);
+    flex-direction: column;
+}
+.ingInfoTitle {
+    float: left;
+    padding-left: 30px;
+    font-size: 1.25em;
+    font-weight: bold;
+}
+.ingredient{
+    padding: 5px;
+}
+
+.direcInfo{
+    display: flex;
+    flex-direction: column;
+}
+.direcInfoTitle {
+    float: left;
+    padding-left: 30px;
+    font-size: 1.25em;
+    font-weight: bold;
+}
+.direcInfo2{
+    display: flex;
+    border-style: solid;
+    border-width: 3px;
+    border-color: rgb(199,203,204);
+    flex-direction: column;
+}
+.directions{
+    padding: 5px;
+}

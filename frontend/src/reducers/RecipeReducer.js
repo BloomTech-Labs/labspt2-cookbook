@@ -14,7 +14,8 @@ const initialState = {
 //     servings: 0,
 //     isSelected: false
 // }
-   ]
+   ],
+   selectedRecipe: null
 }
 
 // not complete
@@ -32,7 +33,7 @@ const RecipeReducer = ((state = initialState, action) => {
         case GET_RECIPES:
                 console.log(action.payload)
                 return {
-                    recipes: [ ...state.recipes, ...action.payload.recipes]
+                    recipes: [ ...action.payload.recipes]
                 }
                 
         case DELETE_RECIPE:
@@ -50,7 +51,8 @@ const RecipeReducer = ((state = initialState, action) => {
         case GET_SELECTED_RECIPE: 
             console.log(action.payload)
             //state = Object.assign({}, state, {recipes: state.recipes.filter(item => item.recipe_id === action.payload.recipe_id)})
-            return state;
+            return {...state, selectedRecipe: action.payload}
+            //change
 
         case ADD_RECIPE_SUCCESS:
         console.log(state.recipes)

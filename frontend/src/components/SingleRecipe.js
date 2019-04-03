@@ -8,12 +8,14 @@ import { getCalendarItem } from '../actions/CalendarActions';
 import { getTags } from '../actions/TagsActions';
 import {bindActionCreators} from 'redux';
 import NavBar from "./NavBar";
+import '../css/SingleRecipe.css';
+
 
 class SingleRecipe extends Component{
 
     constructor(props) {
         super(props)
-
+        
         this.state = { 
             name: '',
             link: '',
@@ -25,15 +27,30 @@ class SingleRecipe extends Component{
             directions: [],
             ingredients: []
         }
-    }
+    } 
 
 componentDidMount()
    // this.props.recipes.filter(item => item.isSelected ===)
     {
-    let sendingObject = {
-        recipe_id: 1
+
+        let sendingObject = {
+            recipe_id: this.props.match.params.id 
+        }
+    //get the calendarItem for the selected object
+    this.props.getCalendarItem(sendingObject)
+    //assigns the newly created calendar state and pulls the tag id for that scheduled item
+    let tagObject = {
+        tag_id: this.props.calendar[0].tag_id
     }
+    // get the word for that tag from the tag reducer and sets that tag as state.
+    this.props.getTags(tagObject)
+
+
+   
+    console.log(this.props.calendar[0].tag_id)
+   
     
+
     let receivedObject = {
 
     }
@@ -51,40 +68,65 @@ componentDidMount()
     })
     console.log(res)
     
-}) 
-
+})
 }
-
     render(){
         return (
-            <div> 
+            <div className="windowContainer"> 
             <NavBar />
-         
-            <div>
-                <div>{this.state.name}</div>
-                <div> {this.state.link}</div>
-            </div>
-            <div>
+    <div>
+            <div className="recipeWrapper">
+            <div className="firstColumn" >
+                <div className='firstRow' >
+                    <div className="recipeNameTitle">{this.state.name}</div>
+                    <button href={`${this.state.link}`}>LINK</button>
+                </div>
+                <div className="secondRow" >
+                    <div><img className="recipeImage" src={this.state.image} /></div>
+                    <div className="RecipeCalendarInfo">
+                        <div className="borderClass">
+                        <div className="thisRecipeTag">{this.props.tags[0].tag}</div>
+                        <div className="thisRecipeDate" >{this.props.calendar[0].calendarDate}</div>
+                        </div>
+                    </div>
+                </div>
                 <div>
+                    <div className="recipeInfo">
+                    <div className="recipeInfoTitle"> -Info</div>
+                        <div className="recipeInfo2">
+                    <div className="recInfo">
                     <div>Prep Time</div>
                     <div>{this.state.prep_time}</div>
-                </div>
-                <div>
+                    </div>
+                    <div className="recInfo">
                     <div>Cook Time</div>
                     <div>{this.state.cook_time}</div>
-                </div>
-                <div>
+                    </div>
+                    <div className="recInfo">
                     <div>Servings</div>
                     <div>{this.state.servings}</div>
+                    </div>
+                    </div>
+                    </div>
+                    <div className="ingInfo">
+                        <div className="ingInfoTitle">-Ingredients</div>
+                    <div className="ingInfo2">
+                        {this.state.ingredients.map(item => <div className="ingredient" key={item.id} > {item.amount} {item.measurement} {item.name}</div>)}
+                    </div>
+                    </div>
                 </div>
-
-                {this.state.ingredients.map(item => <div key={item.id} > {item.amount} {item.measurement} {item.name}</div>)}
-                {this.state.directions.map(item => <div key={item.order}>{item.directions}</div>)}
-            </div>
-          
-
-
-            )}
+           </div>
+                        <div className="direcInfo">
+                            
+                        <div className="direcInfoTitle" >-Directions</div>
+                        <div className="direcInfo2">
+                        {this.state.directions.map(item => <div className="directions" key={item.order}>- {item.directions}</div>)}
+                        </div>
+                        </div>
+</div>
+            
+            
+    </div>
             </div>         
         )
     }
