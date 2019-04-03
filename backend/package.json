@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "test": "jest --watch --verbose"
   },
   "repository": "https://github.com/Lambda-School-Labs/labspt2-cookbook.git",
   "author": "The Kookr Team",
@@ -21,12 +22,18 @@
     "morgan": "^1.9.1",
     "node": "11.6.0",
     "npm": "6.5.0",
+    "numeric-quantity": "^0.3.2",
     "pg": "^7.8.2",
+    "request-promise": "^4.2.4",
     "stripe": "^6.28.0"
-    "request-promise": "^4.2.4"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "devDependencies": {
+    "jest": "^24.6.0",
     "nodemon": "^1.18.10",
-    "sqlite3": "^4.0.6"
+    "sqlite3": "^4.0.6",
+    "supertest": "^4.0.2"
   }
 }
