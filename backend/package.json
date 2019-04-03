@@ -22,7 +22,7 @@
     "node": "11.6.0",
     "npm": "6.5.0",
     "pg": "^7.8.2",
-    "stripe": "^6.28.0"
+    "stripe": "^6.28.0",
     "request-promise": "^4.2.4"
   },
   "devDependencies": {
