@@ -38,12 +38,13 @@
     padding-top:15px;
 }
 .calendar-and-duplicate{
+    margin-left:-5%;
+    margin-top:20px;
     display:flex;
     justify-content:space-between;
 }
 .calendar-housing{
     width:68%;
-    height:300px;
     margin:0px auto;
     margin-bottom:10px;
     border-radius:3px;
@@ -55,16 +56,21 @@
     width:20%;
     background-color:white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-    height:220px;
     border-radius:2px;
     display:flex;
     flex-direction:column;
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-weight:normal;
-    font-size:20px;
-    padding:20px 2%;
+    font-size:18px;
+    padding:10px 2%;
     text-align:center;
 }
+
+.check-box-p{
+    padding-top:10px;
+    margin-bottom:0px;
+}
+
 /* input[type=checkbox] {
     visibility: hidden;
 } */
@@ -99,25 +105,23 @@
     font-size:12px;
 }
 .calendar-recipe-section{
-    width:90%;
+    width:100%;
     margin:0px auto;
-    
+    margin-top:40px;
 }
 .recipe-search-section{
-    
     display:flex;
-    flex-direction:column;
-    
+    justify-content:space-between;
+    width:100%;
 }
 .recipe-search{
     display:flex;
-    justify-content:space-between;
-    width:90%;
+    flex-direction:column;
+    width:40%;
    
 }
 .recipe-search-input{
     height:30px;
-    width:65%;
     margin-top:15px;
 }
 .calendar-recipe-list{

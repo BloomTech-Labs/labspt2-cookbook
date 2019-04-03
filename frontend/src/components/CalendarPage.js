@@ -130,9 +130,9 @@ class CalendarPage extends Component{
                                 <div className='servings-and-duplicate-container'>
                                     <p>How many servings?</p>
                                     <input className = 'servings-input'type="number" min="1" />
-                                    <p>Check box to duplicate previous week from selected date</p>
-                                    <input type="checkbox" id='check-box' name =''/>
-                                    <label for="check-box"></label>
+                                    <p className='check-box-p'>Duplicate previous week's shopping list</p>
+                                    <input type="checkbox" id='check-box' className ='check-box'/>
+                                   
                                 </div>    
                             </div>
                         </div>
