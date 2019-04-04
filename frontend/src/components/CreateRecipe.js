@@ -30,6 +30,7 @@ class CreateRecipe extends React.Component{
       }
   }
  componentDidMount(){
+     console.log("from local storage", localStorage.getItem('userId'));
     const userId = localStorage.getItem('userId');
     this.setState({
          userId : userId
