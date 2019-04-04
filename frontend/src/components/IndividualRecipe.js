@@ -5,7 +5,7 @@ import { GET_DIRECTIONS, getDirections } from '../actions/DirectionsActions';
 import { getIngredients } from '../actions/IngredientsActions';
 import { getSelectedRecipe } from '../actions/RecipeActions';
 import {bindActionCreators} from 'redux';
-import {Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle} from 'reactstrap';
+
 
 
 class IndividualRecipe extends Component{
@@ -25,13 +25,13 @@ componentDidMount()
 
     
 
-//take recipe ID and get from the server.
-//commented out to prevent cors errors
-    // axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`, (req, res) => {
+// take recipe ID and get from the server.
+// commented out to prevent cors errors
+//     axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`, (req, res) => {
         
     
     
-    //console.log(res)
+//     console.log(res)
 //     //let value = req.body
 //      console.log(sendingObject)
 // // need to pull out directions
@@ -48,16 +48,13 @@ componentDidMount()
 // // we need to have a default value for the Calendar information
     
 // // need to construct the object that gets passed to the body
-  // })
+//   })
 }
 
     render(){
         return (
             <div className="individualRecipePage">
-                <Card>
-                    <CardTitle>title</CardTitle>
-                    <CardText>text some card text some card text</CardText>
-                </Card>
+               
 
                 <div className="individualRecipeHeader" >
                     <h1>Title</h1>

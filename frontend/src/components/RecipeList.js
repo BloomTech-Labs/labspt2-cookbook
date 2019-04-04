@@ -8,11 +8,9 @@ import  {getUser} from '../actions/UserActions';
 import {addRecipe, addRecipeSuccess, getSelectedRecipe, getRecipes} from '../actions/RecipeActions';
 import NavBar from "./NavBar";
 
-import { Button ,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Modal, ModalHeader, Form, FormGroup, Label, Input, legend, FormText } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.css';
 
 import '../css/RecipeList.css';
-import {Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle} from 'reactstrap';
+
 
 
 class RecipeList extends Component{
@@ -21,145 +19,156 @@ class RecipeList extends Component{
     constructor(props) {
         super(props)
         
-        this.state = {
-            modal: false,
-            modal2: false,
-            recipes: []
-           
-        }
-        this.toggle = this.toggle.bind(this);
-        this.toggle2 = this.toggle2.bind(this);
+      
        
-     
+            this.editModalOpen = this.editModalOpen.bind(this);
+
+        this.state = {
+            editModal:false,
+            filterModal:false,
+            dateChange : '',
+            selectedItem: [],
+            recipes : [
+                {
+                    name: 'cheeseburger'
+                },
+                {
+                    name: 'ham and beans'
+                },
+                {
+                    name: 'A potato'
+                },
+            ]
+        }
+
     }
 
 
-    // constructor(props) {
-    //     super(props)
-    //     this.state = {
-    //         recipes: []
-    //     } 
-    // }
-
+   
     componentDidMount() {
         let id = 1
         let addedRecipe = {
             recipe_id: 1
         }
+        
         this.props.getRecipes(id)
 }
 
+filterModalOpen = () =>{
+    this.setState({
+        filterModal:true
+    })
+}
+filterModalClose = () =>{
+    this.setState({
+        filterModal:false
+    })
+} 
+editModalOpen = (item) =>{
+    this.setState({
+        editModal:true,
+        selectedItem: item
+    })
+    
+}
+editModalClose = () =>{
+    this.setState({
+        editModal:false
+    })
+} 
+onChangeDate = (event) =>{
+    this.setState({
+        dateChange : event.target.value
+    })
+}
+
+
    
-    toggle() {
-        this.setState(prevState => ({
-            modal: !prevState.modal
-       
-        }));
-      }
-      
-    toggle2(item) {
-        console.log(item)
-            this.setState({
-                modal2: !this.state.modal2,
-                selectedItem: item
-            });
-            
-    }
-      
+
 
      
 
     render(){
         return (
-             <div className="recipeListPage">
+             <div className="Recipe-List-Page">
              <NavBar />
 
-            <div className="recipeList-container">
-                 <div className="calendar-topBar" >
-                    <div className="newRecipeLink"><Link className="create-tag-p" to="/create">Add Recipe</Link></div>
-                     <div className="search-bar">Search<input className="search-bar" /></div>
-                     <Button color="danger" onClick={this.toggle}>Filter</Button>
-                     <Modal style={{maxWidth: '400px'}}  isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} >
-                         <ModalHeader>Filter by type of Meal</ModalHeader>
-                        <Form style={{padding:'10px'}} >
-                            <FormGroup >
-                               <FormGroup  style={{ display: 'flex', flexDirection: 'row'}} >
-                               <div  style={{width: '20px', height: '20px', paddingTop: '10px', paddingLeft: '10px'}} >
-                                   <Input style={{margin: 'auto'}} type="checkbox" />{"   "}
-                                   </div>
-                                    <Label check style={{padding: '5px'}} >Breakfast</Label>    
-                               </FormGroup>
-                               <FormGroup  style={{ display: 'flex', flexDirection: 'row'}} >
-                               <div  style={{width: '20px', height: '20px', paddingTop: '10px', paddingLeft: '10px'}} >
-                                   <Input style={{margin: 'auto'}} type="checkbox" />{"   "}
-                                   </div>
-                                    <Label check style={{'padding': '5px'}} >Lunch</Label>
-                               </FormGroup>
-                               <FormGroup  style={{ display: 'flex', flexDirection: 'row'}} >
-                               <div  style={{width: '20px', height: '20px', paddingTop: '10px', paddingLeft: '10px'}} >
-                                   <Input style={{margin: 'auto'}} type="checkbox" />{"   "}
-                                   </div>
-                                    <Label check style={{padding: '5px'}} >Dinner</Label>
-                               </FormGroup>
-                               
-                            </FormGroup>
-                            <Button >Submit</Button>
-                        </Form>
-                     </Modal>
-                 </div>
+            <div className="recipe-list-container">
+
+            <div className='recipe-list-intro-container'>
+                            <h1 className='recipe-list-header'>Your Recipes!</h1>
+                            <div className='recipe-list-p'>View and search your collection of recipes, view single recipes and modify for later use by your shopping list.</div>
+            </div>
+            <div className="recipe-list-search-section" >
+                            
+                        
+                            <Link to="/create" className="create-recipe-link">Add Recipe</Link>
+
+                        <div className="search-bar">Search your recipes<input className="search-bar" /></div>
+                        <div onClick={this.filterModalOpen} className='filter-button'>Filter</div>
+                        
+                        <div className= {this.state.filterModal ? 'filter-modal-open' : 'filter-modal-closed'}>
+                            <div onClick={this.filterModalClose}>X</div>
+                            <div className='filter-modal-header'>Filter by my type</div>
+                            <div className='filter-modal-inputs-container'>
+                                <div>Breakfast</div>
+                                <div>Lunch</div>
+                                <div>Dinner</div>
+                                <div>Snack</div>
+                                <div>Dessert</div>
+                            </div>
+                            <div className='filter-modal-submit-button'>Submit</div>
+                        </div> 
+
+                    </div>
+
+                
                  
                  <div className="recipeContent">
 
 
 
                 {this.props.recipes.map((item) => (
-                    <Card key={item.name} style={{margin: '10px'}}>
-                    <Link   to={`/recipes/${item.recipe_id}`} >
+                    <div key={item.name} style={{margin: '10px'}}>
+                    
                         
-                        <div style={{padding: '10px', height: '250px', width: '200px'}}>
-                            <CardTitle>{item.name}</CardTitle>
-                            <CardText>text some card text</CardText>
-                           
+                        <Link to={`/recipes/${item.recipe_id}`} >
+                                    <div className='recipe-card-header'>{item.name}</div>
+                                    <div className='recipe-card-content'>text some card text</div>
+                        </Link>
+                        
+                        <div className='recipe-card-button-container'>
+                                    <div onClick={() => this.editModalOpen(item)} className='recipe-card-edit-button'>Edit</div>
+                                    <div className="recipe-card-delete-button">Delete</div>
                         </div>
-                        
-                        
-                    
-                    </Link>
-                    <Button onClick={() => this.toggle2(item)} >Edit</Button>
                     
                     
-                    <div className="deleteButton">Delete</div>
-                    </Card>
+                    
+                    
+                    
+                    </div>
                 )   )}
-                   {this.state.selectedItem && <Modal style={{maxWidth: '400px'}}  isOpen={this.state.modal2} toggle={this.toggle2} className={this.props.className} >
-                         <ModalHeader>Edit {this.state.selectedItem.name}</ModalHeader>
-                        <Form style={{padding:'10px'}} >
-                            <FormGroup>
-                               <FormText>Please enter a new date in format MMDDYYYY with no spaces or slashes and select one new meal type then hit save</FormText>
-                               <Input type="datetime" name="datetime" placeholder="MMDDYYYY" />
-                               <FormGroup  style={{ display: 'flex', flexDirection: 'row'}} >
-                               <div  style={{width: '20px', height: '20px', paddingTop: '10px', paddingLeft: '10px'}} >
-                                   <Input style={{margin: 'auto'}} type="checkbox" />{"   "}
-                                   </div>
-                                    <Label check style={{'padding': '5px'}} >Breakfast</Label>    
-                               </FormGroup>
-                               <FormGroup  style={{ display: 'flex', flexDirection: 'row'}} >
-                               <div  style={{width: '20px', height: '20px', paddingTop: '10px', paddingLeft: '10px'}} >
-                                   <Input style={{margin: 'auto'}} type="checkbox" />{"   "}
-                                   </div>
-                                    <Label check style={{padding: '5px'}} >Lunch</Label>
-                               </FormGroup>
-                               <FormGroup  style={{ display: 'flex', flexDirection: 'row'}} >
-                               <div  style={{width: '20px', height: '20px', paddingTop: '10px', paddingLeft: '10px'}} >
-                                   <Input style={{margin: 'auto'}} type="checkbox" />{"   "}
-                                   </div>
-                                    <Label check style={{padding: '5px'}} >Dinner</Label>
-                               </FormGroup>
-                               
-                            </FormGroup>
-                            <Button >Save Edit</Button>
-                        </Form>
-                     </Modal>}
+
+                        <div className={this.state.editModal ? 'recipe-edit-modal-open' : 'recipe-edit-modal-closed'}>
+                            <div className ='recipe=edit-modal-header'>Edit {this.state.selectedItem.name}</div>
+                            <form className='edit-recipe-form'>
+                                <div onClick ={this.editModalClose}>X</div>
+                                <div>
+                                    <p>Select date</p>
+                                    <input type = 'date' value ={this.state.dateChange} onChange = {this.onChangeDate}/>
+                                </div>
+                                <div className='edit-modal-inputs-container'>
+                                    <div>Breakfast</div>
+                                    <div>Lunch</div>
+                                    <div>Dinner</div>
+                                    <div>Snack</div>
+                                    <div>Dessert</div>
+                                </div>
+                                <div className ='edit-modal-submit-button'>Submit</div>
+                            </form>
+                        </div>
+
+                
                 </div>
             </div>   
         </div>          

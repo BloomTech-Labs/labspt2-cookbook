@@ -40,14 +40,10 @@ class CreateRecipe extends React.Component{
 //iFrame handled w front end
 
  componentDidMount(){
-     console.log(localStorage.getItem('userId'));
     const userId = localStorage.getItem('userId');
-     //console.log(authId);
     this.setState({
          userId : userId
      });
-    
-
  }
 s
  dropHandler = event =>{
@@ -137,7 +133,7 @@ servingsAdjustor = async (event) =>{
                     <div className='create-page-sub-container'>
                         <div className ='create-intro-container'>
                             <h2 className='create-recipe-header'>Add Your Recipes!</h2>
-                            <p className='create-recipe-p'>Drag and drop the link to your favorite recipe below, click the add button, and designate a mealtime, date, and serving size.</p>
+                            <p className='create-recipe-p'>Drag and drop, or copy and paste the link to your favorite recipe below, click the add button, and designate a mealtime, date, and serving size.</p>
                         </div>
                         <div className='url-add-recipe-section'> 
                             <input 
@@ -196,7 +192,7 @@ servingsAdjustor = async (event) =>{
                         <div className='recipe-modification-section'>
                             <div className='calendar-section'>
                                 <h4 className='calendar-directions-header'>Select a calendar date to assign your recipe to.</h4>
-                                <Calendar onClickDay = {this.dayClick} className='react-calendar'/>
+                                <Calendar calendarType = {'US'} onClickDay = {this.dayClick} className='create-page-calendar'/>
                             </div>
                             <div className='edit-servings-section'>
                                 <div className='servings-container'>

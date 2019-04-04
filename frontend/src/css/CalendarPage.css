@@ -2,31 +2,89 @@
 .CalendarPage{
     display:flex;
 }
-.calendar-container{
-    width:88%;
+.calendar-page-container{
+    width:80%;
     display:flex;
     flex-direction:column;
+    background-color: rgba(233, 221, 219, 0.164); 
+}
+.calendar-page-sub-container{
+    width:85%;
+    margin:0px auto;
+}
+.calendar-intro-container{
+    display:flex;
+    justify-content: space-around;
+    width:100%;
+    margin-bottom:-10px;
 }
 .calendar-page-header{
     text-align:center;
-    font-size:50px;
-    font-weight:bold;
-    color: rgb(87, 144, 161);
+    width:50%;
+    font-size:72px;
+    margin-top:35px;
+    font-family: 'Cabin Sketch', cursive;
+    font-weight:bolder;
+    color: rgb(98, 139, 151);
 }
-.react-calendar{
-    width:90%;
+.calendar-page-p{
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:normal;
+    font-size: 20px;
+    width:35%;
+    margin-left:-10%;
+    text-align:center;
+    padding:10px 2%;
+    padding-top:15px;
+}
+.calendar-and-duplicate{
+    display:flex;
+    justify-content:space-between;
+}
+.calendar-housing{
+    width:68%;
     height:300px;
     margin:0px auto;
     margin-bottom:10px;
     border-radius:3px;
 }
+.react-calendar{
+   width:100%;
+}
+.servings-and-duplicate-container{
+    width:20%;
+    background-color:white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    height:220px;
+    border-radius:2px;
+    display:flex;
+    flex-direction:column;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:normal;
+    font-size:20px;
+    padding:20px 2%;
+    text-align:center;
+}
+/* input[type=checkbox] {
+    visibility: hidden;
+} */
+/* #check-box{
+    width: 40px;
+    height: 40px;
+    background: #ddd;
+    margin: 20px 90px;
+
+    border-radius: 100%;
+    position: relative;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+} */
 .react-calendar__navigation__label, .react-calendar__navigation__arrow{
     font-size:20px;
     font-weight:bolder;
     color:white;
 }
 .react-calendar__navigation{
-    background-color:rgb(87, 144, 161);
+    background-color:rgb(52, 98, 112);
 }
 .react-calendar__tile--active{
     background-color:rgb(87, 144, 161);
@@ -71,28 +129,3 @@
 .edit-recipe-section{
     
 }
-
-/* .calendar-edit-form{
-    width:90%;
-    display:flex;
-    margin: 0 auto;
-}
-.toggle-day-container{
-    width:40%;
-    height:160px;
-    display:flex;
-    flex-direction:column;
-    justify-content: space-around;
-    background-color:purple;
-}
-.edit-servings-container{
-    width:60%;
-    background-color:orange;
-}
-.single-day-button, .range-selector-button{
-    width:160px;
-    height:50px;
-    background-color:blue;
-    color:white;
-    margin:0px auto;
-    cursor:pointer; */

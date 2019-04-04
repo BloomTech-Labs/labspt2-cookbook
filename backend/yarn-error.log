@@ -1,4 +1,5 @@
 Arguments: 
+<<<<<<< HEAD
   D:\Program Files\nodejs\node.exe D:\Program Files (x86)\Yarn\bin\yarn.js add jest
 
 PATH: 
@@ -6,6 +7,15 @@ PATH:
 
 Yarn version: 
   1.13.0
+=======
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js start
+
+PATH: 
+  C:\Users\Denise\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Denise\bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs;C:\WINDOWS\System32\OpenSSH;C:\Program Files (x86)\Yarn\bin;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Users\Denise\AppData\Local\Microsoft\WindowsApps;C:\Users\Denise\AppData\Roaming\npm;C:\Users\Denise\AppData\Local\Yarn\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.9.4
+>>>>>>> a36dc77146a445667157132f2b8eb10cb7f2e54e
 
 Node version: 
   8.11.3
@@ -14,12 +24,21 @@ Platform:
   win32 x64
 
 Trace: 
+<<<<<<< HEAD
   SyntaxError: C:\Users\Nate\Desktop\lambda\Labs\labspt2-cookbook\backend\package.json: Unexpected string in JSON at position 613
       at JSON.parse (<anonymous>)
       at D:\Program Files (x86)\Yarn\lib\cli.js:1625:59
       at Generator.next (<anonymous>)
       at step (D:\Program Files (x86)\Yarn\lib\cli.js:304:30)
       at D:\Program Files (x86)\Yarn\lib\cli.js:315:13
+=======
+  SyntaxError: C:\Users\Denise\Desktop\Lambda\Labs\labspt2-cookbook\backend\package.json: Unexpected string in JSON at position 613
+      at JSON.parse (<anonymous>)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:92:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:103:13
+>>>>>>> a36dc77146a445667157132f2b8eb10cb7f2e54e
       at <anonymous>
 
 npm manifest: 

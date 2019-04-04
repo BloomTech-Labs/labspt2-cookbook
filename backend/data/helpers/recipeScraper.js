@@ -16,6 +16,53 @@ checkUrl = async (newRecipeObj) =>{
   return newRecipeObj;
 }
 
+/* Parse the ingredient array & split it into objects */
+const parseIngredients = (ingArr) => {
+  let ingredientArray = [];
+
+  ingArr.forEach( (line) => {
+    // Split each line into an array
+    let lineArr = line.split(" ");
+
+    console.log(lineArr);
+    // Set up the empty object & needed variables
+    let tempObj = { amount: null, measurement: null, name: ""};
+    let nameArr = lineArr;
+
+    // Scan through each line's array values for needed components
+    for( let i = 0; i < lineArr.length; i++ ) {
+
+      // Check if this value is a number
+      let testNum = Number(lineArr[i]);
+
+      // Fraction?
+      if( lineArr[i].indexOf("/") !== -1 ){
+        testNum = numericQuantity(lineArr[i]) > -1 ? numericQuantity(lineArr[i]) : testNum;
+      }
+
+      if( !Number.isNaN(testNum) ){
+        nameArr[i] = '';
+        tempObj.amount = testNum;
+      }
+
+      // Look for measurement - this needs a better method
+      const msmts = ['c','cup','cups','T','tbsp','tablespoon','tablespoons','tsp','teaspoon','teaspoons','oz','ounce','ounces','stalk','stalks','pinch','pinches','dash','dashes','pound','pounds','handful','handfulls','pint','pints','qt','quart','quarts','lb','pound','pounds','gallon','gallons','liter','liters'];
+
+      if( msmts.indexOf(lineArr[i]) !== -1 ){
+        tempObj.measurement = lineArr[i];
+        nameArr[i] = '';
+      }
+
+      // Join the remaining nameArr to form the name
+      tempObj.name = nameArr.join(' ').trim();
+      console.log(tempObj);
+    }
+    ingredientArray.push(tempObj);
+  });
+
+  return(ingredientArray);
+};
+
 allRecipeScraper = url =>{
     rp(url)
   .then(function(html){
@@ -32,45 +79,8 @@ allRecipeScraper = url =>{
     allRecipeJSON.link = recipeLink;
     
     const recipeIngredientsArr = ($('.checkList__line', html).text().replace(/\s\s+/g, '\n').split('\n').slice(1, -3));
-    let ingredientArray = [];
-
-    recipeIngredientsArr.forEach( (line) => {
-      // Split each line into an array
-      let lineArr = line.split(" ");
-      console.log(lineArr);
-      let tempObj = { amount: null, measurement: null, name: ""};
-      let nameArr = lineArr;
-
-      for( let i = 0; i < lineArr.length; i++ ) {
-        // Check if this value is a number
-        let testNum = Number(lineArr[i]);
-
-        if( lineArr[i].indexOf("/") !== -1 ){
-          testNum = numericQuantity(lineArr[i]) > -1 ? numericQuantity(lineArr[i]) : testNum;
-        }
-
-        if( !Number.isNaN(testNum) ){
-          nameArr[i] = '';
-          tempObj.amount = testNum;
-        }
-
-        // Look for measurement
-        const msmts = ['c','cup','cups','T','tbsp','tablespoon','tablespoons','tsp','teaspoon','teaspoons','oz','ounce','ounces','stalk','stalks','pinch','pinches','dash','dashes','pound','pounds','handful','handfulls','pint','pints','qt','quart','quarts','lb','pound','pounds','gallon','gallons','liter','liters'];
-
-        if( msmts.indexOf(lineArr[i]) !== -1 ){
-          tempObj.measurement = lineArr[i];
-          nameArr[i] = '';
-        }
-
-        // Join the remaining nameArr to form the name
-        tempObj.name = nameArr.join(' ').trim();
-        console.log(tempObj);
-      }
-      ingredientArray.push(tempObj);
-
-    });
-    allRecipeJSON.ingredients = ingredientArray;
-
+    allRecipeJSON.ingredients = parseIngredients(recipeIngredientsArr);
+    
     const recipeDirectionsArr = ($('.step', html).text().replace(/\s\s+/g, '\n').split('\n').slice(1,-1));
     allRecipeJSON.directions = recipeDirectionsArr;
 
