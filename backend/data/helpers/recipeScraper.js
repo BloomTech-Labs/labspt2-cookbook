@@ -101,13 +101,11 @@ allRecipeScraper = async (url) => {
     allRecipeJSON.prep_time = timeArr[0];
     allRecipeJSON.cook_time = timeArr[1];
 
-    //const servings = ( $().$('ng-binding', html).text() );
-    // $('ng-binding', html).each( (i, elem) => {
-    //   console.log( $(elem).text() );
-    // });
-    //allRecipeJSON.servings = servings;
+    servArr = $('.subtext', html).text().split(' ');
+    console.log(servArr[3]);
+    allRecipeJSON.servings = servArr[3];
 
-    //console.log(allRecipeJSON);
+    console.log(allRecipeJSON);
     return allRecipeJSON;
   })
   .catch(function(err){
