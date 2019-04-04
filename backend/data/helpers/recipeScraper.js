@@ -3,7 +3,7 @@ const rp = require('request-promise');
 const $ = require('cheerio');
 const numericQuantity = require("numeric-quantity");
 
-checkUrl = async (newRecipeObj) =>{
+checkUrl = async (newRecipeObj) => {
   console.log(newRecipeObj);
   const checkRecipeUrl = newRecipeObj.link;
   if(checkRecipeUrl.indexOf('allrecipes.com')){
@@ -24,7 +24,6 @@ const parseIngredients = (ingArr) => {
     // Split each line into an array
     let lineArr = line.split(" ");
 
-    console.log(lineArr);
     // Set up the empty object & needed variables
     let tempObj = { amount: null, measurement: null, name: ""};
     let nameArr = lineArr;
@@ -55,7 +54,7 @@ const parseIngredients = (ingArr) => {
 
       // Join the remaining nameArr to form the name
       tempObj.name = nameArr.join(' ').trim();
-      console.log(tempObj);
+
     }
     ingredientArray.push(tempObj);
   });
@@ -63,8 +62,8 @@ const parseIngredients = (ingArr) => {
   return(ingredientArray);
 };
 
-allRecipeScraper = url =>{
-    rp(url)
+allRecipeScraper = async (url) => {
+  rp(url)
   .then(function(html){
     //let name, image, link, ingredients, directions;
     const allRecipeJSON = {name: '', image: '', link: '', ingredients: '', directions: '', } 
@@ -82,7 +81,17 @@ allRecipeScraper = url =>{
     allRecipeJSON.ingredients = parseIngredients(recipeIngredientsArr);
     
     const recipeDirectionsArr = ($('.step', html).text().replace(/\s\s+/g, '\n').split('\n').slice(1,-1));
-    allRecipeJSON.directions = recipeDirectionsArr;
+    const dirArray = [];
+    recipeDirectionsArr.forEach( (line, idx) => {
+      // Set up the objects that need to be in the array
+      const dirObj = {
+        order: idx + 1,
+        directions: line
+      };
+      dirArray.push(dirObj);
+    });
+    allRecipeJSON.directions = dirArray;
+
 
     //const prepTime = ($('.prepTime__item--time', html).text());
     //const prepTime = ( $('.prepTime__item--time', html).get().length );
@@ -98,7 +107,7 @@ allRecipeScraper = url =>{
     //const servings = ( $().$('ng-binding', html).text() );
     //allRecipeJSON.servings = servings;
 
-    console.log(allRecipeJSON);
+    //console.log(allRecipeJSON);
     return allRecipeJSON;
   })
   .catch(function(err){

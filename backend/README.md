@@ -105,3 +105,15 @@ Startup: *yarn server*
 * * -- Requires: ing_id, start, end
 * * -- Optional: amount, measurement
 * **DELETE: /api/list/:id** -- Deletes shopping list item
+
+---
+
+## Schedule
+
+### Routes:
+* **GET : /api/schedule/:id**  -- Gets schedule by id
+* **GET : /api/schedule/user/:id** -- Gets scheduled items by userID
+* **GET : /api/schedule/user/:id/date/:date** -- Gets scheduled items for user by date
+* **PUT : /api/schedule/:id** -- Edits a schedule by id
+* **POST : /api/schedule/** -- Adds a new schedule
+* * -- Requires: user_id, date, recipe_id, tag_id
