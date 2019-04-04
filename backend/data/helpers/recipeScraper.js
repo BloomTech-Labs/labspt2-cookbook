@@ -4,11 +4,11 @@ const $ = require('cheerio');
 const numericQuantity = require("numeric-quantity");
 
 checkUrl = async (newRecipeObj) => {
-  console.log(newRecipeObj);
+
   const checkRecipeUrl = newRecipeObj.link;
-  if(checkRecipeUrl.indexOf('allrecipes.com')){
+  if(checkRecipeUrl.indexOf('allrecipes.com') !== -1 ){
       await allRecipeScraper(checkRecipeUrl);
-  }else if(checkRecipeUrl.indexOf('pinchofyum.com')){
+  }else if(checkRecipeUrl.indexOf('pinchofyum.com') !== -1 ){
       await pinchOfYumScraper(checkRecipeUrl);
   }else return{
     checkRecipeUrl
@@ -105,7 +105,6 @@ allRecipeScraper = async (url) => {
     console.log(servArr[3]);
     allRecipeJSON.servings = servArr[3];
 
-    console.log(allRecipeJSON);
     return allRecipeJSON;
   })
   .catch(function(err){
@@ -125,17 +124,29 @@ pinchOfYumScraper = url =>{
         const recipeName = ($('h1', html).text());
         pinchRecipeJSON.name = recipeName;
 
-        const recipeImage = ($('.first-image-share img', html).attr('src'))
+        const recipeImage = ($('.first-image-share.share-pin img', html).attr('src'))
         pinchRecipeJSON.image = recipeImage;
 
         const recipeLink = url;
         pinchRecipeJSON.link = recipeLink;
 
         const recipeIngredientsArr = ($('.tasty-recipes-ingredients ul', html).text().split('\n').slice(1, -1).filter(item => item));
-        pinchRecipeJSON.ingredients = recipeIngredientsArr;
+        pinchRecipeJSON.ingredients = parseIngredients(recipeIngredientsArr);
 
         const recipeDirectionsArr = ($('.tasty-recipes-instructions ol', html).text().split('\n').slice(1, -1));
-        pinchRecipeJSON.directions = recipeDirectionsArr;
+        const dirArray = [];
+        recipeDirectionsArr.forEach( (line, idx) => {
+          // Set up the objects that need to be in the array
+          const dirObj = {
+            order: idx + 1,
+            directions: line
+          };
+          dirArray.push(dirObj);
+        });
+        pinchRecipeJSON.directions = dirArray;
+
+        const recipeServings = ( $('.tasty-recipes-yield span', html).data('amount') );
+        pinchRecipeJSON.servings = recipeServings;
 
         return pinchRecipeJSON;
     })

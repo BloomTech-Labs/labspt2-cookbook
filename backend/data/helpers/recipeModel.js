@@ -49,8 +49,7 @@ module.exports = {
    *   -- Returns recipe id: int (1)
    */
   insert: async function(recipe) {
-    await checkUrl.checkUrl(recipe); /////??????????????
-    return;
+    
     const [recId] = await this.recipeExists(recipe.link);
     
     // Check if recipe exists first.
@@ -81,7 +80,7 @@ module.exports = {
       // end db.where
     } else {
       // Might need to add another endpoint specifically for this.
-      checkUrl.checkUrl(recipe); /////??????????????
+      recipe = await checkUrl.checkUrl(recipe); /////??????????????
 
       return db.transaction( (trans) => {
         return db('recipes')
