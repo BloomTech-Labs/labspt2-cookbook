@@ -165,6 +165,19 @@ class LandingPage extends React.Component{
                             </form>
                         </div>
                     </div>
+                </div>
+                <div className='mobile-login-portal'>
+                    <div className ='mobile-login-sub-container'>
+                        <h3 className='mobile-login-header'>Welcome to Kookr!</h3>
+                        <GoogleLogin
+                            clientId="682401182106-dj5u5r18qhs0hu730pkl7brs330gkt3l.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={this.responseGoogleSuccess}
+                            onFailure={this.responseGoogleFailure}
+                            className='google-login'
+                        />
+                        <div className='facebook-login'>I am a facebook button</div>
+                    </div>
                 </div>     
         </div>
         )

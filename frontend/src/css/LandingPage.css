@@ -3,6 +3,11 @@
    background-color: rgba(220, 208, 206, 0.281); 
    height:1300px; 
 }
+@media screen and (max-width:800px){
+    .Landing-Page{
+        height:800px;
+    }
+}
 .landing-page-background{
     background-image: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=600&w=700');
     border-radius:5px;
@@ -10,6 +15,12 @@
     width:80%;
     margin:0 auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+@media screen and (max-width:800px){
+    .landing-page-background{
+        width:100%;
+        margin-top:80px;
+    }
 }
 .landing-page-nav-bar{
     width:80%;
@@ -21,13 +32,26 @@
     height:110px;
     margin-left:10%;
 }
+@media screen and (max-width:800px){
+   .landing-page-nav-bar{
+       width:100%;
+       margin-left:0%;
+       height:80px;
+   }
+}
 .social-media-container{
-    width:15%;
+    width:20%;
     display:flex;
     justify-content:space-between;
     margin-top:10px;
-    margin-left:10px; 
+    margin-left:10px;
 }
+@media screen and (max-width:500px){
+    .social-media-container{
+        display:none;
+    }
+}
+
 .fab{
     color:rgb(255, 255, 255);
     font-size:22px;
@@ -37,8 +61,25 @@
     border-radius:100%;
     padding-top:10px;
     padding-left:10px;
-   
 }
+@media screen and (max-width:1100px){
+    .fab{
+        font-size:18px;
+        width:25px;
+        height:25px;
+        padding-top:8px;
+        padding-left:8px;
+    }
+ }
+ @media screen and (max-width:900px){
+     .fab{
+         font-size:16px;
+         width:23px;
+         height:23px;
+         padding-top:7px;
+         padding-left: 7px;
+     }
+ }
 .logo-container{
     width:600px;
 }
@@ -46,41 +87,90 @@
     font-size:80px;
     margin-left:2%;
     font-weight:400;
-    letter-spacing:-3px;
-    margin-top:0px;
-    font-family: 'PT Sans', sans-serif;
+    margin-top:10px;
     font-family: 'Cabin Sketch', cursive;
     color:rgb(98, 139, 151);
+}
+@media screen and (max-width:1100px){
+    .landing-header{
+        font-size:64px;
+    }
+ }
+ @media screen and (max-width:800px){
+   .landing-header{
+       font-size:50px;
+   }
+}
+@media screen and (max-width:500px){
+    .landing-header{
+        font-size:50px;
+        padding-left:25%;
+    }
 }
 .landing-page-nav-buttons{
   width:18%;
   margin-right:2%;
-  margin-top:-88px;
+  margin-top:-98px;
   color:black;
-  font-size:18px;
   display:flex;
   flex-direction:column;
   justify-content: space-around;
   text-align:right;
-  font-family: 'PT Sans', sans-serif; 
+  font-family: 'Barlow Semi Condensed', sans-serif;
 }
 .login-button, .registration-button{
     cursor:pointer;
     margin-bottom:0px;   
+    font-size:22px;
+    padding-top:20px;
+}
+@media screen and (max-width:1100px){
+    .login-button, .registration-button{
+        font-size:18px;
+        padding-top:10px;
+    }
+}
+@media screen and (max-width:800px){
+    .login-button, .registration-button{
+        font-size:18px;
+        padding-top:40px;
+    }
+}
+@media screen and (max-width:500px){
+    .login-button, .registration-button{
+        display:none;
+    }
+}
+.landing-page-body{
+    width:100%;
+}
+@media screen and (max-width:800px){
+    .landing-page-body{
+        display:flex;
+        flex-direction: column-reverse;
+        margin-top:-300px;
+    }
 }
 .landing-blurb-container{
-    width:50%;
+    width:65%;
     margin: 0px auto;
     margin-top:-600px;
     background-image: url('https://images.fabric.com/images/693/693/0473337.jpg');
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius:5px;
-    height:470px;
-    padding-top:40px;
+    padding:30px 0%;
+}
+@media screen and (max-width:800px){
+   .landing-blurb-container{
+       width:60%;
+       margin:0px auto;
+       padding:10px 0%;
+        background-image:none;
+        box-shadow:none;
+   }
 }
 .landing-blurb-sub-container{
-    width:90%;
-    height:420px;
+    width:92%;
     display:flex;
     flex-direction:column;
     justify-content:space-around;
@@ -91,33 +181,66 @@
     margin:0px auto;
     border:3px solid rgb(52, 98, 112);
 }
+@media screen and (max-width:800px){
+    .landing-blurb-sub-container{
+        padding:20px 0%;
+        border:none;
+        box-shadow:none;
+        background-color:rgba(255, 255, 255, 0);
+    }
+}
 .landing-blurb-header{
     color:rgb(98, 139, 151);
     font-size:44px;
     margin:20px auto;
-    /* font-family: 'PT Sans', sans-serif; */
     font-family: 'Cabin Sketch', cursive;
     letter-spacing:-1px;
     width:80%;
     border-bottom: 3px solid rgb(98, 139, 151);
  }
+@media screen and (max-width:800px){
+    .landing-blurb-header{
+        font-size:28px;
+        margin:10px auto;
+        display:none;
+    }
+}
 .landing-page-blurb{
     padding:0px 10%;
     font-size:18px;
     font-weight:200;
     font-family: 'Barlow Semi Condensed', sans-serif;
 }
+@media screen and (max-width:800px){
+    .landing-page-blurb{
+       display:none;
+    }
+}
 .get-started-button{
     font-family: 'Barlow Semi Condensed', sans-serif;
-    font-size:24px;
+    font-size:22px;
     color:white;
     width:40%;
-    margin:40px auto;
+    margin:0px auto;
+    margin-bottom:20px;
     background-color:rgb(98, 139, 151);
     padding-bottom:15px;
     padding-top:15px;
     border-radius:5px;
     cursor:pointer;
+}
+@media screen and (max-width:800px){
+    .get-started-button{
+        width:80%;
+        font-size:26px;
+        margin-bottom:5px;
+        padding:20px 0%;
+    }
+}
+@media screen and (max-width:500px){
+    .get-started-button{
+        display:none;
+    }
 }
 .how-it-works-section{
     width:80%;
@@ -129,21 +252,59 @@
     font-size:42px;
   
 }
+@media screen and (max-width:800px){
+    .how-it-works-section{
+        margin-top:-500px;
+    }
+}
+@media screen and (max-width:500px){
+    .how-it-works-section{
+        display:none;
+    }
+}
 .how-it-works-header{
-   
     text-align: center;
-   margin-top:-20px;
-    margin-bottom:48px;
+    margin-top: 40px;
+    margin-bottom:40px;
     font-size:72px;
     letter-spacing:1px;
     font-family: 'Cabin Sketch', cursive;
     color: rgb(98, 139, 151);
  
 }
+@media screen and (max-width:1000px){
+    .how-it-works-header{
+        margin-top:20px;
+        margin-bottom:20px;
+        font-size:56px;
+    }
+}
+@media screen and (max-width:900px){
+    .how-it-works-header{
+        margin-top:0px;
+    }
+}
+@media screen and (max-width:860px){
+    .how-it-works-header{
+        margin-top: -10px;
+    }
+}
+@media screen and (max-width:800px){
+    .how-it-works-header{
+        display:none;
+    }
+}
 .how-it-works-sub-container{
     display:flex;
     justify-content: space-between;
     
+}
+@media screen and (max-width:800px){
+    .how-it-works-sub-container{
+        flex-direction:column;
+        justify-content: flex-start;
+        margin-top:-10px;
+    }
 }
 .sub-blurb{
     width:30%;
@@ -153,20 +314,25 @@
     flex-direction: column;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+@media screen and (max-width:800px){
+    .sub-blurb{
+        width:90%;
+        margin:0 auto;
+        margin-bottom:30px;
+
+    }
+}
 .mini-blurb-header-container{
-    /* background-color:rgb(80, 132, 150); */
     background-image:url('https://images.fabric.com/images/693/693/0473337.jpg');
     border-radius: 5px 5px 0px 0px;
     width:100%;
-    height:90px;
-   margin:0px auto;
+    margin:0px auto;
 }
 .sub-container{
-     color:white;
+    color:white;
     display:flex;
     justify-content:space-around;
 }
-
 .fas{
     font-size:28px;
     padding-top:25px;
@@ -175,18 +341,66 @@
 }
 .mini-blurb-header{
     font-size:22px;
-   text-align:center;
-  margin-top:25px;
-  width:75%;
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  text-transform:uppercase;
-  
+    text-align:center;
+    margin-top:25px;
+    width:75%;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    text-transform:uppercase;
+}
+@media screen and (max-width:1100px){
+    .mini-blurb-header{
+        font-size:20px;
+    }
+}
+@media screen and (max-width:900px){
+    .mini-blurb-header{
+        font-size:18px;
+    }
+    .fas{
+        font-size:20px;
+    }
+}
+@media screen and (max-width:800px){
+    .mini-blurb-header{
+        font-size:24px;
+        margin-top:10px;
+        margin-bottom: 10px;
+    }
+    .fas{
+        font-size:28px;
+        padding-top:10px;
+    }
+}
+@media screen and (max-width:650px){
+    .mini-blurb-header{
+        font-size:19px;
+        margin-top:10px;
+        margin-bottom: 10px;
+        width:80%;
+    }
+    .fas{
+        font-size:24px;
+        padding-top:10px;
+        width:10%;
+    }
 }
 .mini-blurb-p{
     font-size:20px;
     font-weight:200;
     font-family: 'Barlow Semi Condensed', sans-serif;
     padding:15px 10%;
+}
+@media screen and (max-width:900px){
+    .mini-blurb-p{
+        font-size:18px;
+        padding:5px 5%;
+    }
+}
+@media screen and (max-width:650px){
+    .mini-blurb-p{
+        font-size:16px;
+        
+    }
 }
 
 
@@ -206,7 +420,7 @@
     padding-top:15px;
     margin-top:15px;
     width: 40%;
-    height: 360px;
+    padding-bottom:30px;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
@@ -214,6 +428,11 @@
     flex-direction:column;
     border-radius:5px;
     border:5px solid rgb(52, 98, 112);
+}
+@media screen and (max-width:800px){
+    .modal-main{
+        width:60%;
+    }
 }
 
 .display-block {
@@ -231,6 +450,13 @@
     font-size:28px;
     font-family: 'Barlow Semi Condensed', sans-serif;
     text-transform:uppercase;
+}
+@media screen and (max-width:800px){
+    .login-header{
+        font-size:22px;
+        margin-top:20px;
+        margin-bottom:-20px;
+    }
 }
 .x-box{
     background-color:rgb(80, 132, 150);
@@ -250,7 +476,6 @@
 .google-facebook-container{
     margin: 0px auto;
     width:100%;
-    
     display:flex;
     flex-direction:column;
     justify-content:space-between;   
@@ -270,7 +495,32 @@
     text-align:center;
     color:white;
     background-color:rgb(26, 41, 105);
-    margin-top:40px;
+    margin-top:30px;
     height: 50px;
 }
+.mobile-login-portal{
+    background-image:url('https://images.fabric.com/images/693/693/0473337.jpg');
+    width:60%;
+    margin:0px auto;
+    margin-top:-450px;
+    border-radius:5px;
+    padding:20px 4%; 
+}
+.mobile-login-sub-container{
+    background-color:white;
+    border-radius:5px;
+    padding-top:60px;
+    padding-bottom:60px;
 
+}
+.mobile-login-header{
+    width:80%;
+    margin:0 auto;
+    text-align:center;
+    font-size:32px;
+}
+@media screen and (min-width:500px){
+    .mobile-login-portal{
+        display:none;
+    }
+}
