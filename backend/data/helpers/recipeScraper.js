@@ -92,19 +92,19 @@ allRecipeScraper = async (url) => {
     });
     allRecipeJSON.directions = dirArray;
 
-
-    //const prepTime = ($('.prepTime__item--time', html).text());
-    //const prepTime = ( $('.prepTime__item--time', html).get().length );
-    // $('.prepTime__item--time', html).each( (idx, val) => {
-    //   const prepTime = val.children().data();
-    //   console.log(prepTime);
-    // });
-    // allRecipeJSON.prep_time = prepTime;
-
-    const cookTime = ( $('.prepTime__item--time', html).text() );
-    allRecipeJSON.cook_time = cookTime;
+    // Grab the prep[0] and cook[1] times
+    const timeArr = [];
+    $('.prepTime__item--time',html).each( (i, elem) => {
+      timeArr[i] = $(elem).text();
+    });
+    
+    allRecipeJSON.prep_time = timeArr[0];
+    allRecipeJSON.cook_time = timeArr[1];
 
     //const servings = ( $().$('ng-binding', html).text() );
+    // $('ng-binding', html).each( (i, elem) => {
+    //   console.log( $(elem).text() );
+    // });
     //allRecipeJSON.servings = servings;
 
     //console.log(allRecipeJSON);
