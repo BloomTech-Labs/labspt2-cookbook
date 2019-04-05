@@ -30,3 +30,12 @@
 .settings-form-item:first-child{
     margin-top: 15px;
 }
+@media screen and (max-width:800px){
+    .settings-page{
+        flex-direction:column;
+    }
+    .settings-main{
+        width:100%;
+        padding:0px;
+    }
+}
