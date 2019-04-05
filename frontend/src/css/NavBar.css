@@ -88,6 +88,11 @@
 @media screen and (max-width:500px){
     .nav-break-logo{
         font-size:38px;
+    
+    }
+    .nav-container{
+        height:50px;
+        padding-bottom:30px;
     }
 }
 .nav-800-closed{
