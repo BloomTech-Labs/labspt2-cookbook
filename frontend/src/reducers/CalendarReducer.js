@@ -7,7 +7,18 @@ const initialState = {
         calendarDate: 'date time',
         tag_id: 1, 
         recipe_id: 1
-   }]
+   },
+   {
+    cal_id: 0,
+    calendarDate: 'date time',
+    tag_id: 1, 
+    recipe_id: 2
+},{
+    cal_id: 0,
+    calendarDate: 'date time',
+    tag_id: 1, 
+    recipe_id: 3
+}]
 }
 //ids  1 - 4 breakfast bruch lunch dinner
 const CalendarReducer = ((state = initialState, action) => {
@@ -16,7 +27,14 @@ const CalendarReducer = ((state = initialState, action) => {
         case GET_CALENDAR_ITEM:
            console.log(action)
            console.log(state)
-            return Object.assign({}, state, {calendar: state.calendar.filter(item => action.payload.recipe_id === item.recipe_id)} )
+           let i 
+        for(i = 0; i <= state.length + 1; i++ ){
+            if(action.payload.recipe_id === state.calendar[i].recipe_id) {
+                state = [state.calendar[i]]
+            }
+        } 
+            console.log(state)
+           return state
             
            //return [...]
             case ADD_CALENDAR_ITEM:

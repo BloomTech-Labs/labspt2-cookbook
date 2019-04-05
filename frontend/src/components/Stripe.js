@@ -1,46 +1,70 @@
 import React, {Component} from 'react';
-import StripeCheckout from 'react-stripe-checkout';
+import {CardElement, injectStripe} from 'react-stripe-elements';
 import axios from 'axios';
 
 class CheckoutForm extends Component {
     constructor(props){
         super(props)
-        this.state={  
-            publishableKey : "pk_test_FnFtpYb3dVyUAFLHmDnjgP8g00XZuu408f"
+        this.submit = this.submit.bind(this);
+        this.state = {
+            today : ""
         }
+        
+    }
+    componentDidMount(){
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    document.write(today);
+    this.setState({
+        today : today
+    })
     }
     
-    onToken = token => {
-        const body = {
-        amount: 1000,
-        token: token
-    };
-    axios
-        .post("https://kookr.herokuapp.com/api/charge/", body)
+    
+    async submit(e) {
+        e.preventDefault();
+        let {token} = await this.props.stripe.createToken({name: this.props.name});
+        console.log(token.id, this.props.name)
+        
+        await axios
+        .post("https://kookr.herokuapp.com/api/charge/", token)
         .then(response => {
             console.log(response);
             alert("Payment Success");
         })
-        .catch(error => {
-            console.log("Payment Error: ", error);
+        .then(()=>{
+            axios.put(`https://kookr.herokuapp.com/api/user/${this.props.userId}`, {
+                auth_id:this.props.auth,
+                email: this.props.name,
+                billing_date: this.state.today,
+                type: 1
+            })
+            .then(response =>{
+                console.log("from put", response)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        })
+        .catch(err => {
+            console.log("Payment Error: ", err);
             alert("Payment Error");
         });
     };
     render(){
         return (
-            <StripeCheckout
-            label="Go Premium" //Component button text
-            name="Kookr" //Modal Header
-            description="Upgrade to a premium account today."
-            panelLabel="Go Premium" //Submit button in modal
-            amount={1000} //Amount in cents $9.99
-            token={this.onToken}
-            stripeKey={this.state.publishableKey}
-            billingAddress={false}
-            />
+            <div className="checkout">
+                <p>Would you like to complete the purchase?</p>
+                <CardElement />
+                <button onClick={this.submit}>Send</button>
+            </div>
         );
     }
 };
 
 
-export default CheckoutForm;
+export default injectStripe(CheckoutForm);

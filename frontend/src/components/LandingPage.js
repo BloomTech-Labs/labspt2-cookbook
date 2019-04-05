@@ -35,7 +35,7 @@ class LandingPage extends React.Component{
        axios
             .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
             .then(response =>{
-                console.log(response);
+                console.log("from axios get", response);
                 const existingUser = response.data.user_id;
                 if(!existingUser){
                     this.postNewUser()
@@ -49,6 +49,7 @@ class LandingPage extends React.Component{
             })
     }
     postNewUser = () =>{
+        console.log("from axios post", this.state)
         axios
             .post('https://kookr.herokuapp.com/api/user', {
                 auth_id: this.state.authId, 
@@ -164,6 +165,19 @@ class LandingPage extends React.Component{
                                 </div>
                             </form>
                         </div>
+                    </div>
+                </div>
+                <div className='mobile-login-portal'>
+                    <div className ='mobile-login-sub-container'>
+                        <h3 className='mobile-login-header'>Welcome to Kookr!</h3>
+                        <GoogleLogin
+                            clientId="682401182106-dj5u5r18qhs0hu730pkl7brs330gkt3l.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={this.responseGoogleSuccess}
+                            onFailure={this.responseGoogleFailure}
+                            className='google-login'
+                        />
+                        <div className='facebook-login'>I am a facebook button</div>
                     </div>
                 </div>     
         </div>

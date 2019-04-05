@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import  '../css/Settings.css';
 import  '../css/Billing.css';
 import CheckoutForm from './Stripe';
+import {Elements, StripeProvider} from 'react-stripe-elements';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -11,15 +12,38 @@ class Settings extends Component {
         super(props)
         this.state = {
             userId : '',
+            authId : '',
             billingDate : '',
             email: '',
             accountType: '',
 
         }
     }    
-componentDidMount(){
-    this.getUserToShowChrisThatWeCan();
-    console.log(this.state);
+async componentDidMount(){
+    //this.getUserToShowChrisThatWeCan();
+    let localUserId = await localStorage.getItem('userId')
+    await this.setState({
+        userId : localUserId
+    });
+    this.getCurrentUser();
+}
+
+getCurrentUser = async() =>{
+    await axios
+        .get(`https://kookr.herokuapp.com/api/user/${this.state.userId}`)
+            .then(res =>{
+                console.log(res)
+                this.setState({
+                    authId : res.data.auth_id,
+                    billingDate : res.data.billing_date,
+                    email : res.data.email,
+                    accountType : res.data.type
+                })
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+            console.log("after get current user", this.state)
 }
 
 getUserToShowChrisThatWeCan = async() =>{
@@ -32,7 +56,7 @@ getUserToShowChrisThatWeCan = async() =>{
                     billingDate : res.data.billing_date,
                     email : res.data.email,
                     accountType : res.data.type
-                 })
+                })
             })
             .catch(err =>{
                 console.log('This did not work out well', err)
@@ -65,15 +89,6 @@ getUserToShowChrisThatWeCan = async() =>{
                                 <input type="checkbox" name="notificationsText"></input>
                             </div>
 
-                            <div className="settings-form-item">
-                                <label htmlFor="passOld">Old Password: </label>
-                                <input type="password" name="passOld"></input>
-                            </div>
-                            
-                            <div className="settings-form-item">
-                                <label htmlFor="passNew">New Password: </label>
-                                <input type="password" name="passNew"></input>
-                            </div>
 
                             <input type="submit" name="save" value="Save"></input>
                         </form>
@@ -81,17 +96,21 @@ getUserToShowChrisThatWeCan = async() =>{
 
                     <div className="billing-main">
                         <div>SUBSCRIPTION</div>
-                        <div className="billing-form-container">
-                            <h1>Premium Subscription</h1>
-                            <CheckoutForm />
-                        </div>
+                        <StripeProvider apiKey="pk_test_FnFtpYb3dVyUAFLHmDnjgP8g00XZuu408f">
+                            <div className="billing-form-container">
+                                <h1>Premium Subscription</h1>
+                                <Elements>
+                                    <CheckoutForm name={this.state.email} auth={this.state.authId} userId={this.state.userId} />
+                                </Elements>
+                            </div>
+                        </StripeProvider>
                     </div>
                 </div>
-                <div className = 'display-for-chris'>
+                {/* <div className = 'display-for-chris'>
                     <div>{this.state.userId}</div>
                     <div>{this.state.email}</div>
                     <div>{this.state.billingDate}</div>
-                </div>
+                </div> */}
             </div>
         );
     }

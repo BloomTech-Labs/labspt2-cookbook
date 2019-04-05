@@ -66,3 +66,97 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+### How to use the Reducer 
+
+The reducer is meant to keep state while the application is running between pages. it is also meant to abstract some loading processes away from the dom like through componentDidMount. 
+
+##RecipeReducer
+
+dispatchs available
+
+this.props.getRecipes(userid)
+    takes = USERID
+    related action: GET_RECIPES
+    action file: RecipeActions
+    axios call inside of actions? : yes axios.get()
+
+    gets recipes based on the userId that is loaded into the application currently the user id is set to "1"
+
+this.props.getSelectedRecipe(object_with_recipe_id_as_a_value)
+    takes = object with recipe id as a value
+    related action: GET_SELECTED_RECIPE
+    action file: RecipeActions
+    no axios call necessary filters by available recipes in the reducer
+
+##UserReducer
+
+this.props.addUser(userObject)
+    takes a user object
+    related action: ADD_USER
+    action file: UserActions
+    no axios call necessary.
+
+##CalendarReducer
+
+this.props.getCalendarItem(object_with_recipe_id_as_a_value)
+    takes: object with recipe id as a value
+    related action: GET_CALENDAR_ITEM
+    action file: CalendarActions
+    will need an axios call but we do not have a route for those calls
+    place holder axios.get is present. 
+
+this.props.addCalendarItem(calendarItem)
+    takes: calendar Object
+    related action: ADD_CALENDAR_ITEM
+    action file: CalendarActions
+    will need an axios call when we have the route for calendar items
+
+##DirectionsReducer
+
+this.props.getDirections(object_with_recipe_id_as_a_value)
+    takes: object with recipe_id as a value
+    related action: GET_DIRECTIONS
+    action file: DirectionsActions
+    may or may not need an axios call depending on when this is called.
+    need to examine is use case more
+
+this.props.addDirections(SingleDirectionsObject)
+    takes: single directions object
+    action file: DirectionsActions
+    may or may not need an axios call depending on when this is called.
+    need to examine is use case more
+    
+
+##IngredientsReducer
+
+this.props.getIngredients(object_with_recipe_id_as_a_value)
+    takes: object with recipe_id as a value
+    action file: IngredientsActions
+    will need to have an axios call
+
+this.props.addIngredients(object_with_recipe_id_as_a_value)
+    takes: object with recipe_id as a value
+    action file: IngredientsActions
+    will need to have an axios call
+
+
+##RecipeIngredientsReducer
+
+this.props.addRecipeIngredients(singleRecipeIngredient)
+    takes: single recipe ingredient object
+    action file: RecipeIngredientsActions
+    this may work off of other axios calls and just take in an output of another call
+
+##TagsReducer
+
+this.props.getTags(object_with_tag_id_id_as_a_value)
+    takes: object with tag_id as a value
+    action file: tagActions
+    This will need an axios call just to make sure our ingredients state is up to date. dont have it implemented yet.
+
+this.props.addTag(tagObject)
+    takes: a single tag object
+    action file: tagActions
+    this will need to have an axios call depending on if we are using it to update the database or just updating the local state when we have tags we find we need to save or use in someway.

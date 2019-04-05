@@ -20,7 +20,7 @@ const UserReducer = ((state = initialState, action) => {
     switch (action.type) {
 
         case GET_USER:
-            console.log(state)
+           
             
             return state
 
