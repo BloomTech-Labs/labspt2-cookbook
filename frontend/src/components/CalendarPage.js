@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Calendar from 'react-calendar';
 import NavBar from './NavBar';
-
+import moment from 'moment';
+import Moment from 'moment';
 import axios from 'axios';
-
-
-
-
+import { extendMoment } from 'moment-range';
 import '../css/CalendarPage.css';
+
+const rangerDanger = extendMoment(Moment)
+
+
 
 class CalendarPage extends Component{
     constructor(props){
@@ -20,6 +22,8 @@ class CalendarPage extends Component{
             filteredRecipeArr : [],
             selectedRecipe : '',
             date: null,
+            forwardDate: null,
+            backwardDate: null,
             tag: null,
             servingsModal:false,
             tagModal:false
@@ -59,12 +63,49 @@ class CalendarPage extends Component{
         MyDateString =  MyDate.getFullYear() + '/'
         + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
         + ('0' + MyDate.getDate()).slice(-2) + '/'
-       
+        
         console.log(MyDateString);
         this.setState({
-            date: MyDateString
+            date: MyDateString,
         })
     }
+    getWeek = () =>{
+        const currentDate = moment(this.state.date);
+        const formattedCurrent = currentDate.clone().format('YYYY-MM-DD');
+        const formattedCurrentPlus = currentDate.clone().add(1, 'days').format('YYYY-MM-DD');
+        const endOfWeek = currentDate.clone().add(1, 'week').format('YYYY-MM-DD')
+        const prevWeekStart = currentDate.clone().subtract(6, 'days').format('YYYY-MM-DD');
+        const prevDates = this.getDateArray(new Date(prevWeekStart), new Date(formattedCurrent));                                                                                                           
+        prevDates.forEach(function(date) {
+          console.log(date);
+        });
+        const nextDates = this.getDateArray(new Date(formattedCurrentPlus), new Date(endOfWeek));                                                                                                           
+        nextDates.forEach(function(date) {
+          console.log(date);
+        });
+
+    }
+
+
+    getDateArray = (startDate, endDate) =>{
+        var dates = [],
+            currentDate = startDate,
+            addDays = function(days) {
+              var date = new Date(this.valueOf());
+              date.setDate(date.getDate() + days);
+              return date;
+            };
+        while (currentDate <= endDate) {
+          dates.push(currentDate);
+          currentDate = addDays.call(currentDate, 1);
+        }
+        return dates;
+        
+        
+      };
+
+    
+
     calendarSearchFunction = (event) =>{
         event.preventDefault();
         var updatedArr = this.state.recipeArr;
@@ -172,7 +213,7 @@ class CalendarPage extends Component{
                                     <p>How many servings?</p>
                                     <input className = 'servings-input'type="number" min="1" />
                                     <p className='check-box-p'>Duplicate previous week's shopping list</p>
-                                    <input type="checkbox" id='check-box' className ='check-box'/>
+                                    <input type="checkbox" id='check-box' className ='check-box' onClick = {this.getWeek}/>
                                     
                                 </div>    
                                 <div className='edit-recipe-section'>  
