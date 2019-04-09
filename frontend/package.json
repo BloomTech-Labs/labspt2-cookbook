@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "format-quantity": "^0.3.2",
     "jquery": "^1.12.4",
     "logger": "0.0.1",
     "moment": "^2.24.0",
@@ -38,5 +39,4 @@
     "not ie <= 11",
     "not op_mini all"
   ]
-
 }
