@@ -121,18 +121,11 @@ class CalendarPage extends Component{
                         <div className='calendar-and-intro'>
                             <div className='calendar-intro-container'>
                                 <h2 className='calendar-page-header'>Your Calendar</h2>
-                                <p className='calendar-page-p'>Start by selecting a day on the calendar. Create a customized meal plan for that day to populate your shopping list.</p>
                             </div>
-                            <div className='calendar-and-duplicate'>
+                            <div className='calendar-row'>
+                                <p className='calendar-page-p'>Start by selecting a day on the calendar. Create a customized meal plan for that day to populate your shopping list.</p> 
                                 <div className='calendar-housing'>
                                     <Calendar calendarType = {'US'} onClickDay = {this.dayClick} className = 'calendar-page-react-calendar'/>
-                                </div>    
-                                <div className='servings-and-duplicate-container'>
-                                    <p>How many servings?</p>
-                                    <input className = 'servings-input'type="number" min="1" />
-                                    <p>Check box to duplicate previous week from selected date</p>
-                                    <input type="checkbox" id='check-box' name =''/>
-                                    <label for="check-box"></label>
                                 </div>    
                             </div>
                         </div>
@@ -152,6 +145,13 @@ class CalendarPage extends Component{
                                     })}
                                 </div>
                             </div>
+                            <div className='servings-and-duplicate-container'>
+                                <p>How many servings?</p>
+                                <input className = 'servings-input'type="number" min="1" />
+                                <p className='check-box-p'>Duplicate previous week's shopping list</p>
+                                <input type="checkbox" id='check-box' className ='check-box'/>
+                                
+                            </div>    
                             <div className='edit-recipe-section'>  
                                 <div className="calendar-meal-tag-container">
                                     <h4>Select Tag to Add</h4>

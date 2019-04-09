@@ -114,6 +114,7 @@ getUserToShowChrisThatWeCan = async() =>{
                             <h2>Your Subscription</h2>
                             <p>{this.state.message}</p>
                         </div>
+                        <div className="subscription-header">SUBSCRIPTION</div>
                         <StripeProvider apiKey="pk_test_FnFtpYb3dVyUAFLHmDnjgP8g00XZuu408f">
                             <div className="billing-form-container">
                                 <h1>Premium Subscription</h1>
