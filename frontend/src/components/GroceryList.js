@@ -56,21 +56,23 @@ class GroceryList extends Component{
                     tempIng += element.measurement + " ";
                 } 
                 tempIng += element.name
-                this.state.ingArr.push(tempIng)
+                this.setState({
+                    ingArr : [...this.state.ingArr,tempIng]
+                })
                 
             })
-            console.log(this.state.ingArr)
         })
         .catch(err =>{
             console.log(err)
         })
+
+        
     }
   
     
     render(){
         console.log(this.state.startDate);
         console.log(this.state.stopDate);
-        console.log(this.state.ingArr)
         return (
             <div className="GroceryList">
                 <NavBar />
