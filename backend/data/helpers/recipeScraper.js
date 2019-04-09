@@ -66,7 +66,7 @@ allRecipeScraper = async (url) => {
   rp(url)
   .then(function(html){
     //let name, image, link, ingredients, directions;
-    const allRecipeJSON = {name: '', image: '', link: '', ingredients: '', directions: '', } 
+    const allRecipeJSON = {name: '', image: '', link: '', ingredients: '', directions: ''} 
     
     const recipeName = ($('h1', html).text());
     allRecipeJSON.name = recipeName;
