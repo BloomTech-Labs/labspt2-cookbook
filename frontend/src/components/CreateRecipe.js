@@ -21,25 +21,29 @@ class CreateRecipe extends React.Component{
       
       this.state = {
         recipeUrl: '',
-        userId: '', //this.props.userId, ///Should I be doing this with auth id or retriving the user id?
+        userId: '', 
         tagModal: false,
         tag: null,
-        recipeId:null, 
+        recipe: [],
+        recipeData : [],
+        testRecipe: [],
+        testRecipeData : [],
         servings: '',
-        calendarModal:false
+        calendarModal:false,
+        date: ''
       }
   }
  componentDidMount(){
-     console.log("from local storage", localStorage.getItem('userId'));
     const userId = localStorage.getItem('userId');
     this.setState({
          userId : userId
      });
+     this.testGetRecipe();
  }
 
  dropHandler = event =>{
       const url = event.dataTransfer.getData('text');
-      console.log(url)
+    //   console.log(url)
     this.setState({
         recipeUrl : url
     })
@@ -53,13 +57,36 @@ postRecipe = (event) =>{
             .then(response =>{
                 console.log(response);
                 this.setState({
-                    recipeId : response.data.recipe_id ///Make sure that is right
+                    recipe : response.data ///Make sure that is right
                 })
             })
             .catch(err =>{
                 console.log('Could not add new recipe obj', err);
             })
     console.log(newRecipeObj);
+}
+testGetRecipe = async() =>{
+    await axios
+        .get(`https://kookr.herokuapp.com/api/recipes/user/1`)
+            .then(res =>{
+                this.setState({
+                    testRecipe : [ ...Object.values(res.data)]
+                }) 
+                 
+            })
+            .catch(err =>{
+                console.log(err);
+            })
+    await axios
+        .get('https://kookr.herokuapp.com/api/recipes/1')
+            .then(res =>{
+                this.setState({
+                    testRecipeData : [...Object.values(res.data)]
+                })
+            })
+            .catch(err =>{
+                console.log(err)
+            })
 }
 dayClick = (clickedDay) =>{
     this.setState({
@@ -70,16 +97,15 @@ dayClick = (clickedDay) =>{
     MyDateString = MyDate.getFullYear() + '/'
     + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
     + ('0' + MyDate.getDate()).slice(-2) + '/'
-    console.log(MyDateString);
+    // console.log(MyDateString);
     this.setState({
         date: MyDateString
-    })
+    });
 }
 tagSelector = async(event) =>{
     const tag = event.target.dataset.txt;
     await this.setState({
         tag: tag,
-        
     })
     console.log(this.state.tag);
 }
@@ -92,10 +118,9 @@ clickHandle = (event) =>{
 }
 postTagToRecipe = () =>{
     const tag = this.state.tag;
-    console.log('I am tag from post',this.state.tag);
-    console.log(this.state.servings);
-    //const recipeId = this.state.selectedRecipe.recipe_id //??????Make sure it's recipe_id
-    const recipeId = this.state.recipeId;
+    // console.log('I am tag from post',this.state.tag);
+    // console.log(this.state.servings);
+    const recipeId = this.state.recipe.recipe_id;
     axios
         .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, tag)
             .then(res =>{
@@ -104,6 +129,30 @@ postTagToRecipe = () =>{
             .catch(err =>{
                 console.log('Error adding tag to recipe by id', err)
             })
+}
+
+postToShoppingList = () =>{
+    const date = this.state.date;
+    const userId = this.state.userId;
+    const servings = this.state.servings;
+    const recipeId = this.state.recipe.recipe_id
+    const shoppingList = {date: date, userId:userId, recipeId: recipeId, servings: servings}
+    const newShoppingListObj = Object.assign({}, shoppingList);
+    
+    
+
+    axios
+        .post(`https://kookr.herokuapp.com/api/list/user/${userId}`, {newShoppingListObj})
+            .then(response =>{
+                console.log(response);
+            })
+            .catch(err =>{
+                console.log(err);
+            })
+}
+postsOnSubmit = () =>{
+    this.postTagToRecipe();
+    this.postToShoppingList();
 }
 servingsAdjustor = async (event) =>{
     await this.setState({
@@ -133,6 +182,9 @@ closeCalendarMobile = () =>{
 }
 
     render(){
+        const {testRecipe} = this.state
+        console.log(this.state.testRecipeData);
+        const {testRecipeData} = this.state
         return(
             <div className='Create-Recipe'>
                 <NavBar /> 
@@ -151,24 +203,24 @@ closeCalendarMobile = () =>{
                         </div>
                         <div className='recipe-preview'>
                             <div className='recipe-preview-title-and-info'>
-                                <h3 className='recipe-preview-header'>Slammin' Salmon</h3>
+                                <h3 className='recipe-preview-header'>{testRecipe.length ? testRecipe[0].name : ''}</h3>
                                 <div className='recipe-info-container'>  
                                     <div className='prep-time-container'>
                                         <p className='prep-time'>Prep Time:</p>
-                                        <p> 3 years</p>
+                                        <p>{`${testRecipeData.length ? testRecipeData[4]: ''} min`} </p>
                                     </div>
                                     <div className='cook-time-container'>
                                         <p className = 'cook-time'>Cook Time:</p>
-                                        <p> 1 year</p>
+                                        <p> {`${testRecipeData.length ? testRecipeData[5] : ''} min`}</p>
                                     </div>
                                     <div className='servings-amount-container'>
                                         <p className ='servings-amount'>Servings:</p>
-                                        <p> 4</p>
+                                        <p> {`${testRecipeData.length ? testRecipeData[6] : ''}`}</p>
                                     </div>
                                 </div>
                                 <div className='recipe-preview-image'>
                                     <div className ='recipe-image-sub'>
-                                    <img className ='recipe-preview-img'src ='https://food.fnr.sndimg.com/content/dam/images/food/fullset/2013/11/25/0/FNK_pan-seared-salmon-with-kale-apple-salad_s4x3.jpg.rend.hgtvcom.616.462.suffix/1387918756116.jpeg' alt ='fish-dish' />
+                                    <img className ='recipe-preview-img'src ={testRecipeData.length ? testRecipeData[2] : ''} alt ='recipe-img' />
                                 </div> 
                             </div>      
                             </div>
@@ -245,7 +297,7 @@ closeCalendarMobile = () =>{
                                     <p className='edit-servings-p'>How many servings?</p>
                                     <input className ='servings-input' name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" /> 
                                 </div>
-                                <div className='add-recipe-button' onClick={this.postTagToRecipe}> Save </div> 
+                                <div className='add-recipe-button' onClick={this.postsOnSubmit}> Save </div> 
                             </div>
                         </div>
                     </div>    

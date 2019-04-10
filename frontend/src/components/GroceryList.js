@@ -37,6 +37,27 @@ class GroceryList extends Component{
         
        
     }
+    // servingsAdjustor = () =>{
+    //     const testIngredients = this.state.testRecipeData.ingredients
+    //     const testIngredientsAmount = this.state.testRecipeData.ingredients.amount
+    //     const testServings = this.state.testRecipeData.servings
+    //     // const ingredients = this.state.recipeData.ingredients
+    //     // const recipeServings = this.state.recipeData.servings
+    //     const servings = this.state.servings
+    //     for(let i = 0; i < testIngredients.length; i++){
+    //         if(testServings > servings){ // given 3 want 2
+    //            // amount = amount * (2 / 3)
+    //            testIngredientsAmount = testIngredientsAmount * (servings / testServings)
+    //            return testIngredientsAmount;
+    //         }else if(testServings < servings){ //given 2 want 6
+    //            let multiplier = servings / testServings  //6 /2 = 3
+    //             testIngredientsAmount = testIngredientsAmount * multiplier
+    //             return testIngredientsAmount
+    //         }else{
+    //             return testIngredientsAmount
+    //         }
+    //     }
+    // }
   
     
     render(){

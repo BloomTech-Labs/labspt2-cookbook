@@ -52,8 +52,12 @@
     }
 }
 @media screen and (max-width:500px){
+    .calendar-intro-container{
+        margin-bottom: 15px;
+    }
     .calendar-page-header{
-        font-size:56px;
+        font-size:52px;
+        margin-top:15px;
     }
 }
 .calendar-row{
@@ -77,6 +81,8 @@
     .calendar-page-p{
         width:100%;
         margin-top:0px;
+        font-size:16px;
+        padding:0px;
     }
     .calendar-housing{
         width:100%;
@@ -120,7 +126,7 @@
     display:flex;
     justify-content: space-between;
     margin:0px auto;
-    margin-top:40px;
+    margin-top:20px;
 }
 @media screen and (max-width:1000px){
     .calendar-recipe-section{
@@ -132,6 +138,9 @@
     flex-direction:column;
     width:40%;
     background-color:white;
+    border-radius:2px;
+    padding:15px 0%;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 .recipe-search{
     display:flex;
@@ -140,18 +149,25 @@
    
 }
 .recipe-search-input{
-    height:30px;
-    margin-top:15px;
+    height:20px;
+    width:90%;
+    margin:0px auto;
 }
 .calendar-recipe-list{
-    border:2px solid black;
-    height:160px;
-    margin-top:20px;
-    width:100%;
+    border:1px solid red;
+    margin:20px auto;
+    width:90%;
 }
 @media screen and (max-width:1000px){
     .recipe-search-section{
        width:100%;
+       margin-bottom: 30px;
+       padding:20px 0%;
+    }
+}
+@media screen and (max-width:500px){
+    .recipe-search-section{
+        margin-bottom:0px;
     }
 }
 .servings-and-edit-section{
@@ -160,7 +176,7 @@
     justify-content: space-between;
 }
 .servings-and-duplicate-container{
-    width:45%;
+    width:35%;
     background-color:white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     border-radius:2px;
@@ -178,12 +194,36 @@
     margin-bottom:0px;
 }
 .edit-recipe-section{
-    width:45%;
+    width:55%;
     background-color:white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     border-radius:2px;
     display:flex;
     flex-direction:column;
+}
+.calendar-tag-header{
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:normal;
+    font-size:20px;
+    text-align:center;
+}
+.calendar-meal-tag-button-section{
+    margin-top:-10px;
+}
+.calendar-meal-tag{
+    width:85%;
+    background-color:rgb(87, 144, 161);
+    color:white;
+    margin:0px  auto;
+    margin-bottom:15px;
+    padding:8px 0%;
+    border-radius:2px;
+    text-align:center;
+    cursor:pointer;
+    font-size:16px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    text-transform:uppercase;
+    font-weight:bold;
 }
 @media screen and (max-width:1000px){
     .servings-and-edit-section{
@@ -198,9 +238,28 @@
         display:none;
     }
 }
+.servings-and-edit-section-mobile{
+    display:flex;
+    width:96%;
+    margin:0px auto;
+    justify-content: space-between;
+}
+.calendar-edit-header-mobile{
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    text-transform:uppercase;
+    font-weight:bold;
+    font-size:20px;
+}
+.calendar-tag-header-mobile{
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    text-transform:uppercase;
+    font-weight:bold;
+    font-size:20px;
+}
 @media screen and (min-width:501px){
     .servings-and-edit-section-mobile{
         display:none;
+        
     }
 }
 .servings-modal-closed{
@@ -256,4 +315,20 @@
     border-radius:5px;
     border:5px solid rgb(52, 98, 112);
     text-align: center;
+}
+
+.save-button{
+    width: 50%;
+    margin:40px auto;
+    padding:10px 0%;
+    background-color:rgb(52, 98, 112);
+    color:white;
+    font-weight:bold;
+    text-align:center;
+    border-radius:3px;
+    font-size:26px;
+    margin-bottom: 40px;
+    cursor:pointer;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+   text-transform: uppercase;
 }
