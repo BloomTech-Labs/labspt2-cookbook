@@ -43,8 +43,8 @@ router.post('/user/:id', (req, res) => {
   const item = req.body;
 
   /* Check for missing fields */
-  if( !item.ing_id || !item.start || !item.end ) {
-    res.status(400).json({ message: "Missing required field: item, start or end date." });
+  if( !item.ing_id || !item.start  ) {
+    res.status(400).json({ message: "Missing required field: item, or start date." });
   } else {
     // Send the insert
     shopping.insert(id, item)
@@ -58,6 +58,8 @@ router.post('/user/:id', (req, res) => {
   }
 });
 
+/* POST new shopping list by recipeId */
+
 
 /* PUT update shopping list item */
 router.put( '/:id', (req, res) => {
@@ -65,8 +67,8 @@ router.put( '/:id', (req, res) => {
   const newItem = req.body;
 
   /* Missing field check */
-  if( !newItem.ing_id || !newItem.start || !newItem.end ) {
-    res.status(400).json({ message: "Missing required field: ingredient id, start, or end date." });
+  if( !newItem.ing_id || !newItem.start ) {
+    res.status(400).json({ message: "Missing required field: ingredient id or end date." });
   } else {
     // Update item
     shopping.update(id, newItem)
