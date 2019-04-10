@@ -104,7 +104,7 @@ dayClick = (clickedDay) =>{
 }
 tagSelector = async(event) =>{
     const tag = event.target.dataset.txt;
-    await this.setState({
+await this.setState({
         tag: tag,
     })
     console.log(this.state.tag);
