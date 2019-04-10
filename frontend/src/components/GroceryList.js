@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getCalendarItem } from '../actions/CalendarActions';
+import axios from 'axios';
+import formatQuantity from 'format-quantity'
 
 import NavBar from './NavBar';
 import '../css/GroceryList.css';
@@ -13,9 +15,15 @@ class GroceryList extends Component{
         super()
         this.state ={
           startDate : '',
-          stopDate:  ''
+          stopDate:  '',
+          ingArr: []
         }
     }
+
+    componentDidMount(){
+        this.getRecipe()
+    }
+
     onChangeDate = (event) =>{
         this.setState({
             [event.target.name] : event.target.value
@@ -33,13 +41,38 @@ class GroceryList extends Component{
         console.log(dateArray);
         return dateArray;
         
-       
+    }
+
+    getRecipe = () =>{
+        axios
+        .get('https://kookr.herokuapp.com/api/ingredients/recipe/1')
+        .then(res =>{
+            res.data.forEach((element)=>{
+                let tempIng ="";
+                if(element.amount !== null){
+                    tempIng += formatQuantity(element.amount) + " ";
+                } 
+                if ( element.measurement !== null){
+                    tempIng += element.measurement + " ";
+                } 
+                tempIng += element.name
+                this.setState({
+                    ingArr : [...this.state.ingArr,tempIng]
+                })
+                
+            })
+        })
+        .catch(err =>{
+            console.log(err)
+        })
+
+        
     }
   
     
     render(){
         console.log(this.state.startDate);
-        console.log(this.state.stopDate)
+        console.log(this.state.stopDate);
         return (
             <div className="GroceryList">
                 <NavBar />
@@ -58,7 +91,11 @@ class GroceryList extends Component{
                     <div className="listSection">
                         <h1>Grocery List for Variable</h1>
                         <div className="list">
-                            Will map out a list from selected days
+                        <ul>
+                            {this.state.ingArr.map(item =>(
+                                <li>{item}</li>
+                            ))}
+                        </ul>
                         </div>
                         <div className="pageTurnIcon">Icon Here</div>
                     </div>
