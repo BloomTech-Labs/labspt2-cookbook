@@ -23,7 +23,9 @@ class GroceryList extends Component{
     componentDidMount(){
         this.getRecipe()
     }
-
+    clickHandler = (event) =>{
+        console.log("this is a link")
+    }
     onChangeDate = (event) =>{
         this.setState({
             [event.target.name] : event.target.value
@@ -91,11 +93,14 @@ class GroceryList extends Component{
                     <div className="listSection">
                         <h1>Grocery List for Variable</h1>
                         <div className="list">
-                        <ul>
+                        <form>
                             {this.state.ingArr.map(item =>(
-                                <li>{item}</li>
+                                <div>
+                                    <input type='checkbox' name={item} onClick={this.clickHandler}/>
+                                    <label for={item}>{item}</label>
+                                </div>
                             ))}
-                        </ul>
+                        </form>
                         </div>
                         <div className="pageTurnIcon">Icon Here</div>
                     </div>

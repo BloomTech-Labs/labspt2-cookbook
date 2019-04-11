@@ -23,11 +23,11 @@ class Settings extends Component {
 async componentDidMount(){
     //this.getUserToShowChrisThatWeCan();
     let localUserId = await localStorage.getItem('userId')
-    await this.setState({
+    this.setState({
         userId : localUserId
     });
-    await this.getCurrentUser();
-    await this.checkSubscription();
+    this.getCurrentUser();
+    this.checkSubscription();
     console.log(this.state)
 }
 

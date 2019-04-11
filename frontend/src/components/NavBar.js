@@ -25,7 +25,6 @@ class NavBar extends React.Component{
                          <Link className='nav-link' to="/grocery-list">Grocery List</Link>
                          <Link className='nav-link' to='/calendar'>Calendar</Link>
                          <Link className='nav-link' to="/settings">Settings</Link>
-                         <Link className='nav-link' to="/billing">Billing</Link>
                      </div>
                  </div>
                  <div className='nav-break-800'>
@@ -41,7 +40,6 @@ class NavBar extends React.Component{
                             <Link className='nav-800' to="/grocery-list">Grocery List</Link>
                             <Link className='nav-800' to='/calendar'>Calendar</Link>
                             <Link className='nav-800' to="/settings">Settings</Link>
-                            <Link className='nav-800' to="/billing">Billing</Link>
                         </div>     
                      </div>
                  </div>    
