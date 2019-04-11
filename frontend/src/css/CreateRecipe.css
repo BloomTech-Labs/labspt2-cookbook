@@ -14,6 +14,14 @@
     }
     .create-page-container{
         width:100%;
+        padding-bottom:40px;
+        
+    }
+}
+@media screen and (max-width:500px){
+    .create-page-container{
+        padding-bottom:0px;
+        height:100vh;
     }
 }
 .create-page-sub-container{
@@ -96,7 +104,8 @@
     font-weight:bolder;
    cursor:pointer;
    width:10%;
-   padding-top:10px;
+   padding-top:8px;
+   letter-spacing: 0.3px;
    text-align:center;
    border-radius:0px 2px 2px 0px;
    font-family: 'Barlow Semi Condensed', sans-serif;
@@ -121,6 +130,7 @@
 }
 .recipe-preview-header{
     font-size:28px;
+    letter-spacing:0.8px;
     margin:0px auto;
     text-align:center;
     font-family: 'Barlow Semi Condensed', sans-serif;
@@ -144,6 +154,9 @@
         padding-bottom:30px;
         width:95%;
    }
+   .recipe-preview-header{
+       margin-top:20px;
+   }
   
    .recipe-preview-title-and-info{
        width:100%;
@@ -157,8 +170,15 @@
     display:flex;
     flex-direction:column;
 }
+@media screen and (max-width:500px){
+    .prep-time-container, .cook-time-container, .servings-amount-container{
+       font-size:18px;
+    }
+}
 .prep-time, .cook-time, .servings-amount{
     margin-bottom:-10px;
+    font-weight:bold;
+    letter-spacing: 0.3px;
 }
 h4{
     font-weight:bold;
@@ -179,10 +199,11 @@ h4{
 .recipe-preview-img{
     width:90%;
     height:320px;
-    margin-left:5%;
+    margin-left:4.5%;
     margin-top:15px;
     border-radius: 2px;
-   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    border:2px solid white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 @media screen and (max-width:1000px){
     .recipe-preview-img{
@@ -213,6 +234,7 @@ h4{
     width:30%;
     height:280px;
     margin-top:20px;
+    padding-left:4.5%;
  
 }
 .meal-tag-header{
@@ -222,6 +244,8 @@ h4{
    padding-right:15%;
    font-family: 'Barlow Semi Condensed', sans-serif;
    font-weight:normal;
+   font-weight:bold;
+   letter-spacing: 0.4px;
 }
 .meal-tag{
     width:85%;
@@ -232,19 +256,21 @@ h4{
     border-radius:2px;
     text-align:center;
     cursor:pointer;
+   
 }
 
 .selected{
     background-color:rgb(52, 98, 112);
-    height:30px;
+    height:38px;
     border-radius:2px;
 }
 .meal-tag-p{
-    padding-top:10px;
-    font-size:16px;
+    padding-top:12px;
+    font-size:18px;
     font-weight:bold;
     font-family: 'Barlow Semi Condensed', sans-serif;
    text-transform: uppercase;
+   letter-spacing: 0.4px;
 }
 @media screen and (max-width:1010px){
     .meal-tag{
@@ -253,6 +279,9 @@ h4{
     }
     .meal-tag-header{
         margin-top:40px;
+    }
+    .selected{
+        height:33px;
     }
 }
 @media screen and (max-width:900px){
@@ -269,6 +298,13 @@ h4{
     .meal-tag{
         height:35px;
         margin-bottom:15px;
+    }
+    .meal-tag-p{
+        font-size:16px;
+        padding-top:8px;
+    }
+    .selected{
+        height:27px;
     }
 }
 @media screen and (max-width:500px){
@@ -346,6 +382,8 @@ h4{
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-weight:normal;
     font-size:20px;
+    font-weight:bold;
+   letter-spacing: 0.4px;
 }
 @media screen and (max-width:1000px){
     .edit-servings-header{

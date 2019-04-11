@@ -82,12 +82,6 @@ onChangeDate = (event) =>{
     })
 }
 
-
-   
-
-
-     
-
     render(){
         return (
              <div className="Recipe-List-Page">
@@ -101,7 +95,7 @@ onChangeDate = (event) =>{
                         <div className="recipe-list-search-section" >
                             <div className='recipe-list-button-container'>
                                 <Link to="/create" className="create-recipe-link">Add Recipe</Link>
-                                <div onClick={this.filterModalOpen} className='filter-button'>Filter</div>
+                                <div onClick={this.filterModalOpen} className='recipe-list-filter-button'>Filter</div>
                             </div>    
                             <input placeholder ='  Search your recipes' className="search-bar-input" />
                                 <div className= {this.state.filterModal ? 'filter-modal-open' : 'filter-modal-closed'}>
@@ -122,10 +116,14 @@ onChangeDate = (event) =>{
                         <div className="recipe-list">
                             {this.props.recipes.map((item) => (
                             <div key={item.name} className='recipe-card'>
-                                <Link to={`/recipes/${item.recipe_id}`} >
+                            {console.log(item)}
+                                <Link className = 'recipe-link' to={`/recipes/${item.recipe_id}`} >
                                             <div className='recipe-card-header'>{item.name}</div>
-                                            <div className='recipe-card-content'>text some card text</div>
+                                            {/* <div className='recipe-card-content'>text some card text</div> */}
                                 </Link>
+                                <div className= 'recipe-card-img-container'>
+                                    <img className = 'recipe-card-img' src = {item.image} alt = 'recipe-list-image'/>
+                                </div>
                                 <div className='recipe-card-button-container'>
                                     <div onClick={() => this.editModalOpen(item)} className='recipe-card-edit-button'>Edit</div>
                                     <div className="recipe-card-delete-button">Delete</div>

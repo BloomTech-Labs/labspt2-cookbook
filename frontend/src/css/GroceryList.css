@@ -5,3 +5,11 @@
 .grocery-list-page{
     width:80%;
 }
+@media screen and (max-width:800px){
+    .GroceryList{
+        flex-direction:column;
+    }
+    .grocery-list-page{
+        width:100%;
+    }
+}

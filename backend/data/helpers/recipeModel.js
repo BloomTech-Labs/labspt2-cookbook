@@ -80,7 +80,7 @@ module.exports = {
       // end db.where
     } else {
       // Might need to add another endpoint specifically for this.
-      checkUrl(recipe); /////??????????????
+      recipe = await checkUrl.checkUrl(recipe); /////??????????????
 
       return db.transaction( (trans) => {
         return db('recipes')

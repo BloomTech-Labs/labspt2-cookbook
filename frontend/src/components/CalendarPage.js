@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Calendar from 'react-calendar';
 import NavBar from './NavBar';
-
+import moment from 'moment';
+import Moment from 'moment';
 import axios from 'axios';
-
-
-
-
+import { extendMoment } from 'moment-range';
 import '../css/CalendarPage.css';
+
+
+
+const rangerDanger = extendMoment(Moment)
+
+
 
 class CalendarPage extends Component{
     constructor(props){
@@ -16,11 +20,16 @@ class CalendarPage extends Component{
         this.state = {
             openDayModal : false,
             userId :   '' , //this.props.userId,  //  Why does this work, but not setState in componentDidMount
-            recipeArr : ['cheeseburger', 'mac&cheese', 'queso'],
+            recipes : [],
+            testRecipes: [],
             filteredRecipeArr : [],
             selectedRecipe : '',
             date: null,
-            tag: null
+            forwardDate: null,
+            backwardDate: null,
+            tag: null,
+            servingsModal:false,
+            tagModal:false
          
         }
     }
@@ -31,16 +40,31 @@ class CalendarPage extends Component{
             userId : userId
      });
        this.recipeGetById();
+       this.testGetRecipe();
        
     }
+    testGetRecipe = async() =>{
+        await axios
+            .get(`https://kookr.herokuapp.com/api/recipes/user/1`)
+                .then(res =>{
+                    this.setState({
+                        testRecipes : res.data 
+                    }) 
+                     
+                })
+                .catch(err =>{
+                    console.log(err);
+                })
+                console.log(this.state.testRecipes);
+    }           
     recipeGetById = () =>{
-        console.log(this.state.userId);
+        // console.log(this.state.userId);
         axios   
             .get(`https://kookr.herokuapp.com/api/recipes/user/${this.state.userId}`)
                 .then(response =>{
-                    console.log(response);
+                    // console.log(response);
                     this.setState({
-                        recipeArr: response.data   ///.waht?
+                        recipes: response.data  
                     })
                 })
                 .catch(err =>{
@@ -50,22 +74,55 @@ class CalendarPage extends Component{
     dayClick = (clickedDay) =>{
         this.setState({
             openDayModal : true,
-            // date : clickedDay.getDate()
         });
         var MyDate = clickedDay;
         var MyDateString;
         MyDateString =  MyDate.getFullYear() + '/'
         + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
         + ('0' + MyDate.getDate()).slice(-2) + '/'
-       
+        
         console.log(MyDateString);
         this.setState({
-            date: MyDateString
+            date: MyDateString,
         })
     }
+    getWeek = () =>{
+        const currentDate = moment(this.state.date);
+        const formattedCurrent = currentDate.clone().format('YYYY-MM-DD');
+        const formattedCurrentPlus = currentDate.clone().add(1, 'days').format('YYYY-MM-DD');
+        const endOfWeek = currentDate.clone().add(1, 'week').format('YYYY-MM-DD')
+        const prevWeekStart = currentDate.clone().subtract(6, 'days').format('YYYY-MM-DD');
+        const prevDates = this.getDateArray(new Date(prevWeekStart), new Date(formattedCurrent));                                                                                                           
+        prevDates.forEach(function(date) {
+          console.log(date);
+        });
+        // const nextDates = this.getDateArray(new Date(formattedCurrentPlus), new Date(endOfWeek));                                                                                                           
+        // nextDates.forEach(function(date) {
+        //   console.log(date);
+        // });
+
+    }
+
+
+    getDateArray = (startDate, endDate) =>{
+        var dates = [],
+            currentDate = startDate,
+            addDays = function(days) {
+              var date = new Date(this.valueOf());
+              date.setDate(date.getDate() + days);
+              return date;
+            };
+        while (currentDate <= endDate) {
+          dates.push(currentDate);
+          currentDate = addDays.call(currentDate, 1);
+        }
+        return dates;
+      };
+//Read only with recipeArr??
     calendarSearchFunction = (event) =>{
         event.preventDefault();
-        var updatedArr = this.state.recipeArr;
+        // const updatedArr = this.state.recipes;
+        const updatedArr = this.state.testRecipes;
         updatedArr = updatedArr.filter(function(item){
           return item.toLowerCase().search(
             event.target.value.toLowerCase()) !== -1;
@@ -112,6 +169,27 @@ class CalendarPage extends Component{
         this.postTagToRecipe();
         this.calendarEventPost();
     }
+    openServingsModal = () =>{
+        this.setState({
+            servingsModal:true
+        })
+    }
+    closeServingsModal = () =>{
+        this.setState({
+            servingsModal:false
+        })
+    }
+    openTagModal = () =>{
+        this.setState({
+            tagModal:true
+        })
+    }
+    closeTagModal = () =>{
+        this.setState({
+            tagModal:false
+        })
+    }
+    
     render(){
         return (
             <div className="CalendarPage">
@@ -132,8 +210,7 @@ class CalendarPage extends Component{
                         <div className='calendar-recipe-section'>
                             <div className='recipe-search-section'>
                                 <div className='recipe-search'>
-                                    <h4>Search Your Recipes:</h4>
-                                    <input className='recipe-search-input' type="text" placeholder="Search"  onChange = {this.calendarSearchFunction}/>
+                                    <input className='recipe-search-input' type="text" placeholder="Search your recipes"  onChange = {this.calendarSearchFunction}/>
                                 </div>
                                 <div className='calendar-recipe-list'>
                                     {this.state.filteredRecipeArr.map(recipe =>{
@@ -145,29 +222,62 @@ class CalendarPage extends Component{
                                     })}
                                 </div>
                             </div>
-                            <div className='servings-and-duplicate-container'>
-                                <p>How many servings?</p>
-                                <input className = 'servings-input'type="number" min="1" />
-                                <p className='check-box-p'>Duplicate previous week's shopping list</p>
-                                <input type="checkbox" id='check-box' className ='check-box'/>
-                                
-                            </div>    
-                            <div className='edit-recipe-section'>  
-                                <div className="calendar-meal-tag-container">
-                                    <h4>Select Tag to Add</h4>
-                                    <div className='meal-tag-button-section'>
-                                        <div data-txt = 'breakfast' onClick = {this.tagSelector}>Breakfast</div>
-                                        <div  data-txt = 'lunch' onClick = {this.tagSelector}>Lunch</div>
-                                        <div  data-txt = 'dinner' onClick = {this.tagSelector}>Dinner</div>
-                                        <div  data-txt = 'dessert' onClick = {this.tagSelector}>Dessert</div>
-                                        <div  data-txt = 'snack' onClick = {this.tagSelector}>Snack</div>
+                            <div className='servings-and-edit-section'>
+                                <div className='servings-and-duplicate-container'>
+                                    <p>How many servings?</p>
+                                    <input className = 'servings-input'type="number" min="1" />
+                                    <p className='check-box-p'>Duplicate previous week's shopping list</p>
+                                    <input type="checkbox" id='check-box' className ='check-box' onClick = {this.getWeek}/>
+                                    
+                                </div>    
+                                <div className='edit-recipe-section'>  
+                                    <div className="calendar-meal-tag-container">
+                                        <h4 className='calendar-tag-header'>Select Tag to Add</h4>
+                                        <div className='calendar-meal-tag-button-section'>
+                                            <div className = 'calendar-meal-tag' data-txt = 'breakfast' onClick = {this.tagSelector}>Breakfast</div>
+                                            <div  className = 'calendar-meal-tag' data-txt = 'lunch' onClick = {this.tagSelector}>Lunch</div>
+                                            <div  className = 'calendar-meal-tag' data-txt = 'dinner' onClick = {this.tagSelector}>Dinner</div>
+                                            <div  className = 'calendar-meal-tag' data-txt = 'dessert' onClick = {this.tagSelector}>Dessert</div>
+                                            <div  className = 'calendar-meal-tag' data-txt = 'snack' onClick = {this.tagSelector}>Snack</div>
+                                        </div>    
+                                    </div>
+                                </div>
+
+
+                                <div className='servings-and-edit-section-mobile'>
+                                    <h3 onClick = {this.openServingsModal} className='calendar-edit-header-mobile'>Edit servings</h3>
+                                    <div className={this.state.servingsModal ? 'servings-modal-open'  : 'servings-modal-closed'}>
+                                        <div className = 'calendar-servings-modal'>
+                                            <div onClick={this.closeServingsModal}>X</div>
+                                            <input className = 'servings-input'type="number" min="1" />
+                                            <p className='check-box-p'>Duplicate previous week's shopping list</p>
+                                            <input type="checkbox" id='check-box' className ='check-box'/>
+                                        </div> 
                                     </div>    
-                                </div>
-                                <div onClick = {this.onSaveFunction} className='save-button'>
-                                    Save 
-                                </div>
-                            </div>     
+                                    <div className='edit-recipe-section-mobile'>  
+                                        <h4 onClick ={this.openTagModal} className='calendar-tag-header-mobile'>Select Tag to Add</h4>
+                                        <div className={this.state.tagModal ? 'tag-modal-open'  : 'tag-modal-closed'}>
+                                            <div className='calendar-tag-modal'>
+                                                <div onClick={this.closeTagModal}>X</div>
+                                                <div className='meal-tag-button-section'>
+                                                    <div data-txt = 'breakfast' onClick = {this.tagSelector}>Breakfast</div>
+                                                    <div  data-txt = 'lunch' onClick = {this.tagSelector}>Lunch</div>
+                                                    <div  data-txt = 'dinner' onClick = {this.tagSelector}>Dinner</div>
+                                                    <div  data-txt = 'dessert' onClick = {this.tagSelector}>Dessert</div>
+                                                    <div  data-txt = 'snack' onClick = {this.tagSelector}>Snack</div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                       
+                                    </div>
+                                </div>             
+                            </div>   
                         </div>
+                        <div onClick = {this.onSaveFunction} className='save-button'>
+                            Save 
+                        </div>  
+                        <img src = '../images/salad.png'/>
+                        <img src= '../images/popcorn.png'/>
                     </div>        
                 </div>
             </div>       
