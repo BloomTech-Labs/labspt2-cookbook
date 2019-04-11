@@ -99,10 +99,10 @@ Startup: *yarn server*
 * **GET : /api/list/user/:id/**  -- Gets shopping list for date & user
 * **GET : /api/list/:id** -- Gets a shopping list item by it's ID
 * **POST: /api/list/user/:id/** -- Posts new shopping list item for user
-* * -- Requires: ing_id, start, end (dates: 2019-04-10)
+* * -- Requires: ing_id, start (dates: 2019-04-10)
 * * -- Optional: amount, measurement
 * **PUT: /api/list/:id** -- Edits shopping list item
-* * -- Requires: ing_id, start, end
+* * -- Requires: ing_id, start
 * * -- Optional: amount, measurement
 * **DELETE: /api/list/:id** -- Deletes shopping list item
 
