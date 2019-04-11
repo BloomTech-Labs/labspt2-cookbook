@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
     table.date('date');
     table.integer('recipe_id').unsigned().notNullable();
     table.integer('tag_id').unsigned().notNullable();
+    table.integer('servings').defaultTo(4);
   });
 };
 
