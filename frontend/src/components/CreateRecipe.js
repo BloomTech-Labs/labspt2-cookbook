@@ -101,21 +101,21 @@ dayClick = (clickedDay) =>{
     this.setState({
         date: MyDateString
     });
+    // console.log(MyDateString)
 }
-tagSelector = async(event) =>{
-    const tag = event.target.dataset.txt;
-await this.setState({
-        tag: tag,
+
+clickHandle = (event,  type) =>{
+    event.preventDefault();
+    this.setState({
+        tag:type
     })
-    console.log(this.state.tag);
+    console.log(this.state.tag)
 }
-addClass = (event) =>{
-    event.target.classList.toggle('selected');
-}
-clickHandle = (event) =>{
-    this.tagSelector(event);
-    this.addClass(event);
-}
+
+
+
+
+
 postTagToRecipe = () =>{
     const tag = this.state.tag;
     // console.log('I am tag from post',this.state.tag);
@@ -227,24 +227,34 @@ closeCalendarMobile = () =>{
                             <div className='meal-tag-section'>
                                 <h3 className='meal-tag-header'>For which meal?</h3>
                                 <div className='meal-tag'>
-                                    <p className='meal-tag-p' data-txt = 'breakfast' onClick={this.clickHandle}>Breakfast</p>
-                                
+                                    <div className='meal-tag-sub'>
+                                        <p className={`meal-tag-p ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>Breakfast</p>
+                                        <img className = 'meal-tag-icon' src ='../images/fried-egg.png'/>
+                                    </div>
                                 </div>
                                 <div className='meal-tag'>
-                                    <p className='meal-tag-p' data-txt = 'lunch' onClick={this.clickHandle}>Lunch</p>
-                                
+                                    <div className='meal-tag-sub'>  
+                                        <p className={`meal-tag-p ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>Lunch</p>
+                                        <img className = 'meal-tag-icon' src ='../images/salad.png'/>
+                                    </div>
                                 </div>
                                 <div className='meal-tag'>
-                                    <p className='meal-tag-p' data-txt = 'dinner' onClick={this.clickHandle}>Dinner</p>
-                                
+                                    <div className='meal-tag-sub'>
+                                        <p className='meal-tag-p' data-txt = 'dinner' onClick={this.clickHandle}>Dinner</p>
+                                        <img className = 'meal-tag-icon' src ='../images/fish.png'/>
+                                    </div>
                                 </div>
                                 <div className='meal-tag'>
-                                    <p className='meal-tag-p' data-txt = 'snack' onClick={this.clickHandle}>Dessert</p>
-                                
+                                    <div className='meal-tag-sub'>
+                                        <p className='meal-tag-p' data-txt = 'snack' onClick={this.clickHandle}>Dessert</p>
+                                        <img className = 'meal-tag-icon' src ='../images/cupcake.png'/>
+                                    </div>
                                 </div>
                                 <div className='meal-tag'>
-                                    <p className='meal-tag-p' data-txt = 'dessert' onClick={this.clickHandle}>Snack</p>
-                                
+                                    <div className='meal-tag-sub'>
+                                        <p className='meal-tag-p' data-txt = 'dessert' onClick={this.clickHandle}>Snack</p>
+                                        <img className = 'meal-tag-icon' src ='../images/popcorn.png'/>
+                                    </div>
                                 </div>
                             </div>
                             <div className='meal-tag-mobile'>

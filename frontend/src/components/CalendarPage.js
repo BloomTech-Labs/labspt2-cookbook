@@ -27,6 +27,8 @@ class CalendarPage extends Component{
             date: null,
             forwardDate: null,
             backwardDate: null,
+            prevWeekArray: [],
+            nextWeekArray: [],
             tag: null,
             servingsModal:false,
             tagModal:false
@@ -34,7 +36,7 @@ class CalendarPage extends Component{
         }
     }
     async componentDidMount(){
-        console.log(localStorage.getItem('userId'))
+        // console.log(localStorage.getItem('userId'))
         const userId = localStorage.getItem('userId');
         await this.setState({
             userId : userId
@@ -48,14 +50,14 @@ class CalendarPage extends Component{
             .get(`https://kookr.herokuapp.com/api/recipes/user/1`)
                 .then(res =>{
                     this.setState({
-                        testRecipes : res.data 
+                        testRecipes : [...Object.values(res.data)]
                     }) 
                      
                 })
                 .catch(err =>{
                     console.log(err);
                 })
-                console.log(this.state.testRecipes);
+                console.log(this.state.testRecipes[0].name)
     }           
     recipeGetById = () =>{
         // console.log(this.state.userId);
@@ -69,7 +71,8 @@ class CalendarPage extends Component{
                 })
                 .catch(err =>{
                     console.log('Error fetching recipes by user Id', err);
-                })             
+                })        
+    
     }
     dayClick = (clickedDay) =>{
         this.setState({
@@ -93,13 +96,19 @@ class CalendarPage extends Component{
         const endOfWeek = currentDate.clone().add(1, 'week').format('YYYY-MM-DD')
         const prevWeekStart = currentDate.clone().subtract(6, 'days').format('YYYY-MM-DD');
         const prevDates = this.getDateArray(new Date(prevWeekStart), new Date(formattedCurrent));                                                                                                           
-        prevDates.forEach(function(date) {
-          console.log(date);
-        });
+      
+       console.log(prevDates)
+    //    this.formatDate(prevDates[0])
+       const formattedDateArr = prevDates.map(date =>{
+            return this.formatDate(date)
+       })
+      console.log(formattedDateArr);
         // const nextDates = this.getDateArray(new Date(formattedCurrentPlus), new Date(endOfWeek));                                                                                                           
         // nextDates.forEach(function(date) {
         //   console.log(date);
         // });
+       
+        
 
     }
 
@@ -116,22 +125,51 @@ class CalendarPage extends Component{
           dates.push(currentDate);
           currentDate = addDays.call(currentDate, 1);
         }
+        // console.log(dates);
         return dates;
       };
+      
+      formatDate = (dateArr)=> {
+        // let count = 0
+        // let returnDate = ''
+        // for(let i = 0; i < dateArr.length; i++){
+            // const dateArrCount = dateArr[count]
+            let year =  dateArr.getFullYear().toString();
+            let month = '' + (dateArr.getMonth() + 1);
+            let day = '' + (dateArr.getDate());
+            if(month.length < 2) month = '0' + month
+            if(day.length < 2) day = '0' + day
+            // count = count + 1
+            let returnDate = year + '/' + month + '/' +day
+            console.log(returnDate)
+            return returnDate
+            
+        
+       
+       
+        
+    }
 //Read only with recipeArr??
     calendarSearchFunction = (event) =>{
         event.preventDefault();
         // const updatedArr = this.state.recipes;
-        const updatedArr = this.state.testRecipes;
-        updatedArr = updatedArr.filter(function(item){
-          return item.toLowerCase().search(
-            event.target.value.toLowerCase()) !== -1;
-        });
+        const testArr = this.state.testRecipes;
+        const inputValue = event.target.value
+        const updatedArr = testArr.filter(element =>{
+            return element.name.toLowerCase().includes(inputValue.toLowerCase())
+        })
+        // console.log(updatedArr);
         this.setState({filteredRecipeArr: updatedArr});
+        //if event.target.value empty set array empty
       }
+   
+
+
+
+
     onSelectRecipe = async(selectedRecipe) =>{
         await this.setState({
-            selectedRecipe
+            selectedRecipe: selectedRecipe
         });
         console.log(this.state);
     }
@@ -143,11 +181,8 @@ class CalendarPage extends Component{
         console.log(this.state.tag);
     }
     calendarEventPost = () =>{
-        console.log('State: ', this.state);
-        const calendarEvent = {
-            date: this.state.date, 
-            recipe  : this.state.selectedRecipe
-        }
+       
+      
     }
     
     postTagToRecipe = () =>{
@@ -191,6 +226,7 @@ class CalendarPage extends Component{
     }
     
     render(){
+        // console.log(this.state.testRecipes);
         return (
             <div className="CalendarPage">
                 <NavBar />
@@ -216,7 +252,8 @@ class CalendarPage extends Component{
                                     {this.state.filteredRecipeArr.map(recipe =>{
                                         return(
                                             <div  key = {Math.random()}>
-                                                <div onClick = {() =>this.onSelectRecipe(recipe)}>{recipe}</div>
+                                                 {console.log(recipe.name)}
+                                                <div onClick = {() =>this.onSelectRecipe(recipe)}>{recipe.name}</div>
                                             </div>    
                                         )
                                     })}
@@ -276,8 +313,6 @@ class CalendarPage extends Component{
                         <div onClick = {this.onSaveFunction} className='save-button'>
                             Save 
                         </div>  
-                        <img src = '../images/salad.png'/>
-                        <img src= '../images/popcorn.png'/>
                     </div>        
                 </div>
             </div>       

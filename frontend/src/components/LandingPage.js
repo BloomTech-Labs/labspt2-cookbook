@@ -92,8 +92,11 @@ class LandingPage extends React.Component{
                         <i class="fab fa-facebook-f" ></i>
                         <i class="fab fa-instagram"></i>
                         <i class="fab fa-twitter" ></i>
-                    </div>  
-                    <h1 className='landing-header'>Kookr Logo</h1>
+                    </div> 
+                    <div className = 'landing-logo-container'>
+                        <img className = 'landing-logo'src= '../images/logo.png'/>
+                        <h1 className='landing-header'>Kookr</h1>
+                    </div>
                     <div className='landing-page-nav-buttons'>
                         <h3 className='registration-button' onClick={this.openModal}>Login / Register</h3>
                     </div>

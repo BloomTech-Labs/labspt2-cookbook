@@ -80,31 +80,43 @@
          padding-left: 7px;
      }
  }
-.logo-container{
-    width:600px;
+.landing-logo-container{
+    display:flex;
 }
 .landing-header{
-    font-size:80px;
+    font-size:86px;
     margin-left:2%;
     font-weight:400;
-    margin-top:10px;
-    font-family: 'Cabin Sketch', cursive;
+    margin-top:-5px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:bolder;
     color:rgb(98, 139, 151);
 }
-@media screen and (max-width:1100px){
-    .landing-header{
-        font-size:64px;
-    }
- }
+.landing-logo{
+    height:80px;
+    margin-top:10px;
+   
+}
+
  @media screen and (max-width:800px){
    .landing-header{
-       font-size:50px;
+       font-size:62px;
+       margin-top:-3px;
+   }
+   .landing-logo{
+       height:56px;
+       margin-top:8px;
    }
 }
 @media screen and (max-width:500px){
+    .landing-logo-container{
+       width:50%;
+       margin:0px auto;
+       margin-left:25%;
+    }
     .landing-header{
-        font-size:50px;
-        padding-left:25%;
+        font-size:62px;
+       
     }
 }
 .landing-page-nav-buttons{

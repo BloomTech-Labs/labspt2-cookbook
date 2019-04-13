@@ -73,62 +73,65 @@ axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`).
 }
     render(){
         return (
-            <div className="windowContainer"> 
-            <NavBar />
-    <div>
-            <div className="recipeWrapper">
-            <div className="firstColumn" >
-                <div className='firstRow' >
-                    <div className="recipeNameTitle">{this.state.name}</div>
-                    <button href={`${this.state.link}`}>LINK</button>
-                </div>
-                <div className="secondRow" >
-                    <div><img className="recipeImage" src={this.state.image} /></div>
-                    <div className="RecipeCalendarInfo">
-                        <div className="borderClass">
-                        <div className="thisRecipeTag">{this.props.tags[0].tag}</div>
-                        <div className="thisRecipeDate" >{this.props.calendar[0].calendarDate}</div>
+            <div className="SingleRecipe"> 
+                <NavBar />
+                <div className ='single-recipe-page-container'>
+                    <div className = 'single-recipe-page-sub'>
+                        <div className = 'column-one'></div>
+                    </div>
+                        {/* <div className="recipeWrapper">
+                <div className="firstColumn" >
+                    <div className='firstRow' >
+                        <div className="recipeNameTitle">{this.state.name}</div>
+                        <button href={`${this.state.link}`}>LINK</button>
+                    </div>
+                    <div className="secondRow" >
+                        <div><img className="recipeImage" src={this.state.image} /></div>
+                        <div className="RecipeCalendarInfo">
+                            <div className="borderClass">
+                            <div className="thisRecipeTag">{this.props.tags[0].tag}</div>
+                            <div className="thisRecipeDate" >{this.props.calendar[0].calendarDate}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <div className="recipeInfo">
-                    <div className="recipeInfoTitle"> -Info</div>
-                        <div className="recipeInfo2">
-                    <div className="recInfo">
-                    <div>Prep Time</div>
-                    <div>{this.state.prep_time}</div>
-                    </div>
-                    <div className="recInfo">
-                    <div>Cook Time</div>
-                    <div>{this.state.cook_time}</div>
-                    </div>
-                    <div className="recInfo">
-                    <div>Servings</div>
-                    <div>{this.state.servings}</div>
-                    </div>
-                    </div>
-                    </div>
-                    <div className="ingInfo">
-                        <div className="ingInfoTitle">-Ingredients</div>
-                    <div className="ingInfo2">
-                        {this.state.ingredients.map(item => <div className="ingredient" key={item.id} > {item.amount} {item.measurement} {item.name}</div>)}
-                    </div>
-                    </div>
-                </div>
-           </div>
-                        <div className="direcInfo">
-                            
-                        <div className="direcInfoTitle" >-Directions</div>
-                        <div className="direcInfo2">
-                        {this.state.directions.map(item => <div className="directions" key={item.order}>- {item.directions}</div>)}
+                    <div>
+                        <div className="recipeInfo">
+                        <div className="recipeInfoTitle"> -Info</div>
+                            <div className="recipeInfo2">
+                        <div className="recInfo">
+                        <div>Prep Time</div>
+                        <div>{this.state.prep_time}</div>
+                        </div>
+                        <div className="recInfo">
+                        <div>Cook Time</div>
+                        <div>{this.state.cook_time}</div>
+                        </div>
+                        <div className="recInfo">
+                        <div>Servings</div>
+                        <div>{this.state.servings}</div>
                         </div>
                         </div>
-</div>
-            
-            
-    </div>
-            </div>         
+                        </div>
+                        <div className="ingInfo">
+                            <div className="ingInfoTitle">-Ingredients</div>
+                        <div className="ingInfo2">
+                            {this.state.ingredients.map(item => <div className="ingredient" key={item.id} > {item.amount} {item.measurement} {item.name}</div>)}
+                        </div>
+                        </div>
+                    </div>
+                         </div>
+                            <div className="direcInfo">
+                                
+                            <div className="direcInfoTitle" >-Directions</div>
+                            <div className="direcInfo2">
+                            {this.state.directions.map(item => <div className="directions" key={item.order}>- {item.directions}</div>)}
+                            </div>
+                            </div>
+                    </div> */}
+                
+                
+            </div>
+        </div>         
         )
     }
 } 
