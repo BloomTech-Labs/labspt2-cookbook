@@ -8,7 +8,6 @@ module.exports = {
    *  -- Insert new shopping list
    */
   insert: async function(id, item) {
-    console.log("Inserting new item");
     return await db('shopping_list').insert({
       user_id: id,
       ...item
@@ -16,6 +15,7 @@ module.exports = {
     .then( ([id]) => this.getById(id) );
   },
 
+  
   /* 
    * getServings:
    *   -- Gets the default number of servings a recipe is set for
@@ -24,37 +24,26 @@ module.exports = {
     return db('recipes').where('recipe_id', recipeId).pluck('servings');
   },
 
+
   /*
    * addScheduleList:
    *    -- Insert shopping list by schedule ID
    */
   addScheduleList: async function(sched) {
-    // Need:
-    // -- SchedId.user_id
-    // -- SchedId.recipe_id
-    // -- SchedId.servings
-    // -- Ingredients by recipe_id
-    // -- recipe.servings math
-
-    console.log("Schedule:");
-    console.log(sched.user_id);
 
     // get recipe servings info
     const [defaultServings] = await this.getServings(sched.recipe_id);
-    console.log("Servings:");
-    console.log(defaultServings);
 
+    // Set the date/time for all new entries to be the same
     const date = new Date().toISOString();
 
     // get ingredients by recipe id
     return await db('recipe_ingredients').where('recipe_id', sched.recipe_id)
       .then( (ingredients) => {
         
-        
+        // Loop for inserts
         ingredients.map( (ing) => {
-          console.log(ing);
-          console.log("-----------------------");
-          // Loop to inserts
+          // Setup the data to be inserted
           const newList = {
             user_id: sched.user_id,
             amount: (ing.amount / defaultServings * sched.servings),
@@ -69,7 +58,6 @@ module.exports = {
         return this.getUserDate(sched.user_id, date);
       })
       .catch( (err) => { console.log(err); });
-    // loop to insert ingredients into schedule
   },
 
 
@@ -102,7 +90,7 @@ module.exports = {
       .innerJoin('ingredients as ing', 's.ing_id', 'ing.ing_id')
       .where('user_id', id)
       .andWhere( function () {
-        this.where('start', date)
+        this.where('start', 'like', date)
           //.andWhere('end', '>=', date)
       });
   },
