@@ -60,6 +60,7 @@ router.get( '/user/:id/date/:date', (req, res) => {
 router.put( '/:id', (req, res) => {
   const newSched = req.body;
   const { id } = req.params;
+  
 console.log("id", newSched);
   // Check for required fields
   if( !newSched.user_id || !newSched.date || !newSched.recipe_id || !newSched.tag_id ) {

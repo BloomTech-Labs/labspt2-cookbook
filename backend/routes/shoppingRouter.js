@@ -4,6 +4,7 @@ const router = express.Router();
 
 // App requires/middleware
 const shopping = require('../data/helpers/shoppingModel');
+const schedule = require('../data/helpers/scheduleModel');
 
 
 /* ---------- Endpoints for /api/list ---------- */
@@ -58,7 +59,29 @@ router.post('/user/:id', (req, res) => {
   }
 });
 
-/* POST new shopping list by recipeId */
+
+/* POST new shopping list by scheduleId */
+router.post('/schedule/:id', (req, res) => {
+  const { id } = req.params;
+  
+  // Start by getting the schedule info to pass on to our helper
+  schedule.getById(id)
+    .then( (sched) => {
+      if( sched ){
+
+        // We have a valid schedule, add it to the shopping list
+        shopping.addScheduleList(sched)
+          .then( (newList) => {
+            res.json(newList);
+          });
+      } else {
+        res.status(404).json({ error: "Schedule not found." });
+      }
+    })
+    .catch( (err) => {
+      res.status(500).json({ error: `Could not add to shopping list by schedule ID: ${err}` });
+    })
+});
 
 
 /* PUT update shopping list item */
