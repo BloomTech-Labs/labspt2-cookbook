@@ -77,59 +77,64 @@ axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`).
                 <NavBar />
                 <div className ='single-recipe-page-container'>
                     <div className = 'single-recipe-page-sub'>
-                        <div className = 'column-one'></div>
-                    </div>
-                        {/* <div className="recipeWrapper">
-                <div className="firstColumn" >
-                    <div className='firstRow' >
-                        <div className="recipeNameTitle">{this.state.name}</div>
-                        <button href={`${this.state.link}`}>LINK</button>
-                    </div>
-                    <div className="secondRow" >
-                        <div><img className="recipeImage" src={this.state.image} /></div>
-                        <div className="RecipeCalendarInfo">
-                            <div className="borderClass">
-                            <div className="thisRecipeTag">{this.props.tags[0].tag}</div>
-                            <div className="thisRecipeDate" >{this.props.calendar[0].calendarDate}</div>
-                            </div>
+                        <div className = 'column-one'>
+                            <div className='column-one-sub'>
+                                <div className = 'name-and-link-container'>
+                                    <div className="single-recipe-name">{this.state.name}</div>
+                                    <button className='single-recipe-link' href={`${this.state.link}`}>LINK</button>
+                                </div>
+                                <div className ='image-and-schedule-container'>
+                                    <div className ='single-recipe-image-container'>
+                                        <img className="recipe-image" src={this.state.image} />
+                                    </div>
+                                    <div className='scheduled-container'>
+                                        <img className='cookbook-img' src='../images/cookbook.png' />
+                                        <div>
+                                            <div className="single-recipe-tag">{this.props.tags[0].tag}</div>
+                                            <div className="single-recipe-date" >{this.props.calendar[0].calendarDate}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='recipe-and-ingredients'>
+                                    <div className='single-recipe-info'>
+                                        <h3 className='recipe-info-main-header'>Info</h3>
+                                        <div className ='single-recipe-info-sub'>
+                                            <div className='recipe-info'> 
+                                                <div className ='single-recipe-prep-time-header recipe-info-header'>Prep Time</div>
+                                                <div className ='single-recipe-prep-time'>{this.state.prep_time}</div>
+                                            </div>
+                                            <div className='recipe-info'>
+                                                <div className='single-recipe-cook-time-header recipe-info-header'>Cook Time</div>
+                                                <div>{this.state.cook_time}</div>
+                                            </div>
+                                            <div className='recipe-info'>
+                                                <div className='single-recipe-servings-header recipe-info-header'>Servings</div>
+                                                <div className = 'single-recipe-servings'>{this.state.servings}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='recipe-ingredients-container'>
+                                        <h3 className='recipe-ingredients-header'>Ingredients</h3>
+                                        <div className = 'recipe-ingredients'>
+                                            {this.state.ingredients.map(item => <div className="ingredient" key={item.id} > {item.amount} {item.measurement} {item.name}</div>)}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>        
                         </div>
-                    </div>
-                    <div>
-                        <div className="recipeInfo">
-                        <div className="recipeInfoTitle"> -Info</div>
-                            <div className="recipeInfo2">
-                        <div className="recInfo">
-                        <div>Prep Time</div>
-                        <div>{this.state.prep_time}</div>
+                        <div className='column-two'>
+                            <div className='column-two-sub'>
+                                <div className='recipe-directions-container'>
+                                    <div  className='recipe-directions-sub'>
+                                        <h3 className='directions-header'>Directions</h3>
+                                        <div className='recipe-directions'>
+                                            {this.state.directions.map(item => <div className="directions" key={item.order}>{item.directions}</div>)}
+                                        </div>
+                                    </div>    
+                                </div>
+                            </div>      
                         </div>
-                        <div className="recInfo">
-                        <div>Cook Time</div>
-                        <div>{this.state.cook_time}</div>
-                        </div>
-                        <div className="recInfo">
-                        <div>Servings</div>
-                        <div>{this.state.servings}</div>
-                        </div>
-                        </div>
-                        </div>
-                        <div className="ingInfo">
-                            <div className="ingInfoTitle">-Ingredients</div>
-                        <div className="ingInfo2">
-                            {this.state.ingredients.map(item => <div className="ingredient" key={item.id} > {item.amount} {item.measurement} {item.name}</div>)}
-                        </div>
-                        </div>
-                    </div>
-                         </div>
-                            <div className="direcInfo">
-                                
-                            <div className="direcInfoTitle" >-Directions</div>
-                            <div className="direcInfo2">
-                            {this.state.directions.map(item => <div className="directions" key={item.order}>- {item.directions}</div>)}
-                            </div>
-                            </div>
-                    </div> */}
-                
-                
+                    </div>    
             </div>
         </div>         
         )

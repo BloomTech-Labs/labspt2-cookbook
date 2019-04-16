@@ -23,7 +23,7 @@ module.exports = {
    *  -- Gets a list of scheduled recipes by User ID for date
    */ 
   getByDate: function(userId, date) {
-    return db('schedule').where('user_id', userId).andWhere('date', date);
+    return db('schedule').where('user_id', userId).andWhere('date', date) ;
   },
 
   /*

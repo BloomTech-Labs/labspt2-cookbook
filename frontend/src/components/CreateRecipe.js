@@ -43,7 +43,6 @@ class CreateRecipe extends React.Component{
 
  dropHandler = event =>{
       const url = event.dataTransfer.getData('text');
-    //   console.log(url)
     this.setState({
         recipeUrl : url
     })
@@ -63,7 +62,7 @@ postRecipe = (event) =>{
             .catch(err =>{
                 console.log('Could not add new recipe obj', err);
             })
-    console.log(newRecipeObj);
+    // console.log(newRecipeObj);
 }
 testGetRecipe = async() =>{
     await axios
@@ -89,37 +88,26 @@ testGetRecipe = async() =>{
             })
 }
 dayClick = (clickedDay) =>{
-    this.setState({
-        openDayModal : true,
-    });
     var MyDate = clickedDay;
     var MyDateString;
     MyDateString = MyDate.getFullYear() + '/'
     + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
     + ('0' + MyDate.getDate()).slice(-2) + '/'
-    // console.log(MyDateString);
     this.setState({
         date: MyDateString
     });
-    // console.log(MyDateString)
 }
 
-clickHandle = (event,  type) =>{
+clickHandle = async(event,  type) =>{
     event.preventDefault();
-    this.setState({
+    await this.setState({
         tag:type
     })
-    console.log(this.state.tag)
+    console.log(this.state.tag);
 }
-
-
-
-
 
 postTagToRecipe = () =>{
     const tag = this.state.tag;
-    // console.log('I am tag from post',this.state.tag);
-    // console.log(this.state.servings);
     const recipeId = this.state.recipe.recipe_id;
     axios
         .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, tag)
@@ -131,7 +119,7 @@ postTagToRecipe = () =>{
             })
 }
 
-postToShoppingList = () =>{
+postToSchedule = () =>{
     const date = this.state.date;
     const userId = this.state.userId;
     const servings = this.state.servings;
@@ -139,12 +127,10 @@ postToShoppingList = () =>{
     const shoppingList = {date: date, userId:userId, recipeId: recipeId, servings: servings}
     const newShoppingListObj = Object.assign({}, shoppingList);
     
-    
-
     axios
-        .post(`https://kookr.herokuapp.com/api/list/user/${userId}`, {newShoppingListObj})
-            .then(response =>{
-                console.log(response);
+        .post(`https://kookr.herokuapp.com/api/schedule`, {newShoppingListObj})
+            .then(res =>{
+                console.log(res);
             })
             .catch(err =>{
                 console.log(err);
@@ -152,7 +138,7 @@ postToShoppingList = () =>{
 }
 postsOnSubmit = () =>{
     this.postTagToRecipe();
-    this.postToShoppingList();
+    this.postToSchedule();
 }
 servingsAdjustor = async (event) =>{
     await this.setState({
@@ -183,7 +169,7 @@ closeCalendarMobile = () =>{
 
     render(){
         const {testRecipe} = this.state
-        console.log(this.state.testRecipeData);
+        console.log(this.state);
         const {testRecipeData} = this.state
         return(
             <div className='Create-Recipe'>
@@ -197,7 +183,7 @@ closeCalendarMobile = () =>{
                         <div className='url-add-recipe-section'> 
                             <input 
                                 className='url-drop-input' 
-                                placeholder='  Drag and drop url here'
+                                placeholder='  Drag and Drop Recipe URL Here'
                                 onDrop={this.dropHandler}/>
                             <div onClick = {this.postRecipe} className='url-add'>Add</div>        
                         </div>
@@ -226,70 +212,74 @@ closeCalendarMobile = () =>{
                             </div>
                             <div className='meal-tag-section'>
                                 <h3 className='meal-tag-header'>For which meal?</h3>
-                                <div className='meal-tag'>
+                                <div className={`meal-tag ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
                                     <div className='meal-tag-sub'>
-                                        <p className={`meal-tag-p ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>Breakfast</p>
+                                        <p className ='meal-tag-p'>Breakfast</p>
                                         <img className = 'meal-tag-icon' src ='../images/fried-egg.png'/>
                                     </div>
                                 </div>
-                                <div className='meal-tag'>
+                                <div className={`meal-tag ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
                                     <div className='meal-tag-sub'>  
-                                        <p className={`meal-tag-p ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>Lunch</p>
+                                        <p className = 'meal-tag-p'>Lunch</p>
                                         <img className = 'meal-tag-icon' src ='../images/salad.png'/>
                                     </div>
                                 </div>
-                                <div className='meal-tag'>
+                                <div className={`meal-tag ${this.state.tag === 'dinner' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
                                     <div className='meal-tag-sub'>
-                                        <p className='meal-tag-p' data-txt = 'dinner' onClick={this.clickHandle}>Dinner</p>
+                                        <p className = 'meal-tag-p'>Dinner</p>
                                         <img className = 'meal-tag-icon' src ='../images/fish.png'/>
                                     </div>
                                 </div>
-                                <div className='meal-tag'>
+                                <div className={`meal-tag ${this.state.tag === 'dessert' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
                                     <div className='meal-tag-sub'>
-                                        <p className='meal-tag-p' data-txt = 'snack' onClick={this.clickHandle}>Dessert</p>
+                                        <p className = 'meal-tag-p'>Dessert</p>
                                         <img className = 'meal-tag-icon' src ='../images/cupcake.png'/>
                                     </div>
                                 </div>
-                                <div className='meal-tag'>
+                                <div className={`meal-tag ${this.state.tag === 'snack' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
                                     <div className='meal-tag-sub'>
-                                        <p className='meal-tag-p' data-txt = 'dessert' onClick={this.clickHandle}>Snack</p>
+                                        <p className = 'meal-tag-p'>Snack</p>
                                         <img className = 'meal-tag-icon' src ='../images/popcorn.png'/>
                                     </div>
                                 </div>
                             </div>
-                            <div className='meal-tag-mobile'>
-                                <h3 className='meal-tag-header-mobile' onClick = {this.openTagsMobile}>Add meal tag</h3>
+                            <div className='meal-tag-mobile-button'>
+                                <h3 className='meal-tag-header-mobile' onClick = {this.openTagsMobile}>Add Meal Tag</h3>
                                     <div className= {this.state.tagModal ? 'meal-tag-modal-mobile-open' : 'meal-tag-modal-mobile-closed'}>
                                         <div className='meal-tag-modal-sub'>
                                             <div className='meal-tag-close' onClick={this.closeTagsMobile}>X</div>
-                                            <div className='meal-tag-mobile'>
-                                                <p className='meal-tag-p-mobile' data-txt = 'breakfast' onClick={this.clickHandle}>Breakfast</p>
-                                            
+                                            <div className={`meal-tag-mobile ${this.state.tag === 'breakfast' ? 'selected-mobile' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
+                                                <p>Breakfast</p>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/fried-egg.png'/>
                                             </div>
-                                            <div className='meal-tag-mobile'>
-                                                <p className='meal-tag-p-mobile' data-txt = 'lunch' onClick={this.clickHandle}>Lunch</p>
-                                            
+                                            <div className={`meal-tag-mobile ${this.state.tag === 'lunch' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
+                                                <p>Lunch</p>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/salad.png'/>
                                             </div>
-                                            <div className='meal-tag-mobile'>
-                                                <p className='meal-tag-p-mobile' data-txt = 'dinner' onClick={this.clickHandle}>Dinner</p>
-                                            
+                                            <div className={`meal-tag-mobile ${this.state.tag === 'dinner' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
+                                                <p>Dinner</p>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/fish.png'/>
                                             </div>
-                                            <div className='meal-tag-mobile'>
-                                                <p className='meal-tag-p-mobile' data-txt = 'snack' onClick={this.clickHandle}>Dessert</p>
-                                            
+                                            <div className={`meal-tag-mobile ${this.state.tag === 'dessert' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
+                                                <p>Dessert</p>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/cupcake.png'/>
                                             </div>
-                                            <div className='meal-tag-mobile'>
-                                                <p className='meal-tag-p-mobile' data-txt = 'dessert' onClick={this.clickHandle}>Snack</p>
-                                            
+                                            <div className={`meal-tag-mobile ${this.state.tag === 'snack' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
+                                                <p>Snack</p>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/popcorn.png'/>
                                             </div>
                                         </div>    
                                     </div>
                             </div>
                             <div className='calendar-mobile'>
-                                <h3  className = 'calendar-modal-click-header' onClick={this.openCalendarMobile}>Add recipe to calendar</h3>
+                                <h3  className = 'calendar-modal-click-header' onClick={this.openCalendarMobile}>Add Recipe to Calendar</h3>
                                 <div className={this.state.calendarModal ? 'calendar-mobile-open' : 'calendar-mobile-closed'}>
                                     <div className= 'mobile-calendar-modal'>
-                                        <div onClick = {this.closeCalendarMobile}className='close-mobile-calendar'>X</div>
+                                        <div className= 'mobile-calendar-header-section'>
+                                            <h3 className ='mobile-calendar-header'>Select Date</h3>
+                                            <div onClick = {this.closeCalendarMobile}className='close-mobile-calendar'>X</div>
+                                        </div>
+                                       
                                         <Calendar calendarType = {'US'} onClickDay = {this.dayClick}/>
                                     </div>    
                                 </div>    
