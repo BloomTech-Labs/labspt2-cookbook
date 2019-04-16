@@ -17,13 +17,17 @@
     }
 }
 .calendar-page-sub-container{
-    width:85%;
+    width:90%;
     margin:0px auto;
+  
+  
+
 }
 .calendar-intro-container{
     width:100%;
     margin:0px auto;
     margin-bottom:40px;
+    margin-top:50px;
 }
 .calendar-page-header{
     text-align:center;
@@ -38,9 +42,15 @@
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-weight:normal;
     font-size: 20px;
-    width:30%;
+    width:25%;
     text-align:center;
-    padding:10px 5% 25px 0%;;
+    padding:10px 5%;
+    padding-top:50px;
+    background-color:white;
+    border-radius: 2px;
+    margin-right:1%;
+    margin-top:0px;
+    margin-bottom:0px;
     
 }
 @media screen and (max-width:1000px){
@@ -60,32 +70,46 @@
         margin-top:15px;
     }
 }
-.calendar-row{
+.calendar-row{ 
     display:flex;
     justify-content:space-between;
     margin:0px auto;
+    padding:10px 1%;
+    border-radius: 2px;
+    background-color: rgba(128, 113, 97, 0.123); 
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+   
 }
 .calendar-housing{
-    width:70%;
+    width:68%;
     margin:0px auto;
-    margin-bottom:10px;
     border-radius:3px;
 }
 .react-calendar{
    width:100%;
 }
-@media screen and (max-width:500px){
+@media screen and (max-width:600px){
+    .calendar-page-header{
+        margin-top:-20px;
+        margin-bottom:-20px;
+    }
     .calendar-row{
         flex-direction:column;
     }
     .calendar-page-p{
-        width:100%;
+        width:92%;
         margin-top:0px;
+        margin-bottom:10px;
         font-size:16px;
-        padding:0px;
+        padding:8px 4%;;
     }
     .calendar-housing{
         width:100%;
+    }
+}
+@media screen and (max-width:500px){
+    .calendar-page-header{
+        margin-bottom:0px;
     }
 }
 
@@ -95,12 +119,9 @@
     color:white;
 }
 .react-calendar__navigation{
-    background-color:rgb(52, 98, 112);
+    background-color:#5B8E9E;
 }
-.react-calendar__tile--active{
-    background-color:rgb(87, 144, 161);
-    border-radius:2px;
-}
+
 .react-calendar__month-view__weekdays__weekday{
     text-decoration: underline;
     border:none;
@@ -109,12 +130,22 @@
     color:black;
     font-size:12px;
 }
+.react-calendar__tile--active{
+    color:white;
+    font-weight: bold;
+     background-color:rgb(52, 98, 112);
+     border-radius:2px;
+ }
 .calendar-recipe-section{
-    width:100%;
+    width:98%;
     display:flex;
     justify-content: space-between;
     margin:0px auto;
     margin-top:20px;
+    border-radius: 2px;
+    background-color: rgba(128, 113, 97, 0.123); 
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    padding:10px 1%;
 }
 @media screen and (max-width:1000px){
     .calendar-recipe-section{
@@ -124,11 +155,11 @@
 .recipe-search-section{
     display:flex;
     flex-direction:column;
-    width:40%;
+    width:44%;
     background-color:white;
     border-radius:2px;
     padding:15px 0%;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+   
 }
 .recipe-search{
     display:flex;
@@ -164,9 +195,8 @@
     justify-content: space-between;
 }
 .servings-and-duplicate-container{
-    width:35%;
+    width:39.2%;
     background-color:white;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     border-radius:2px;
     display:flex;
     flex-direction:column;
@@ -184,7 +214,6 @@
 .edit-recipe-section{
     width:55%;
     background-color:white;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     border-radius:2px;
     display:flex;
     flex-direction:column;
@@ -204,18 +233,34 @@
     color:white;
     margin:0px  auto;
     margin-bottom:15px;
-    padding:8px 0%;
     border-radius:2px;
     text-align:center;
     cursor:pointer;
-    font-size:16px;
+    font-size:18px;
     font-family: 'Barlow Semi Condensed', sans-serif;
     text-transform:uppercase;
     font-weight:bold;
 }
+.calendar-meal-tag-sub{
+    width:90%;
+    display:flex;
+    margin:0px auto;
+    justify-content: space-around;
+}
+.calendar-meal-tag-icon{
+    width:40px;
+    height:40px;
+    margin-top:10px;
+}
+.calendar-selected{
+    background-color: rgb(52, 98, 112);
+}
+
 @media screen and (max-width:1000px){
     .servings-and-edit-section{
         width:100%;
+        margin-top:-20px;
+        margin-bottom:-20px;
     }
 }
 @media screen and (max-width:500px){
@@ -228,21 +273,26 @@
 }
 .servings-and-edit-section-mobile{
     display:flex;
-    width:96%;
+    width:90%;
     margin:0px auto;
     justify-content: space-between;
+    margin-top:20px;
 }
 .calendar-edit-header-mobile{
     font-family: 'Barlow Semi Condensed', sans-serif;
     text-transform:uppercase;
     font-weight:bold;
     font-size:20px;
+    cursor:pointer;
+    margin-top:26px;
 }
 .calendar-tag-header-mobile{
     font-family: 'Barlow Semi Condensed', sans-serif;
     text-transform:uppercase;
     font-weight:bold;
     font-size:20px;
+    cursor:pointer;
+
 }
 @media screen and (min-width:501px){
     .servings-and-edit-section-mobile{
@@ -306,17 +356,24 @@
 }
 
 .save-button{
-    width: 50%;
+    width: 30%;
     margin:40px auto;
-    padding:10px 0%;
+    padding:15px 0%;
     background-color:rgb(52, 98, 112);
     color:white;
     font-weight:bold;
     text-align:center;
     border-radius:3px;
-    font-size:26px;
+    font-size:30px;
     margin-bottom: 40px;
     cursor:pointer;
     font-family: 'Barlow Semi Condensed', sans-serif;
    text-transform: uppercase;
+}
+@media screen and (max-width:800px){
+    .save-button{
+        width:50%;
+        font-size:26px;
+        padding:12px 0%;
+    }
 }

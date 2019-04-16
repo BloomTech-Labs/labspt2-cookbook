@@ -322,11 +322,36 @@ class CalendarPage extends Component{
                                     <div className="calendar-meal-tag-container">
                                         <h4 className='calendar-tag-header'>Select Tag to Add</h4>
                                         <div className='calendar-meal-tag-button-section'>
-                                            <p className={`calendar-meal-tag ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>Breakfast</p>
-                                            <p className={`calendar-meal-tag ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>Lunch</p>
-                                            <p className={`calendar-meal-tag ${this.state.tag === 'dinner' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>Dinner</p>
-                                            <p className={`calendar-meal-tag ${this.state.tag === 'dessert' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>Dessert</p>
-                                            <p className={`calendar-meal-tag ${this.state.tag === 'snack' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>Snack</p>
+                                            <div className={`calendar-meal-tag ${this.state.tag === 'breakfast' ? 'calendar-selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
+                                                <div className='calendar-meal-tag-sub'>
+                                                    <p className ='calendar-meal-tag-p'>Breakfast</p>
+                                                    <img className = 'calendar-meal-tag-icon' src ='../images/fried-egg.png'/>
+                                                </div>
+                                            </div>
+                                            <div className={`calendar-meal-tag ${this.state.tag === 'lunch' ? 'calendar-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
+                                                <div className='calendar-meal-tag-sub'>  
+                                                    <p className = 'calendar-meal-tag-p'>Lunch</p>
+                                                    <img className = 'calendar-meal-tag-icon' src ='../images/salad.png'/>
+                                                 </div>
+                                            </div>
+                                            <div className={`calendar-meal-tag ${this.state.tag === 'dinner' ? 'calendar-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
+                                                <div className='calendar-meal-tag-sub'>
+                                                    <p className = 'calendar-meal-tag-p'>Dinner</p>
+                                                    <img className = 'calendar-meal-tag-icon' src ='../images/fish.png'/>
+                                                </div>
+                                            </div>
+                                            <div className={`calendar-meal-tag ${this.state.tag === 'dessert' ? 'calendar-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
+                                                <div className='calendar-meal-tag-sub'>
+                                                    <p className = 'calendar-meal-tag-p'>Dessert</p>
+                                                    <img className = 'calendar-meal-tag-icon' src ='../images/cupcake.png'/>
+                                                </div>
+                                           </div>
+                                            <div className={`calendar-meal-tag ${this.state.tag === 'snack' ? 'calendar-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
+                                                <div className='calendar-meal-tag-sub'>
+                                                    <p className = 'calendar-meal-tag-p'>Snack</p>
+                                                    <img className = 'calendar-meal-tag-icon' src ='../images/popcorn.png'/>
+                                                </div>
+                                            </div>
                                         </div>    
                                     </div>
                                 </div>

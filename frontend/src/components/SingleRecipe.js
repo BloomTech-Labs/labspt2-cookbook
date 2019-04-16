@@ -74,7 +74,7 @@ axios.get(`https://kookr.herokuapp.com/api/recipes/${sendingObject.recipe_id}`).
     render(){
         return (
             <div className="SingleRecipe"> 
-                <NavBar />
+                <NavBar/>
                 <div className ='single-recipe-page-container'>
                     <div className = 'single-recipe-page-sub'>
                         <div className = 'column-one'>

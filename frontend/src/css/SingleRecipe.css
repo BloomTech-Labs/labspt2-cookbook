@@ -16,13 +16,27 @@
     margin:0px auto;
     padding-top:80px;
 }
-@media screen and(max-width:800px){
-    
+@media screen and (max-width:800px){
+    .SingleRecipe{
+        flex-direction: column;
+    }
+    .single-recipe-page-container{
+        width:100%;
+        padding-bottom:60px;
+    }
+    .single-recipe-page-sub{
+        flex-direction:column;
+    }
 }
 .column-one{
     display:flex;
     flex-direction:column;
     width:59%;
+}
+@media screen and (max-width:800px){
+    .column-one{
+        width:100%;
+    }
 }
 .column-one-sub{
     background-color: rgba(128, 113, 97, 0.123);
@@ -42,13 +56,18 @@
 }
 .single-recipe-name{
     width:68%;
-    font-size:54px;
+    font-size:44px;
     text-align:center;
     font-weight:bolder;
     color: #5B8E9E;
     font-family: 'Cabin Sketch', cursive;
     margin-top:20px;
     margin-bottom:20px;
+}
+@media screen and (max-width:1100px){
+    .single-recipe-name{
+        font-size:38px;
+    }
 }
 .single-recipe-link{
     width:25%;
@@ -94,6 +113,26 @@
         width:98%;
     }
 }
+@media screen and (max-width:925px){
+    .recipe-image{
+        height:180px;
+    }
+}
+@media screen and (max-width:800px){
+    .recipe-image{
+        height:240px;
+    }
+}
+@media screen and (max-width:550px){
+    .recipe-image{
+        height:200px;
+    }
+}
+@media screen and (max-width:450px){
+    .recipe-image{
+        height:180px;
+    }
+}
 .scheduled-container{
     width:40%;
     display:flex;
@@ -134,7 +173,7 @@
     .cookbook-img{
         height:45px;
         width:45px;
-        margin-top:16px;
+        margin-top:40px;
         margin-bottom:16px;
     }
     .single-recipe-tag{
@@ -143,6 +182,11 @@
     .single-recipe-date{
         font-size:26px;
         margin-top:16px;
+    }
+}
+@media screen and (max-width:450px){
+    .cookbook-img{
+        margin-top:20px;
     }
 }
 .recipe-and-ingredients{
@@ -213,6 +257,7 @@
     width:39%;
    
 }
+
 .column-two-sub{
     background-color: rgba(128, 113, 97, 0.123);
     border-radius:2px;
@@ -228,6 +273,17 @@
     padding:0px 3%;
     padding-bottom:30px;
     font-family: 'Barlow Semi Condensed', sans-serif;
+}
+@media screen and (max-width:800px){
+    .column-two{
+        width:100%;
+        margin-top:16px;
+    }
+    .recipe-directions-container{
+        padding:0px 2%;
+        width:94%;
+        padding-bottom:30px;
+    }
 }
 .directions-header{
     margin-top:0px;
