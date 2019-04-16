@@ -19,7 +19,7 @@ const scheduleRouter = require('./routes/scheduleRouter');
 
 // Server:
 const server = express();
-const PORT = process.env.PORT || 1234;
+const PORT = process.env.PORT || 4321;
 
 
 /* ---------- Middleware ---------- */
