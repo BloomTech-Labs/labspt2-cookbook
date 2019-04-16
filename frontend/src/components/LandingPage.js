@@ -92,8 +92,11 @@ class LandingPage extends React.Component{
                         <i class="fab fa-facebook-f" ></i>
                         <i class="fab fa-instagram"></i>
                         <i class="fab fa-twitter" ></i>
-                    </div>  
-                    <h1 className='landing-header'>Kookr Logo</h1>
+                    </div> 
+                    <div className = 'landing-logo-container'>
+                        <img className = 'landing-logo'src= '../images/logo.png'/>
+                        <h1 className='landing-header'>Kookr</h1>
+                    </div>
                     <div className='landing-page-nav-buttons'>
                         <h3 className='registration-button' onClick={this.openModal}>Login / Register</h3>
                     </div>
@@ -116,7 +119,7 @@ class LandingPage extends React.Component{
                                 <div className='mini-blurb-header-container'>
                                     <div className='sub-container'>
                                         <h4 className = 'mini-blurb-header'>Add Recipes to Your Profile</h4>
-                                        <i class="fas fa-file-alt"></i>
+                                        <img className = 'mini-blurb-img' src = '../images/recipe.png' alt = 'recipe' />
                                     </div>       
                                 </div>    
                                 <p className = 'mini-blurb-p'>Find your favorite recipes from the internet and add them to your profile. Add meal designations to recipes.
@@ -126,7 +129,7 @@ class LandingPage extends React.Component{
                                 <div className='mini-blurb-header-container'>
                                     <div className='sub-container'> 
                                         <h4 className = 'mini-blurb-header'>Assign Recipes to Your Calendar</h4>
-                                        <i class="fas fa-calendar-plus"></i>
+                                        <img className = 'mini-blurb-img'  src = '../images/calendar.png' alt ='calendar'/>
                                     </div>    
                                 </div>    
                                 <p className = 'mini-blurb-p'>Search through your recipes by meal or keyword, and add them to your custom calendar.
@@ -136,7 +139,7 @@ class LandingPage extends React.Component{
                                 <div className='mini-blurb-header-container'>
                                     <div className='sub-container'>
                                         <h4 className = 'mini-blurb-header'>Create a Shopping List </h4>
-                                        <i class="fas fa-list-ul"></i>
+                                        <img className = 'mini-blurb-img' src = '../images/list.png' alt ='list' />
                                     </div>    
                                 </div>    
                                 <p className = 'mini-blurb-p'>Select date ranges and populate a shopping list for all of your scheduled meals.
