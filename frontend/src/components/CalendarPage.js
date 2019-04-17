@@ -24,7 +24,7 @@ class CalendarPage extends Component{
             testRecipes: [],
             filteredRecipeArr : [],
             selectedRecipe : '',
-            date: null,
+            date: null, 
             forwardDate: null,
             backwardDate: null,
             tag: null,

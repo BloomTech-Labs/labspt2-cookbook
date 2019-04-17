@@ -17,37 +17,39 @@ class Settings extends Component {
             email: '',
             accountType: '',
             formEmail:'',
-            message: ''
+            message: '',
+            stripeId : ''
         }
     }    
 async componentDidMount(){
     //this.getUserToShowChrisThatWeCan();
     let localUserId = await localStorage.getItem('userId')
-    this.setState({
+    await this.setState({
         userId : localUserId
     });
-    this.getCurrentUser();
+    await this.getCurrentUser();
     this.checkSubscription();
-    console.log(this.state)
+    console.log("from component did mount", this.state)
 }
 
 getCurrentUser = async() =>{
     await axios
         .get(`https://kookr.herokuapp.com/api/user/${this.state.userId}`)
             .then(res =>{
-                console.log(res)
+                console.log("response from get user", res)
                 this.setState({
                     authId : res.data.auth_id,
                     billingDate : res.data.billing_date,
                     email : res.data.email,
                     accountType : res.data.type,
                     formEmail : res.data.email,
+                    stripeId : res.data.stripe_id
                 })
             })
             .catch(err =>{
                 console.log(err)
             })
-            console.log("after get current user", this.state)
+            console.log("state after get current user", this.state)
 }
 
 inputHandler=(e) =>{
@@ -63,7 +65,7 @@ checkSubscription=()=>{
         this.setState({
             message :`Your subscription expires on ${expDate} `})
     }
-    console.log(this.state)
+    console.log("after check subscription", this.state)
 }
 
 getUserToShowChrisThatWeCan = async() =>{
@@ -119,7 +121,7 @@ getUserToShowChrisThatWeCan = async() =>{
                             <div className="billing-form-container">
                                 <h1>Premium Subscription</h1>
                                 <Elements>
-                                    <CheckoutForm name={this.state.email} auth={this.state.authId} userId={this.state.userId} />
+                                    <CheckoutForm name={this.state.email} auth={this.state.authId} userId={this.state.userId} stripeId={this.state.stripeId} />
                                 </Elements>
                             </div>
                         </StripeProvider>
