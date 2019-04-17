@@ -21,25 +21,28 @@ class CreateRecipe extends React.Component{
       
       this.state = {
         recipeUrl: '',
-        userId: '', //this.props.userId, ///Should I be doing this with auth id or retriving the user id?
+        userId: '', 
         tagModal: false,
         tag: null,
-        recipeId:null, 
+        recipe: [],
+        recipeData : [],
+        testRecipe: [],
+        testRecipeData : [],
         servings: '',
-        calendarModal:false
+        calendarModal:false,
+        date: ''
       }
   }
  componentDidMount(){
-     console.log("from local storage", localStorage.getItem('userId'));
     const userId = localStorage.getItem('userId');
     this.setState({
          userId : userId
      });
+     this.testGetRecipe();
  }
 
  dropHandler = event =>{
       const url = event.dataTransfer.getData('text');
-      console.log(url)
     this.setState({
         recipeUrl : url
     })
@@ -53,49 +56,59 @@ postRecipe = (event) =>{
             .then(response =>{
                 console.log(response);
                 this.setState({
-                    recipeId : response.data.recipe_id ///Make sure that is right
+                    recipe : response.data ///Make sure that is right
                 })
             })
             .catch(err =>{
                 console.log('Could not add new recipe obj', err);
             })
-    console.log(newRecipeObj);
+    // console.log(newRecipeObj);
+}
+testGetRecipe = async() =>{
+    await axios
+        .get(`https://kookr.herokuapp.com/api/recipes/user/1`)
+            .then(res =>{
+                this.setState({
+                    testRecipe : [ ...Object.values(res.data)]
+                }) 
+                 
+            })
+            .catch(err =>{
+                console.log(err);
+            })
+    await axios
+        .get('https://kookr.herokuapp.com/api/recipes/1')
+            .then(res =>{
+                this.setState({
+                    testRecipeData : [...Object.values(res.data)]
+                })
+            })
+            .catch(err =>{
+                console.log(err)
+            })
 }
 dayClick = (clickedDay) =>{
-    this.setState({
-        openDayModal : true,
-    });
     var MyDate = clickedDay;
     var MyDateString;
     MyDateString = MyDate.getFullYear() + '/'
     + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
     + ('0' + MyDate.getDate()).slice(-2) + '/'
-    console.log(MyDateString);
     this.setState({
         date: MyDateString
-    })
+    });
 }
-tagSelector = async(event) =>{
-    const tag = event.target.dataset.txt;
+
+clickHandle = async(event,  type) =>{
+    event.preventDefault();
     await this.setState({
-        tag: tag,
-        
+        tag:type
     })
     console.log(this.state.tag);
 }
-addClass = (event) =>{
-    event.target.classList.toggle('selected');
-}
-clickHandle = (event) =>{
-    this.tagSelector(event);
-    this.addClass(event);
-}
+
 postTagToRecipe = () =>{
     const tag = this.state.tag;
-    console.log('I am tag from post',this.state.tag);
-    console.log(this.state.servings);
-    //const recipeId = this.state.selectedRecipe.recipe_id //??????Make sure it's recipe_id
-    const recipeId = this.state.recipeId;
+    const recipeId = this.state.recipe.recipe_id;
     axios
         .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, tag)
             .then(res =>{
@@ -104,6 +117,28 @@ postTagToRecipe = () =>{
             .catch(err =>{
                 console.log('Error adding tag to recipe by id', err)
             })
+}
+
+postToSchedule = () =>{
+    const date = this.state.date;
+    const userId = this.state.userId;
+    const servings = this.state.servings;
+    const recipeId = this.state.recipe.recipe_id
+    const shoppingList = {date: date, userId:userId, recipeId: recipeId, servings: servings}
+    const newShoppingListObj = Object.assign({}, shoppingList);
+    
+    axios
+        .post(`https://kookr.herokuapp.com/api/schedule`, {newShoppingListObj})
+            .then(res =>{
+                console.log(res);
+            })
+            .catch(err =>{
+                console.log(err);
+            })
+}
+postsOnSubmit = () =>{
+    this.postTagToRecipe();
+    this.postToSchedule();
 }
 servingsAdjustor = async (event) =>{
     await this.setState({
@@ -133,6 +168,9 @@ closeCalendarMobile = () =>{
 }
 
     render(){
+        const {testRecipe} = this.state
+        console.log(this.state);
+        const {testRecipeData} = this.state
         return(
             <div className='Create-Recipe'>
                 <NavBar /> 
@@ -145,89 +183,103 @@ closeCalendarMobile = () =>{
                         <div className='url-add-recipe-section'> 
                             <input 
                                 className='url-drop-input' 
-                                placeholder='  Drag and drop url here'
+                                placeholder='  Drag and Drop Recipe URL Here'
                                 onDrop={this.dropHandler}/>
                             <div onClick = {this.postRecipe} className='url-add'>Add</div>        
                         </div>
                         <div className='recipe-preview'>
                             <div className='recipe-preview-title-and-info'>
-                                <h3 className='recipe-preview-header'>Slammin' Salmon</h3>
+                                <h3 className='recipe-preview-header'>{testRecipe.length ? testRecipe[0].name : ''}</h3>
                                 <div className='recipe-info-container'>  
                                     <div className='prep-time-container'>
                                         <p className='prep-time'>Prep Time:</p>
-                                        <p> 3 years</p>
+                                        <p>{`${testRecipeData.length ? testRecipeData[4]: ''} min`} </p>
                                     </div>
                                     <div className='cook-time-container'>
                                         <p className = 'cook-time'>Cook Time:</p>
-                                        <p> 1 year</p>
+                                        <p> {`${testRecipeData.length ? testRecipeData[5] : ''} min`}</p>
                                     </div>
                                     <div className='servings-amount-container'>
                                         <p className ='servings-amount'>Servings:</p>
-                                        <p> 4</p>
+                                        <p> {`${testRecipeData.length ? testRecipeData[6] : ''}`}</p>
                                     </div>
                                 </div>
                                 <div className='recipe-preview-image'>
                                     <div className ='recipe-image-sub'>
-                                    <img className ='recipe-preview-img'src ='https://food.fnr.sndimg.com/content/dam/images/food/fullset/2013/11/25/0/FNK_pan-seared-salmon-with-kale-apple-salad_s4x3.jpg.rend.hgtvcom.616.462.suffix/1387918756116.jpeg' alt ='fish-dish' />
+                                    <img className ='recipe-preview-img'src ={testRecipeData.length ? testRecipeData[2] : ''} alt ='recipe-img' />
                                 </div> 
                             </div>      
                             </div>
                             <div className='meal-tag-section'>
                                 <h3 className='meal-tag-header'>For which meal?</h3>
-                                <div className='meal-tag'>
-                                    <p className='meal-tag-p' data-txt = 'breakfast' onClick={this.clickHandle}>Breakfast</p>
-                                
+                                <div className={`meal-tag ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
+                                    <div className='meal-tag-sub'>
+                                        <p className ='meal-tag-p'>Breakfast</p>
+                                        <img className = 'meal-tag-icon' src ='../images/fried-egg.png'/>
+                                    </div>
                                 </div>
-                                <div className='meal-tag'>
-                                    <p className='meal-tag-p' data-txt = 'lunch' onClick={this.clickHandle}>Lunch</p>
-                                
+                                <div className={`meal-tag ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
+                                    <div className='meal-tag-sub'>  
+                                        <p className = 'meal-tag-p'>Lunch</p>
+                                        <img className = 'meal-tag-icon' src ='../images/salad.png'/>
+                                    </div>
                                 </div>
-                                <div className='meal-tag'>
-                                    <p className='meal-tag-p' data-txt = 'dinner' onClick={this.clickHandle}>Dinner</p>
-                                
+                                <div className={`meal-tag ${this.state.tag === 'dinner' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
+                                    <div className='meal-tag-sub'>
+                                        <p className = 'meal-tag-p'>Dinner</p>
+                                        <img className = 'meal-tag-icon' src ='../images/fish.png'/>
+                                    </div>
                                 </div>
-                                <div className='meal-tag'>
-                                    <p className='meal-tag-p' data-txt = 'snack' onClick={this.clickHandle}>Dessert</p>
-                                
+                                <div className={`meal-tag ${this.state.tag === 'dessert' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
+                                    <div className='meal-tag-sub'>
+                                        <p className = 'meal-tag-p'>Dessert</p>
+                                        <img className = 'meal-tag-icon' src ='../images/cupcake.png'/>
+                                    </div>
                                 </div>
-                                <div className='meal-tag'>
-                                    <p className='meal-tag-p' data-txt = 'dessert' onClick={this.clickHandle}>Snack</p>
-                                
+                                <div className={`meal-tag ${this.state.tag === 'snack' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
+                                    <div className='meal-tag-sub'>
+                                        <p className = 'meal-tag-p'>Snack</p>
+                                        <img className = 'meal-tag-icon' src ='../images/popcorn.png'/>
+                                    </div>
                                 </div>
                             </div>
-                            <div className='meal-tag-mobile'>
-                                <h3 className='meal-tag-header-mobile' onClick = {this.openTagsMobile}>Add meal tag</h3>
+                            <div className='meal-tag-mobile-button'>
+                                <h3 className='meal-tag-header-mobile' onClick = {this.openTagsMobile}>Add Meal Tag</h3>
                                     <div className= {this.state.tagModal ? 'meal-tag-modal-mobile-open' : 'meal-tag-modal-mobile-closed'}>
                                         <div className='meal-tag-modal-sub'>
                                             <div className='meal-tag-close' onClick={this.closeTagsMobile}>X</div>
-                                            <div className='meal-tag-mobile'>
-                                                <p className='meal-tag-p-mobile' data-txt = 'breakfast' onClick={this.clickHandle}>Breakfast</p>
-                                            
+                                            <div className={`meal-tag-mobile ${this.state.tag === 'breakfast' ? 'selected-mobile' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
+                                                <p>Breakfast</p>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/fried-egg.png'/>
                                             </div>
-                                            <div className='meal-tag-mobile'>
-                                                <p className='meal-tag-p-mobile' data-txt = 'lunch' onClick={this.clickHandle}>Lunch</p>
-                                            
+                                            <div className={`meal-tag-mobile ${this.state.tag === 'lunch' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
+                                                <p>Lunch</p>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/salad.png'/>
                                             </div>
-                                            <div className='meal-tag-mobile'>
-                                                <p className='meal-tag-p-mobile' data-txt = 'dinner' onClick={this.clickHandle}>Dinner</p>
-                                            
+                                            <div className={`meal-tag-mobile ${this.state.tag === 'dinner' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
+                                                <p>Dinner</p>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/fish.png'/>
                                             </div>
-                                            <div className='meal-tag-mobile'>
-                                                <p className='meal-tag-p-mobile' data-txt = 'snack' onClick={this.clickHandle}>Dessert</p>
-                                            
+                                            <div className={`meal-tag-mobile ${this.state.tag === 'dessert' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
+                                                <p>Dessert</p>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/cupcake.png'/>
                                             </div>
-                                            <div className='meal-tag-mobile'>
-                                                <p className='meal-tag-p-mobile' data-txt = 'dessert' onClick={this.clickHandle}>Snack</p>
-                                            
+                                            <div className={`meal-tag-mobile ${this.state.tag === 'snack' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
+                                                <p>Snack</p>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/popcorn.png'/>
                                             </div>
                                         </div>    
                                     </div>
                             </div>
                             <div className='calendar-mobile'>
-                                <h3  className = 'calendar-modal-click-header' onClick={this.openCalendarMobile}>Add recipe to calendar</h3>
+                                <h3  className = 'calendar-modal-click-header' onClick={this.openCalendarMobile}>Add Recipe to Calendar</h3>
                                 <div className={this.state.calendarModal ? 'calendar-mobile-open' : 'calendar-mobile-closed'}>
                                     <div className= 'mobile-calendar-modal'>
-                                        <div onClick = {this.closeCalendarMobile}className='close-mobile-calendar'>X</div>
+                                        <div className= 'mobile-calendar-header-section'>
+                                            <h3 className ='mobile-calendar-header'>Select Date</h3>
+                                            <div onClick = {this.closeCalendarMobile}className='close-mobile-calendar'>X</div>
+                                        </div>
+                                       
                                         <Calendar calendarType = {'US'} onClickDay = {this.dayClick}/>
                                     </div>    
                                 </div>    
@@ -245,7 +297,7 @@ closeCalendarMobile = () =>{
                                     <p className='edit-servings-p'>How many servings?</p>
                                     <input className ='servings-input' name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" /> 
                                 </div>
-                                <div className='add-recipe-button' onClick={this.postTagToRecipe}> Save </div> 
+                                <div className='add-recipe-button' onClick={this.postsOnSubmit}> Save </div> 
                             </div>
                         </div>
                     </div>    

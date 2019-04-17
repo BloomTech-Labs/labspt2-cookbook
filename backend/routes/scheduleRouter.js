@@ -43,11 +43,11 @@ router.get( '/user/:id', (req, res) => {
 
 
 /* GET schedule by Date */
-router.get( '/user/:id/date/:date', (req, res) => {
+router.get( '/user/:id/date/:date', async(req, res) => {
   const { id, date } = req.params;
-
   schedule.getByDate(id, date)
     .then( (list) => {
+      console.log(list)
       res.json(list);
     })
     .catch( (err) => {
@@ -57,8 +57,46 @@ router.get( '/user/:id/date/:date', (req, res) => {
 
 
 /* PUT */
+router.put( '/:id', (req, res) => {
+  const newSched = req.body;
+  const { id } = req.params;
+  
+console.log("id", newSched);
+  // Check for required fields
+  if( !newSched.user_id || !newSched.date || !newSched.recipe_id || !newSched.tag_id ) {
+    res.status(400).json({ error: "Missing required field." });
+  } else {
+    schedule.update(id, newSched)
+      .then( (sched) => {
+        res.json(sched);
+      })
+      .catch( (err) => {
+        res.status(500).json({ error: `Could not edit schedule: ${err}` });
+      });
+    // end schedule-insert
+  }  
+});
+
 
 /* POST */
+router.post( '/', (req, res) => {
+  const newSched = req.body;
+
+  // Check for required fields
+  if( !newSched.user_id || !newSched.date || !newSched.recipe_id || !newSched.tag_id ) {
+    res.status(400).json({ error: "Missing required field." });
+  } else {
+    schedule.insert(newSched)
+      .then( (sched) => {
+        res.json(sched);
+      })
+      .catch( (err) => {
+        res.status(500).json({ error: `Could not insert new schedule: ${err}` });
+      });
+    // end schedule-insert
+  }
+});
+
 
 /* DELETE */
 

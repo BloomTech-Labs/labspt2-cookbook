@@ -60,11 +60,11 @@ router.post( '/', (req, res) => {
           res.json({...recipe, ingredients: ingredients, directions: directions });
         })
         .catch( (err) => {
-          res.status(500).json({ error: err});
+          res.status(500).json({ error: `Could not get recipe: ${err}` });
         });
       })
       .catch( (err) => {
-        res.status(500).json({ error: err})
+        res.status(500).json({ error: `Could not post recipe: ${err}` });
       });
     // end-recipe-insert
   }

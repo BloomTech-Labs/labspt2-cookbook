@@ -96,12 +96,25 @@ Startup: *yarn server*
 ## Shopping List
 
 ### Routes:
-* **GET : /api/list/user/:id/**  -- Gets shopping list for date & user
+* **GET : /api/list/user/:id**  -- Gets shopping list for date & user
 * **GET : /api/list/:id** -- Gets a shopping list item by it's ID
-* **POST: /api/list/user/:id/** -- Posts new shopping list item for user
-* * -- Requires: ing_id, start, end (dates: 2019-04-10)
+* **POST: /api/list/user/:id** -- Posts new shopping list item for user
+* * -- Requires: ing_id, start (dates: 2019-04-10)
 * * -- Optional: amount, measurement
+* **POST: /api/list/schedule/:id** -- Posts new shopping list by schedule ID
 * **PUT: /api/list/:id** -- Edits shopping list item
-* * -- Requires: ing_id, start, end
+* * -- Requires: ing_id, start
 * * -- Optional: amount, measurement
 * **DELETE: /api/list/:id** -- Deletes shopping list item
+
+---
+
+## Schedule
+
+### Routes:
+* **GET : /api/schedule/:id**  -- Gets schedule by id
+* **GET : /api/schedule/user/:id** -- Gets scheduled items by userID
+* **GET : /api/schedule/user/:id/date/:date** -- Gets scheduled items for user by date
+* **PUT : /api/schedule/:id** -- Edits a schedule by id
+* **POST : /api/schedule/** -- Adds a new schedule
+* * -- Requires: user_id, date, recipe_id, tag_id
