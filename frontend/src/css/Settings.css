@@ -5,9 +5,10 @@
 }
 
 .settings-main{
-    display: flex;
-    flex-direction: column;
-    padding: 50px;
+    width:80%;
+    display:flex;
+    flex-direction:column;
+    background-color: rgba(233, 221, 219, 0.164);
 }
 
 @media screen and (max-width:800px){
@@ -16,28 +17,72 @@
         flex-direction: column;
     }
 }
-
+.settings-header{
+    font-size:68px;
+    margin-top:40px;
+    text-align:center;
+    font-weight:bolder;
+    color: rgb(98, 139, 151);
+    margin-bottom:-10px;
+    font-family: 'Cabin Sketch', cursive;
+}
+.settings-main-sub{
+    display:flex;
+    justify-content:space-between;
+    width:90%;
+    background-color: rgba(128, 113, 97, 0.123); 
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    margin:60px auto;
+    padding:12px 1%;
+}
+@media screen and (max-width:800px){
+    .settings-main-sub{
+        flex-direction:column;
+    }
+}
 /*Page Content*/
 .settings-form-container{
-    /* border: 1px solid darkgray; */
-    margin-top: 25px;
-    padding: 25px;
-    border-radius: 5px;
+    width:49%;
+    border-radius: 2px;
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-weight:normal;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     background-color:rgb(255, 255, 255);
-
+    margin:0px auto;
+    margin-right:1%;
 }
-
+@media screen and (max-width:800px){
+    .settings-form-container{
+        width:98%;
+        margin-bottom:10px;
+    }
+}
+.settings-form-header{
+    text-align:center;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    text-transform: uppercase;
+    font-size:28px;
+}
 .settings-form{
     display: flex;
     flex-direction: column;
+    width:85%;
+    margin:0px auto;
+    font-size:18px;
 }
 
 .settings-form-item{
     margin-bottom: 15px;
-    padding-left: 5px;
+    display:flex;
+    flex-direction:column;
+}
+.settings-form-label{
+    margin-bottom:8px;
+    font-weight:bold;
+    letter-spacing:0.2px;
+}
+.email-input{
+    height:25px;
+    border-radius: 2px;
 }
 
 .settings-form-item:first-child{
@@ -51,4 +96,83 @@
         width:100%;
         padding:0px;
     }
+}
+.save-button{
+    width: 50%;
+    margin:0 auto;
+    margin-top:20px;
+    background-color:rgb(52, 98, 112);
+    color:white;
+    font-weight:bold;
+    text-align:center;
+    border-radius:3px;
+    font-size:26px;
+    padding:10px 2%;
+    cursor:pointer;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+   text-transform: uppercase;
+   margin-bottom:40px;
+}
+button{
+    width: 50%;
+    margin:0 auto;
+    margin-top:40px;
+    background-color:rgb(52, 98, 112);
+    color:white;
+    font-weight:bold;
+    text-align:center;
+    border-radius:3px;
+    font-size:26px;
+    padding:10px 2%;
+    cursor:pointer;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+   text-transform: uppercase;
+   margin-bottom:40px;
+}
+.billing-main{
+    width:49%;
+    border-radius: 2px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:normal;
+    background-color:rgb(255, 255, 255);
+    margin:0px auto;
+}
+@media screen and (max-width:800px){
+    .billing-main{
+        width:98%;
+      
+    }
+}
+.subscription-header{
+    text-transform:uppercase;
+    font-size:28px;
+    text-align:center;
+}
+.subscription-message-container{
+    background-image:url('https://images.fabric.com/images/693/693/0473337.jpg');
+    width:85%;
+    margin:0px auto;
+    border-radius:2px;
+    color:white;
+    padding:10px 2%;
+    padding-top:5px;
+    text-align:center;
+}
+.your-subscription-header{
+    font-size:28px;
+    margin-bottom:5px;
+}
+.subscription-message{
+    font-size:20px;
+}
+.premium-header{
+    text-transform:uppercase;
+    font-size:28px;
+    text-align:center;
+}
+.billing-form-container{
+    width:85%;
+    margin:0px auto;
+    padding:10px 2%;
+    text-align:center;
 }
