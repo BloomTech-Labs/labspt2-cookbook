@@ -28,6 +28,7 @@ class RecipeList extends Component{
             filterModal:false,
             dateChange : '',
             selectedItem: [],
+            tag: null,
             recipes : [
                 {
                     name: 'cheeseburger'
@@ -52,6 +53,13 @@ class RecipeList extends Component{
         }
         
         this.props.getRecipes(id)
+}
+clickHandle = async(event,  type) =>{
+    event.preventDefault();
+    await this.setState({
+        tag:type
+    })
+    console.log(this.state.tag);
 }
 
 filterModalOpen = () =>{
@@ -100,14 +108,39 @@ onChangeDate = (event) =>{
                             <input placeholder ='  Search your recipes' className="search-bar-input" />
                                 <div className= {this.state.filterModal ? 'filter-modal-open' : 'filter-modal-closed'}>
                                     <div className='filter-modal'>   
-                                        <div onClick={this.filterModalClose}>X</div>
-                                        <div className='filter-modal-header'>Filter by my type</div>
+                                        <div className ='close-filter-modal' onClick={this.filterModalClose}>X</div>
+                                        <div className='filter-modal-header'>Filter by Meal</div>
                                         <div className='filter-modal-inputs-container'>
-                                            <div>Breakfast</div>
-                                            <div>Lunch</div>
-                                            <div>Dinner</div>
-                                            <div>Snack</div>
-                                            <div>Dessert</div>
+                                        <div className={`filter-meal-tag ${this.state.tag === 'breakfast' ? 'filter-selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
+                                            <div className='filter-meal-tag-sub'>
+                                                <p className ='filter-meal-tag-p'>Breakfast</p>
+                                                <img className = 'filter-meal-tag-icon' src ='../images/fried-egg.png'/>
+                                            </div>
+                                        </div>
+                                        <div className={`filter-meal-tag ${this.state.tag === 'lunch' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
+                                            <div className='filter-meal-tag-sub'>  
+                                                <p className = 'filter-meal-tag-p'>Lunch</p>
+                                                <img className = 'filter-meal-tag-icon' src ='../images/salad.png'/>
+                                            </div>
+                                        </div>
+                                        <div className={`filter-meal-tag ${this.state.tag === 'dinner' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
+                                            <div className='filter-meal-tag-sub'>
+                                                <p className = 'filter-meal-tag-p'>Dinner</p>
+                                                <img className = 'filter-meal-tag-icon' src ='../images/fish.png'/>
+                                            </div>
+                                        </div>
+                                        <div className={`filter-meal-tag ${this.state.tag === 'dessert' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
+                                            <div className='filter-meal-tag-sub'>
+                                                <p className = 'filter-meal-tag-p'>Dessert</p>
+                                                <img className = 'filter-meal-tag-icon' src ='../images/cupcake.png'/>
+                                            </div>
+                                        </div>
+                                        <div className={`filter-meal-tag ${this.state.tag === 'snack' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
+                                            <div className='filter-meal-tag-sub'>
+                                                <p className = 'filter-meal-tag-p'>Snack</p>
+                                                <img className = 'filter-meal-tag-icon' src ='../images/popcorn.png'/>
+                                            </div>
+                                        </div>
                                         </div>
                                         <div className='filter-modal-submit-button'>Submit</div>
                                     </div> 
@@ -135,17 +168,43 @@ onChangeDate = (event) =>{
                                     <div className ='recipe-edit-modal-header'>Edit {this.state.selectedItem.name}</div>
                                     <div className='recipe-edit-modal'>   
                                         <form className='edit-recipe-form'>
-                                            <div onClick ={this.editModalClose}>X</div>
-                                            <div>
-                                                <p>Select date</p>
-                                                <input type = 'date' value ={this.state.dateChange} onChange = {this.onChangeDate}/>
+                                            <div className = 'edit-recipe-modal-close' onClick ={this.editModalClose}>X</div>
+                                            <div className= 'edit-recipe-modal-date-container'>
+                                                <p className='edit-select-date-p'>Select date</p>
+                                                <input className ='edit-recipe-modal-date-input' type = 'date' value ={this.state.dateChange} onChange = {this.onChangeDate}/>
                                             </div>
-                                            <div className='edit-modal-inputs-container'>
-                                                <div>Breakfast</div>
-                                                <div>Lunch</div>
-                                                <div>Dinner</div>
-                                                <div>Snack</div>
-                                                <div>Dessert</div>
+                                            <div className='edit-meal-tag-section'>
+                                                <h3 className='edit-meal-tag-header'>For which meal?</h3>
+                                                <div className={`edit-meal-tag ${this.state.tag === 'breakfast' ? 'edit-selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
+                                                    <div className='edit-meal-tag-sub'>
+                                                        <p className ='edit-meal-tag-p'>Breakfast</p>
+                                                        <img className = 'edit-meal-tag-icon' src ='../images/fried-egg.png'/>
+                                                    </div>
+                                                </div>
+                                                <div className={`edit-meal-tag ${this.state.tag === 'lunch' ? 'edit-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
+                                                    <div className='edit-meal-tag-sub'>  
+                                                        <p className = 'edit-meal-tag-p'>Lunch</p>
+                                                        <img className = 'edit-meal-tag-icon' src ='../images/salad.png'/>
+                                                    </div>
+                                                </div>
+                                                <div className={`edit-meal-tag ${this.state.tag === 'dinner' ? 'edit-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
+                                                    <div className='edit-meal-tag-sub'>
+                                                        <p className = 'edit-meal-tag-p'>Dinner</p>
+                                                        <img className = 'edit-meal-tag-icon' src ='../images/fish.png'/>
+                                                    </div>
+                                                </div>
+                                                <div className={`edit-meal-tag ${this.state.tag === 'dessert' ? 'edit-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
+                                                    <div className='edit-meal-tag-sub'>
+                                                        <p className = 'edit-meal-tag-p'>Dessert</p>
+                                                        <img className = 'edit-meal-tag-icon' src ='../images/cupcake.png'/>
+                                                    </div>
+                                                </div>
+                                                <div className={`edit-meal-tag ${this.state.tag === 'snack' ? 'edit-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
+                                                    <div className='edit-meal-tag-sub'>
+                                                        <p className = 'edit-meal-tag-p'>Snack</p>
+                                                        <img className = 'edit-meal-tag-icon' src ='../images/popcorn.png'/>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div className ='edit-modal-submit-button'>Submit</div>
                                         </form>

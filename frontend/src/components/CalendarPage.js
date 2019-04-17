@@ -18,15 +18,16 @@ class CalendarPage extends Component{
     constructor(props){
         super(props)
         this.state = {
-            openDayModal : false,
-            userId :   '' , //this.props.userId,  //  Why does this work, but not setState in componentDidMount
+            userId :   '' , 
             recipes : [],
             testRecipes: [],
             filteredRecipeArr : [],
             selectedRecipe : '',
-            date: null, 
-            forwardDate: null,
-            backwardDate: null,
+            date: null,
+            prevWeekArr: [],
+            nextWeekArr: [],
+            prevWeekRecipeArr: [],
+            nextWeekRecipeArr: [],
             tag: null,
             servingsModal:false,
             tagModal:false
@@ -34,7 +35,6 @@ class CalendarPage extends Component{
         }
     }
     async componentDidMount(){
-        console.log(localStorage.getItem('userId'))
         const userId = localStorage.getItem('userId');
         await this.setState({
             userId : userId
@@ -48,62 +48,135 @@ class CalendarPage extends Component{
             .get(`https://kookr.herokuapp.com/api/recipes/user/1`)
                 .then(res =>{
                     this.setState({
-                        testRecipes : res.data 
+                        testRecipes : [...Object.values(res.data)]
                     }) 
                      
                 })
                 .catch(err =>{
                     console.log(err);
                 })
-                console.log(this.state.testRecipes);
+                console.log(this.state.testRecipes[0].name)
     }           
     recipeGetById = () =>{
-        // console.log(this.state.userId);
-        axios   
+       axios   
             .get(`https://kookr.herokuapp.com/api/recipes/user/${this.state.userId}`)
                 .then(response =>{
-                    // console.log(response);
                     this.setState({
                         recipes: response.data  
                     })
                 })
                 .catch(err =>{
                     console.log('Error fetching recipes by user Id', err);
-                })             
+                })        
+    
     }
+    ///Calendar functionality suite below
+    //Gets and formats clicked calendar day
     dayClick = (clickedDay) =>{
-        this.setState({
-            openDayModal : true,
-        });
         var MyDate = clickedDay;
         var MyDateString;
         MyDateString =  MyDate.getFullYear() + '/'
         + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
         + ('0' + MyDate.getDate()).slice(-2) + '/'
-        
-        console.log(MyDateString);
         this.setState({
             date: MyDateString,
         })
     }
-    getWeek = () =>{
-        const currentDate = moment(this.state.date);
-        const formattedCurrent = currentDate.clone().format('YYYY-MM-DD');
-        const formattedCurrentPlus = currentDate.clone().add(1, 'days').format('YYYY-MM-DD');
-        const endOfWeek = currentDate.clone().add(1, 'week').format('YYYY-MM-DD')
-        const prevWeekStart = currentDate.clone().subtract(6, 'days').format('YYYY-MM-DD');
-        const prevDates = this.getDateArray(new Date(prevWeekStart), new Date(formattedCurrent));                                                                                                           
-        prevDates.forEach(function(date) {
-          console.log(date);
-        });
-        // const nextDates = this.getDateArray(new Date(formattedCurrentPlus), new Date(endOfWeek));                                                                                                           
-        // nextDates.forEach(function(date) {
-        //   console.log(date);
-        // });
-
+    //Sets  upcoming week from current day based on previous week schedule
+    duplicatePreviousWeek = async() =>{
+        await this.getWeek();
+        await this.getRecipesForWeekArr();
+        await this.postNextWeekRecipeArr();
+       
+         
     }
+    getRecipesForWeekArr = async() =>{
+        const userId = this.state.userId;
+        const prevWeekArr = this.state.prevWeekArr;
+        const prevWeekRecipeArr = []
+        prevWeekArr.forEach(async date =>{
+           await axios
+                .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${encodeURIComponent(date)}`)
+                    .then(res =>{
+                        // console.log(res)////Figure out how this is returning recipes
+                        if(!res.data.length){
+                            prevWeekRecipeArr.push('No recipes for this day')
+                        }else{
+                            prevWeekRecipeArr.push(res.data)
+                        } 
+                    })
+                    .catch(err =>{
+                        prevWeekRecipeArr.push('No recipes for this day')
+                    })
+                    // console.log(prevWeekRecipeArr)
+                    
+        })
+        this.setState({
+            prevWeekRecipeArr : prevWeekRecipeArr
+        })
+    }
+    // postNextWeekRecipeArr = async() =>{
+    //     const userId = this.state.userId;
+    //     const date = this.state.date;
+    //     const servings = this.state.servings //????
+    //     const prevWeekRecipeArr = this.state.prevWeekRecipeArr;
+    //     console.log(prevWeekRecipeArr);
+    //     prevWeekRecipeArr.forEach(async recipe =>{
+    //         if(typeof recipe === 'string'){
+    //             const recipeId = null
+    //             const newRecipeObjData = {recipe_id: recipeId, user_id : userId, date : date, servings: servings}
+    //             const newRecipeObj = Object.assign({}, newRecipeObjData)
+    //             return newRecipeObj
+    //         }else{
+    //             const recipeId = recipe.recipe_id
+    //             const newRecipeObjData = {recipe_id: recipeId, user_id : userId, date : date, servings: servings}
+    //             const newRecipeObj = Object.assign({}, newRecipeObjData)
+    //             return newRecipeObj
+    //         }
+    //         // console.log(newRecipeObj);
+    //         await axios
+    //             .post(`https://kookr.herokuapp.com/api/schedule`, newRecipeObj)
+    //                 .then(res =>{
+    //                     console.log(res)
+    //                 })
+    //                 .catch(err =>{
+    //                     console.log(err)
+    //                 })
+    //     })
+       
+       
+    // }
 
+    //Gets previous and next weeks from current day
+    getWeek = async() =>{
+        //current date
+        if(!this.state.date){
+            alert('Please select a date first')
+        }else{
+            const currentDate = moment(this.state.date);
+            const formattedCurrent = currentDate.clone().format('YYYY-MM-DD');
+            const formattedCurrentPlus = currentDate.clone().add(1, 'days').format('YYYY-MM-DD');
+            
+            const endOfWeek = currentDate.clone().add(1, 'week').format('YYYY-MM-DD')
+            const nextDates  = this.getDateArray(new Date(formattedCurrentPlus), new Date(endOfWeek));
+            const nextWeekArr = nextDates.map(date =>{
+                return this.formatDate(date)
+            })
 
+            const prevWeekStart = currentDate.clone().subtract(6, 'days').format('YYYY-MM-DD');
+            const prevDates = this.getDateArray(new Date(prevWeekStart), new Date(formattedCurrent));                                                                                                          
+            const prevWeekArr = prevDates.map(date =>{
+                return this.formatDate(date)
+            })
+            await this.setState({
+                prevWeekArr:prevWeekArr,
+                nextWeekArr:nextWeekArr
+            })
+        }    
+
+    //  console.log(this.state)
+    }
+    //Gets array of dates for week
     getDateArray = (startDate, endDate) =>{
         var dates = [],
             currentDate = startDate,
@@ -118,36 +191,49 @@ class CalendarPage extends Component{
         }
         return dates;
       };
-//Read only with recipeArr??
+      //formats date array into string format
+      formatDate = (dateArr)=> {
+            let year =  dateArr.getFullYear().toString();
+            let month = '' + (dateArr.getMonth() + 1);
+            let day = '' + (dateArr.getDate());
+            if(month.length < 2) month = '0' + month
+            if(day.length < 2) day = '0' + day
+            // count = count + 1
+            let returnDate = year + '/' + month + '/' +day
+            // console.log(returnDate)
+            return returnDate
+    }
+
+    //Search function for recipe search
     calendarSearchFunction = (event) =>{
         event.preventDefault();
         // const updatedArr = this.state.recipes;
-        const updatedArr = this.state.testRecipes;
-        updatedArr = updatedArr.filter(function(item){
-          return item.toLowerCase().search(
-            event.target.value.toLowerCase()) !== -1;
-        });
-        this.setState({filteredRecipeArr: updatedArr});
-      }
+        const testArr = this.state.testRecipes;
+        const inputValue = event.target.value
+        if(!event.target.value){
+            this.setState({
+                filteredRecipeArr : []
+            })
+        }else{
+            const updatedArr = testArr.filter(element =>{
+                return element.name.toLowerCase().includes(inputValue.toLowerCase())
+            })
+            this.setState({filteredRecipeArr: updatedArr});
+        }
+    }
+     //Sets state for selected searched recipe  
     onSelectRecipe = async(selectedRecipe) =>{
         await this.setState({
-            selectedRecipe
+            selectedRecipe: selectedRecipe
         });
-        console.log(this.state);
+        // console.log(this.state);
     }
-    tagSelector = async(event) =>{
-        const tag = event.target.dataset.txt;
+    clickHandle = async(event,  type) =>{
+        event.preventDefault();
         await this.setState({
-            tag: tag
+            tag:type
         })
         console.log(this.state.tag);
-    }
-    calendarEventPost = () =>{
-        console.log('State: ', this.state);
-        const calendarEvent = {
-            date: this.state.date, 
-            recipe  : this.state.selectedRecipe
-        }
     }
     
     postTagToRecipe = () =>{
@@ -191,6 +277,7 @@ class CalendarPage extends Component{
     }
     
     render(){
+        // console.log(this.state.testRecipes);
         return (
             <div className="CalendarPage">
                 <NavBar />
@@ -216,7 +303,8 @@ class CalendarPage extends Component{
                                     {this.state.filteredRecipeArr.map(recipe =>{
                                         return(
                                             <div  key = {Math.random()}>
-                                                <div onClick = {() =>this.onSelectRecipe(recipe)}>{recipe}</div>
+                                                 {console.log(recipe.name)}
+                                                <div onClick = {() =>this.onSelectRecipe(recipe)}>{recipe.name}</div>
                                             </div>    
                                         )
                                     })}
@@ -227,18 +315,18 @@ class CalendarPage extends Component{
                                     <p>How many servings?</p>
                                     <input className = 'servings-input'type="number" min="1" />
                                     <p className='check-box-p'>Duplicate previous week's shopping list</p>
-                                    <input type="checkbox" id='check-box' className ='check-box' onClick = {this.getWeek}/>
+                                    <input type="checkbox" id='check-box' className ='check-box' onClick = {this.duplicatePreviousWeek}/>
                                     
                                 </div>    
                                 <div className='edit-recipe-section'>  
                                     <div className="calendar-meal-tag-container">
                                         <h4 className='calendar-tag-header'>Select Tag to Add</h4>
                                         <div className='calendar-meal-tag-button-section'>
-                                            <div className = 'calendar-meal-tag' data-txt = 'breakfast' onClick = {this.tagSelector}>Breakfast</div>
-                                            <div  className = 'calendar-meal-tag' data-txt = 'lunch' onClick = {this.tagSelector}>Lunch</div>
-                                            <div  className = 'calendar-meal-tag' data-txt = 'dinner' onClick = {this.tagSelector}>Dinner</div>
-                                            <div  className = 'calendar-meal-tag' data-txt = 'dessert' onClick = {this.tagSelector}>Dessert</div>
-                                            <div  className = 'calendar-meal-tag' data-txt = 'snack' onClick = {this.tagSelector}>Snack</div>
+                                            <p className={`calendar-meal-tag ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>Breakfast</p>
+                                            <p className={`calendar-meal-tag ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>Lunch</p>
+                                            <p className={`calendar-meal-tag ${this.state.tag === 'dinner' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>Dinner</p>
+                                            <p className={`calendar-meal-tag ${this.state.tag === 'dessert' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>Dessert</p>
+                                            <p className={`calendar-meal-tag ${this.state.tag === 'snack' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>Snack</p>
                                         </div>    
                                     </div>
                                 </div>
@@ -260,11 +348,11 @@ class CalendarPage extends Component{
                                             <div className='calendar-tag-modal'>
                                                 <div onClick={this.closeTagModal}>X</div>
                                                 <div className='meal-tag-button-section'>
-                                                    <div data-txt = 'breakfast' onClick = {this.tagSelector}>Breakfast</div>
-                                                    <div  data-txt = 'lunch' onClick = {this.tagSelector}>Lunch</div>
-                                                    <div  data-txt = 'dinner' onClick = {this.tagSelector}>Dinner</div>
-                                                    <div  data-txt = 'dessert' onClick = {this.tagSelector}>Dessert</div>
-                                                    <div  data-txt = 'snack' onClick = {this.tagSelector}>Snack</div>
+                                                    <p className={`calendar-meal-tag-mobile ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>Breakfast</p>
+                                                    <p className={`calendar-meal-tag-mobile ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>Lunch</p>
+                                                    <p className={`calendar-meal-tag-mobile ${this.state.tag === 'dinner' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>Dinner</p>
+                                                    <p className={`calendar-meal-tag-mobile ${this.state.tag === 'dessert' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>Dessert</p>
+                                                    <p className={`calendar-meal-tag-mobile ${this.state.tag === 'snack' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>Snack</p>
                                                 </div>
                                             </div>        
                                         </div>
@@ -276,8 +364,6 @@ class CalendarPage extends Component{
                         <div onClick = {this.onSaveFunction} className='save-button'>
                             Save 
                         </div>  
-                        <img src = '../images/salad.png'/>
-                        <img src= '../images/popcorn.png'/>
                     </div>        
                 </div>
             </div>       

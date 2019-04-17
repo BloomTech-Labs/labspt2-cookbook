@@ -16,7 +16,9 @@ class GroceryList extends Component{
         this.state ={
           startDate : '',
           stopDate:  '',
-          ingArr: []
+          ingArrOne: [],
+          ingArrTwo: []
+
         }
     }
 
@@ -51,7 +53,8 @@ class GroceryList extends Component{
         axios
         .get('https://kookr.herokuapp.com/api/ingredients/recipe/1')
         .then(res =>{
-            res.data.forEach((element)=>{
+            res.data.forEach((element,index)=>{
+                console.log(res)
                 let tempIng ="";
                 if(element.amount !== null){
                     tempIng += formatQuantity(element.amount) + " ";
@@ -60,9 +63,15 @@ class GroceryList extends Component{
                     tempIng += element.measurement + " ";
                 } 
                 tempIng += element.name
-                this.setState({
-                    ingArr : [...this.state.ingArr,tempIng]
-                })
+                if(index % 2){
+                    this.setState({
+                        ingArrOne : [...this.state.ingArrOne,tempIng]
+                    })
+                }else{
+                    this.setState({
+                        ingArrTwo : [...this.state.ingArrTwo, tempIng]
+                    })
+                }
                 
             })
         })
@@ -94,7 +103,9 @@ class GroceryList extends Component{
     //     }
     // }
   
-    
+    generateList = () =>{
+       this.getDates()
+    }
     render(){
         console.log(this.state.startDate);
         console.log(this.state.stopDate);
@@ -102,31 +113,50 @@ class GroceryList extends Component{
             <div className="GroceryList">
                 <NavBar />
                  <div className='grocery-list-page'>
-                    <div className="calendarSection">
-                       {/* <Calendar selectRange = {true} /> */}
-                        <form >
-                            <input type = 'date' name = 'startDate' value ={this.state.startDate} onChange = {this.onChangeDate}/>
-                            <input type = 'date' name = 'stopDate' value = {this.state.stopDate} onChange = {this.onChangeDate}/>
-                                <div onClick = {this.getDates} >Save dates</div>
-                        </form >
-                        <div className="generateButton">
-                            Generate Grocery List 
-                        </div>
-                    </div>
-                    <div className="listSection">
-                        <h1>Grocery List for Variable</h1>
-                        <div className="list">
-                        <form>
-                            {this.state.ingArr.map(item =>(
-                                <div>
-                                    <input type='checkbox' name={item} onClick={this.clickHandler}/>
-                                    <label for={item}>{item}</label>
+                    <div className = 'grocery-list-sub-container'>
+                        <div className = 'grocery-list-intro-container'>
+                            <div className='grocery-list-page-header'>
+                                Grocery List
+                            </div>
+                        </div>    
+                        <div className="dates-section">
+                            <form className = 'dates-section-form'>
+                                <div className ='start-date-container'>
+                                    <p className = 'date-p'>Select range start date:</p>
+                                    <input className='start-date' type = 'date' name = 'startDate' value ={this.state.startDate} onChange = {this.onChangeDate}/>  
                                 </div>
-                            ))}
-                        </form>
+                                <div className ='stop-date-container'>
+                                    <p className = 'date-p'>Select range end date:</p>
+                                    <input className = 'stop-date' type = 'date' name = 'stopDate' value = {this.state.stopDate} onChange = {this.onChangeDate}/>
+                                </div>    
+                            </form >
+                            <div className="generate-button-container" onClick = {this.generateList}>
+                                <p className='grocery-list-page-p'>
+                                    Select a date range, populate your grocery list based on pre-selected recipe servings, modify and export your shopping list
+                                </p>
+                                <div className='generate-button'>
+                                Generate Grocery List 
+                                </div>
+                            </div>
                         </div>
-                        <div className="pageTurnIcon">Icon Here</div>
-                    </div>
+                        <div className="list-section-container">
+                            <div className ='list-section-sub-container'>
+                                <h1 className = 'shopping-list-paper-header'>Shopping List : </h1>
+                                <div className="shopping-list">
+                                    <ul className = 'list-row-one'>
+                                        {this.state.ingArrOne.map(item =>(
+                                            <li>{item}</li>
+                                        ))}
+                                    </ul>
+                                    <ul className = 'list-row-two'>
+                                        {this.state.ingArrTwo.map(item =>(
+                                            <li>{item}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
                 </div>    
             </div>           
         )
