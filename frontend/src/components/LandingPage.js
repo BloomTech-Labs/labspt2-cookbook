@@ -30,8 +30,6 @@ class LandingPage extends React.Component{
             authId: googleObj.googleId
         });
         console.log(this.state);
-        //console.log(this.state);
-        // this.props.idClickHandler(this.state.authId);
        axios
             .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
             .then(response =>{
