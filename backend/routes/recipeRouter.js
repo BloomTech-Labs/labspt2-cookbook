@@ -42,7 +42,7 @@ router.get( '/:id', (req, res) => {
 
 
 /* POST */
-router.post( '/', (req, res) => {
+router.post( '/', async (req, res) => {
   const recipeData = req.body;
 
   // Check for missing data first.
@@ -51,7 +51,7 @@ router.post( '/', (req, res) => {
     res.status(400).json({ error: "Missing data." });
   }
   else {
-    recipes.insert(recipeData)
+    await recipes.insert(recipeData)
       .then( (id) => {
         recipes.get(id)
         .then( (rec) => {
@@ -70,6 +70,30 @@ router.post( '/', (req, res) => {
   }
 });
 
+
+router.post( '/link', async (req, res) => {
+  const recipeData = req.body;
+
+  // Check for missing data first.
+  if( !recipeData.user_id || !recipeData.link )
+  {
+    res.status(400).json({ error: "Missing data." });
+  }
+  else {
+    
+    try {
+      const newRecipe = await recipes.insertLink(recipeData);
+      const id = await recipes.insert(newRecipe);
+      const rec = await recipes.get(id);
+      let [recipe, ingredients, directions] = rec;
+      recipe = recipe[0];
+      res.json({ ...recipe, ingredients:ingredients, directions: directions });
+    } catch (err) {
+      res.status(500).json({ error: `Could not get recipe: ${err}` });
+    }
+
+  }
+});
 
 /* DELETE */
 router.delete( '/:rid/user/:uid', (req, res) => {
