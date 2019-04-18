@@ -42,6 +42,23 @@ module.exports = {
   },
 
   
+  insertLink: async function(recipe) {
+    const [recId] = await this.recipeExists(recipe.link);
+    
+    // Check if recipe exists first.
+    if( recId > 0 ) {
+      return this.insert(recipe);
+    } else {
+      // Scrape the recipe data
+      let newRecipe = await checkUrl.checkUrl(recipe);
+      
+      newRecipe = {
+        ...newRecipe,
+        user_id: recipe.user_id
+      };
+      return (newRecipe);
+    }
+  },
 
   /*
    * insert:
@@ -49,7 +66,6 @@ module.exports = {
    *   -- Returns recipe id: int (1)
    */
   insert: async function(recipe) {
-    
     const [recId] = await this.recipeExists(recipe.link);
     
     // Check if recipe exists first.
@@ -79,8 +95,9 @@ module.exports = {
         });
       // end db.where
     } else {
-      // Might need to add another endpoint specifically for this.
-      recipe = await checkUrl.checkUrl(recipe); /////??????????????
+      // // Might need to add another endpoint specifically for this.
+      // recipe = await checkUrl.checkUrl(recipe);/////??????????????
+      // console.log(recipe); 
 
       return db.transaction( (trans) => {
         return db('recipes')
