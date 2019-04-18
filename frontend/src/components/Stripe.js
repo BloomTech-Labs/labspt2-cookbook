@@ -7,53 +7,68 @@ class CheckoutForm extends Component {
         super(props)
         this.submit = this.submit.bind(this);
         this.state = {
-            today : ""
+            today : "",
+            userId : props.userId,
+            stripeId: props.stripeId,
         }
         
     }
     componentDidMount(){
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = today.getFullYear();
+        this.newDate()
+    }
 
-    today = yyyy + '-' + mm + '-' + dd;
-    document.write(today);
-    this.setState({
-        today : today
-    })
+    newDate = () =>{
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        this.setState({
+            today : today
+        })
     }
     
     
     async submit(e) {
         e.preventDefault();
-        let {token} = await this.props.stripe.createToken({name: this.props.name});
-        console.log(token.id, this.props.name)
+        console.log(this.state.stripeId)
+        if(this.state.stripeId === undefined){
+            let {token} = await this.props.stripe.createToken({name: this.props.name});
+            console.log("token", token)
+
+            axios
+                .post("http://localhost:1234/api/charge/user", token)
+                .then(response => {
+                    console.log(response);
+                    this.setState({
+                        stripeId: response.data.id
+                    })
+                    //alert("Payment Success");
+                    
+                })
+                .then(()=>{
+                    console.log("in next then", this.state.stripeId)
+                    axios.put(`https://localhost:1234/api/user/${this.props.userId}`, {
+                        auth_id:this.props.auth,
+                        email: this.props.name,
+                        billing_date: this.state.today,
+                        type: 1,
+                        stripe_id: this.state.stripeId
+                    })
+                    .then(response =>{
+                        console.log("from put", response)
+                    })
+                    .catch(err=>{
+                        console.log(err)
+                    })
+                })
+                .catch(err => {
+                    console.log("Payment Error: ", err);
+                    alert("Payment Error");
+                });
+        }
         
-        await axios
-        .post("https://kookr.herokuapp.com/api/charge/", token)
-        .then(response => {
-            console.log(response);
-            alert("Payment Success");
-        })
-        .then(()=>{
-            axios.put(`https://kookr.herokuapp.com/api/user/${this.props.userId}`, {
-                auth_id:this.props.auth,
-                email: this.props.name,
-                billing_date: this.state.today,
-                type: 1
-            })
-            .then(response =>{
-                console.log("from put", response)
-            })
-            .catch(err=>{
-                console.log(err)
-            })
-        })
-        .catch(err => {
-            console.log("Payment Error: ", err);
-            alert("Payment Error");
-        });
     };
     render(){
         return (

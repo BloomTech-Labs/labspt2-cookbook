@@ -26,7 +26,9 @@ class GroceryList extends Component{
     componentDidMount(){
         this.getRecipe()
     }
-
+    clickHandler = (event) =>{
+        console.log("this is a link")
+    }
     onChangeDate = (event) =>{
         this.setState({
             [event.target.name] : event.target.value
