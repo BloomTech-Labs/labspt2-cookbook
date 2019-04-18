@@ -94,7 +94,7 @@ router.put('/:id', (req, res) => {
   const { id } = req.params;
   const userEdit = req.body;
 
-  if (userEdit.auth_id && userEdit.email &&  userEdit.type) {
+  if (userEdit.auth_id && userEdit.email) {
     user.update(id, userEdit)
       .then((user) => {
         if (id) {

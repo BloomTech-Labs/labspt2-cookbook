@@ -43,11 +43,11 @@ router.get( '/user/:id', (req, res) => {
 
 
 /* GET schedule by Date */
-router.get( '/user/:id/date/:date', (req, res) => {
+router.get( '/user/:id/date/:date', async(req, res) => {
   const { id, date } = req.params;
-
   schedule.getByDate(id, date)
     .then( (list) => {
+      console.log(list)
       res.json(list);
     })
     .catch( (err) => {

@@ -1,6 +1,7 @@
 /*Page Structure*/
 .settings-page{
     display: flex;
+    background-color: rgba(233, 221, 219, 0.164); 
 }
 
 .settings-main{
@@ -9,12 +10,24 @@
     padding: 50px;
 }
 
+@media screen and (max-width:800px){
+    .settings-page{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 /*Page Content*/
 .settings-form-container{
-    border: 1px solid gray;
+    /* border: 1px solid darkgray; */
     margin-top: 25px;
     padding: 25px;
     border-radius: 5px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:normal;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    background-color:rgb(255, 255, 255);
+
 }
 
 .settings-form{
@@ -29,4 +42,13 @@
 
 .settings-form-item:first-child{
     margin-top: 15px;
+}
+@media screen and (max-width:800px){
+    .settings-page{
+        flex-direction:column;
+    }
+    .settings-main{
+        width:100%;
+        padding:0px;
+    }
 }

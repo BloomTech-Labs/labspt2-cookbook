@@ -1,22 +1,22 @@
 .NavBar{
     width:20%;
+   
     
 }
+
 .nav-container{
     background-image:url('https://images.fabric.com/images/693/693/0473337.jpg');
     height:140vh;
     padding:25px 8%;
-    /* border-right:15px solid rgb(52, 98, 112); */
 }
 .nav-overlay{
-    /* background-color:rgba(93, 157, 177, 0.459); */
     background-color:white;
     border-radius:3px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     display:flex;
     flex-direction:column;
-    padding:40px 10%;
-  
+    padding:20px 10%;
+    padding-bottom:0px;
 }
 .nav-link-container{
     display:flex;
@@ -31,33 +31,149 @@
     text-decoration:none;
     border-bottom:2px solid rgba(135, 185, 197, 0.219);
     text-transform: uppercase;
-    /* font-weight:bold; */
     color:black;
-    /* color:rgb(54, 103, 117); */
-    padding-bottom:15px;
+    padding-bottom:20px;
     font-size:26px;
     text-align:center;
-    
-
-
-
-/* font-family: 'Barlow Condensed', sans-serif; */
-
-
-font-family: 'Barlow Semi Condensed', sans-serif;
-
-
-
-
-/* font-family: 'Pompiere', cursive; */
-
-
+    font-family: 'Barlow Semi Condensed', sans-serif;
 }
-.nav-bar-logo{
-    color:rgb(87, 144, 161);
-    font-size:34px;
-    font-weight:bolder;
-    border-bottom:2px solid rgba(135, 185, 197, 0.322);
-    padding-bottom:40px;
-    text-align:center;
+.nav-logo-container{
+   width:100px;
+   height:100px;
+   background-color:rgb(91, 142, 158);
+   border-radius:100%;
+   margin:0 auto;
+}
+.nav-logo{
+    height:70px;
+    width:70px;
+    margin-left:15px;
+    margin-top:15px;
+}
+
+@media screen and (max-width:800px){
+    .NavBar{
+        width:100%;
+      
+    }
+    .nav-container{
+        height:100px;
+        width:100%;
+        padding:0px 0%;
+    }
+    .nav-overlay{
+        display:none;
+    }
+    .nav-logo{
+        margin-left:0px;
+    }
+  
+}
+.settings-link{
+    border:none;
+}
+.nav-break-800{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    
+}
+.nav-hamburger{
+    display:flex;
+    justify-content: flex-end;
+    color:white;
+  
+}
+#nav-icon{
+    font-size:32px;
+    margin-top:10px;
+}
+.nav-break-logo-container{
+    background-color: white;
+    border-radius:100%;
+    width:80px;
+    height:80px;
+    margin:0px auto;
+    margin-top:-32px;
+    
+}
+.nav-break-logo{
+    width:60px;
+    height:60px;
+    margin-top:10px;
+    margin-left:10px;
+}
+#nav-icon{
+   display:flex;
+   justify-content:flex-end;
+   padding-right:2%;
+   cursor:pointer;
+}
+@media screen and (min-width:800px){
+    .nav-break-800{
+        display:none;
+    }
+}
+@media screen and (max-width:500px){
+    .nav-break-logo-container{
+        height:60px;
+        width:60px;
+        margin-top:-24px;
+    }
+    .nav-break-logo{
+        height:45px;
+        width:45px;
+        margin-left:8px;
+        margin-top:8px;
+    }
+    .nav-container{
+        height:50px;
+        padding-bottom:30px;
+    }
+    #nav-icon{
+        font-size:26px;
+        margin-top:6px;
+    }
+}
+.nav-800-closed{
+    display:none;
+}
+.nav-800-open{
+    position:fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(14, 21, 24, 0.87);
+}
+.nav-800-sub{
+    position:fixed;
+    background: white;
+    padding-top:15px;
+    margin-top:15px;
+    width: 60%;
+    padding-bottom:30px;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    display:flex;
+    flex-direction:column;
+    border-radius:5px;
+    border:5px solid rgb(52, 98, 112);
+    text-align: center;
+}
+.nav-800{
+   text-decoration: none;
+   font-family: 'Barlow Semi Condensed', sans-serif;
+   text-transform: uppercase;
+   font-size:26px;
+   color:black;
+   padding-bottom:15px;
+   padding-top:15px;
+   border-bottom:2px solid rgba(135, 185, 197, 0.219);
+}
+.settings-link-800{
+    border-bottom:none;
+    padding-bottom:0px;
+    margin-bottom:-5px;
 }

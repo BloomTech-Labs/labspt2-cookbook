@@ -9,7 +9,6 @@ import CalendarPage from "./components/CalendarPage";
 import GroceryList from "./components/GroceryList";
 import Settings from "./components/Settings";
 import SingleRecipe from "./components/SingleRecipe";
-import Rob from './components/Rob';
 
 
 class App extends Component {
@@ -38,8 +37,6 @@ class App extends Component {
             <Route exact path="/calendar" render = {(props) => <CalendarPage {...props} userId = {this.state.id}/>}/>
             <Route exact path="/grocery-list" component={GroceryList}/>
             <Route exact path="/settings" component={Settings} />
-            <Route path='/rob' component={Rob} />
-          
           </div>
         </Router>
       </div>

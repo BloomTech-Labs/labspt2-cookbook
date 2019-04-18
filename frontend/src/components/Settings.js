@@ -12,15 +12,60 @@ class Settings extends Component {
         super(props)
         this.state = {
             userId : '',
+            authId : '',
             billingDate : '',
             email: '',
             accountType: '',
-
+            formEmail:'',
+            message: '',
+            stripeId : ''
         }
     }    
-componentDidMount(){
-    this.getUserToShowChrisThatWeCan();
-    console.log(this.state);
+async componentDidMount(){
+    //this.getUserToShowChrisThatWeCan();
+    let localUserId = await localStorage.getItem('userId')
+    await this.setState({
+        userId : localUserId
+    });
+    await this.getCurrentUser();
+    this.checkSubscription();
+    console.log("from component did mount", this.state)
+}
+
+getCurrentUser = async() =>{
+    await axios
+        .get(`https://kookr.herokuapp.com/api/user/${this.state.userId}`)
+            .then(res =>{
+                console.log("response from get user", res)
+                this.setState({
+                    authId : res.data.auth_id,
+                    billingDate : res.data.billing_date,
+                    email : res.data.email,
+                    accountType : res.data.type,
+                    formEmail : res.data.email,
+                    stripeId : res.data.stripe_id
+                })
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+            console.log("state after get current user", this.state)
+}
+
+inputHandler=(e) =>{
+    this.setState({[e.target.name]: e.target.value})
+}
+
+checkSubscription=()=>{
+    let expDate = this.state.billingDate
+    if(this.state.accountType === "0"){
+        this.setState({
+            message : "You do not have a subscription to Kookr. Subscribe below"})
+    } else if (this.state.accountType === "1"){
+        this.setState({
+            message :`Your subscription expires on ${expDate} `})
+    }
+    console.log("after check subscription", this.state)
 }
 
 getUserToShowChrisThatWeCan = async() =>{
@@ -38,7 +83,6 @@ getUserToShowChrisThatWeCan = async() =>{
             .catch(err =>{
                 console.log('This did not work out well', err)
             })
-            console.log(this.state);
 }
     render() {
         return (
@@ -50,12 +94,7 @@ getUserToShowChrisThatWeCan = async() =>{
                         <form className="settings-form">
                             <div className="settings-form-item">
                                 <label htmlFor="email">Email Address: </label>
-                                <input type="text" name="email" placeholder="someone@website.com"></input>
-                            </div>
-
-                            <div className="settings-form-item">
-                                <label htmlFor="phone">Phone Number: </label>
-                                <input type="tel" name="phone" placeholder="555-123-5678"></input>
+                                <input type="text" name="formEmail" placeholder="someone@website.com" value={this.state.formEmail} onChange={this.inputHandler}></input>
                             </div>
 
                             <div className="settings-form-item">
@@ -66,15 +105,6 @@ getUserToShowChrisThatWeCan = async() =>{
                                 <input type="checkbox" name="notificationsText"></input>
                             </div>
 
-                            <div className="settings-form-item">
-                                <label htmlFor="passOld">Old Password: </label>
-                                <input type="password" name="passOld"></input>
-                            </div>
-                            
-                            <div className="settings-form-item">
-                                <label htmlFor="passNew">New Password: </label>
-                                <input type="password" name="passNew"></input>
-                            </div>
 
                             <input type="submit" name="save" value="Save"></input>
                         </form>
@@ -82,21 +112,26 @@ getUserToShowChrisThatWeCan = async() =>{
 
                     <div className="billing-main">
                         <div>SUBSCRIPTION</div>
+                        <div>
+                            <h2>Your Subscription</h2>
+                            <p>{this.state.message}</p>
+                        </div>
+                        <div className="subscription-header">SUBSCRIPTION</div>
                         <StripeProvider apiKey="pk_test_FnFtpYb3dVyUAFLHmDnjgP8g00XZuu408f">
                             <div className="billing-form-container">
                                 <h1>Premium Subscription</h1>
                                 <Elements>
-                                    <CheckoutForm />
+                                    <CheckoutForm name={this.state.email} auth={this.state.authId} userId={this.state.userId} stripeId={this.state.stripeId} />
                                 </Elements>
                             </div>
                         </StripeProvider>
                     </div>
                 </div>
-                <div className = 'display-for-chris'>
+                {/* <div className = 'display-for-chris'>
                     <div>{this.state.userId}</div>
                     <div>{this.state.email}</div>
                     <div>{this.state.billingDate}</div>
-                </div>
+                </div> */}
             </div>
         );
     }
