@@ -19,7 +19,7 @@ getId: function(tag) {
  */ 
 
 getByRecipe: function(recipe_id) {
-    return db('tags as t').join('recipe_tags as rt', 't.tag_id', 'rt.tag_id').select('t.tag').where('rt.recipe_id', recipe_id)
+    return db('tags as t').join('recipe_tags as rt', 't.tag_id', 'rt.tag_id').select('t.tag_id', 't.tag').where('rt.recipe_id', recipe_id);
 },
 
 /*
