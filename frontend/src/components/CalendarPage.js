@@ -87,6 +87,14 @@ class CalendarPage extends Component{
         await this.getWeek();
         await this.getRecipesForWeekArr();
         await this.postNextWeekRecipeArr();
+        // await axios
+        //     .get('https://kookr.herokuapp.com/api/tags/recipe/2')
+        //         .then(res =>{
+        //             console.log(res)
+        //         })
+        //         .catch(err =>{
+        //             console.log('Could not fetch tags by recipe id')
+        //         })
        
          
     }
@@ -94,8 +102,8 @@ class CalendarPage extends Component{
         const userId = this.state.userId;
         const prevWeekArr = this.state.prevWeekArr;
         const prevWeekRecipeArr = []
-        prevWeekArr.forEach(async date =>{
-           await axios
+        prevWeekArr.forEach( date =>{
+           axios
                 .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${encodeURIComponent(date)}`)
                     .then(res =>{
                         // console.log(res)////Figure out how this is returning recipes
@@ -115,37 +123,54 @@ class CalendarPage extends Component{
             prevWeekRecipeArr : prevWeekRecipeArr
         })
     }
-    // postNextWeekRecipeArr = async() =>{
-    //     const userId = this.state.userId;
-    //     const date = this.state.date;
-    //     const servings = this.state.servings //????
-    //     const prevWeekRecipeArr = this.state.prevWeekRecipeArr;
-    //     console.log(prevWeekRecipeArr);
-    //     prevWeekRecipeArr.forEach(async recipe =>{
-    //         if(typeof recipe === 'string'){
-    //             const recipeId = null
-    //             const newRecipeObjData = {recipe_id: recipeId, user_id : userId, date : date, servings: servings}
-    //             const newRecipeObj = Object.assign({}, newRecipeObjData)
-    //             return newRecipeObj
-    //         }else{
-    //             const recipeId = recipe.recipe_id
-    //             const newRecipeObjData = {recipe_id: recipeId, user_id : userId, date : date, servings: servings}
-    //             const newRecipeObj = Object.assign({}, newRecipeObjData)
-    //             return newRecipeObj
-    //         }
-    //         // console.log(newRecipeObj);
-    //         await axios
-    //             .post(`https://kookr.herokuapp.com/api/schedule`, newRecipeObj)
-    //                 .then(res =>{
-    //                     console.log(res)
-    //                 })
-    //                 .catch(err =>{
-    //                     console.log(err)
-    //                 })
-    //     })
+    //if servings are undefined ??
+    postNextWeekRecipeArr = async() =>{
+        const userId = this.state.userId;
+        const date = this.state.date;
+        const servings = this.state.servings //????
+        const prevWeekRecipeArr = this.state.prevWeekRecipeArr;
+
+        // console.log('user id:', userId, 'date:',date,'servings:',servings,'prevWeekArr:', prevWeekRecipeArr);
+        prevWeekRecipeArr.forEach(recipe =>{
+            if(typeof recipe === 'string'){
+                const recipeId = null
+                const tagId = null
+                const newRecipeObjData = {recipe_id: recipeId, tag_id:tagId, user_id : userId, date : date, servings: servings}
+                const newRecipeObj = Object.assign({}, newRecipeObjData)
+                console.log('hi')
+                return newRecipeObj
+                
+            }else{
+                console.log('Else')
+                const recipeId = recipe.recipe_id
+                // let tagId or Arr = null
+                axios
+                    .get(`https://kookr.herokuapp.com/api/tags/recipes/${recipeId}`)
+                        .then(res =>{
+                            //tag whatever = res whatever
+                            
+                        })
+                        .catch(err =>{
+                            console.log('Error getting recipe by recipe Id')
+                        })
+ 
+                // const newRecipeObjData = {recipe_id: recipeId, tag_id : tag whatever , user_id : userId, date : date, servings: servings}
+                // const newRecipeObj = Object.assign({}, newRecipeObjData)
+                // return newRecipeObj
+            }
+            // console.log(newRecipeObj);
+            // await axios
+            //     .post(`https://kookr.herokuapp.com/api/schedule`, newRecipeObj)
+            //         .then(res =>{
+            //             console.log(res)
+            //         })
+            //         .catch(err =>{
+            //             console.log(err)
+            //         })
+        })
        
        
-    // }
+    }
 
     //Gets previous and next weeks from current day
     getWeek = async() =>{

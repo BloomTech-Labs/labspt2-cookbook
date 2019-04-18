@@ -108,9 +108,10 @@ clickHandle = async(event,  type) =>{
 
 postTagToRecipe = () =>{
     const tag = this.state.tag;
-    const recipeId = this.state.recipe.recipe_id;
+    // const recipeId = this.state.recipe.recipe_id;
+    const recipeId = 2
     axios
-        .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, tag)
+        .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, {tag : tag})
             .then(res =>{
                 console.log(res)
             })

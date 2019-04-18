@@ -21,10 +21,10 @@ class App extends Component {
         <Router>
           <div>
             <Route exact path='/' render = {(props) => < LandingPage {...props}/>} />
-            <Route exact path='/create' render = {(props) => <CreateRecipe {...props} userId = {this.state.id} />}/>
+            <Route exact path='/create' render = {(props) => <CreateRecipe {...props} />}/>
             <Route exact path="/recipes" component={RecipeList}/>
             <Route exact path="/recipes/:id" component={SingleRecipe}/>
-            <Route exact path="/calendar" render = {(props) => <CalendarPage {...props} userId = {this.state.id}/>}/>
+            <Route exact path="/calendar" render = {(props) => <CalendarPage {...props} />}/>
             <Route exact path="/grocery-list" component={GroceryList}/>
             <Route exact path="/settings" component={Settings} />
           </div>
