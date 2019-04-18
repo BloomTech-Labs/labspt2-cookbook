@@ -60,12 +60,14 @@ router.get('/auth/:authId', (req, res) =>{
 
 router.post('/', (req, res) => {
   const newUser = req.body;
+  console.log(newUser)
     if(newUser.auth_id && newUser.email){
       user.getByAuth(newUser.auth_id)
       .then((querydUser) =>{
-        if(querydUser == null){
+        if(querydUser.length===0){
           user.insert(newUser)
           .then(userInfo =>{
+            console.log("userInfo", userInfo)
             res.json(userInfo)
           })
           .catch(err=>{
@@ -75,6 +77,7 @@ router.post('/', (req, res) => {
           })
           
         } else{
+          console.log("saying the user exists???")
           res
           .status(403)
           .json({error: "User already exists"})

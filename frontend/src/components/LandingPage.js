@@ -33,7 +33,7 @@ class LandingPage extends React.Component{
         //console.log(this.state);
         // this.props.idClickHandler(this.state.authId);
        axios
-            .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
+            .get(`https://kookr.herokuapp.comi/user/auth/${this.state.authId}`)
             .then(response =>{
                 console.log("from axios get", response);
                 const existingUser = response.data.user_id;
@@ -55,7 +55,8 @@ class LandingPage extends React.Component{
                 auth_id: this.state.authId, 
                 email: this.state.email,
                 type: 0,
-                billing_date: null
+                billing_date: null,
+                stripe_id: null,
             })
             .then(response => {
                 const newUser = response.data.user_id;
