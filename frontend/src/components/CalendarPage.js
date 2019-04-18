@@ -87,14 +87,14 @@ class CalendarPage extends Component{
         await this.getWeek();
         await this.getRecipesForWeekArr();
         await this.postNextWeekRecipeArr();
-        // await axios
-        //     .get('https://kookr.herokuapp.com/api/tags/recipe/2')
-        //         .then(res =>{
-        //             console.log(res)
-        //         })
-        //         .catch(err =>{
-        //             console.log('Could not fetch tags by recipe id')
-        //         })
+        await axios
+            .get('https://kookr.herokuapp.com/api/tags/recipe/2')
+                .then(res =>{
+                    console.log(res)
+                })
+                .catch(err =>{
+                    console.log('Could not fetch tags by recipe id')
+                })
        
          
     }

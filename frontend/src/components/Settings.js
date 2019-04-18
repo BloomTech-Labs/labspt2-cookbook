@@ -109,20 +109,7 @@ checkSubscription=()=>{
                                 </div>
                             </StripeProvider>
                         </div>
-<<<<<<< HEAD
                     </div>    
-=======
-                        <div className="subscription-header">SUBSCRIPTION</div>
-                        <StripeProvider apiKey="pk_test_FnFtpYb3dVyUAFLHmDnjgP8g00XZuu408f">
-                            <div className="billing-form-container">
-                                <h1>Premium Subscription</h1>
-                                <Elements>
-                                    <CheckoutForm name={this.state.email} auth={this.state.authId} userId={this.state.userId} stripeId={this.state.stripeId} />
-                                </Elements>
-                            </div>
-                        </StripeProvider>
-                    </div>
->>>>>>> origin/development
                 </div>
             </div>
         );
