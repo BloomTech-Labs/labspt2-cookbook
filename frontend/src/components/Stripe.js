@@ -32,24 +32,23 @@ class CheckoutForm extends Component {
     
     async submit(e) {
         e.preventDefault();
-        console.log(this.state.stripeId)
-        if(this.state.stripeId === undefined){
+        let {customer} = this.props.stripeId
+        if(this.props.stripeId.length === 0){
             let {token} = await this.props.stripe.createToken({name: this.props.name});
-            console.log("token", token)
 
             axios
-                .post("http://localhost:1234/api/charge/user", token)
+                .post("http://kookr.herokuapp.com/api/charge/user", token)
                 .then(response => {
                     console.log(response);
                     this.setState({
                         stripeId: response.data.id
                     })
-                    //alert("Payment Success");
+                    //
                     
                 })
                 .then(()=>{
                     console.log("in next then", this.state.stripeId)
-                    axios.put(`https://localhost:1234/api/user/${this.props.userId}`, {
+                    axios.put(`https://kookr.herokuapp.com/api/user/${this.props.userId}`, {
                         auth_id:this.props.auth,
                         email: this.props.name,
                         billing_date: this.state.today,
@@ -57,9 +56,19 @@ class CheckoutForm extends Component {
                         stripe_id: this.state.stripeId
                     })
                     .then(response =>{
-                        console.log("from put", response)
                     })
                     .catch(err=>{
+                        console.log(err)
+                    })
+                })
+                .then(()=>{
+                    axios
+                    .post("http://kookr.herokuapp.com/api/charge/", customer)
+                    .then(response =>{
+                        console.log("posting after user created", response)
+                        alert("Payment Success");
+                    })
+                    .catch(err =>{
                         console.log(err)
                     })
                 })
@@ -67,6 +76,16 @@ class CheckoutForm extends Component {
                     console.log("Payment Error: ", err);
                     alert("Payment Error");
                 });
+        } else {
+            axios
+            .post("http://kookr.herokuapp.comapi/charge/", {customer: this.props.stripeId})
+            .then(response =>{
+                console.log("posting after user exists", response)
+                alert("Payment Success");
+            })
+            .catch(err =>{
+                console.log(err)
+            })
         }
         
     };
