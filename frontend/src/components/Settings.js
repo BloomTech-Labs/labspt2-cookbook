@@ -34,7 +34,7 @@ async componentDidMount(){
 
 getCurrentUser = async() =>{
     await axios
-        .get(`https://kookr.herokuapp.com/api/user/${this.state.userId}`)
+        .get(`http://localhost:4321/api/user/${this.state.userId}`)
             .then(res =>{
                 console.log("response from get user", res)
                 this.setState({
@@ -65,7 +65,6 @@ checkSubscription=()=>{
         this.setState({
             message :`Your subscription expires on ${expDate} `})
     }
-    console.log("after check subscription", this.state)
 }
     render() {
         return (

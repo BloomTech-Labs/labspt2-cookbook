@@ -31,7 +31,7 @@ class LandingPage extends React.Component{
         });
         console.log(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
        axios
-            .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
+            .get(`https://kookr.herokuapp.comi/user/auth/${this.state.authId}`)
             .then(response =>{
                 console.log("from axios get", response);
                 const existingUser = response.data;
