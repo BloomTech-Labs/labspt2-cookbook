@@ -21,10 +21,9 @@ class CreateRecipe extends React.Component{
       
       this.state = {
         recipeUrl: '',
-        userId: '', 
+        userId: null, 
         tagModal: false,
         tag: null,
-        tagId:null,
         recipe: [],
         recipeData : [],
         testRecipe: [],
@@ -35,7 +34,7 @@ class CreateRecipe extends React.Component{
       }
   }
  componentDidMount(){
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem(userId);
     this.setState({
          userId : userId
      });
@@ -48,14 +47,14 @@ class CreateRecipe extends React.Component{
     this.setState({
         recipeUrl : url
     })
-    console.log(this.state.recipeUrl)
+    // console.log(this.state.recipeUrl)
 }
-postRecipe = (event) =>{
-    event.preventDefault();
-    const userId = Number(this.state.userId)
+//may need to do get by recipe id after 
+postRecipe = () =>{
+    // const userId = Number(this.state.userId);
+    const userId = 3
     const recipeAndUser = { name : '', user_id : userId, link : `${this.state.recipeUrl}`};
-    // const newRecipeObj = Object.assign({},recipeAndUser);
-    // console.log(newRecipeObj);
+    console.log(recipeAndUser)
     axios
         .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
             .then(response =>{
@@ -68,7 +67,8 @@ postRecipe = (event) =>{
                 console.log('Could not add new recipe obj', err);
             })
     
-}
+} 
+//Don't need once post recipe res is working
 testGetRecipe = async() =>{
     await axios
         .get(`https://kookr.herokuapp.com/api/recipes/user/1`)
@@ -111,35 +111,40 @@ clickHandle = async(event,  type) =>{
     console.log(this.state.tag);
 }
 
-// postTagToRecipe = () =>{
-//     const tag = this.state.tag;
-//     // const recipeId = this.state.recipe.recipe_id;
-//     const recipeId = 2
-//     axios
-//         .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, {tag : tag})
-//             .then(res =>{
-//                 console.log(res)
-//                 // this.setState({
-//                 //     tagId : res.data.tag_id
-//                 // })
-//             })
-//             .catch(err =>{
-//                 console.log('Error adding tag to recipe by id', err)
-//             })
-// }
-
-
+convertTagToId = (tag) =>{
+    let tagId = null
+    if(tag === 'breakfast'){
+        tagId = 1
+        return tagId
+    }else if(tag === 'lunch'){
+        tagId = 2
+        return tagId
+    }else if(tag === 'dinner'){
+        tagId = 3
+        return tagId
+    }else if(tag === 'dessert'){
+        tagId = 4
+        return tagId
+    }else if(tag === 'snack'){
+        tagId = 5
+        return tagId
+    }else{
+        tagId = 6
+        return tagId
+    }
+    
+}
 postToSchedule = () =>{
+    const tag = this.state.tag;
+    const tagId = this.convertTagToId(tag)
     const date = this.state.date;
-    const userId = Number(this.state.userId);
+    // const userId = this.state.userId;
+    const userId = 1;
     const servings = Number(this.state.servings);
     // const recipeId = this.state.recipe.recipe_id;
     const recipeId = 1;
-    // const tagId = this.state.tagId;
-    const tagId = this.state.tag;
+    
     const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
-    // const newScheduleObj = Object.assign({}, scheduleList);
-    // console.log(newScheduleObj);
     console.log(scheduleList)
     axios
         .post('https://kookr.herokuapp.com/api/schedule/', scheduleList)
@@ -150,10 +155,7 @@ postToSchedule = () =>{
                 console.log(err);
             })
 }
-postsOnSubmit = () =>{
-    // this.postTagToRecipe();
-    this.postToSchedule();
-}
+
 servingsAdjustor = async (event) =>{
     await this.setState({
         [event.target.name] : event.target.value
@@ -198,6 +200,7 @@ closeCalendarMobile = () =>{
                             <input 
                                 className='url-drop-input' 
                                 placeholder='  Drag and Drop Recipe URL Here'
+                                name =''
                                 onDrop={this.dropHandler}/>
                             <div onClick = {this.postRecipe} className='url-add'>Add</div>        
                         </div>
@@ -226,13 +229,13 @@ closeCalendarMobile = () =>{
                             </div>
                             <div className='meal-tag-section'>
                                 <h3 className='meal-tag-header'>For which meal?</h3>
-                                <div className={`meal-tag ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 0)}>
+                                <div className={`meal-tag ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
                                     <div className='meal-tag-sub'>
                                         <p className ='meal-tag-p'>Breakfast</p>
                                         <img className = 'meal-tag-icon' src ='../images/fried-egg.png'/>
                                     </div>
                                 </div>
-                                <div className={`meal-tag ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 1)}>
+                                <div className={`meal-tag ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
                                     <div className='meal-tag-sub'>  
                                         <p className = 'meal-tag-p'>Lunch</p>
                                         <img className = 'meal-tag-icon' src ='../images/salad.png'/>
@@ -315,7 +318,7 @@ closeCalendarMobile = () =>{
                                     <p className='edit-servings-p'>How many servings?</p>
                                     <input className ='servings-input' name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" /> 
                                 </div>
-                                <div className='add-recipe-button' onClick={this.postsOnSubmit}> Save </div> 
+                                <div className='add-recipe-button' onClick={this.postToSchedule}> Save </div> 
                             </div>
                         </div>
                     </div>    
