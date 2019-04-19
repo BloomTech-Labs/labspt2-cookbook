@@ -173,9 +173,20 @@
     margin:0px auto;
 }
 .calendar-recipe-list{
-    border:1px solid red;
+    border:2px solid rgba(128, 113, 97, 0.123); ;
     margin:20px auto;
-    width:90%;
+    width:86%;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:normal;
+    font-size:18px;
+    padding:10px 2%;
+}
+.searched-recipe{
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight:normal;
+    font-size:18px;
+    padding:4px 1%;
+    cursor:pointer;
 }
 @media screen and (max-width:1000px){
     .recipe-search-section{

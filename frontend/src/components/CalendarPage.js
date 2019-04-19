@@ -29,11 +29,13 @@ class CalendarPage extends Component{
             prevWeekRecipeArr: [],
             nextWeekRecipeArr: [],
             tag: null,
+            servings: null,
             servingsModal:false,
             tagModal:false
          
         }
     }
+    //component did mount
     async componentDidMount(){
         const userId = localStorage.getItem('userId');
         await this.setState({
@@ -43,6 +45,8 @@ class CalendarPage extends Component{
        this.testGetRecipe();
        
     }
+
+
     testGetRecipe = async() =>{
         await axios
             .get(`https://kookr.herokuapp.com/api/recipes/user/1`)
@@ -55,8 +59,11 @@ class CalendarPage extends Component{
                 .catch(err =>{
                     console.log(err);
                 })
-                console.log(this.state.testRecipes[0].name)
-    }           
+                // console.log(this.state.testRecipes[0].name)
+    }
+    
+    
+    //gets recipes by user id       
     recipeGetById = () =>{
        axios   
             .get(`https://kookr.herokuapp.com/api/recipes/user/${this.state.userId}`)
@@ -70,7 +77,10 @@ class CalendarPage extends Component{
                 })        
     
     }
+
+
     ///Calendar functionality suite below
+    
     //Gets and formats clicked calendar day
     dayClick = (clickedDay) =>{
         var MyDate = clickedDay;
@@ -81,99 +91,61 @@ class CalendarPage extends Component{
         this.setState({
             date: MyDateString,
         })
+        console.log(MyDateString)
     }
+
+
+       //Search function for recipe search
+       calendarSearchFunction = (event) =>{
+        event.preventDefault();
+        // const updatedArr = this.state.recipes;
+        const testArr = this.state.testRecipes;
+        const inputValue = event.target.value
+        if(!event.target.value){
+            this.setState({
+                filteredRecipeArr : []
+            })
+        }else{
+            const updatedArr = testArr.filter(element =>{
+                return element.name.toLowerCase().includes(inputValue.toLowerCase())
+            })
+            this.setState({filteredRecipeArr: updatedArr});
+        }
+        // console.log(this.state.filteredRecipeArr)
+    }
+
+     //Sets state for selected searched recipe  
+    onSelectRecipe = async(selectedRecipe) =>{
+        await this.setState({
+            selectedRecipe: selectedRecipe
+        });
+        console.log(this.state.selectedRecipe)
+    }
+    //add servings to state
+    servingsAdjustor = async (event) =>{
+        await this.setState({
+            [event.target.name] : event.target.value
+        });
+        console.log(this.state.servings); 
+    }
+    
     //Sets  upcoming week from current day based on previous week schedule
     duplicatePreviousWeek = async() =>{
         await this.getWeek();
         await this.getRecipesForWeekArr();
         await this.postNextWeekRecipeArr();
-        await axios
-            .get('https://kookr.herokuapp.com/api/tags/recipe/2')
-                .then(res =>{
-                    console.log(res)
-                })
-                .catch(err =>{
-                    console.log('Could not fetch tags by recipe id')
-                })
-       
-         
-    }
-    getRecipesForWeekArr = async() =>{
-        const userId = this.state.userId;
-        const prevWeekArr = this.state.prevWeekArr;
-        const prevWeekRecipeArr = []
-        prevWeekArr.forEach( date =>{
-           axios
-                .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${encodeURIComponent(date)}`)
-                    .then(res =>{
-                        // console.log(res)////Figure out how this is returning recipes
-                        if(!res.data.length){
-                            prevWeekRecipeArr.push('No recipes for this day')
-                        }else{
-                            prevWeekRecipeArr.push(res.data)
-                        } 
-                    })
-                    .catch(err =>{
-                        prevWeekRecipeArr.push('No recipes for this day')
-                    })
-                    // console.log(prevWeekRecipeArr)
-                    
-        })
-        this.setState({
-            prevWeekRecipeArr : prevWeekRecipeArr
-        })
-    }
-    //if servings are undefined ??
-    postNextWeekRecipeArr = async() =>{
-        const userId = this.state.userId;
-        const date = this.state.date;
-        const servings = this.state.servings //????
-        const prevWeekRecipeArr = this.state.prevWeekRecipeArr;
+        // await axios
+        //     .get('https://kookr.herokuapp.com/api/tags/recipe/2')
+        //         .then(res =>{
+        //             console.log(res)
+        //         })
+        //         .catch(err =>{
+        //             console.log('Could not fetch tags by recipe id')
+        //         })
+}
 
-        // console.log('user id:', userId, 'date:',date,'servings:',servings,'prevWeekArr:', prevWeekRecipeArr);
-        prevWeekRecipeArr.forEach(recipe =>{
-            if(typeof recipe === 'string'){
-                const recipeId = null
-                const tagId = null
-                const newRecipeObjData = {recipe_id: recipeId, tag_id:tagId, user_id : userId, date : date, servings: servings}
-                const newRecipeObj = Object.assign({}, newRecipeObjData)
-                console.log('hi')
-                return newRecipeObj
-                
-            }else{
-                console.log('Else')
-                const recipeId = recipe.recipe_id
-                // let tagId or Arr = null
-                axios
-                    .get(`https://kookr.herokuapp.com/api/tags/recipes/${recipeId}`)
-                        .then(res =>{
-                            //tag whatever = res whatever
-                            
-                        })
-                        .catch(err =>{
-                            console.log('Error getting recipe by recipe Id')
-                        })
- 
-                // const newRecipeObjData = {recipe_id: recipeId, tag_id : tag whatever , user_id : userId, date : date, servings: servings}
-                // const newRecipeObj = Object.assign({}, newRecipeObjData)
-                // return newRecipeObj
-            }
-            // console.log(newRecipeObj);
-            // await axios
-            //     .post(`https://kookr.herokuapp.com/api/schedule`, newRecipeObj)
-            //         .then(res =>{
-            //             console.log(res)
-            //         })
-            //         .catch(err =>{
-            //             console.log(err)
-            //         })
-        })
-       
-       
-    }
-
-    //Gets previous and next weeks from current day
-    getWeek = async() =>{
+     //Gets previous and next weeks from current day
+     getWeek = async() =>{
         //current date
         if(!this.state.date){
             alert('Please select a date first')
@@ -199,8 +171,88 @@ class CalendarPage extends Component{
             })
         }    
 
-    //  console.log(this.state)
+     console.log(this.state)
     }
+    getRecipesForWeekArr = async() =>{
+        const userId = this.state.userId;
+        const prevWeekArr = this.state.prevWeekArr;
+        const prevWeekRecipeArr = []
+        prevWeekArr.forEach( date =>{
+           axios
+                .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${encodeURIComponent(date)}`)
+                    .then(res =>{
+                        // console.log(res)////Figure out how this is returning recipes
+                        if(!res.data.length){
+                            prevWeekRecipeArr.push('No recipes for this day')
+                        }else{
+                            prevWeekRecipeArr.push(res.data)
+                        } 
+                    })
+                    .catch(err =>{
+                        prevWeekRecipeArr.push('No recipes for this day')
+                    })
+                    // console.log(prevWeekRecipeArr)
+                    
+        })
+        this.setState({
+            prevWeekRecipeArr : prevWeekRecipeArr
+        })
+        console.log(prevWeekRecipeArr);
+    }
+    //if servings are undefined ??
+    postNextWeekRecipeArr = async() =>{
+        const userId = this.state.userId;
+        const date = this.state.date;
+        const servings = this.state.servings //????
+        const prevWeekRecipeArr = this.state.prevWeekRecipeArr;
+        let postArr = []
+        // console.log('user id:', userId, 'date:',date,'servings:',servings,'prevWeekArr:', prevWeekRecipeArr);
+        prevWeekRecipeArr.forEach(recipe =>{
+            if(typeof recipe === 'string'){
+                const recipeId = null
+                const tagId = null
+                const newRecipeObjData = {recipe_id: recipeId, tag_id:tagId, user_id : userId, date : date, servings: servings}
+                const newRecipeObj = Object.assign({}, newRecipeObjData)
+                console.log('hi')
+                postArr.push(newRecipeObj)
+                // return newRecipeObj
+                
+            }else{
+                console.log('Else')
+                const recipeId = recipe.recipe_id
+                // let tagId or Arr = null
+                axios
+                    .get(`https://kookr.herokuapp.com/api/tags/recipes/${recipeId}`)
+                        .then(res =>{
+                            //tag whatever = res whatever
+                            
+                        })
+                        .catch(err =>{
+                            console.log('Error getting recipe by recipe Id')
+                        })
+ 
+                // const newRecipeObjData = {recipe_id: recipeId, tag_id : tag whatever , user_id : userId, date : date, servings: servings}
+                // const newRecipeObj = Object.assign({}, newRecipeObjData)
+                // return newRecipeObj
+                // postArr.push(newRecipeObj)
+            }
+            // console.log(postArr);
+            //postArr.forEach(post =>{
+                  // await axios
+            //     .post(`https://kookr.herokuapp.com/api/schedule`, newRecipeObj)
+            //         .then(res =>{
+            //             console.log(res)
+            //         })
+            //         .catch(err =>{
+            //             console.log(err)
+            //         })
+            //})
+          
+        })
+       
+       
+    }
+
     //Gets array of dates for week
     getDateArray = (startDate, endDate) =>{
         var dates = [],
@@ -228,31 +280,6 @@ class CalendarPage extends Component{
             // console.log(returnDate)
             return returnDate
     }
-
-    //Search function for recipe search
-    calendarSearchFunction = (event) =>{
-        event.preventDefault();
-        // const updatedArr = this.state.recipes;
-        const testArr = this.state.testRecipes;
-        const inputValue = event.target.value
-        if(!event.target.value){
-            this.setState({
-                filteredRecipeArr : []
-            })
-        }else{
-            const updatedArr = testArr.filter(element =>{
-                return element.name.toLowerCase().includes(inputValue.toLowerCase())
-            })
-            this.setState({filteredRecipeArr: updatedArr});
-        }
-    }
-     //Sets state for selected searched recipe  
-    onSelectRecipe = async(selectedRecipe) =>{
-        await this.setState({
-            selectedRecipe: selectedRecipe
-        });
-        // console.log(this.state);
-    }
     clickHandle = async(event,  type) =>{
         event.preventDefault();
         await this.setState({
@@ -265,10 +292,10 @@ class CalendarPage extends Component{
         const tag = this.state.tag;
         console.log('I am tag from post',this.state.tag);
         //const recipeId = this.state.selectedRecipe.recipe_id //??????Make sure it's recipe_id
-        const recipeId = 2
+        const recipeId = 1
         console.log('I am selected recipe from post', this.state.selectedRecipe)
         axios
-            .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, tag)
+            .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, {tag:tag})
                 .then(res =>{
                     console.log(res)
                 })
@@ -276,9 +303,30 @@ class CalendarPage extends Component{
                     console.log('Error adding tag to recipe by id', err)
                 })
     }
+    postToSchedule = () =>{
+        const date = this.state.date;
+        // const newDate = new Date(date)
+        const userId = Number(this.state.userId);
+        const servings = Number(this.state.servings);
+        // const recipeId = this.state.recipe.recipe_id;
+        const recipeId = 2;
+        // const tagId = this.state.tagId;
+        const tagId = 2;
+        const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
+        const newScheduleObj = Object.assign({}, scheduleList);
+        console.log(newScheduleObj);
+        axios
+            .post(`https://kookr.herokuapp.com/api/schedule`, {newScheduleObj})
+                .then(res =>{
+                    console.log(res);
+                })
+                .catch(err =>{
+                    console.log(err);
+                })
+    }
     onSaveFunction = () =>{
         this.postTagToRecipe();
-        this.calendarEventPost();
+        this.postToSchedule();
     }
     openServingsModal = () =>{
         this.setState({
@@ -329,7 +377,7 @@ class CalendarPage extends Component{
                                         return(
                                             <div  key = {Math.random()}>
                                                  {console.log(recipe.name)}
-                                                <div onClick = {() =>this.onSelectRecipe(recipe)}>{recipe.name}</div>
+                                                <div className ='searched-recipe' onClick = {() =>this.onSelectRecipe(recipe)}>{recipe.name}</div>
                                             </div>    
                                         )
                                     })}
@@ -338,7 +386,7 @@ class CalendarPage extends Component{
                             <div className='servings-and-edit-section'>
                                 <div className='servings-and-duplicate-container'>
                                     <p>How many servings?</p>
-                                    <input className = 'servings-input'type="number" min="1" />
+                                    <input className = 'servings-input'  name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" />
                                     <p className='check-box-p'>Duplicate previous week's shopping list</p>
                                     <input type="checkbox" id='check-box' className ='check-box' onClick = {this.duplicatePreviousWeek}/>
                                     
@@ -387,7 +435,7 @@ class CalendarPage extends Component{
                                     <div className={this.state.servingsModal ? 'servings-modal-open'  : 'servings-modal-closed'}>
                                         <div className = 'calendar-servings-modal'>
                                             <div onClick={this.closeServingsModal}>X</div>
-                                            <input className = 'servings-input'type="number" min="1" />
+                                            <input className = 'servings-input' name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" />
                                             <p className='check-box-p'>Duplicate previous week's shopping list</p>
                                             <input type="checkbox" id='check-box' className ='check-box'/>
                                         </div> 

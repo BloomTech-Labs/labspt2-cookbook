@@ -25,6 +25,7 @@ router.get('/', (req, res) =>{
 /* GET recipe's tags */
 router.get('/recipe/:id', (req, res) =>{
     const recipe_id = req.params.id;
+    
 
     tags.getByRecipe(recipe_id)
     .then(tags =>{

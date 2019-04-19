@@ -24,6 +24,7 @@ class CreateRecipe extends React.Component{
         userId: '', 
         tagModal: false,
         tag: null,
+        tagId:null,
         recipe: [],
         recipeData : [],
         testRecipe: [],
@@ -43,16 +44,20 @@ class CreateRecipe extends React.Component{
 
  dropHandler = event =>{
       const url = event.dataTransfer.getData('text');
+      console.log(url)
     this.setState({
         recipeUrl : url
     })
+    console.log(this.state.recipeUrl)
 }
 postRecipe = (event) =>{
     event.preventDefault();
-    const recipeAndUser = { name : '', user_id : `${this.state.userId}`, recipeUrl : `${this.state.recipeUrl}`};
-    const newRecipeObj = Object.assign({},recipeAndUser);
+    const userId = Number(this.state.userId)
+    const recipeAndUser = { name : '', user_id : userId, link : `${this.state.recipeUrl}`};
+    // const newRecipeObj = Object.assign({},recipeAndUser);
+    // console.log(newRecipeObj);
     axios
-        .post('https://kookr.herokuapp.com/api/recipes', {newRecipeObj})
+        .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
             .then(response =>{
                 console.log(response);
                 this.setState({
@@ -62,7 +67,7 @@ postRecipe = (event) =>{
             .catch(err =>{
                 console.log('Could not add new recipe obj', err);
             })
-    // console.log(newRecipeObj);
+    
 }
 testGetRecipe = async() =>{
     await axios
@@ -92,7 +97,7 @@ dayClick = (clickedDay) =>{
     var MyDateString;
     MyDateString = MyDate.getFullYear() + '/'
     + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
-    + ('0' + MyDate.getDate()).slice(-2) + '/'
+    + ('0' + MyDate.getDate()).slice(-2)
     this.setState({
         date: MyDateString
     });
@@ -106,30 +111,38 @@ clickHandle = async(event,  type) =>{
     console.log(this.state.tag);
 }
 
-postTagToRecipe = () =>{
-    const tag = this.state.tag;
-    // const recipeId = this.state.recipe.recipe_id;
-    const recipeId = 2
-    axios
-        .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, {tag : tag})
-            .then(res =>{
-                console.log(res)
-            })
-            .catch(err =>{
-                console.log('Error adding tag to recipe by id', err)
-            })
-}
+// postTagToRecipe = () =>{
+//     const tag = this.state.tag;
+//     // const recipeId = this.state.recipe.recipe_id;
+//     const recipeId = 2
+//     axios
+//         .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, {tag : tag})
+//             .then(res =>{
+//                 console.log(res)
+//                 // this.setState({
+//                 //     tagId : res.data.tag_id
+//                 // })
+//             })
+//             .catch(err =>{
+//                 console.log('Error adding tag to recipe by id', err)
+//             })
+// }
+
 
 postToSchedule = () =>{
     const date = this.state.date;
-    const userId = this.state.userId;
-    const servings = this.state.servings;
-    const recipeId = this.state.recipe.recipe_id
-    const shoppingList = {date: date, userId:userId, recipeId: recipeId, servings: servings}
-    const newShoppingListObj = Object.assign({}, shoppingList);
-    
+    const userId = Number(this.state.userId);
+    const servings = Number(this.state.servings);
+    // const recipeId = this.state.recipe.recipe_id;
+    const recipeId = 1;
+    // const tagId = this.state.tagId;
+    const tagId = this.state.tag;
+    const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
+    // const newScheduleObj = Object.assign({}, scheduleList);
+    // console.log(newScheduleObj);
+    console.log(scheduleList)
     axios
-        .post(`https://kookr.herokuapp.com/api/schedule`, {newShoppingListObj})
+        .post('https://kookr.herokuapp.com/api/schedule/', scheduleList)
             .then(res =>{
                 console.log(res);
             })
@@ -138,7 +151,7 @@ postToSchedule = () =>{
             })
 }
 postsOnSubmit = () =>{
-    this.postTagToRecipe();
+    // this.postTagToRecipe();
     this.postToSchedule();
 }
 servingsAdjustor = async (event) =>{
@@ -213,13 +226,13 @@ closeCalendarMobile = () =>{
                             </div>
                             <div className='meal-tag-section'>
                                 <h3 className='meal-tag-header'>For which meal?</h3>
-                                <div className={`meal-tag ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
+                                <div className={`meal-tag ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 0)}>
                                     <div className='meal-tag-sub'>
                                         <p className ='meal-tag-p'>Breakfast</p>
                                         <img className = 'meal-tag-icon' src ='../images/fried-egg.png'/>
                                     </div>
                                 </div>
-                                <div className={`meal-tag ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
+                                <div className={`meal-tag ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 1)}>
                                     <div className='meal-tag-sub'>  
                                         <p className = 'meal-tag-p'>Lunch</p>
                                         <img className = 'meal-tag-icon' src ='../images/salad.png'/>
@@ -282,6 +295,10 @@ closeCalendarMobile = () =>{
                                         </div>
                                        
                                         <Calendar calendarType = {'US'} onClickDay = {this.dayClick}/>
+                                        <div className='servings-container-mobile'>
+                                            <p className='edit-servings-p-mobile'>How many servings?</p>
+                                            <input className ='servings-input-mobile' name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" /> 
+                                        </div>
                                     </div>    
                                 </div>    
                             </div>
