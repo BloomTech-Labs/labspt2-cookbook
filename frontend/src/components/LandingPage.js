@@ -22,6 +22,7 @@ class LandingPage extends React.Component{
 
     };
     
+    
 //Post user not working
 //How to grab user Id after post ?? res.data? set user Id to local storage -change instances of user id in routes on other pages
     submitHandler = async (googleObj) =>{
@@ -30,22 +31,23 @@ class LandingPage extends React.Component{
             authId: googleObj.googleId
         });
         console.log(this.state);
-       axios
-            .get(`https://kookr.herokuapp.comi/user/auth/${this.state.authId}`)
-            .then(response =>{
-                console.log("from axios get", response);
-                const existingUser = response.data;
-                console.log(existingUser);
-                if(existingUser.length === 0){
-                    this.postNewUser()
-                }else{
-                    console.log('user  already exists, redirecting');
-                    // localStorage.setItem('userId', Number(existingUser)); existing user . what?
-                }
-            })
-            .catch(err =>{
-                console.log(err);
-            })
+        this.postNewUser()
+    //    axios
+    //         .get(`https://kookr.herokuapp.comi/user/auth/${this.state.authId}`)
+    //         .then(response =>{
+    //             console.log("from axios get", response);
+    //             const existingUser = response.data;
+    //             console.log(existingUser);
+    //             if(!existingUser){
+    //                 this.postNewUser()
+    //             }else{
+    //                 console.log('user  already exists, redirecting');
+    //                 // localStorage.setItem('userId', Number(existingUser)); existing user . what?
+    //             }
+    //         })
+    //         .catch(err =>{
+    //             console.log(err);
+    //         })
     }
     postNewUser = async() =>{
         console.log("from axios post", this.state)
@@ -64,6 +66,7 @@ class LandingPage extends React.Component{
                 console.log(err);
             })
     }
+
     responseGoogleSuccess = (response) => {
         console.log(response)
         this.submitHandler(response);
