@@ -21,7 +21,7 @@ class CreateRecipe extends React.Component{
       
       this.state = {
         recipeUrl: '',
-        userId: '', 
+        userId: null, 
         tagModal: false,
         tag: null,
         recipe: [],
@@ -34,7 +34,7 @@ class CreateRecipe extends React.Component{
       }
   }
  componentDidMount(){
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem(userId);
     this.setState({
          userId : userId
      });
@@ -49,10 +49,12 @@ class CreateRecipe extends React.Component{
 }
 postRecipe = (event) =>{
     event.preventDefault();
-    const recipeAndUser = { name : '', user_id : `${this.state.userId}`, recipeUrl : `${this.state.recipeUrl}`};
-    const newRecipeObj = Object.assign({},recipeAndUser);
+     // const userId = this.state.userId; Make sure it's a number at this point
+     const userId = 3
+     const recipeAndUser = { name : '', user_id : userId, link : `${this.state.recipeUrl}`};
+     console.log(recipeAndUser)
     axios
-        .post('https://kookr.herokuapp.com/api/recipes', {newRecipeObj})
+        .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
             .then(response =>{
                 console.log(response);
                 this.setState({
@@ -92,7 +94,7 @@ dayClick = (clickedDay) =>{
     var MyDateString;
     MyDateString = MyDate.getFullYear() + '/'
     + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
-    + ('0' + MyDate.getDate()).slice(-2) + '/'
+    + ('0' + MyDate.getDate()).slice(-2)
     this.setState({
         date: MyDateString
     });
@@ -105,30 +107,43 @@ clickHandle = async(event,  type) =>{
     })
     console.log(this.state.tag);
 }
-
-postTagToRecipe = () =>{
-    const tag = this.state.tag;
-    const recipeId = this.state.recipe.recipe_id;
-    axios
-        .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, tag)
-            .then(res =>{
-                console.log(res)
-            })
-            .catch(err =>{
-                console.log('Error adding tag to recipe by id', err)
-            })
+convertTagToId = (tag) =>{
+    let tagId = null
+    if(tag === 'breakfast'){
+        tagId = 1
+        return tagId
+    }else if(tag === 'lunch'){
+        tagId = 2
+        return tagId
+    }else if(tag === 'dinner'){
+        tagId = 3
+        return tagId
+    }else if(tag === 'dessert'){
+        tagId = 4
+        return tagId
+    }else if(tag === 'snack'){
+        tagId = 5
+        return tagId
+    }else{
+        tagId = 6
+        return tagId
+    }
 }
 
 postToSchedule = () =>{
+    const tag = this.state.tag;
+    const tagId = this.convertTagToId(tag)
     const date = this.state.date;
-    const userId = this.state.userId;
-    const servings = this.state.servings;
-    const recipeId = this.state.recipe.recipe_id
-    const shoppingList = {date: date, userId:userId, recipeId: recipeId, servings: servings}
-    const newShoppingListObj = Object.assign({}, shoppingList);
-    
+    // const userId = this.state.userId;
+    const userId = 1;
+    const servings = Number(this.state.servings);
+    // const recipeId = this.state.recipe.recipe_id;
+    const recipeId = 1;
+
+   const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
+   console.log(scheduleList)
     axios
-        .post(`https://kookr.herokuapp.com/api/schedule`, {newShoppingListObj})
+        .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
             .then(res =>{
                 console.log(res);
             })
@@ -137,7 +152,6 @@ postToSchedule = () =>{
             })
 }
 postsOnSubmit = () =>{
-    this.postTagToRecipe();
     this.postToSchedule();
 }
 servingsAdjustor = async (event) =>{
@@ -281,6 +295,10 @@ closeCalendarMobile = () =>{
                                         </div>
                                        
                                         <Calendar calendarType = {'US'} onClickDay = {this.dayClick}/>
+                                        <div className='servings-container-mobile'>
+                                            <p className='edit-servings-p-mobile'>How many servings?</p>
+                                            <input className ='servings-input-mobile' name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" /> 
+                                        </div>
                                     </div>    
                                 </div>    
                             </div>
