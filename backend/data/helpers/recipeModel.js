@@ -104,7 +104,7 @@ module.exports = {
         user_id: recipe.user_id
       };
       recipe = newRecipe;
-      // console.log(recipe); 
+      console.log(recipe); 
 
       return db.transaction( (trans) => {
         return db('recipes')
@@ -145,6 +145,7 @@ module.exports = {
       })
       .then( (result) => {
         // Transaction success.
+        console.log(result)
         return(result);
       })
       .catch(function(err) {

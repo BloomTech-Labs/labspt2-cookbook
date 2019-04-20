@@ -44,7 +44,7 @@ router.get( '/:id', (req, res) => {
 /* POST */
 router.post( '/', async (req, res) => {
   const recipeData = req.body;
-
+  console.log(recipeData)
   // Check for missing data first.
   if( !recipeData.user_id || !recipeData.link )
   {
@@ -53,18 +53,23 @@ router.post( '/', async (req, res) => {
   else {
     await recipes.insert(recipeData)
       .then( (id) => {
+        console.log(id)
         recipes.get(id)
         .then( (rec) => {
+          console.log(rec)
           let [recipe, ingredients, directions] = rec;
           recipe = recipe[0];
           res.json({...recipe, ingredients: ingredients, directions: directions });
         })
         .catch( (err) => {
           res.status(500).json({ error: `Could not get recipe: ${err}` });
+          console.log('First 500')
         });
       })
       .catch( (err) => {
         res.status(500).json({ error: `Could not post recipe: ${err}` });
+        console.log('Fail')
+
       });
     // end-recipe-insert
   }
