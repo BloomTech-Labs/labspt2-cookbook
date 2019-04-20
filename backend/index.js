@@ -26,7 +26,8 @@ const PORT = process.env.PORT || 4321;
 var corsOptions = {
 //  origin: 'https://kookr.netlify.com/',
   origin: '*',
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
+  methods: "GET,HEAD,PUT,POST,DELETE"
 };
 
 server.use(
