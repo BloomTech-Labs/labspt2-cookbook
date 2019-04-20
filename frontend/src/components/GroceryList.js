@@ -17,7 +17,8 @@ class GroceryList extends Component{
           startDate : '',
           stopDate:  '',
           ingArrOne: [],
-          ingArrTwo: []
+          ingArrTwo: [],
+          active: false
 
         }
     }
@@ -78,9 +79,11 @@ class GroceryList extends Component{
         .catch(err =>{
             console.log(err)
         })
-
-        
     }
+    toggleClass = () =>{
+        const currentState = this.state.active;
+        this.setState({ active: !currentState });
+    };
     // servingsAdjustor = () =>{
     //     const testIngredients = this.state.testRecipeData.ingredients
     //     const testIngredientsAmount = this.state.testRecipeData.ingredients.amount
@@ -145,12 +148,13 @@ class GroceryList extends Component{
                                 <div className="shopping-list">
                                     <ul className = 'list-row-one'>
                                         {this.state.ingArrOne.map(item =>(
-                                            <li>{item}</li>
+                                            <li className={this.state.active ? ' ing selected': 'ing'} 
+                                            onclick={this.toggleClass}>{item}</li>
                                         ))}
                                     </ul>
                                     <ul className = 'list-row-two'>
                                         {this.state.ingArrTwo.map(item =>(
-                                            <li>{item}</li>
+                                            <li className = 'ing'>{item}</li>
                                         ))}
                                     </ul>
                                 </div>
