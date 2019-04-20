@@ -26,6 +26,7 @@ const PORT = process.env.PORT || 4321;
 var corsOptions = {
 //  origin: 'https://kookr.netlify.com/',
   origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   optionsSuccessStatus: 200
 };
 
@@ -41,6 +42,7 @@ server.use(
 
 
 /* ---------- Routes ---------- */
+server.options('*', cors());
 server.use('/api/user', userRouter);
 server.use('/api/recipes', recipeRouter);
 server.use('/api/tags', tagsRouter);
