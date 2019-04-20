@@ -51,10 +51,11 @@ postRecipe = (event) =>{
     event.preventDefault();
      // const userId = this.state.userId; Make sure it's a number at this point
      const userId = 3
-     const recipeAndUser = { name : '', user_id : userId, link : `${this.state.recipeUrl}`};
+     const recipeAndUser = { user_id : userId, link : `${this.state.recipeUrl}`};
      console.log(recipeAndUser)
     axios
         .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
+        // .post('http://localhost:4321/api/recipes', recipeAndUser)
             .then(response =>{
                 console.log(response);
                 this.setState({
@@ -66,6 +67,7 @@ postRecipe = (event) =>{
             })
     // console.log(newRecipeObj);
 }
+
 testGetRecipe = async() =>{
     await axios
         .get(`https://kookr.herokuapp.com/api/recipes/user/1`)
@@ -183,7 +185,7 @@ closeCalendarMobile = () =>{
 
     render(){
         const {testRecipe} = this.state
-        console.log(this.state);
+        // console.log(this.state);
         const {testRecipeData} = this.state
         return(
             <div className='Create-Recipe'>
@@ -328,7 +330,7 @@ closeCalendarMobile = () =>{
 const mapDispatchtoProps = (dispatch) => bindActionCreators({addDirections, addIngredients, addRecipe, addRecipeIngredients, addTag},dispatch)
 
 const mapStateToProps = state => {
-    console.log(state)
+    // console.log(state)
     return {
         user: state.UserReducer.user,
         recipes: state.RecipeReducer.recipes,
