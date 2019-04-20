@@ -118,7 +118,7 @@ allRecipeScraper = async (url) => {
 //allRecipeScraper('https://www.allrecipes.com/recipe/241419/potato-scones/?internalSource=editorial_2&referringId=78&referringContentType=Recipe%20Hub');
 
 pinchOfYumScraper = url =>{
-    rp(url)
+    return rp(url)
     .then(function(html){
 
         //let name, image, link, ingredients, directions;

@@ -96,7 +96,14 @@ module.exports = {
       // end db.where
     } else {
       // // Might need to add another endpoint specifically for this.
-      // recipe = await checkUrl.checkUrl(recipe);/////??????????????
+      
+      let newRecipe = await checkUrl.checkUrl(recipe);
+      
+      newRecipe = {
+        ...newRecipe,
+        user_id: recipe.user_id
+      };
+      recipe = newRecipe;
       // console.log(recipe); 
 
       return db.transaction( (trans) => {
