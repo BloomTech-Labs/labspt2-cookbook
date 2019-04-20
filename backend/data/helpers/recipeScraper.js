@@ -4,16 +4,17 @@ const $ = require('cheerio');
 const numericQuantity = require("numeric-quantity");
 
 checkUrl = async (newRecipeObj) => {
-
+  
   const checkRecipeUrl = newRecipeObj.link;
+
   if(checkRecipeUrl.indexOf('allrecipes.com') !== -1 ){
-      await allRecipeScraper(checkRecipeUrl);
+      return await allRecipeScraper(checkRecipeUrl);
   }else if(checkRecipeUrl.indexOf('pinchofyum.com') !== -1 ){
-      await pinchOfYumScraper(checkRecipeUrl);
-  }else return{
+      return await pinchOfYumScraper(checkRecipeUrl);
+  }
+  else return{
     checkRecipeUrl
   }
-  return newRecipeObj;
 }
 
 /* Parse the ingredient array & split it into objects */
@@ -63,8 +64,9 @@ const parseIngredients = (ingArr) => {
 };
 
 allRecipeScraper = async (url) => {
-  rp(url)
+  return await rp(url)
   .then(function(html){
+    
     //let name, image, link, ingredients, directions;
     const allRecipeJSON = {name: '', image: '', link: '', ingredients: '', directions: ''} 
     
@@ -81,6 +83,7 @@ allRecipeScraper = async (url) => {
     allRecipeJSON.ingredients = parseIngredients(recipeIngredientsArr);
     
     const recipeDirectionsArr = ($('.step', html).text().replace(/\s\s+/g, '\n').split('\n').slice(1,-1));
+  
     const dirArray = [];
     recipeDirectionsArr.forEach( (line, idx) => {
       // Set up the objects that need to be in the array
@@ -102,20 +105,20 @@ allRecipeScraper = async (url) => {
     allRecipeJSON.cook_time = timeArr[1];
 
     servArr = $('.subtext', html).text().split(' ');
-    console.log(servArr[3]);
     allRecipeJSON.servings = servArr[3];
 
     return allRecipeJSON;
   })
   .catch(function(err){
     //handle error
+    return({error: `Scraper failed: ${err}`});
   });
   
 }
 //allRecipeScraper('https://www.allrecipes.com/recipe/241419/potato-scones/?internalSource=editorial_2&referringId=78&referringContentType=Recipe%20Hub');
 
 pinchOfYumScraper = url =>{
-    rp(url)
+    return rp(url)
     .then(function(html){
 
         //let name, image, link, ingredients, directions;

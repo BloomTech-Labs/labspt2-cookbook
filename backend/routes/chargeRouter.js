@@ -3,23 +3,29 @@ const router = express.Router();
 const stripe = require("stripe")("sk_test_3ZUAoctaVhxGLXcxNxxph9so00dFNf9TlQ");
 
 
-router.post("/", async (req, res) => {
+router.post("/user", async (req, res) => {
     const token = req.body.id
-    console.log(req.body.id)
 
-    await stripe.charges.create({
-        amount: 1000,
-        currency: "usd",
-        description: "Subscription to Kookr",
-        source: token
+    await stripe.customers.create({
+            email: req.body.card.name,
+            source: token,
+        })
+        .then(response =>{
+            res.json(response)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+
+});
+
+router.post("/", (req, res)=>{
+    const customer = req.body.customer
+
+    stripe.subscriptions.create({
+        customer: customer,
+        items: [{plan: 'plan_EtW1Z1LBDe3p19'}]
     })
-    .then( status =>{
-        res.json(status)
-    })
-    .catch(err =>{
-        res.json({"error": err}).end();
-    })
-    
 });
 
 
