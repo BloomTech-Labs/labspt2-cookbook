@@ -121,6 +121,39 @@ router.post('/', (req, res) =>{
 //     }
 // })
 
+// router.post('/', (req, res) => {
+//   const newUser = req.body;
+//   console.log(newUser)
+//     if(newUser.auth_id && newUser.email){
+//       user.getByAuth(newUser.auth_id)
+//       .then((querydUser) =>{
+//         if(querydUser.length===0){
+//           user.insert(newUser)
+//           .then(userInfo =>{
+//             console.log("userInfo", userInfo)
+//             res.json(userInfo)
+//           })
+//           .catch(err=>{
+//             res
+//             .status(500)
+//             .json({error: "Could not add user to db"})
+//           })
+          
+//         } else{
+//           console.log("saying the user exists???")
+//           res
+//           .status(403)
+//           .json({error: "User already exists"})
+//         }
+//       })
+//       .catch(err =>{
+//         res
+//         .status(500)
+//         .json({error: "Could not retrieve user data"})
+//       })
+//     }
+// })
+
 
 /* PUT */
 router.put('/:id', (req, res) => {

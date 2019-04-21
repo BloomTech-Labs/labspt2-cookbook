@@ -96,8 +96,15 @@ module.exports = {
       // end db.where
     } else {
       // // Might need to add another endpoint specifically for this.
-      // recipe = await checkUrl.checkUrl(recipe);/////??????????????
-      // console.log(recipe); 
+      
+      let newRecipe = await checkUrl.checkUrl(recipe);
+      
+      newRecipe = {
+        ...newRecipe,
+        user_id: recipe.user_id
+      };
+      recipe = newRecipe;
+      console.log(recipe); 
 
       return db.transaction( (trans) => {
         return db('recipes')
@@ -138,6 +145,7 @@ module.exports = {
       })
       .then( (result) => {
         // Transaction success.
+        console.log(result)
         return(result);
       })
       .catch(function(err) {
