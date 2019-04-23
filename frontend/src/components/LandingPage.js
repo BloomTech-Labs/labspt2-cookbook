@@ -36,7 +36,9 @@ class LandingPage extends React.Component{
             .then(response =>{
                 console.log(response)
                 localStorage.setItem('userId', response.data.user_id) //Number?
-           
+                if(response.data.length === 0){
+                    this.postNewUser();
+                }
             })
             .catch(err =>{
                 console.log(err.response);
@@ -59,7 +61,7 @@ class LandingPage extends React.Component{
                 localStorage.setItem('userId', newUserId) //??  Test this bad boy Number(newUserId)
             })
             .catch( err =>{
-                console.log(err);
+                console.log(err.response);
             })
     }
 
