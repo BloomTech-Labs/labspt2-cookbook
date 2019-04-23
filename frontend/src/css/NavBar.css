@@ -134,6 +134,13 @@
         font-size:26px;
         margin-top:6px;
     }
+}.nav-mobile-close{
+    cursor:pointer;
+    font-size:24px;
+    margin-right:5%;
+    margin-top:-5px;
+    font-weight: bold;
+    text-align: right;
 }
 .nav-800-closed{
     display:none;
