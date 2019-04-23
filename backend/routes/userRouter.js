@@ -57,7 +57,7 @@ router.get('/auth/:authId', (req, res) =>{
 
 
 /* POST */ 
-router.post('/', (req, res) =>{
+router.post('/', cors(), (req, res) =>{
   const userBody = req.body;
   console.log(userBody)
   user.getByAuth(userBody.auth_id)
@@ -78,6 +78,7 @@ router.post('/', (req, res) =>{
           res
           .status(403)
           .json({error: "User already exists"})
+          
         }
       })
       .catch(err =>{

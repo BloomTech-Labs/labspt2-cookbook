@@ -42,7 +42,7 @@ router.get( '/:id', (req, res) => {
 
 
 /* POST */
-router.post( '/', async (req, res) => {
+router.post( '/', cors(), async (req, res) => {
   const recipeData = req.body;
   console.log(recipeData)
   // Check for missing data first.
