@@ -14,6 +14,11 @@ class NavBar extends React.Component{
             mobileMenu : true
         })
     }
+    closeMobileMenu = () =>{
+        this.setState({
+            mobileMenu : false
+        })
+    }
     render(){
         return(
             <div className='NavBar'>
@@ -41,6 +46,9 @@ class NavBar extends React.Component{
         
                      <div className= { this.state.mobileMenu ? 'nav-800-open' : 'nav-800-closed'}>
                         <div className='nav-800-sub'>
+                            <div className ='nav-mobile-close' onClick = {this.closeMobileMenu}>
+                                X
+                            </div>
                              <div className='nav-logo-container'>
                                 <img className = 'nav-logo'src= '../images/logo-white.png'/>   
                              </div>   
