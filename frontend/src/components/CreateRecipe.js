@@ -34,7 +34,7 @@ class CreateRecipe extends React.Component{
       }
   }
  componentDidMount(){
-    const userId = localStorage.getItem(userId);
+    const userId = localStorage.getItem('userId');
     this.setState({
          userId : userId
      });
@@ -55,7 +55,6 @@ postRecipe = (event) =>{
      console.log(recipeAndUser)
     axios
         .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
-        // .post('http://localhost:4321/api/recipes', recipeAndUser)
             .then(response =>{
                 console.log(response);
                 this.setState({
@@ -65,7 +64,6 @@ postRecipe = (event) =>{
             .catch(err =>{
                 console.log('Could not add new recipe obj', err);
             })
-    // console.log(newRecipeObj);
 }
 
 testGetRecipe = async() =>{

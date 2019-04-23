@@ -41,8 +41,8 @@
     font-size: 20px;
     width:25%;
     text-align:center;
-    padding:10px 5%;
-    padding-top:50px;
+    padding:0px 5%;
+    padding-top:40px;
     background-color:white;
     border-radius: 2px;
     margin-right:1%;
@@ -109,7 +109,8 @@
 }
 
 .react-calendar__navigation__label, .react-calendar__navigation__arrow{
-    font-size:20px;
+    font-size:14px;
+    padding-bottom:5px;
     font-weight:bolder;
     color:white;
 }
@@ -137,6 +138,11 @@
     justify-content: space-between;
     margin:0px auto;
     margin-top:20px;
+    border-radius: 2px;
+    padding-top:8px;
+    padding-bottom:8px;
+    background-color: rgba(128, 113, 97, 0.123); 
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 @media screen and (max-width:1000px){
     .calendar-recipe-section{
@@ -146,11 +152,12 @@
 .recipe-search-section{
     display:flex;
     flex-direction:column;
-    width:44%;
+    width:40%;
+    margin-left:1%;
     background-color:white;
     border-radius:2px;
     padding:15px 0%;
-   
+    
 }
 .recipe-search{
     display:flex;
@@ -181,7 +188,7 @@
 }
 @media screen and (max-width:1000px){
     .recipe-search-section{
-       width:100%;
+       width:98%;
        margin-bottom: 30px;
        padding:20px 0%;
     }
@@ -193,13 +200,13 @@
 }
 .servings-and-edit-section{
     display:flex;
-    width:55%;
+    width:57%;
     justify-content: space-between;
+    margin-right:1%;
 }
 .servings-and-duplicate-container{
     width:39.2%;
     background-color:white;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     border-radius:2px;
     display:flex;
     flex-direction:column;
@@ -217,7 +224,7 @@
 .edit-recipe-section{
     width:55%;
     background-color:white;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+   
     border-radius:2px;
     display:flex;
     flex-direction:column;
@@ -262,9 +269,9 @@
 }
 @media screen and (max-width:1000px){
     .servings-and-edit-section{
-        width:100%;
+        width:98%;
+        margin:0px auto;
         margin-top:-20px;
-        margin-bottom:-20px;
     }
 }
 @media screen and (max-width:500px){

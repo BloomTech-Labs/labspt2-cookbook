@@ -615,7 +615,7 @@ h4{
 }
 .mobile-calendar-modal{
     position:fixed;
-    background-color:rgb(187, 217, 226);
+    background-color:rgb(255, 255, 255);
    
     width: 80%;
     top:50%;
@@ -644,7 +644,16 @@ h4{
     font-weight: bolder;
     text-align: end;
     cursor:pointer;
+    margin-top:5px;
     
+}
+.servings-container-mobile{
+    margin-bottom:20px;
+}
+.edit-servings-p-mobile{
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size:24px;
+    font-weight: bold;
 }
 .add-recipe-button-mobile{
     width: 75%;

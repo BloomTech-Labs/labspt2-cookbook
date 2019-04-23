@@ -18,12 +18,19 @@ class GroceryList extends Component{
           stopDate:  '',
           ingArrOne: [],
           ingArrTwo: [],
-          active: false
+          active: false,
+          userId : null,
+          dateArr: [], 
+          recipeArr: []
 
         }
     }
 
     componentDidMount(){
+        const userId = localStorage.getItem('userId')
+        this.setState({
+            userId : userId
+        })
         this.getRecipe()
     }
     clickHandler = (event) =>{
@@ -34,7 +41,7 @@ class GroceryList extends Component{
             [event.target.name] : event.target.value
         })
     }
-    getDates = () => {
+    getDates = async() => {
         var dateArray = [];
         var currentDate = moment(this.state.startDate);
         
@@ -46,7 +53,10 @@ class GroceryList extends Component{
         }
  
         console.log(dateArray);
-        return dateArray;
+       
+        await this.setState({
+            dateArr: dateArray
+        })
         
     }
 
@@ -105,13 +115,39 @@ class GroceryList extends Component{
     //         }
     //     }
     // }
-  
-    generateList = () =>{
-       this.getDates()
+    getRecipesByDate = () =>{
+        const dateArr = this.state.dateArr;
+        console.log(dateArr)
+        const userId = this.state.userId;
+        console.log(userId)
+        let recipeArrForDates = []
+        dateArr.forEach(date =>{
+          axios
+            .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${date}`)
+                .then(res =>{
+                    console.log(res);
+                    recipeArrForDates.push(res.data)
+                })
+                .catch(err =>{
+                    console.log(err)
+
+                })
+        })
+        this.setState({
+            recipeArr : recipeArrForDates
+        })
+       
+    }
+
+    ///get ingredients for recipes
+    generateList = async() =>{
+       await this.getDates();
+       await this.getRecipesByDate();
+    
     }
     render(){
-        console.log(this.state.startDate);
-        console.log(this.state.stopDate);
+        // console.log(this.state.startDate);
+        // console.log(this.state.stopDate);
         return (
             <div className="GroceryList">
                 <NavBar />

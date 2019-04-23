@@ -31,23 +31,19 @@ class LandingPage extends React.Component{
             authId: googleObj.googleId
         });
         console.log(this.state);
-        this.postNewUser()
-    //    axios
-    //         .get(`https://kookr.herokuapp.comi/user/auth/${this.state.authId}`)
-    //         .then(response =>{
-    //             console.log("from axios get", response);
-    //             const existingUser = response.data;
-    //             console.log(existingUser);
-    //             if(!existingUser){
-    //                 this.postNewUser()
-    //             }else{
-    //                 console.log('user  already exists, redirecting');
-    //                 // localStorage.setItem('userId', Number(existingUser)); existing user . what?
-    //             }
-    //         })
-    //         .catch(err =>{
-    //             console.log(err);
-    //         })
+        axios
+            .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
+            .then(response =>{
+                console.log(response)
+                localStorage.setItem('userId', response.data.user_id) //Number?
+           
+            })
+            .catch(err =>{
+                console.log(err.response);
+                if(err.response.status === 404){
+                    this.postNewUser()
+                }
+            })
     }
     postNewUser = async() =>{
         console.log("from axios post", this.state)
@@ -60,7 +56,7 @@ class LandingPage extends React.Component{
             .then(response => {
                 const newUserId = response.data.user_id;
                 console.log(response);
-                // localStorage.setItem('userId', Number(newUserId)) //??  Test this bad boy Number
+                localStorage.setItem('userId', newUserId) //??  Test this bad boy Number(newUserId)
             })
             .catch( err =>{
                 console.log(err);
