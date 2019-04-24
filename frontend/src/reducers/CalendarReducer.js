@@ -1,4 +1,4 @@
-import { ADD_CALENDAR_ITEM, DELETE_CALENDAR_ITEM, UPDATE_CALENDAR_ITEM, GET_CALENDAR_ITEM} from '../actions/CalendarActions';
+import { ADD_CALENDAR_ITEM, DELETE_CALENDAR_ITEM, UPDATE_CALENDAR_ITEM, GET_CALENDAR_ITEM, ADD_CALENDAR_ITEMS} from '../actions/CalendarActions';
 
 
 const initialState = {
@@ -46,6 +46,9 @@ const CalendarReducer = ((state = initialState, action) => {
 
         case UPDATE_CALENDAR_ITEM:
             return state;
+
+        case ADD_CALENDAR_ITEMS:
+            return state
 
         default:
             return state;

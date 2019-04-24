@@ -44,6 +44,88 @@ export const getRecipes = (userid) => (dispatch) => {
         return responseValue
     }).then(returnedValue => {
         console.log(returnedValue)
+        //unique number of recipes
+        
+        //how for loop working 
+        
+        // for(let i = 0; i < returnedValue.length; i++) {          
+        //     if(filteredArray.indedOf(returnedValue[i])== -1) {
+        //         filteredArray.push(returnedValue[i])
+        //     }
+        // }
+
+        // for(let i = 0; i< returnedValue.length; i++) {
+        //     if(returnedValue[i])
+        // }
+        let filteredArrayLength = 3
+    
+//get schedule axios
+        
+        // axios.get(`https://kookr.herokuapp.com/api/schedule/user/${userid}`).then((items) => {
+        //     console.log(items.data)
+
+        //     let datesArray = [items.data]
+
+        //     let today = new Date().toISOString()
+
+        //     //what did I do
+
+          
+        //   const sortedDatesArray = datesArray.map(ele => [...ele, { date: today }]).map(recipe => recipe.sort((a, b) => a.date > b.date))
+        //   console.log(sortedDatesArray)
+        //   const lastestDates = sortedDatesArray.map(element => {
+        //     const todayIndex = element.findIndex(ele => ele.date === today)
+        //     console.log(todayIndex)
+        //     if (todayIndex === 0) {
+        //       return element[todayIndex]
+        //     } else if (element[todayIndex + 1]) {
+        //       return element[todayIndex + 1]
+        //     } else {
+        //       return element[todayIndex - 1]
+        //     }
+        //   })
+          
+        //   console.log(lastestDates)
+
+
+        // })
+
+        // const datesArray = [
+        //     [{ recipe_id: 1, date: "2019-04-17T00:00:00.000Z" },
+        //     { recipe_id: 1, date: "2019-04-23T00:00:00.000Z" }
+        //     ],
+          
+        //     [{ recipe_id: 2, date: "2019-04-06T00:00:00.000Z" }],
+          
+        //     [{ recipe_id: 3, date: "2019-04-06T00:00:00.000Z" },
+          
+        //       { recipe_id: 3, date: "2019-04-01T00:00:00.000Z" },
+          
+        //       { recipe_id: 3, date: "2019-04-19T00:00:00.000Z" },
+          
+        //       { recipe_id: 3, date: "2019-04-16T00:00:00.000Z" }],
+        //   ]
+          
+        //   const today = new Date().toISOString()
+          
+        //   const sortedDatesArray = datesArray.map(ele => [...ele, { date: today }]).map(recipe => recipe.sort((a, b) => a.date > b.date))
+        //   const lastestDates = sortedDatesArray.map(element => {
+        //     const todayIndex = element.findIndex(ele => ele.date === today)
+        //     console.log(todayIndex)
+        //     if (todayIndex === 0) {
+        //       return element[todayIndex]
+        //     } else if (element[todayIndex + 1]) {
+        //       return element[todayIndex + 1]
+        //     } else {
+        //       return element[todayIndex - 1]
+        //     }
+        //   })
+          
+        //   console.log(lastestDates)
+        
+
+        console.log(returnedValue)
+      
         dispatch({
             type: GET_RECIPES,
             payload: {userid, recipes: returnedValue}
@@ -91,3 +173,19 @@ export const addRecipeSuccess = (recipe) => (dispatch) => {
     })
 
 }
+
+// function getRecipesByDate2(recipes) {
+//     return {
+//         type: GET_RECIPES_BY_DATE,
+//         payload: {recipes}
+//     }
+// }
+
+// export function getRecipesByDate(datesArray) {
+
+
+
+//     return dispach => {
+//         dispatch(getRecipesByDate2(recipes))
+//     }
+// }

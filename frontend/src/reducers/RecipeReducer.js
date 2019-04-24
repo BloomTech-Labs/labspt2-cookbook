@@ -29,6 +29,11 @@ const RecipeReducer = ((state = initialState, action) => {
                     recipes: [ ...state.recipes, action.payload.recipe]
                 }
                 
+        // case FILTER_RECIPES:                
+
+        //         const tempArray = state.recipes.filter(recipes => recipes.tag_id === action.payload.tad_id)
+
+        //         return {...state, recipes: [...tempArray]}
 
         case GET_RECIPES:
                 console.log(action.payload)
