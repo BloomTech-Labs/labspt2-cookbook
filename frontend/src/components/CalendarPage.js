@@ -224,9 +224,10 @@ class CalendarPage extends Component{
      //Sets state for selected searched recipe  
     onSelectRecipe = async(selectedRecipe) =>{
         await this.setState({
-            selectedRecipe: selectedRecipe
+            selectedRecipe: selectedRecipe,
+            filteredRecipeArr: []
         });
-        // console.log(this.state);
+        console.log(this.state);
     }
     clickHandle = async(event,  type) =>{
         event.preventDefault();
@@ -299,11 +300,14 @@ class CalendarPage extends Component{
                                     {this.state.filteredRecipeArr.map(recipe =>{
                                         return(
                                             <div  key = {Math.random()}>
-                                                 {console.log(recipe.name)}
-                                                <div onClick = {() =>this.onSelectRecipe(recipe)}>{recipe.name}</div>
+                                                <div className = 'searched-recipe' onClick = {() =>this.onSelectRecipe(recipe)}>{recipe.name}</div>
                                             </div>    
                                         )
                                     })}
+                                </div>
+                                <div className='selected-recipe-container'>
+                                    <h3 className = 'selected-recipe-header'>You've Selected:</h3>
+                                    <p className ='selected-recipe-name'>{this.state.selectedRecipe.name}</p>
                                 </div>
                             </div>
                             <div className='servings-and-edit-section'>
@@ -318,11 +322,11 @@ class CalendarPage extends Component{
                                     <div className="calendar-meal-tag-container">
                                         <h4 className='calendar-tag-header'>Select Tag to Add</h4>
                                         <div className='calendar-meal-tag-button-section'>
-                                            <p className={`calendar-meal-tag ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>Breakfast</p>
-                                            <p className={`calendar-meal-tag ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>Lunch</p>
-                                            <p className={`calendar-meal-tag ${this.state.tag === 'dinner' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>Dinner</p>
-                                            <p className={`calendar-meal-tag ${this.state.tag === 'dessert' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>Dessert</p>
-                                            <p className={`calendar-meal-tag ${this.state.tag === 'snack' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>Snack</p>
+                                            <p className={`calendar-meal-tag ${this.state.tag === 'breakfast' ? 'calendar-selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>Breakfast</p>
+                                            <p className={`calendar-meal-tag ${this.state.tag === 'lunch' ? 'calendar-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>Lunch</p>
+                                            <p className={`calendar-meal-tag ${this.state.tag === 'dinner' ? 'calendar-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>Dinner</p>
+                                            <p className={`calendar-meal-tag ${this.state.tag === 'dessert' ? 'calendar-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>Dessert</p>
+                                            <p className={`calendar-meal-tag ${this.state.tag === 'snack' ? 'calendar-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>Snack</p>
                                         </div>    
                                     </div>
                                 </div>
@@ -332,23 +336,39 @@ class CalendarPage extends Component{
                                     <h3 onClick = {this.openServingsModal} className='calendar-edit-header-mobile'>Edit servings</h3>
                                     <div className={this.state.servingsModal ? 'servings-modal-open'  : 'servings-modal-closed'}>
                                         <div className = 'calendar-servings-modal'>
-                                            <div onClick={this.closeServingsModal}>X</div>
-                                            <input className = 'servings-input'type="number" min="1" />
-                                            <p className='check-box-p'>Duplicate previous week's shopping list</p>
-                                            <input type="checkbox" id='check-box' className ='check-box'/>
+                                            <div className='close-calendar-servings' onClick={this.closeServingsModal}>X</div>
+                                            <p className='calendar-servings-p-mobile'>Select servings</p>
+                                            <input className = 'calendar-servings-input-mobile'type="number" min="1" />
+                                            <p className='calendar-duplicate-p-mobile'>Duplicate previous week's shopping list</p>
+                                            <input type="checkbox" id='check-box' className ='check-box-mobile'/>
                                         </div> 
                                     </div>    
                                     <div className='edit-recipe-section-mobile'>  
-                                        <h4 onClick ={this.openTagModal} className='calendar-tag-header-mobile'>Select Tag to Add</h4>
+                                        <h4 onClick ={this.openTagModal} className='calendar-tag-header-mobile'>Add Meal Tag</h4>
                                         <div className={this.state.tagModal ? 'tag-modal-open'  : 'tag-modal-closed'}>
                                             <div className='calendar-tag-modal'>
-                                                <div onClick={this.closeTagModal}>X</div>
+                                                <div className='close-calendar-tag-mobile' onClick={this.closeTagModal}>X</div>
                                                 <div className='meal-tag-button-section'>
-                                                    <p className={`calendar-meal-tag-mobile ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>Breakfast</p>
-                                                    <p className={`calendar-meal-tag-mobile ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>Lunch</p>
-                                                    <p className={`calendar-meal-tag-mobile ${this.state.tag === 'dinner' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>Dinner</p>
-                                                    <p className={`calendar-meal-tag-mobile ${this.state.tag === 'dessert' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>Dessert</p>
-                                                    <p className={`calendar-meal-tag-mobile ${this.state.tag === 'snack' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>Snack</p>
+                                                    <div className={`calendar-meal-tag-mobile ${this.state.tag === 'breakfast' ? 'calendar-mobile-selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
+                                                        <p>Breakfast</p>
+                                                        <img className = 'meal-tag-icon-mobile' src ='../images/fried-egg.png'/>
+                                                    </div>
+                                                    <div className={`calendar-meal-tag-mobile ${this.state.tag === 'lunch' ? 'calendar-mobile-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
+                                                        <p>Lunch</p>
+                                                        <img className = 'meal-tag-icon-mobile' src ='../images/salad.png'/>
+                                                    </div>
+                                                    <div className={`calendar-meal-tag-mobile ${this.state.tag === 'dinner' ? 'calendar-mobile-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
+                                                        <p>Dinner</p>
+                                                        <img className = 'meal-tag-icon-mobile' src ='../images/fish.png'/>
+                                                    </div>
+                                                    <div className={`calendar-meal-tag-mobile ${this.state.tag === 'dessert' ? 'calendar-mobile-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
+                                                        <p>Dessert</p>
+                                                        <img className = 'meal-tag-icon-mobile' src ='../images/cupcake.png'/>
+                                                    </div>
+                                                    <div className={`calendar-meal-tag-mobile ${this.state.tag === 'snack' ? 'calendar-mobile-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
+                                                        <p>Snack</p>
+                                                        <img className = 'meal-tag-icon-mobile' src ='../images/popcorn.png'/>
+                                                    </div>
                                                 </div>
                                             </div>        
                                         </div>
