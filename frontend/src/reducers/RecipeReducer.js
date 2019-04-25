@@ -1,5 +1,5 @@
 
-import { GET_RECIPES, ADD_RECIPE, DELETE_RECIPE, UPDATE_RECIPE, GET_SELECTED_RECIPE, ADD_RECIPE_SUCCESS} from '../actions/RecipeActions';
+import {GET_RECIPES_BY_TAG, GET_RECIPES, ADD_RECIPE, DELETE_RECIPE, UPDATE_RECIPE, GET_SELECTED_RECIPE, ADD_RECIPE_SUCCESS} from '../actions/RecipeActions';
 
 
 const initialState = {
@@ -29,11 +29,19 @@ const RecipeReducer = ((state = initialState, action) => {
                     recipes: [ ...state.recipes, action.payload.recipe]
                 }
                 
-        // case FILTER_RECIPES:                
+        case GET_RECIPES_BY_TAG:                
+                
+                if(action.payload.tag = null) {
 
-        //         const tempArray = state.recipes.filter(recipes => recipes.tag_id === action.payload.tad_id)
+                }
+                
+                const tempArray = state.recipes.filter(recipes => recipes.bestdate.tag === action.payload.tag )
+                
+                if(action.payload.tag = null) {
+                    
+                }
 
-        //         return {...state, recipes: [...tempArray]}
+                return {...state, recipes: [...tempArray]}
 
         case GET_RECIPES:
                 console.log(action.payload)
@@ -42,6 +50,18 @@ const RecipeReducer = ((state = initialState, action) => {
                 }
                 
         case DELETE_RECIPE:
+
+        const index = state.recipes.map(item => item.recipe_id).indexOf(action.payload.recipe_id)
+
+                //let index = state.recipes.findIndex(ele => ele.recipe_id === action.payload.recipe_id)
+                     console.log(index)
+
+                const stateTemp = [
+                    ...state.recipes.slice(0, index),
+                    ...state.recipes.slice(index + 1)
+                ]
+                state = {recipes: stateTemp}
+
              return state
 
         case UPDATE_RECIPE:
