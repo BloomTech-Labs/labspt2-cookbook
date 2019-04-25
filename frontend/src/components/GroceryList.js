@@ -138,11 +138,37 @@ class GroceryList extends Component{
         })
        
     }
-
+    getRecipeData = () =>{
+        const recipeArr = this.state.recipeArr
+        recipeArr.forEach(recipe =>{
+            axios
+            .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe}`)
+            .then(res =>{
+                res.data.forEach((element,index)=>{
+                    console.log(res)
+                    let tempIng ="";
+                    if(element.amount !== null){
+                        tempIng += formatQuantity(element.amount) + " ";
+                    } 
+                    if ( element.measurement !== null){
+                        tempIng += element.measurement + " ";
+                    } 
+                    tempIng += element.name
+                    
+                    
+                })
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        })
+       
+    }
     ///get ingredients for recipes
     generateList = async() =>{
        await this.getDates();
        await this.getRecipesByDate();
+       await this.getRecipeData();
     
     }
     render(){
