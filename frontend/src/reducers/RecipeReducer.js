@@ -31,9 +31,9 @@ const RecipeReducer = ((state = initialState, action) => {
                 
         case GET_RECIPES_BY_TAG:                
                 
-                if(action.payload.tag = null) {
+                // if(action.payload.tag = null) {
 
-                }
+                // }
                 
                 const tempArray = state.recipes.filter(recipes => recipes.bestdate.tag === action.payload.tag )
                 
