@@ -69,7 +69,6 @@ router.post( '/', async (req, res) => {
       .catch( (err) => {
         res.status(500).json({ error: `Could not post recipe: ${err}` });
         console.log('Fail')
-
       });
     // end-recipe-insert
   }
