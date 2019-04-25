@@ -33,12 +33,13 @@ class CreateRecipe extends React.Component{
         date: ''
       }
   }
- componentDidMount(){
+ async componentDidMount(){
     const userId = localStorage.getItem('userId');
-    this.setState({
-         userId : userId
+    await this.setState({
+         userId : Number(userId)
      });
      this.testGetRecipe();
+     console.log(this.state)
  }
 
  dropHandler = event =>{
@@ -47,13 +48,12 @@ class CreateRecipe extends React.Component{
         recipeUrl : url
     })
 }
-postRecipe = (event) =>{
+postRecipe = async(event) =>{
     event.preventDefault();
-     // const userId = this.state.userId; Make sure it's a number at this point
-     const userId = 3
-     const recipeAndUser = { user_id : userId, link : `${this.state.recipeUrl}`};
-     console.log(recipeAndUser)
-    axios
+    const userId = this.state.userId;
+    const recipeAndUser = { user_id : userId, link : `${this.state.recipeUrl}`};
+    console.log(recipeAndUser)
+    await axios
         .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
             .then(response =>{
                 console.log(response);
@@ -63,6 +63,8 @@ postRecipe = (event) =>{
             })
             .catch(err =>{
                 console.log('Could not add new recipe obj', err);
+                console.log(err.response)
+              
             })
 }
 
@@ -131,17 +133,17 @@ convertTagToId = (tag) =>{
 }
 
 postToSchedule = () =>{
+    // console.log(this.state)
     const tag = this.state.tag;
     const tagId = this.convertTagToId(tag)
     const date = this.state.date;
-    // const userId = this.state.userId;
-    const userId = 1;
+    const userId = this.state.userId;
     const servings = Number(this.state.servings);
     // const recipeId = this.state.recipe.recipe_id;
-    const recipeId = 1;
+    const recipeId = this.state.testRecipeData[0];
+    const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
+    console.log(scheduleList)
 
-   const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
-   console.log(scheduleList)
     axios
         .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
             .then(res =>{
@@ -151,14 +153,12 @@ postToSchedule = () =>{
                 console.log(err);
             })
 }
-postsOnSubmit = () =>{
-    this.postToSchedule();
-}
+
 servingsAdjustor = async (event) =>{
     await this.setState({
         [event.target.name] : event.target.value
     });
-    console.log(this.state.servings); 
+    // console.log(this.state.servings); 
 }
 openTagsMobile = () =>{
     this.setState({
@@ -258,7 +258,7 @@ closeCalendarMobile = () =>{
                                 </div>
                             </div>
                             <div className='meal-tag-mobile-button'>
-                                <h3 className='meal-tag-header-mobile' onClick = {this.openTagsMobile}>Add Meal Tag</h3>
+                                <h3 className='meal-tag-header-mobile' onClick = {this.openTagsMobile}>Add Meal Tag <img className ='fork' src = '../images/fork.png'/></h3>
                                     <div className= {this.state.tagModal ? 'meal-tag-modal-mobile-open' : 'meal-tag-modal-mobile-closed'}>
                                         <div className='meal-tag-modal-sub'>
                                             <div className='meal-tag-close' onClick={this.closeTagsMobile}>X</div>
@@ -286,7 +286,7 @@ closeCalendarMobile = () =>{
                                     </div>
                             </div>
                             <div className='calendar-mobile'>
-                                <h3  className = 'calendar-modal-click-header' onClick={this.openCalendarMobile}>Add Recipe to Calendar</h3>
+                                <h3  className = 'calendar-modal-click-header' onClick={this.openCalendarMobile}>Add Recipe to Calendar<img className = 'calendar-icon' src ='../images/calendar-yes.png' /></h3>
                                 <div className={this.state.calendarModal ? 'calendar-mobile-open' : 'calendar-mobile-closed'}>
                                     <div className= 'mobile-calendar-modal'>
                                         <div className= 'mobile-calendar-header-section'>
@@ -302,7 +302,7 @@ closeCalendarMobile = () =>{
                                     </div>    
                                 </div>    
                             </div>
-                            <div className='add-recipe-button-mobile' onClick={this.postTagToRecipe}> Save </div>
+                            <div className='add-recipe-button-mobile' onClick={this.postToSchedule}> Save </div>
                         </div>     
                         <div className='recipe-modification-section'>
                             <div className='calendar-section'>
@@ -315,7 +315,7 @@ closeCalendarMobile = () =>{
                                     <p className='edit-servings-p'>How many servings?</p>
                                     <input className ='servings-input' name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" /> 
                                 </div>
-                                <div className='add-recipe-button' onClick={this.postsOnSubmit}> Save </div> 
+                                <div className='add-recipe-button' onClick={this.postToSchedule}> Save </div> 
                             </div>
                         </div>
                     </div>    
