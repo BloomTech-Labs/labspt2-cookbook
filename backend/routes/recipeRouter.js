@@ -42,7 +42,7 @@ router.get( '/:id', (req, res) => {
 
 
 /* POST */
-router.post( '/', cors(), async (req, res) => {
+router.post( '/', async (req, res) => {
   const recipeData = req.body;
   console.log(recipeData)
   // Check for missing data first.
@@ -69,7 +69,6 @@ router.post( '/', cors(), async (req, res) => {
       .catch( (err) => {
         res.status(500).json({ error: `Could not post recipe: ${err}` });
         console.log('Fail')
-
       });
     // end-recipe-insert
   }

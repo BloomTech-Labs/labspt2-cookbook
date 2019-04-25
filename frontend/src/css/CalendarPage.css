@@ -41,7 +41,7 @@
     font-size: 20px;
     width:25%;
     text-align:center;
-    padding:0px 5%;
+    padding:0px 4%;
     padding-top:40px;
     background-color:white;
     border-radius: 2px;
@@ -58,6 +58,7 @@
         font-size:18px;
     }
 }
+
 @media screen and (max-width:500px){
     .calendar-intro-container{
         margin-bottom: 15px;
@@ -80,8 +81,7 @@
 .calendar-housing{
     width:68%;
     margin:0px auto;
-    margin-bottom:10px;
-    border-radius:3px;
+    border-radius:2px;
 }
 .react-calendar{
    width:100%;
@@ -100,6 +100,9 @@
     }
     .calendar-housing{
         width:100%;
+    }
+    .calendar-row{
+        flex-direction:column;
     }
 }
 @media screen and (max-width:500px){
@@ -185,6 +188,45 @@
     font-size:18px;
     padding:4px 1%;
     cursor:pointer;
+}
+.selected-recipe-container{
+    background-image:url('https://images.fabric.com/images/693/693/0473337.jpg');
+    display:flex;
+    width:90%;
+    margin:0px auto;
+    border-radius:2px;
+    justify-content:space-around;
+    padding:10px 0%;
+    color:white;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+}
+.selected-recipe-header{
+    margin:5px 1%;
+    font-size:26px;
+    font-weight:bold;
+    text-transform:uppercase;
+    letter-spacing:0.3px;
+}
+.selected-recipe-name{
+    font-weight:normal;
+    font-size:26px;
+    margin:5px 1%;
+}
+@media screen and (max-width:600px){
+    .selected-recipe-header{
+        font-size:20px;
+    }
+    .selected-recipe-name{
+        font-size:20px;
+    }
+}
+@media screen and (max-width:500px){
+    .selected-recipe-header{
+        font-size:18px;
+    }
+    .selected-recipe-name{
+        font-size:18px;
+    }
 }
 @media screen and (max-width:1000px){
     .recipe-search-section{
@@ -291,16 +333,14 @@
 }
 .calendar-edit-header-mobile{
     font-family: 'Barlow Semi Condensed', sans-serif;
-    text-transform:uppercase;
-    font-weight:bold;
-    font-size:20px;
+    font-weight:normal;
+    font-size:22px;
     cursor:pointer;
 }
 .calendar-tag-header-mobile{
     font-family: 'Barlow Semi Condensed', sans-serif;
-    text-transform:uppercase;
-    font-weight:bold;
-    font-size:20px;
+    font-weight:normal;
+    font-size:22px;
     cursor:pointer;
     margin-top:26px;
 }
@@ -337,8 +377,9 @@
     background: white;
     padding-top:15px;
     margin-top:15px;
-    width: 40%;
-    padding-bottom:30px;
+    width: 70%;
+    padding:10px 2%;
+    padding-bottom:40px;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
@@ -347,13 +388,40 @@
     border-radius:5px;
     border:5px solid rgb(52, 98, 112);
     text-align: center;
+}
+.close-calendar-servings{
+    font-weight:bold;
+    margin-right:5%;
+    text-align:right;
+    font-size:20px;
+    cursor:pointer;
+}
+.calendar-servings-p-mobile{
+    text-align:center;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size:18px;
+    font-weight:bold;
+}
+.calendar-duplicate-p-mobile{
+    text-align:center;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size:18px;
+    font-weight:bold;
+}
+.check-box-mobile{
+    margin:0px auto;
+}
+.calendar-servings-input-mobile{
+    width:70%;
+    margin:0px auto;
+    height:25px;
 }
 .calendar-tag-modal{
     position:fixed;
     background: white;
     padding-top:15px;
     margin-top:15px;
-    width: 40%;
+    width: 70%;
     padding-bottom:30px;
     top:50%;
     left:50%;
@@ -364,7 +432,32 @@
     border:5px solid rgb(52, 98, 112);
     text-align: center;
 }
-
+.close-calendar-tag-mobile{
+    font-weight:bold;
+    margin-right:5%;
+    text-align:right;
+    font-size:20px;
+    cursor:pointer;
+    margin-bottom:30px;
+}
+.calendar-meal-tag-mobile{
+    display:flex;
+    justify-content:space-around;
+    margin:0px auto;
+    background-color:rgb(91, 142, 158);
+    width:80%;
+    margin-bottom:10px;
+    border-radius:2px;
+    cursor:pointer;
+    color:white;
+    font-size:24px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    text-transform:uppercase;
+    font-weight:bold;
+}
+.calendar-mobile-selected{
+    background-color: rgb(52, 98, 112)
+}
 .save-button{
     width: 30%;
     margin:40px auto;

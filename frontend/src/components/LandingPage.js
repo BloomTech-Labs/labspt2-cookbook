@@ -29,24 +29,24 @@ class LandingPage extends React.Component{
         await this.setState({
             email: googleObj.profileObj.email,
             authId: googleObj.googleId
+            // authId: "779802nnjs02iup2je2i498lkjdflkjadnflka"
         });
         console.log(this.state);
         axios
             .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
             .then(response =>{
-                console.log(response)
-                localStorage.setItem('userId', response.data.user_id) //Number?
-                if(response.data.length === 0){
+                console.log(response.data)
+                if(response.data.length){
+                    localStorage.setItem('userId', response.data[0])
+                }else{
                     this.postNewUser();
                 }
             })
             .catch(err =>{
-                console.log(err.response);
-                if(err.response.status === 404){
-                    this.postNewUser()
-                }
+                console.log(err)
             })
     }
+
     postNewUser = async() =>{
         console.log("from axios post", this.state)
         const authId = this.state.authId;
@@ -56,9 +56,9 @@ class LandingPage extends React.Component{
         await axios
             .post('https://kookr.herokuapp.com/api/user', newUserObj)
             .then(response => {
-                const newUserId = response.data.user_id;
-                console.log(response);
-                localStorage.setItem('userId', newUserId) //??  Test this bad boy Number(newUserId)
+                
+                console.log(response[0]);
+                localStorage.setItem('userId', response.data[0]) //??  Test this bad boy Number(newUserId)
             })
             .catch( err =>{
                 console.log(err.response);
