@@ -396,7 +396,7 @@ h4{
     border-radius: 2px;
     background-color:white;
     padding:10px 0%;
-    margin-bottom:20px;
+    margin-bottom:8px;
 }
 @media screen and (max-width:1000px){
     .calendar-directions-header{
@@ -426,6 +426,7 @@ h4{
     flex-direction:column;
    
 }
+
 .edit-servings-header{
     padding-left:4%;
     padding-right:4%;
@@ -457,7 +458,7 @@ h4{
         font-size:18px;
     }
 }
-@media screen and (max-width:800px){
+@media screen and (max-width:840px){
     .edit-servings-header{
         font-size:16px;
     }
@@ -468,7 +469,7 @@ h4{
 .servings-container{
     text-align:center;
     background-color:white;
-    padding-bottom:20px;
+    padding-bottom:30px;
     border-radius:2px;
 }
 .servings-input{
@@ -477,7 +478,7 @@ h4{
 .add-recipe-button{
     width: 75%;
     margin:0 auto;
-    margin-top:30px;
+    margin-top:20px;
     height:40px;
     background-color:rgb(52, 98, 112);
     color:white;
@@ -530,6 +531,11 @@ h4{
     width:100%;
     height: 100%;
     background: rgba(14, 21, 24, 0.87);
+}
+.fork{
+    height:25px;
+    width:25px;
+    margin-left:2%;
 }
 .meal-tag-modal-mobile-closed{
     display:none;
@@ -604,6 +610,11 @@ h4{
     cursor:pointer;
     margin-top:10px;
     margin-bottom:5px;
+}
+.calendar-icon{
+    height:25px;
+    width:25px;
+    margin-left:2%;
 }
 .calendar-mobile-open{
     position:fixed;
