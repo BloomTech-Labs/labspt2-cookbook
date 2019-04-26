@@ -44,6 +44,7 @@ class LandingPage extends React.Component{
             })
             .catch(err =>{
                 console.log(err)
+                this.postNewUser();
             })
     }
 
