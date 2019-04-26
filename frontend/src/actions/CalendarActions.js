@@ -1,8 +1,10 @@
+import axios from "axios";
+
 export const ADD_CALENDAR_ITEM = "ADD_CALENDAR_ITEM"
 export const DELETE_CALENDAR_ITEM = "DELETE_CALENDAR_ITEM"
 export const UPDATE_CALENDAR_ITEM = "UPDATE_CALENDAR_ITEM"
 export const GET_CALENDAR_ITEM = "GET_CALENDAR_ITEM"
-
+export const ADD_CALENDAR_ITEMS = "ADD_CALENDAR_ITEM"
 
 
 
@@ -58,4 +60,26 @@ export const getCalendarItem = (calendaritem) => (dispatch) => {
         payload: {calendaritem, recipe_id: calendaritem.recipe_id }
     })
 
+}
+
+function addAllToCalendar2() {
+    return {
+        type: ADD_CALENDAR_ITEMS
+    }
+}
+
+export function addAllToCalendar(arrayOfSchedules) {
+    arrayOfSchedules.forEach(recipePost => {
+        axios
+            .post(`https://kookr.herokuapp.com/api/schedule`, recipePost)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    })
+    return dispatch => {
+        dispatch(addAllToCalendar2())
+    }
 }
