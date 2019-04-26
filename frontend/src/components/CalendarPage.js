@@ -7,8 +7,9 @@ import Moment from 'moment';
 import axios from 'axios';
 import { extendMoment } from 'moment-range';
 import '../css/CalendarPage.css';
-
-
+import {getRecipes} from '../actions/RecipeActions';
+import {addAllToCalendar} from '../actions/CalendarActions';
+import {bindActionCreators} from 'redux';
 
 const rangerDanger = extendMoment(Moment)
 
@@ -42,9 +43,12 @@ class CalendarPage extends Component{
      });
        this.recipeGetById();
        this.testGetRecipe();
+
+       this.props.getRecipes(this.props.user[0].user_id)
        
     }
     testGetRecipe = async() =>{
+        //not sure if this is necessary considering this.props.getRecipes()
         await axios
             .get(`https://kookr.herokuapp.com/api/recipes/user/1`)
                 .then(res =>{
@@ -59,6 +63,7 @@ class CalendarPage extends Component{
                 console.log(this.state.testRecipes[0].name)
     }           
     recipeGetById = () =>{
+       //not sure if this is necessary considering this.props.getRecipes()
        axios   
             .get(`https://kookr.herokuapp.com/api/recipes/user/${this.state.userId}`)
                 .then(response =>{
@@ -93,6 +98,8 @@ class CalendarPage extends Component{
     }
     getRecipesForWeekArr = async() =>{
         const userId = this.state.userId;
+        //replace the above with the below to tie to active userid based on google login
+        //this.props.user[0].user_id
         const prevWeekArr = this.state.prevWeekArr;
         const prevWeekRecipeArr = []
         prevWeekArr.forEach(async date =>{
@@ -135,16 +142,19 @@ class CalendarPage extends Component{
                postArr.push(newRecipeObj)
             }
         })
-        postArr.forEach(recipePost =>{
-            axios
-                .post(`https://kookr.herokuapp.com/api/schedule`, recipePost)
-                    .then(res =>{
-                        console.log(res)
-                    })
-                    .catch(err =>{
-                        console.log(err)
-                    })
-        })
+        //AXIOS POST IS NOW IN THE CALENDAR ACTIONS
+        this.props.addAllToCalendar(postArr)
+
+        // postArr.forEach(recipePost =>{
+        //     axios
+        //         .post(`https://kookr.herokuapp.com/api/schedule`, recipePost)
+        //             .then(res =>{
+        //                 console.log(res)
+        //             })
+        //             .catch(err =>{
+        //                 console.log(err)
+        //             })
+        // })
     }
 
     //Gets previous and next weeks from current day
@@ -206,6 +216,9 @@ class CalendarPage extends Component{
 
     //Search function for recipe search
     calendarSearchFunction = (event) =>{
+        //LINKED TO REDUCER 4-23
+        const recipesArray = this.props.recipes;
+        
         event.preventDefault();
         // const updatedArr = this.state.recipes;
         const testArr = this.state.testRecipes;
@@ -215,7 +228,7 @@ class CalendarPage extends Component{
                 filteredRecipeArr : []
             })
         }else{
-            const updatedArr = testArr.filter(element =>{
+            const updatedArr = recipesArray.filter(element =>{
                 return element.name.toLowerCase().includes(inputValue.toLowerCase())
             })
             this.setState({filteredRecipeArr: updatedArr});
@@ -227,7 +240,9 @@ class CalendarPage extends Component{
             selectedRecipe: selectedRecipe,
             filteredRecipeArr: []
         });
+
         console.log(this.state);
+
     }
     clickHandle = async(event,  type) =>{
         event.preventDefault();
@@ -387,6 +402,9 @@ class CalendarPage extends Component{
     }
 } 
 
+const mapDispatchToProps = (dispatch) => bindActionCreators({getRecipes, addAllToCalendar}, dispatch)
+
+
 const mapStateToProps = state => {
     return {
         user: state.UserReducer.user,
@@ -400,4 +418,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps)(CalendarPage)
+export default connect(mapStateToProps, mapDispatchToProps)(CalendarPage)
