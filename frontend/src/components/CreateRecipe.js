@@ -54,6 +54,7 @@ postRecipe = async(event) =>{
     const recipeAndUser = { user_id : userId, link : `${this.state.recipeUrl}`};
     console.log(recipeAndUser)
     await axios
+        // .post('http://localhost:4321/api/recipes', recipeAndUser)
         .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
             .then(response =>{
                 console.log(response);

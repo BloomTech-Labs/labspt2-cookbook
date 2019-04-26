@@ -44,7 +44,7 @@ router.get( '/:id', (req, res) => {
 /* POST */
 router.post( '/', async (req, res) => {
   const recipeData = req.body;
-  console.log(recipeData)
+  console.log(' line 47 recipe data : ',  recipeData)
   // Check for missing data first.
   if( !recipeData.user_id || !recipeData.link )
   {
