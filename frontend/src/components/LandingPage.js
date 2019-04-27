@@ -87,10 +87,10 @@ class LandingPage extends React.Component{
                 <div className = 'landing-page-background'></div>
                 <div className='landing-page-nav-bar'>
                     <div className='social-media-container'>
-                        <i class="fab fa-google-plus-g" ></i>
-                        <i class="fab fa-facebook-f" ></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-twitter" ></i>
+                        <i className="fab fa-google-plus-g" ></i>
+                        <i className="fab fa-facebook-f" ></i>
+                        <i className="fab fa-instagram"></i>
+                        <i className="fab fa-twitter" ></i>
                     </div> 
                     <div className = 'landing-logo-container'>
                         <img className = 'landing-logo'src= '../images/logo.png'/>
