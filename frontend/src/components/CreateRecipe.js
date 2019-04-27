@@ -39,7 +39,7 @@ class CreateRecipe extends React.Component{
          userId : Number(userId)
      });
      this.testGetRecipe();
-     console.log(this.state)
+     await console.log(this.state)
  }
 
  dropHandler = event =>{
