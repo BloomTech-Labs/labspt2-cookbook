@@ -146,8 +146,8 @@ postToSchedule = () =>{
     console.log(scheduleList)
 
     axios
-    .post('http://localhost:4321/api/schedule', scheduleList)
-        // .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
+    // .post('http://localhost:4321/api/schedule', scheduleList)
+        .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
             .then(res =>{
                 console.log(res);
             })
