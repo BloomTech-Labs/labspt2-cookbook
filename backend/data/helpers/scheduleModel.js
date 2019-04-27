@@ -32,7 +32,10 @@ module.exports = {
    */
   insert: async function(sched) {
     return await db('schedule').insert(sched)
-    .then( ([id]) => this.getById(id) );
+
+    //Commented out to test with Heroku
+    
+    // .then( ([id]) => this.getById(id) );
   },
 
   /*

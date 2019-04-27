@@ -39,7 +39,7 @@ class CreateRecipe extends React.Component{
          userId : Number(userId)
      });
      this.testGetRecipe();
-     console.log(this.state)
+     await console.log(this.state)
  }
 
  dropHandler = event =>{
@@ -146,7 +146,8 @@ postToSchedule = () =>{
     console.log(scheduleList)
 
     axios
-        .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
+    .post('http://localhost:4321/api/schedule', scheduleList)
+        // .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
             .then(res =>{
                 console.log(res);
             })
