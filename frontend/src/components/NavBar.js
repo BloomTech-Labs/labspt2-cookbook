@@ -38,7 +38,7 @@ class NavBar extends React.Component{
                  </div>
                  <div className='nav-break-800'>
                      <div className='nav-hamburger'>
-                         <i class="fas fa-bars" id='nav-icon' onClick = {this.mobileMenuOpen}></i>
+                         <i className="fas fa-bars" id='nav-icon' onClick = {this.mobileMenuOpen}></i>
                      </div>
                      <div className='nav-break-logo-container'>
                         <img className = 'nav-break-logo'src= '../images/logo.png'/>
