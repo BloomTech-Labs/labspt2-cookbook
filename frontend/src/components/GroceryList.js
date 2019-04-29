@@ -42,22 +42,24 @@ class GroceryList extends Component{
         })
     }
     getDates = async() => {
-        var dateArray = [];
-        var currentDate = moment(this.state.startDate);
+        if(this.state.startDate.length === 0 || this.state.stopDate.length === 0){
+            alert('Please make sure you  have enetered a start and stop date')
+        }else{
+            var dateArray = [];
+            var currentDate = moment(this.state.startDate);
+            var stopDate = moment(this.state.stopDate);
+                  // console.log(currentDate, stopDate)
+                  while (currentDate <= stopDate) {
+                    dateArray.push( moment(currentDate).format('YYYY-MM-DD') )
+                    currentDate = moment(currentDate).add(1, 'days');
+                }
         
-        var stopDate = moment(this.state.stopDate);
-        console.log(currentDate, stopDate)
-        while (currentDate <= stopDate) {
-            dateArray.push( moment(currentDate).format('YYYY-MM-DD') )
-            currentDate = moment(currentDate).add(1, 'days');
+                console.log(dateArray);
+            
+                await this.setState({
+                    dateArr: dateArray
+                })
         }
- 
-        console.log(dateArray);
-       
-        await this.setState({
-            dateArr: dateArray
-        })
-        
     }
 
     getRecipe = () =>{
@@ -115,10 +117,11 @@ class GroceryList extends Component{
     //         }
     //     }
     // }
-    getRecipesByDate = () =>{
+    getRecipesByDate = async() =>{
         const dateArr = this.state.dateArr;
         console.log(dateArr)
-        const userId = this.state.userId;
+        const userId = 1
+        // const userId = this.state.userId;
         console.log(userId)
         let recipeArrForDates = []
         dateArr.forEach(date =>{
@@ -126,37 +129,41 @@ class GroceryList extends Component{
             .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${date}`)
                 .then(res =>{
                     console.log(res);
-                    recipeArrForDates.push(res.data)
+                    recipeArrForDates.push( ...Object.values(res.data))
                 })
                 .catch(err =>{
                     console.log(err)
 
                 })
         })
-        this.setState({
+        await this.setState({
             recipeArr : recipeArrForDates
         })
+      
        
     }
     getRecipeData = () =>{
+        
         const recipeArr = this.state.recipeArr
+        console.log('Recipe Arr from state:', recipeArr)
         recipeArr.forEach(recipe =>{
-            axios
-            .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe}`)
+            console.log('Recipe Id:', recipe.recipe_id)
+        })
+        recipeArr.forEach(recipe =>{
+             axios
+            .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe.recipe_id}`)
             .then(res =>{
-                res.data.forEach((element,index)=>{
-                    console.log(res)
-                    let tempIng ="";
-                    if(element.amount !== null){
-                        tempIng += formatQuantity(element.amount) + " ";
-                    } 
-                    if ( element.measurement !== null){
-                        tempIng += element.measurement + " ";
-                    } 
-                    tempIng += element.name
-                    
-                    
-                })
+                // res.data.forEach((element,index)=>{
+                     console.log(res)
+                //     let tempIng ="";
+                //     if(element.amount !== null){
+                //         tempIng += formatQuantity(element.amount) + " ";
+                //     } 
+                //     if ( element.measurement !== null){
+                //         tempIng += element.measurement + " ";
+                //     } 
+                //     tempIng += element.name
+                // })
             })
             .catch(err =>{
                 console.log(err)

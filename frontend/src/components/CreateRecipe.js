@@ -3,6 +3,7 @@ import '../css/CreateRecipe.css';
 import axios from 'axios';
 import  '../css/CreateRecipe.css';
 import NavBar from './NavBar';
+import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
@@ -30,7 +31,8 @@ class CreateRecipe extends React.Component{
         testRecipeData : [],
         servings: '',
         calendarModal:false,
-        date: ''
+        date: '',
+        navigateModal:  false
       }
   }
  async componentDidMount(){
@@ -48,11 +50,20 @@ class CreateRecipe extends React.Component{
         recipeUrl : url
     })
 }
+changeHandler  = event =>{
+    const recipeUrl = event.target.value
+    this.setState({
+        recipeUrl:recipeUrl
+    })
+}
 postRecipe = async(event) =>{
     event.preventDefault();
     const userId = this.state.userId;
     const recipeAndUser = { user_id : userId, link : `${this.state.recipeUrl}`};
     console.log(recipeAndUser)
+    if(recipeAndUser.link.length === 0){
+        alert('Please enter a recipe url and try submitting again')
+    }else {
     await axios
         // .post('http://localhost:4321/api/recipes', recipeAndUser)
         .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
@@ -67,6 +78,7 @@ postRecipe = async(event) =>{
                 console.log(err.response)
               
             })
+    }        
 }
 
 testGetRecipe = async() =>{
@@ -144,16 +156,25 @@ postToSchedule = () =>{
     const recipeId = this.state.testRecipeData[0];
     const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
     console.log(scheduleList)
-
-    axios
-    // .post('http://localhost:4321/api/schedule', scheduleList)
-        .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
-            .then(res =>{
-                console.log(res);
-            })
-            .catch(err =>{
-                console.log(err);
-            })
+    
+    if(tag === null){
+        alert('Please select a tag for your recipe')
+    }else if(date.length === 0){
+        alert('Please  select a date for  your recipe')
+    }else{
+        axios
+        .post('http://localhost:4321/api/schedule', scheduleList)
+            // .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
+                .then(res =>{
+                    console.log(res);
+                })
+                .catch(err =>{
+                    console.log(err);
+                })
+        this.setState({
+            navigateModal:true
+        })  
+    }         
 }
 
 servingsAdjustor = async (event) =>{
@@ -182,6 +203,11 @@ closeCalendarMobile = () =>{
         calendarModal: false
     })
 }
+closeNavigateModal = () =>{
+    this.setState({
+        navigateModal:false
+    })
+}
 
     render(){
         const {testRecipe} = this.state
@@ -200,7 +226,8 @@ closeCalendarMobile = () =>{
                             <input 
                                 className='url-drop-input' 
                                 placeholder='  Drag and Drop Recipe URL Here'
-                                onDrop={this.dropHandler}/>
+                                onDrop={this.dropHandler}
+                                onChange = {this.changeHandler}/>
                             <div onClick = {this.postRecipe} className='url-add'>Add</div>        
                         </div>
                         <div className='recipe-preview'>
@@ -318,6 +345,16 @@ closeCalendarMobile = () =>{
                                     <input className ='servings-input' name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" /> 
                                 </div>
                                 <div className='add-recipe-button' onClick={this.postToSchedule}> Save </div> 
+                                <div className={this.state.navigateModal ? 'navigate-modal-open' : 'navigate-modal-closed'}>
+                                    <div className='navigate-modal'>   
+                                        <h2 className='navigate-modal-header'>Would you like to go to your Shopping List?</h2>
+                                        <div  className='navigate-button-container'>
+                                            <Link to = "/grocery-list" className = 'leave-button'>Yes, take me there</Link>
+                                            <div className='stay-button' onClick ={this.closeNavigateModal}>No, I'll stay here</div>
+                                        </div>
+                                    </div>     
+                                </div>
+                            
                             </div>
                         </div>
                     </div>    
