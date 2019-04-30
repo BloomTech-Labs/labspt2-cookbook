@@ -146,6 +146,7 @@ class CalendarPage extends Component{
                 const newRecipeObj = {recipe_id: recipeId, user_id : userId, date : date, servings: servings}
                postArr.push(newRecipeObj)
             }
+            
         })
         console.log('Post Arr, Line 145:', postArr)
         //AXIOS POST IS NOW IN THE CALENDAR ACTIONS

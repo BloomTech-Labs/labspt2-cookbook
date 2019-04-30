@@ -26,6 +26,13 @@ router.post("/", (req, res)=>{
         customer: customer,
         items: [{plan: 'plan_EtW1Z1LBDe3p19'}]
     })
+    .then(response =>{
+        res.json(response)
+        
+    })
+    .catch(err=>{
+        console.log(err)
+    })
 });
 
 
