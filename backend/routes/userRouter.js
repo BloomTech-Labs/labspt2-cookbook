@@ -1,7 +1,6 @@
 // Base requires:
 const express = require('express');
 const router = express.Router();
-
 // App requires/middleware
 const user = require('../data/helpers/userModel');
 
@@ -27,6 +26,7 @@ router.get('/:id', (req, res) => {
 
   user.get(id)
     .then( (user) => {
+      
       if( user) {
         res.json(user);
       } else {
@@ -44,7 +44,8 @@ router.get('/auth/:authId', (req, res) =>{
 
   user.getByAuth(authId)
     .then( (user) =>{
-      if( user.length !==0) {
+      console.log(user);
+      if( user.length !== 0) {
         res.json(user);
       } else {
         res.status(404).json({error: "Authentication ID not found"})
@@ -78,6 +79,7 @@ router.post('/', (req, res) =>{
           res
           .status(403)
           .json({error: "User already exists"})
+          
         }
       })
       .catch(err =>{

@@ -27,26 +27,33 @@ class LandingPage extends React.Component{
 //How to grab user Id after post ?? res.data? set user Id to local storage -change instances of user id in routes on other pages
     submitHandler = async (googleObj) =>{
         await this.setState({
-            email: googleObj.profileObj.email,
-            authId: googleObj.googleId
+            // email: googleObj.profileObj.email,
+            email:"emailandstuff.com",
+            // authId: googleObj.googleId
+            authId: "779802nnjs02iup2je2dflsd"
         });
         console.log(this.state);
         axios
             .get(`http://localhost:4321/api/user/auth/${this.state.authId}`)
             .then(response =>{
-                console.log(response.data[0])
-                localStorage.setItem('userId', response.data[0]) //Number?
-                console.log("this dumb butt")
-            })
-            .catch(err =>{
-                console.log(err.response);
-                if(err.response.status === 404){
-                    this.postNewUser()
+                console.log(response.data)
+                if(response.data.length){
+                    localStorage.setItem('userId', response.data[0])
+                }else{
+                    this.postNewUser();
                 }
             })
+            .catch(err =>{
+                // console.log(err.response)
+                if(err.response.status === 404){
+                    this.postNewUser();
+                }
+                
+            })
     }
+
     postNewUser = async() =>{
-        console.log("from axios post", this.state)
+        // console.log("from axios post", this.state)
         const authId = this.state.authId;
         const email = this.state.email;
         const newUserObj = {auth_id:authId, email:email}
@@ -54,12 +61,12 @@ class LandingPage extends React.Component{
         await axios
             .post('https://kookr.herokuapp.com/api/user', newUserObj)
             .then(response => {
-                const newUserId = response.data.user_id;
-                console.log(response);
-                localStorage.setItem('userId', newUserId) //??  Test this bad boy Number(newUserId)
+                
+                console.log(response[0]);
+                localStorage.setItem('userId', response.data[0]) //??  Test this bad boy Number(newUserId)
             })
             .catch( err =>{
-                console.log(err);
+                console.log(err.response);
             })
     }
 
@@ -80,10 +87,10 @@ class LandingPage extends React.Component{
                 <div className = 'landing-page-background'></div>
                 <div className='landing-page-nav-bar'>
                     <div className='social-media-container'>
-                        <i class="fab fa-google-plus-g" ></i>
-                        <i class="fab fa-facebook-f" ></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-twitter" ></i>
+                        <i className="fab fa-google-plus-g" ></i>
+                        <i className="fab fa-facebook-f" ></i>
+                        <i className="fab fa-instagram"></i>
+                        <i className="fab fa-twitter" ></i>
                     </div> 
                     <div className = 'landing-logo-container'>
                         <img className = 'landing-logo'src= '../images/logo.png'/>

@@ -5,7 +5,7 @@ import IndividualRecipe from "./IndividualRecipe"
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import  {getUser} from '../actions/UserActions';
-import {addRecipe, addRecipeSuccess, getSelectedRecipe, getRecipes} from '../actions/RecipeActions';
+import { deleteRecipe, getRecipesByTag,addRecipe, addRecipeSuccess, getSelectedRecipe, getRecipes} from '../actions/RecipeActions';
 import NavBar from "./NavBar";
 
 
@@ -54,6 +54,36 @@ class RecipeList extends Component{
         
         this.props.getRecipes(id)
 }
+
+deleteRecipeButton = (recipe_id) => {
+    let recipe = {
+        recipe_id: recipe_id
+    }
+
+    let userid = this.props.user[0].user_id
+    console.log(userid)
+    this.props.deleteRecipe(recipe)
+}
+
+filterRecipeButton = (tag) => {
+    //need to link to user reducer
+    let id = 1
+    console.log('filter fires')
+    this.props.getRecipesByTag(tag)
+    this.props.getRecipes(id)
+}
+
+filterAndCloseCombine = (tag, event) => {
+    console.log(tag)
+    //console.log(event)
+    this.filterRecipeButton(tag)
+
+    this.setState({
+        filterModal:false
+    })
+    
+}
+
 clickHandle = async(event,  type) =>{
     event.preventDefault();
     await this.setState({
@@ -142,7 +172,7 @@ onChangeDate = (event) =>{
                                             </div>
                                         </div>
                                         </div>
-                                        <div className='filter-modal-submit-button'>Submit</div>
+                                        <div className='filter-modal-submit-button' onClick={() => this.filterAndCloseCombine(this.state.tag)} >Submit</div>
                                     </div> 
                                 </div>
                             </div>
@@ -157,9 +187,17 @@ onChangeDate = (event) =>{
                                 <div className= 'recipe-card-img-container'>
                                     <img className = 'recipe-card-img' src = {item.image} alt = 'recipe-list-image'/>
                                 </div>
+                                <div>
+                                    {new Intl.DateTimeFormat('en-US', {
+                                        year: 'numeric',
+                                        day: '2-digit',
+                                        month: 'long'
+                                    }).format(new Date(`${item.bestdate.date}`))}
+                                </div>
+                                <div>{item.bestdate.tag}</div>
                                 <div className='recipe-card-button-container'>
                                     <div onClick={() => this.editModalOpen(item)} className='recipe-card-edit-button'>Edit</div>
-                                    <div className="recipe-card-delete-button">Delete</div>
+                                    <div className="recipe-card-delete-button"  onClick={() => this.deleteRecipeButton(item.recipe_id)} >Delete</div>
                                 </div>
                             </div>
                         )   )}
@@ -220,13 +258,15 @@ onChangeDate = (event) =>{
     }
 } 
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({getRecipes, getUser, addRecipe, addRecipeSuccess, getSelectedRecipe}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({deleteRecipe, getRecipes, getUser, addRecipe, addRecipeSuccess, getSelectedRecipe, getRecipesByTag}, dispatch)
 
 const mapStateToProps = state => {
     console.log(state)
     return {
         user: state.UserReducer.user,
-        recipes: state.RecipeReducer.recipes
+        recipes: state.RecipeReducer.recipes,
+        calendar: state.CalendarReducer.calendar,
+        tags: state.TagsReducer.tags
     }
 }
 

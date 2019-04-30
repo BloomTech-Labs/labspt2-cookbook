@@ -31,8 +31,8 @@ module.exports = {
    *   -- Inserts a new scheduled recipe
    */
   insert: async function(sched) {
-    return await db('schedule').insert(sched)
-    .then( ([id]) => this.getById(id) );
+    return await db('schedule').insert(sched) 
+     .then( ([id]) => this.getById(id) );
   },
 
   /*

@@ -24,7 +24,7 @@ async componentDidMount(){
     //this.getUserToShowChrisThatWeCan();
     let localUserId = await localStorage.getItem('userId')
     await this.setState({
-        userId : localUserId
+        userId : Number(localUserId)
     });
     await this.getCurrentUser();
     this.checkSubscription();
@@ -33,7 +33,11 @@ async componentDidMount(){
 
 getCurrentUser = async() =>{
     await axios
+<<<<<<< HEAD
         .get(`https://kookr.herokuapp.com/api/user/${this.state.userId}`)
+=======
+        .get(`https://kookr.herokuapp.com/api/user${this.state.userId}`)
+>>>>>>> 9ecc6b7a2f675ff01c84f76325ac653295235efa
             .then(res =>{
                 console.log("response from get user", res)
                 this.setState({
@@ -70,8 +74,9 @@ checkSubscription=()=>{
         return (
             <div className="settings-page">
                 <NavBar />
-                <h1 className='settings-header'>Your Portal</h1>
-                    <div className ='settings-main-sub'>
+                <div className ='settings-main'>
+                    <h1 className = 'settings-header'>Your Portal</h1>
+                    <div className = 'settings-main-sub'>
                         <div className="settings-form-container">
                             <h2 className='settings-form-header'>Settings</h2>
                             <form className="settings-form">
@@ -81,30 +86,31 @@ checkSubscription=()=>{
                                 </div>
                                 <div className="settings-form-item">
                                     <label className='settings-form-label' htmlFor="notificationsEmail">Email Notifications? </label>
-                                    <input type="checkbox" name="notificationsEmail"></input>
+                                    <input className ='settings-input' type="checkbox" name="notificationsEmail"></input>
                                     <label  className='settings-form-label' htmlFor="notificationsText">Text Notifications? </label>
-                                    <input type="checkbox" name="notificationsText"></input>
+                                    <input className ='settings-input' type="checkbox" name="notificationsText"></input>
                                 </div>
 
-                            <input className = 'save-button' type="submit" name="save" value="Save"></input>
-                        </form>
-                    </div>
+                                <input className = 'save-button' type="submit" name="save" value="Save"></input>
+                            </form>
+                        </div>
 
-                    <div className="billing-main">
-                        <h2 className="subscription-header">Subscription</h2>
-                        <div className='subscription-message-container'>
-                            <h2 className='your-subscription-header'>Your Subscription:</h2>
-                            <p className = 'subscription-message'>{this.state.message}</p>
-                        </div> 
-                        <StripeProvider apiKey="pk_test_FnFtpYb3dVyUAFLHmDnjgP8g00XZuu408f">
-                            <div className="billing-form-container">
-                                <h1 className='premium-header'>Premium Subscription</h1>
-                                <Elements>
-                                    <CheckoutForm name={this.state.email} auth={this.state.authId} userId={this.state.userId} stripeId={this.state.stripeId} />
-                                </Elements>
-                            </div>
-                        </StripeProvider>
-                    </div>
+                        <div className="billing-main">
+                            <h2 className="subscription-header">Subscription</h2>
+                            <div className='subscription-message-container'>
+                                <h2 className='your-subscription-header'>Your Subscription:</h2>
+                                <p className = 'subscription-message'>{this.state.message}</p>
+                            </div> 
+                            <StripeProvider apiKey="pk_test_FnFtpYb3dVyUAFLHmDnjgP8g00XZuu408f">
+                                <div className="billing-form-container">
+                                    <h1 className='premium-header'>Premium Subscription</h1>
+                                    <Elements>
+                                        <CheckoutForm name={this.state.email} auth={this.state.authId} userId={this.state.userId} />
+                                    </Elements>
+                                </div>
+                            </StripeProvider>
+                        </div>
+                   </div> 
                 </div>
             </div>
         );
