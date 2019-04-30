@@ -37,7 +37,7 @@ class CheckoutForm extends Component {
             console.log("right before axios post ", {customer: this.props.stripeId })
             console.log(this.props.stripeId)
             axios
-            .post("http://localhost:4321/api/charge/", {customer: this.props.stripeId} )
+            .post("http://kookr.herokuapp.com/api/charge/", {customer: this.props.stripeId} )
             .then(response =>{
                 console.log("posting after user exists", response)
                 alert("Payment Success");
