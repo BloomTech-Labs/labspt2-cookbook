@@ -24,7 +24,8 @@ class CalendarPage extends Component{
             testRecipes: [],
             filteredRecipeArr : [],
             selectedRecipe : '',
-            date: null,
+            date: '',
+            servings: '',
             prevWeekArr: [],
             nextWeekArr: [],
             prevWeekRecipeArr: [],
@@ -39,7 +40,7 @@ class CalendarPage extends Component{
     async componentDidMount(){
         const userId = localStorage.getItem('userId');
         await this.setState({
-            userId : userId
+            userId : Number(userId)
      });
        this.recipeGetById();
        this.testGetRecipe();
@@ -97,14 +98,16 @@ class CalendarPage extends Component{
          
     }
     getRecipesForWeekArr = async() =>{
-        const userId = this.state.userId;
+        // const userId = this.state.userId;
         //replace the above with the below to tie to active userid based on google login
         //this.props.user[0].user_id
+        const userId = this.props.user[0].user_id
         const prevWeekArr = this.state.prevWeekArr;
+        console.log('Line 106, preveweekarr', prevWeekArr)
         const prevWeekRecipeArr = []
-        prevWeekArr.forEach(async date =>{
+        prevWeekArr.forEach( date =>{
             // const date = date
-            await axios
+            axios
                 .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${encodeURIComponent(date)}`)
                     .then(res =>{
                         // console.log(res)////Figure out how this is returning recipes
@@ -115,7 +118,7 @@ class CalendarPage extends Component{
                         } 
                     })
                     .catch(err =>{
-                        prevWeekRecipeArr.push('No recipes for this day')
+                       console.log(err)
                     })
         
             })
@@ -130,11 +133,13 @@ class CalendarPage extends Component{
         let postArr = []
         console.log(prevWeekRecipeArr);
         prevWeekRecipeArr.forEach( recipe =>{
-            if(typeof recipe === 'string'){
+            if(typeof recipe.name === 'string'){
+                console.log('Line 137')
                 const newRecipeObj = {recipe_id: null, user_id : userId, date : null, servings: null}
                 // console.log(newRecipeObj)
                 postArr.push(newRecipeObj)
             }else{
+                console.log('Line 142')
                 const recipeId = recipe.recipe_id
                 const date = recipe.date;
                 const servings = recipe.servings
@@ -142,6 +147,7 @@ class CalendarPage extends Component{
                postArr.push(newRecipeObj)
             }
         })
+        console.log('Post Arr, Line 145:', postArr)
         //AXIOS POST IS NOW IN THE CALENDAR ACTIONS
         this.props.addAllToCalendar(postArr)
 
@@ -182,6 +188,7 @@ class CalendarPage extends Component{
                 prevWeekArr:prevWeekArr,
                 nextWeekArr:nextWeekArr
             })
+            console.log('Line 87, prevweekarr, nextweekarr',this.state.prevWeekArr, this.state.nextWeekArr )
         }    
 
     //  console.log(this.state)
@@ -256,17 +263,81 @@ class CalendarPage extends Component{
             duplicate:true
         })
     }
-    postToSchedule = () =>{
-
-    }
+    
     onSaveFunction = async(event) =>{
         event.preventDefault()
         if(this.state.duplicate){
-            await  this.duplicatePreviousWeek();
-        }
+            if(!this.state.date){
+                alert('Please select a start date for week duplication')
+            }else{
+                await  this.duplicatePreviousWeek();
+            }
+        }else if(!this.state.date){
+            alert('Please select a date')
+        }else if(!this.state.selectedRecipe){
+            alert('Please search and select a recipe befopre continuing')
+        }else{
+
             await this.postToSchedule();
+        }
+            
+    }
+
+    convertTagToId = (tag) =>{
+        let tagId = null
+        if(tag === 'breakfast'){
+            tagId = 1
+            return tagId
+        }else if(tag === 'lunch'){
+            tagId = 2
+            return tagId
+        }else if(tag === 'dinner'){
+            tagId = 3
+            return tagId
+        }else if(tag === 'dessert'){
+            tagId = 4
+            return tagId
+        }else if(tag === 'snack'){
+            tagId = 5
+            return tagId
+        }else{
+            tagId = 6
+            return tagId
+        }
+        
     }
     
+    postToSchedule = () =>{
+        // console.log(this.state)
+        const tag = this.state.tag;
+        const tagId = this.convertTagToId(tag)
+        console.log(tagId)
+        const date = this.state.date;
+        const userId = this.state.userId;
+        const servings = Number(this.state.servings);
+        const recipeId = this.state.selectedRecipe.recipe_id;
+        const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
+        console.log('Schedule List, line 315', scheduleList)
+    
+            axios
+            .post('http://localhost:4321/api/schedule', scheduleList)
+                // .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
+                    .then(res =>{
+                        console.log(res);
+                    })
+                    .catch(err =>{
+                        console.log(err);
+                    })
+            
+                 
+    }
+    servingsAdjustor = async (event) =>{
+        await this.setState({
+            [event.target.name] : event.target.value
+        });
+        console.log(this.state.servings); 
+    }
+
     openServingsModal = () =>{
         this.setState({
             servingsModal:true
@@ -328,7 +399,7 @@ class CalendarPage extends Component{
                             <div className='servings-and-edit-section'>
                                 <div className='servings-and-duplicate-container'>
                                     <p>How many servings?</p>
-                                    <input className = 'servings-input'type="number" min="1" />
+                                    <input className = 'servings-input'type="number" min="1" name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor}/>
                                     <p className='check-box-p'>Duplicate previous week's shopping list</p>
                                     <input type="checkbox" id='check-box' className ='check-box' onClick = {this.duplicateClicked}/>
                                     
@@ -353,7 +424,7 @@ class CalendarPage extends Component{
                                         <div className = 'calendar-servings-modal'>
                                             <div className='close-calendar-servings' onClick={this.closeServingsModal}>X</div>
                                             <p className='calendar-servings-p-mobile'>Select servings</p>
-                                            <input className = 'calendar-servings-input-mobile'type="number" min="1" />
+                                            <input className = 'calendar-servings-input-mobile'type="number" min="1" name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor}/>
                                             <p className='calendar-duplicate-p-mobile'>Duplicate previous week's shopping list</p>
                                             <input type="checkbox" id='check-box' className ='check-box-mobile'/>
                                         </div> 

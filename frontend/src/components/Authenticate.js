@@ -32,10 +32,10 @@ const Authenticate = (PassedComponent) =>{
                 return(
                     
                     <Router>
-                        {/* {!this.state.loggedIn && <Route exact path='/' render = {(props) => < LandingPage {...props}/>} /> } */}
+                        {!this.state.loggedIn && <Route exact path='/' render = {(props) => < LandingPage {...props}/>} /> }
                         {/* <Redirect exact to = '/' /> */}
                         {/* {!this.state.loggedIn && <Route exact path='/create' render = {(props) => <ReturnToLanding {...props}  />}/>} */}
-                        {!this.state.loggedIn && <Route exact path='/calendar' render = {(props) => <ReturnToLanding {...props}  />}/>}
+                        {/* {!this.state.loggedIn && <Route exact path='/calendar' render = {(props) => <ReturnToLanding {...props}  />}/>} */}
                     </Router>
                 )  
             }

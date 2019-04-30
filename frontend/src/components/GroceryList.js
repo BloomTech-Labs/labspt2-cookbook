@@ -92,9 +92,11 @@ class GroceryList extends Component{
             console.log(err)
         })
     }
-    toggleClass = () =>{
+    toggleClass = async() =>{
         const currentState = this.state.active;
-        this.setState({ active: !currentState });
+        console.log(currentState)
+        await this.setState({ active: !currentState });
+        console.log('Line 99', this.state.active)
     };
     // servingsAdjustor = () =>{
     //     const testIngredients = this.state.testRecipeData.ingredients

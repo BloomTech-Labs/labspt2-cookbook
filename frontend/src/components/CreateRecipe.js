@@ -157,9 +157,7 @@ postToSchedule = () =>{
     const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
     console.log(scheduleList)
     
-    if(tag === null){
-        alert('Please select a tag for your recipe')
-    }else if(date.length === 0){
+  if(date.length === 0){
         alert('Please  select a date for  your recipe')
     }else{
         axios
