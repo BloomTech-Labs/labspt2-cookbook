@@ -34,7 +34,7 @@ class LandingPage extends React.Component{
         });
         console.log(this.state);
         axios
-            .get(`http://localhost:4321/api/user/auth/${this.state.authId}`)
+            .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
             .then(response =>{
                 console.log(response.data)
                 if(response.data.length){

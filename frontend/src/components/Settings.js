@@ -33,11 +33,7 @@ async componentDidMount(){
 
 getCurrentUser = async() =>{
     await axios
-<<<<<<< HEAD
         .get(`https://kookr.herokuapp.com/api/user/${this.state.userId}`)
-=======
-        .get(`https://kookr.herokuapp.com/api/user${this.state.userId}`)
->>>>>>> 9ecc6b7a2f675ff01c84f76325ac653295235efa
             .then(res =>{
                 console.log("response from get user", res)
                 this.setState({
