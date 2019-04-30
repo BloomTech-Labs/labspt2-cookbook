@@ -17,12 +17,20 @@ class GroceryList extends Component{
           startDate : '',
           stopDate:  '',
           ingArrOne: [],
-          ingArrTwo: []
+          ingArrTwo: [],
+          active: false,
+          userId : null,
+          dateArr: [], 
+          recipeArr: []
 
         }
     }
 
     componentDidMount(){
+        const userId = localStorage.getItem('userId')
+        this.setState({
+            userId : userId
+        })
         this.getRecipe()
     }
     clickHandler = (event) =>{
@@ -33,7 +41,7 @@ class GroceryList extends Component{
             [event.target.name] : event.target.value
         })
     }
-    getDates = () => {
+    getDates = async() => {
         var dateArray = [];
         var currentDate = moment(this.state.startDate);
         
@@ -45,7 +53,10 @@ class GroceryList extends Component{
         }
  
         console.log(dateArray);
-        return dateArray;
+       
+        await this.setState({
+            dateArr: dateArray
+        })
         
     }
 
@@ -78,9 +89,11 @@ class GroceryList extends Component{
         .catch(err =>{
             console.log(err)
         })
-
-        
     }
+    toggleClass = () =>{
+        const currentState = this.state.active;
+        this.setState({ active: !currentState });
+    };
     // servingsAdjustor = () =>{
     //     const testIngredients = this.state.testRecipeData.ingredients
     //     const testIngredientsAmount = this.state.testRecipeData.ingredients.amount
@@ -102,13 +115,65 @@ class GroceryList extends Component{
     //         }
     //     }
     // }
-  
-    generateList = () =>{
-       this.getDates()
+    getRecipesByDate = () =>{
+        const dateArr = this.state.dateArr;
+        console.log(dateArr)
+        const userId = this.state.userId;
+        console.log(userId)
+        let recipeArrForDates = []
+        dateArr.forEach(date =>{
+          axios
+            .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${date}`)
+                .then(res =>{
+                    console.log(res);
+                    recipeArrForDates.push(res.data)
+                })
+                .catch(err =>{
+                    console.log(err)
+
+                })
+        })
+        this.setState({
+            recipeArr : recipeArrForDates
+        })
+       
+    }
+    getRecipeData = () =>{
+        const recipeArr = this.state.recipeArr
+        recipeArr.forEach(recipe =>{
+            axios
+            .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe}`)
+            .then(res =>{
+                res.data.forEach((element,index)=>{
+                    console.log(res)
+                    let tempIng ="";
+                    if(element.amount !== null){
+                        tempIng += formatQuantity(element.amount) + " ";
+                    } 
+                    if ( element.measurement !== null){
+                        tempIng += element.measurement + " ";
+                    } 
+                    tempIng += element.name
+                    
+                    
+                })
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        })
+       
+    }
+    ///get ingredients for recipes
+    generateList = async() =>{
+       await this.getDates();
+       await this.getRecipesByDate();
+       await this.getRecipeData();
+    
     }
     render(){
-        console.log(this.state.startDate);
-        console.log(this.state.stopDate);
+        // console.log(this.state.startDate);
+        // console.log(this.state.stopDate);
         return (
             <div className="GroceryList">
                 <NavBar />
@@ -145,12 +210,13 @@ class GroceryList extends Component{
                                 <div className="shopping-list">
                                     <ul className = 'list-row-one'>
                                         {this.state.ingArrOne.map(item =>(
-                                            <li>{item}</li>
+                                            <li className={this.state.active ? ' ing selected': 'ing'} 
+                                            onclick={this.toggleClass}>{item}</li>
                                         ))}
                                     </ul>
                                     <ul className = 'list-row-two'>
                                         {this.state.ingArrTwo.map(item =>(
-                                            <li>{item}</li>
+                                            <li className = 'ing'>{item}</li>
                                         ))}
                                     </ul>
                                 </div>

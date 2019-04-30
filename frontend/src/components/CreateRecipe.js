@@ -21,7 +21,7 @@ class CreateRecipe extends React.Component{
       
       this.state = {
         recipeUrl: '',
-        userId: '', 
+        userId: null, 
         tagModal: false,
         tag: null,
         recipe: [],
@@ -33,12 +33,13 @@ class CreateRecipe extends React.Component{
         date: ''
       }
   }
- componentDidMount(){
+ async componentDidMount(){
     const userId = localStorage.getItem('userId');
-    this.setState({
-         userId : userId
+    await this.setState({
+         userId : Number(userId)
      });
      this.testGetRecipe();
+     await console.log(this.state)
  }
 
  dropHandler = event =>{
@@ -47,12 +48,14 @@ class CreateRecipe extends React.Component{
         recipeUrl : url
     })
 }
-postRecipe = (event) =>{
+postRecipe = async(event) =>{
     event.preventDefault();
-    const recipeAndUser = { name : '', user_id : `${this.state.userId}`, recipeUrl : `${this.state.recipeUrl}`};
-    const newRecipeObj = Object.assign({},recipeAndUser);
-    axios
-        .post('https://kookr.herokuapp.com/api/recipes', {newRecipeObj})
+    const userId = this.state.userId;
+    const recipeAndUser = { user_id : userId, link : `${this.state.recipeUrl}`};
+    console.log(recipeAndUser)
+    await axios
+        // .post('http://localhost:4321/api/recipes', recipeAndUser)
+        .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
             .then(response =>{
                 console.log(response);
                 this.setState({
@@ -61,9 +64,11 @@ postRecipe = (event) =>{
             })
             .catch(err =>{
                 console.log('Could not add new recipe obj', err);
+                console.log(err.response)
+              
             })
-    // console.log(newRecipeObj);
 }
+
 testGetRecipe = async() =>{
     await axios
         .get(`https://kookr.herokuapp.com/api/recipes/user/1`)
@@ -92,7 +97,7 @@ dayClick = (clickedDay) =>{
     var MyDateString;
     MyDateString = MyDate.getFullYear() + '/'
     + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
-    + ('0' + MyDate.getDate()).slice(-2) + '/'
+    + ('0' + MyDate.getDate()).slice(-2)
     this.setState({
         date: MyDateString
     });
@@ -105,30 +110,44 @@ clickHandle = async(event,  type) =>{
     })
     console.log(this.state.tag);
 }
-
-postTagToRecipe = () =>{
-    const tag = this.state.tag;
-    const recipeId = this.state.recipe.recipe_id;
-    axios
-        .post(`https://kookr.herokuapp.com/api/tags/recipe/${recipeId}`, tag)
-            .then(res =>{
-                console.log(res)
-            })
-            .catch(err =>{
-                console.log('Error adding tag to recipe by id', err)
-            })
+convertTagToId = (tag) =>{
+    let tagId = null
+    if(tag === 'breakfast'){
+        tagId = 1
+        return tagId
+    }else if(tag === 'lunch'){
+        tagId = 2
+        return tagId
+    }else if(tag === 'dinner'){
+        tagId = 3
+        return tagId
+    }else if(tag === 'dessert'){
+        tagId = 4
+        return tagId
+    }else if(tag === 'snack'){
+        tagId = 5
+        return tagId
+    }else{
+        tagId = 6
+        return tagId
+    }
 }
 
 postToSchedule = () =>{
+    // console.log(this.state)
+    const tag = this.state.tag;
+    const tagId = this.convertTagToId(tag)
     const date = this.state.date;
     const userId = this.state.userId;
-    const servings = this.state.servings;
-    const recipeId = this.state.recipe.recipe_id
-    const shoppingList = {date: date, userId:userId, recipeId: recipeId, servings: servings}
-    const newShoppingListObj = Object.assign({}, shoppingList);
-    
+    const servings = Number(this.state.servings);
+    // const recipeId = this.state.recipe.recipe_id;
+    const recipeId = this.state.testRecipeData[0];
+    const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
+    console.log(scheduleList)
+
     axios
-        .post(`https://kookr.herokuapp.com/api/schedule`, {newShoppingListObj})
+    // .post('http://localhost:4321/api/schedule', scheduleList)
+        .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
             .then(res =>{
                 console.log(res);
             })
@@ -136,15 +155,12 @@ postToSchedule = () =>{
                 console.log(err);
             })
 }
-postsOnSubmit = () =>{
-    this.postTagToRecipe();
-    this.postToSchedule();
-}
+
 servingsAdjustor = async (event) =>{
     await this.setState({
         [event.target.name] : event.target.value
     });
-    console.log(this.state.servings); 
+    // console.log(this.state.servings); 
 }
 openTagsMobile = () =>{
     this.setState({
@@ -169,7 +185,7 @@ closeCalendarMobile = () =>{
 
     render(){
         const {testRecipe} = this.state
-        console.log(this.state);
+        // console.log(this.state);
         const {testRecipeData} = this.state
         return(
             <div className='Create-Recipe'>
@@ -244,7 +260,7 @@ closeCalendarMobile = () =>{
                                 </div>
                             </div>
                             <div className='meal-tag-mobile-button'>
-                                <h3 className='meal-tag-header-mobile' onClick = {this.openTagsMobile}>Add Meal Tag</h3>
+                                <h3 className='meal-tag-header-mobile' onClick = {this.openTagsMobile}>Add Meal Tag <img className ='fork' src = '../images/fork.png'/></h3>
                                     <div className= {this.state.tagModal ? 'meal-tag-modal-mobile-open' : 'meal-tag-modal-mobile-closed'}>
                                         <div className='meal-tag-modal-sub'>
                                             <div className='meal-tag-close' onClick={this.closeTagsMobile}>X</div>
@@ -272,7 +288,7 @@ closeCalendarMobile = () =>{
                                     </div>
                             </div>
                             <div className='calendar-mobile'>
-                                <h3  className = 'calendar-modal-click-header' onClick={this.openCalendarMobile}>Add Recipe to Calendar</h3>
+                                <h3  className = 'calendar-modal-click-header' onClick={this.openCalendarMobile}>Add Recipe to Calendar<img className = 'calendar-icon' src ='../images/calendar-yes.png' /></h3>
                                 <div className={this.state.calendarModal ? 'calendar-mobile-open' : 'calendar-mobile-closed'}>
                                     <div className= 'mobile-calendar-modal'>
                                         <div className= 'mobile-calendar-header-section'>
@@ -281,10 +297,14 @@ closeCalendarMobile = () =>{
                                         </div>
                                        
                                         <Calendar calendarType = {'US'} onClickDay = {this.dayClick}/>
+                                        <div className='servings-container-mobile'>
+                                            <p className='edit-servings-p-mobile'>How many servings?</p>
+                                            <input className ='servings-input-mobile' name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" /> 
+                                        </div>
                                     </div>    
                                 </div>    
                             </div>
-                            <div className='add-recipe-button-mobile' onClick={this.postTagToRecipe}> Save </div>
+                            <div className='add-recipe-button-mobile' onClick={this.postToSchedule}> Save </div>
                         </div>     
                         <div className='recipe-modification-section'>
                             <div className='calendar-section'>
@@ -297,7 +317,7 @@ closeCalendarMobile = () =>{
                                     <p className='edit-servings-p'>How many servings?</p>
                                     <input className ='servings-input' name = 'servings' value = {this.state.servings} onChange = {this.servingsAdjustor} type="number" min="1" /> 
                                 </div>
-                                <div className='add-recipe-button' onClick={this.postsOnSubmit}> Save </div> 
+                                <div className='add-recipe-button' onClick={this.postToSchedule}> Save </div> 
                             </div>
                         </div>
                     </div>    
@@ -310,7 +330,7 @@ closeCalendarMobile = () =>{
 const mapDispatchtoProps = (dispatch) => bindActionCreators({addDirections, addIngredients, addRecipe, addRecipeIngredients, addTag},dispatch)
 
 const mapStateToProps = state => {
-    console.log(state)
+    // console.log(state)
     return {
         user: state.UserReducer.user,
         recipes: state.RecipeReducer.recipes,

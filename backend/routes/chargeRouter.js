@@ -17,36 +17,16 @@ router.post("/user", async (req, res) => {
             console.log(err)
         })
 
+});
 
+router.post("/", (req, res)=>{
+    const customer = req.body.customer
 
-
-    // stripe.subscriptions.create({
-    //     customer: 'cus_4fdAW5ftNQow1a',
-    //     items: [{plan: 'plan_CBXbz9i7AIOTzr'}],
-    // });
-    
+    stripe.subscriptions.create({
+        customer: customer,
+        items: [{plan: 'plan_EtW1Z1LBDe3p19'}]
+    })
 });
 
 
 module.exports = router;
-
-// await stripe.charges.create({
-//     amount: 1000,
-//     currency: "usd",
-//     description: "Subscription to Kookr",
-//     source: token
-
-// await stripe.plans.create({
-//     amount: 1000,
-//     currency: 'usd',
-//     interval: 'month',
-//     nickname: 'Pro Plan',
-//     product: 'prod_EtVvKM8DFLmojT',
-// })
-// .then( status =>{
-//     res.json(status)
-
-// })
-// .catch(err =>{
-//     res.json({"error": err}).end();
-// })

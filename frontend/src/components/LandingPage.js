@@ -9,7 +9,7 @@ class LandingPage extends React.Component{
     state={ 
         show: false,
         email: "",
-        authId: '',
+        authId: "",
     };
 
     openModal = () =>{
@@ -22,55 +22,54 @@ class LandingPage extends React.Component{
 
     };
     
+    
 //Post user not working
 //How to grab user Id after post ?? res.data? set user Id to local storage -change instances of user id in routes on other pages
     submitHandler = async (googleObj) =>{
         await this.setState({
-            email: googleObj.profileObj.email,
-            authId: googleObj.googleId
+            // email: googleObj.profileObj.email,
+            email:"emailandstuff.com",
+            // authId: googleObj.googleId
+            authId: "779802nnjs02iup2je2dflsd"
         });
         console.log(this.state);
-        //console.log(this.state);
-        // this.props.idClickHandler(this.state.authId);
-       axios
+        axios
             .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
             .then(response =>{
-                console.log("from axios get", response);
-                const existingUser = response.data.user_id;
-                if(!existingUser){
-                    this.postNewUser()
+                console.log(response.data)
+                if(response.data.length){
+                    localStorage.setItem('userId', response.data[0])
                 }else{
-                    console.log('user  already exists, redirecting');
-                    localStorage.setItem('userId', existingUser);
+                    this.postNewUser();
                 }
             })
             .catch(err =>{
-                console.log(err);
+                // console.log(err.response)
+                if(err.response.status === 404){
+                    this.postNewUser();
+                }
+                
             })
     }
-    postNewUser = () =>{
-        console.log("from axios post", this.state)
-        axios
-            .post('https://kookr.herokuapp.com/api/user', {
-                auth_id: this.state.authId, 
-                email: this.state.email,
-                type: 0,
-                billing_date: null
-            })
+
+    postNewUser = async() =>{
+        // console.log("from axios post", this.state)
+        const authId = this.state.authId;
+        const email = this.state.email;
+        const newUserObj = {auth_id:authId, email:email}
+        console.log(newUserObj)
+        await axios
+            .post('https://kookr.herokuapp.com/api/user', newUserObj)
             .then(response => {
-                const newUser = response.data.user_id;
-                console.log(response);
-                localStorage.setItem('userId', newUser) //??  Test this bad boy
+                
+                console.log(response[0]);
+                localStorage.setItem('userId', response.data[0]) //??  Test this bad boy Number(newUserId)
             })
             .catch( err =>{
-                console.log(err);
+                console.log(err.response);
             })
-
-        this.setState({
-            email: "",
-            
-        })
     }
+
     responseGoogleSuccess = (response) => {
         console.log(response)
         this.submitHandler(response);
@@ -88,10 +87,10 @@ class LandingPage extends React.Component{
                 <div className = 'landing-page-background'></div>
                 <div className='landing-page-nav-bar'>
                     <div className='social-media-container'>
-                        <i class="fab fa-google-plus-g" ></i>
-                        <i class="fab fa-facebook-f" ></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-twitter" ></i>
+                        <i className="fab fa-google-plus-g" ></i>
+                        <i className="fab fa-facebook-f" ></i>
+                        <i className="fab fa-instagram"></i>
+                        <i className="fab fa-twitter" ></i>
                     </div> 
                     <div className = 'landing-logo-container'>
                         <img className = 'landing-logo'src= '../images/logo.png'/>
