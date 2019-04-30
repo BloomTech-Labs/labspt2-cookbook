@@ -32,11 +32,11 @@ class LandingPage extends React.Component{
         });
         console.log(this.state);
         axios
-            .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
+            .get(`http://localhost:4321/api/user/auth/${this.state.authId}`)
             .then(response =>{
-                console.log(response)
-                localStorage.setItem('userId', response.data.user_id) //Number?
-           
+                console.log(response.data[0])
+                localStorage.setItem('userId', response.data[0]) //Number?
+                console.log("this dumb butt")
             })
             .catch(err =>{
                 console.log(err.response);

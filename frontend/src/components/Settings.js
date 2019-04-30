@@ -33,7 +33,7 @@ async componentDidMount(){
 
 getCurrentUser = async() =>{
     await axios
-        .get(`http://localhost:4321/api/user/${this.state.userId}`)
+        .get(`https://kookr.herokuapp.com/api/user/${this.state.userId}`)
             .then(res =>{
                 console.log("response from get user", res)
                 this.setState({
@@ -100,7 +100,7 @@ checkSubscription=()=>{
                             <div className="billing-form-container">
                                 <h1 className='premium-header'>Premium Subscription</h1>
                                 <Elements>
-                                    <CheckoutForm name={this.state.email} auth={this.state.authId} userId={this.state.userId} />
+                                    <CheckoutForm name={this.state.email} auth={this.state.authId} userId={this.state.userId} stripeId={this.state.stripeId} />
                                 </Elements>
                             </div>
                         </StripeProvider>

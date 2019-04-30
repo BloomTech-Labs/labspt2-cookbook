@@ -38,8 +38,6 @@ server.use(
   bodyParser.text(),
 );
 
-//server.use(require("body-parser").text());
-
 
 /* ---------- Routes ---------- */
 server.options('*', cors());

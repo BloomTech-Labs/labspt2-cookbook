@@ -44,7 +44,7 @@ router.get('/auth/:authId', (req, res) =>{
 
   user.getByAuth(authId)
     .then( (user) =>{
-      if( user) {
+      if( user.length !==0) {
         res.json(user);
       } else {
         res.status(404).json({error: "Authentication ID not found"})
