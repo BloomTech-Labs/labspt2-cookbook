@@ -58,6 +58,7 @@ module.exports = {
         .transacting(trans)
         .where('name', ing.name).first().pluck('ing_id')
         .then( ([ing_id]) => {
+          console.log(`=== Ing_id: ${ing_id} ===`);
           if( !ing_id || ing_id <= 0 ) {
 
             // No ingredient found. Insert it.
@@ -66,6 +67,7 @@ module.exports = {
               .insert({name: ing.name})
               .returning('ing_id')
               .then(([id]) => {
+                console.log(`=== Ins id: ${id}`);
                 return id;
               })
             // end - insert into ingredients
@@ -73,7 +75,7 @@ module.exports = {
           return ing_id;
         })
         .then( (ing_id) => {
-
+          console.log(`=== then id: ${ing_id} ===`);
           // Now insert into the join table
           return db('recipe_ingredients')
             .transacting(trans)
@@ -85,6 +87,7 @@ module.exports = {
             })
             .returning('id')
             .then( ([id]) => {
+              console.log(`=== returning id: ${id}`);
               return id;
             });
           // end - insert into recipe_ingredients
@@ -93,7 +96,7 @@ module.exports = {
         .catch(trans.rollback)
     })
     .catch( (err) => {
-      console.log("error: ", err);
+      console.log("error in insert ingredient: ", err);
     })
   },
 
