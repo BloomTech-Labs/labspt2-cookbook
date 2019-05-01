@@ -44,8 +44,6 @@ server.options("/*", function(req, res, next){
   res.send(200);
 });
 
-//server.use(require("body-parser").text());
-
 
 /* ---------- Routes ---------- */
 server.options('*', cors());
