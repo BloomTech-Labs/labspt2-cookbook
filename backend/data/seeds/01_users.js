@@ -4,7 +4,6 @@ const faker = require('faker');
 
 const createFakeUser = () => ({
   auth_id: faker.random.alphaNumeric(25),
-  stripe_id: '',
   email: faker.internet.email(),
   type: 0,
   billing_date: faker.date.future()

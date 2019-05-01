@@ -117,6 +117,7 @@ module.exports = {
           .then( (result) => {
             // Add all ingredients
             const recipe_id = result[0];
+            console.log(`=== recipe_id: ${recipe_id} ===`);
             if( recipe.ingredients && recipe.ingredients !== null ) {
               ingredientHelper.multiInsert(recipe_id, recipe.ingredients);
             }
