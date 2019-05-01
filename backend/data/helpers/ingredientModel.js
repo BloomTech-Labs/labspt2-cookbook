@@ -64,6 +64,7 @@ module.exports = {
             return db('ingredients')
               .transacting(trans)
               .insert({name: ing.name})
+              .returning('ing_id')
               .then(([id]) => {
                 return id;
               })
@@ -82,6 +83,7 @@ module.exports = {
               measurement: ing.measurement,
               ing_id: ing_id
             })
+            .returning('id')
             .then( ([id]) => {
               return id;
             });
