@@ -110,11 +110,10 @@ module.exports = {
         return db('recipes')
           .transacting(trans)
           .insert({
-            recipe_id: 0,
             name: recipe.name,
             image: recipe.image,
             link: recipe.link
-          })
+          }).returning('recipe_id')
           .then( (result) => {
             // Add all ingredients
             const recipe_id = result[0];
