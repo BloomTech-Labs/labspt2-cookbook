@@ -28,7 +28,8 @@ module.exports = {
     },
     seeds: {
       directory: __dirname + '/data/seeds'
-    }
+    },
+    useNullAsDefault: true
   }
 
 };
