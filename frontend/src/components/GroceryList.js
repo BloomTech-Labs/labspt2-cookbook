@@ -29,7 +29,7 @@ class GroceryList extends Component{
     componentDidMount(){
         const userId = localStorage.getItem('userId')
         this.setState({
-            userId : userId
+            userId : Number(userId)
         })
         this.getRecipe()
     }
@@ -67,7 +67,7 @@ class GroceryList extends Component{
         .get('https://kookr.herokuapp.com/api/ingredients/recipe/1')
         .then(res =>{
             res.data.forEach((element,index)=>{
-                console.log(res)
+                // console.log(res)
                 let tempIng ="";
                 if(element.amount !== null){
                     tempIng += formatQuantity(element.amount) + " ";
@@ -130,7 +130,7 @@ class GroceryList extends Component{
           axios
             .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${date}`)
                 .then(res =>{
-                    console.log(res);
+                    // console.log(res);
                     recipeArrForDates.push( ...Object.values(res.data))
                 })
                 .catch(err =>{

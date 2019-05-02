@@ -101,13 +101,14 @@ class CalendarPage extends Component{
         // const userId = this.state.userId;
         //replace the above with the below to tie to active userid based on google login
         //this.props.user[0].user_id
-        const userId = this.props.user[0].user_id
+        // const userId = this.props.user[0].user_id
+        const userId = 1
         const prevWeekArr = this.state.prevWeekArr;
         console.log('Line 106, preveweekarr', prevWeekArr)
         const prevWeekRecipeArr = []
-        prevWeekArr.forEach( date =>{
+        await prevWeekArr.forEach(async date =>{
             // const date = date
-            axios
+           await axios
                 .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${encodeURIComponent(date)}`)
                     .then(res =>{
                         // console.log(res)////Figure out how this is returning recipes
@@ -122,35 +123,43 @@ class CalendarPage extends Component{
                     })
         
             })
-        this.setState({
+        await this.setState({
             prevWeekRecipeArr : prevWeekRecipeArr
         })
-        console.log(this.state.prevWeekRecipeArr)
+        // console.log(this.state.prevWeekRecipeArr)
     }
     postNextWeekRecipeArr = () =>{
         const userId = this.state.userId;
-        const prevWeekRecipeArr = this.state.prevWeekRecipeArr;
-        let postArr = []
+        const {prevWeekRecipeArr }= this.state;
         console.log(prevWeekRecipeArr);
-        prevWeekRecipeArr.forEach( recipe =>{
+        // console.log('Hi')
+        const arrayHere = prevWeekRecipeArr
+       arrayHere.forEach(element =>{
+            console.log(element)
+       })
+        Object.values(prevWeekRecipeArr).map((recipe, index )=>{
+            // debugger       
             if(typeof recipe.name === 'string'){
                 console.log('Line 137')
                 const newRecipeObj = {recipe_id: null, user_id : userId, date : null, servings: null}
                 // console.log(newRecipeObj)
-                postArr.push(newRecipeObj)
+                // postArr.push(newRecipeObj)
+                return newRecipeObj
             }else{
                 console.log('Line 142')
                 const recipeId = recipe.recipe_id
                 const date = recipe.date;
                 const servings = recipe.servings
                 const newRecipeObj = {recipe_id: recipeId, user_id : userId, date : date, servings: servings}
-               postArr.push(newRecipeObj)
+            // postArr.push(newRecipeObj)
+            return newRecipeObj
             }
-            
+        
         })
-        console.log('Post Arr, Line 145:', postArr)
+        
+        // console.log('Post Arr, Line 152:', postArr)
         //AXIOS POST IS NOW IN THE CALENDAR ACTIONS
-        this.props.addAllToCalendar(postArr)
+        // this.props.addAllToCalendar(postArr)
 
         // postArr.forEach(recipePost =>{
         //     axios
@@ -228,7 +237,6 @@ class CalendarPage extends Component{
         const recipesArray = this.props.recipes;
         
         event.preventDefault();
-        // const updatedArr = this.state.recipes;
         const testArr = this.state.testRecipes;
         const inputValue = event.target.value
         if(!event.target.value){
@@ -236,11 +244,16 @@ class CalendarPage extends Component{
                 filteredRecipeArr : []
             })
         }else{
-            const updatedArr = recipesArray.filter(element =>{
-                return element.name.toLowerCase().includes(inputValue.toLowerCase())
-            })
-            this.setState({filteredRecipeArr: updatedArr});
-        }
+        //     const updatedArr = recipesArray.filter(element =>{
+        //         return element.name.toLowerCase().includes(inputValue.toLowerCase())
+        //     })
+        //     this.setState({filteredRecipeArr: updatedArr});
+        // }
+        const updatedArr = testArr.filter(element =>{
+            return element.name.toLowerCase().includes(inputValue.toLowerCase())
+        })
+        this.setState({filteredRecipeArr: updatedArr});
+    }
     }
      //Sets state for selected searched recipe  
     onSelectRecipe = async(selectedRecipe) =>{

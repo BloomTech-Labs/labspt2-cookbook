@@ -19,7 +19,7 @@ const Authenticate = (PassedComponent) =>{
                     loggedIn: false
                 })
             }else{
-                this.setState({
+                await this.setState({
                     loggedIn:true
                 })
             }

@@ -65,8 +65,8 @@ postRecipe = async(event) =>{
         alert('Please enter a recipe url and try submitting again')
     }else {
     await axios
-        // .post('http://localhost:4321/api/recipes', recipeAndUser)
-        .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
+        .post('http://localhost:4321/api/recipes', recipeAndUser)
+        // .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
             .then(response =>{
                 console.log(response);
                 this.setState({
@@ -161,8 +161,8 @@ postToSchedule = () =>{
         alert('Please  select a date for  your recipe')
     }else{
         axios
-        .post('http://localhost:4321/api/schedule', scheduleList)
-            // .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
+        // .post('http://localhost:4321/api/schedule', scheduleList)
+            .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
                 .then(res =>{
                     console.log(res);
                 })
