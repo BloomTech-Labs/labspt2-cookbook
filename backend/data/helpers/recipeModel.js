@@ -42,24 +42,6 @@ module.exports = {
   },
 
   
-  insertLink: async function(recipe) {
-    const [recId] = await this.recipeExists(recipe.link);
-    
-    // Check if recipe exists first.
-    if( recId > 0 ) {
-      return this.insert(recipe);
-    } else {
-      // Scrape the recipe data
-      let newRecipe = await checkUrl.checkUrl(recipe);
-      
-      newRecipe = {
-        ...newRecipe,
-        user_id: recipe.user_id
-      };
-      return (newRecipe);
-    }
-  },
-
   /*
    * insert:
    *   -- Insert a full recipe.
@@ -104,7 +86,7 @@ module.exports = {
         user_id: recipe.user_id
       };
       recipe = newRecipe;
-      console.log(recipe); 
+      //console.log(recipe); 
 
       return db.transaction( (trans) => {
         return db('recipes')
@@ -113,10 +95,11 @@ module.exports = {
             name: recipe.name,
             image: recipe.image,
             link: recipe.link
-          })
+          }).returning('recipe_id')
           .then( (result) => {
             // Add all ingredients
             const recipe_id = result[0];
+            console.log(`=== recipe_id: ${recipe_id} = result: ${result} ===`);
             if( recipe.ingredients && recipe.ingredients !== null ) {
               ingredientHelper.multiInsert(recipe_id, recipe.ingredients);
             }
