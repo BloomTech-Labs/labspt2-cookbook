@@ -25,6 +25,7 @@ module.exports = {
         order: step.order,
         directions: step.directions
       })
+      .returning('dir_id')
       .then( ([id]) => {
         return id;
       });
