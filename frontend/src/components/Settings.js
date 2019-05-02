@@ -21,21 +21,18 @@ class Settings extends Component {
         }
     }    
 async componentDidMount(){
-    //this.getUserToShowChrisThatWeCan();
     let localUserId = await localStorage.getItem('userId')
     await this.setState({
         userId : Number(localUserId)
     });
     await this.getCurrentUser();
     this.checkSubscription();
-    console.log("from component did mount", this.state)
 }
 
 getCurrentUser = async() =>{
     await axios
         .get(`https://kookr.herokuapp.com/api/user/${this.state.userId}`)
             .then(res =>{
-                console.log("response from get user", res)
                 this.setState({
                     authId : res.data.auth_id,
                     billingDate : res.data.billing_date,
@@ -48,7 +45,6 @@ getCurrentUser = async() =>{
             .catch(err =>{
                 console.log(err)
             })
-            console.log("state after get current user", this.state)
 }
 
 inputHandler=(e) =>{
@@ -62,7 +58,7 @@ checkSubscription=()=>{
             message : "You do not have a subscription to Kookr. Subscribe below"})
     } else if (this.state.accountType === "1"){
         this.setState({
-            message :`Your subscription expires on ${expDate} `})
+            message :'You are subscribed to Kookr Premium'})
     }
 }
 

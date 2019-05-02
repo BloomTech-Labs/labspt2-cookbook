@@ -11,10 +11,10 @@ router.post("/user", async (req, res) => {
             source: token,
         })
         .then(response =>{
-            res.json(response)
+            res.status(201).json(response)
         })
         .catch(err=>{
-            console.log(err)
+            res.status(500).json({error: "Could not create a new customer"})
         })
 
 });
@@ -27,11 +27,11 @@ router.post("/", (req, res)=>{
         items: [{plan: 'plan_EtW1Z1LBDe3p19'}]
     })
     .then(response =>{
-        res.json(response)
+        res.status(201).json(response)
         
     })
     .catch(err=>{
-        console.log(err)
+        res.status(500).json({error: "Could not add subscription to customer"})
     })
 });
 
