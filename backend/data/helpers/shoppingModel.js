@@ -12,6 +12,7 @@ module.exports = {
       user_id: id,
       ...item
     })
+    .returning('id')
     .then( ([id]) => this.getById(id) );
   },
 
