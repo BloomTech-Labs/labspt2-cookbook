@@ -25,8 +25,10 @@ const UserReducer = ((state = initialState, action) => {
             return state
 
         case ADD_USER:
-        state = Object.assign({}, state, {recipes: state.recipes.push(action.payload)})
-            return state
+        //state = Object.assign({}, state, {recipes: state.recipes.push(action.payload)})
+            return {
+                user: [action.payload.user]
+            }
 
         case DELETE_USER:
             return state

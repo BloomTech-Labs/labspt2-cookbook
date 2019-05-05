@@ -1,4 +1,4 @@
-import { GET_RECIPES_BY_TAG, ADD_CALENDAR_ITEM, DELETE_CALENDAR_ITEM, UPDATE_CALENDAR_ITEM, GET_CALENDAR_ITEM, ADD_CALENDAR_ITEMS} from '../actions/CalendarActions';
+import {GET_ALL_SCHEDULE_ITEMS, GET_RECIPES_BY_TAG, ADD_CALENDAR_ITEM, DELETE_CALENDAR_ITEM, UPDATE_CALENDAR_ITEM, GET_CALENDAR_ITEM, ADD_CALENDAR_ITEMS} from '../actions/CalendarActions';
 
 
 const initialState = {
@@ -25,17 +25,23 @@ const CalendarReducer = ((state = initialState, action) => {
     switch (action.type) {
 
         case GET_CALENDAR_ITEM:
-           console.log(action)
-           console.log(state)
+
            let i 
         for(i = 0; i <= state.length + 1; i++ ){
             if(action.payload.recipe_id === state.calendar[i].recipe_id) {
                 state = [state.calendar[i]]
             }
         } 
-            console.log(state)
+        
            return state
+
+        case GET_ALL_SCHEDULE_ITEMS:
+      
+        
             
+            return { state,
+                calendar: [{...action.payload}]
+            }
            //return [...]
             case ADD_CALENDAR_ITEM:
             state = Object.assign({}, state, {calendar: state.calendar.push(action.payload)})
