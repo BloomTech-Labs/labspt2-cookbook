@@ -78,7 +78,7 @@ class LandingPage extends React.Component{
             })
     }
 
-    responseGoogleSuccess = (response) => {
+    responseGoogleSuccess = async(response) => {
         console.log(response)
         this.submitHandler(response);
         this.props.history.push('/create');
