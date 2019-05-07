@@ -3,7 +3,8 @@ import GoogleLogin from 'react-google-login';
 import  '../css/LandingPage.css';
 import { connect } from 'react-redux';
 import axios from 'axios';
-
+import {addUser} from '../actions/UserActions';
+import { bindActionCreators } from '../../../../../../../AppData/Local/Microsoft/TypeScript/3.4.3/node_modules/redux';
 
 class LandingPage extends React.Component{
     state={ 
@@ -39,6 +40,7 @@ class LandingPage extends React.Component{
                 console.log(response.data)
                 if(response.data.length){
                     localStorage.setItem('userId', response.data[0])
+                    
                 }else{
                     this.postNewUser();
                 }
@@ -64,6 +66,12 @@ class LandingPage extends React.Component{
                 
                 console.log(response[0]);
                 localStorage.setItem('userId', response.data[0]) //??  Test this bad boy Number(newUserId)
+                //adds the user to the reducer
+                //this.props.addUser(response.data[0])
+
+                //to reference the user within the application use
+                //this.props.user[0].user_id
+
             })
             .catch( err =>{
                 console.log(err.response);
@@ -187,6 +195,8 @@ class LandingPage extends React.Component{
     }
 }
 
+const mapDispatchToProps = (dispatch) => bindActionCreators({addUser}, dispatch)
+
 
 const mapStateToProps = state => {
     return {
@@ -195,4 +205,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps)(LandingPage)
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)

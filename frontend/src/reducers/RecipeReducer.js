@@ -1,5 +1,5 @@
 
-import {GET_RECIPES_BY_TAG, GET_RECIPES, ADD_RECIPE, DELETE_RECIPE, UPDATE_RECIPE, GET_SELECTED_RECIPE, ADD_RECIPE_SUCCESS} from '../actions/RecipeActions';
+import {GET_RECIPES_BY_ID, GET_RECIPES_BY_TAG, GET_RECIPES, ADD_RECIPE, DELETE_RECIPE, UPDATE_RECIPE, GET_SELECTED_RECIPE, ADD_RECIPE_SUCCESS} from '../actions/RecipeActions';
 
 
 const initialState = {
@@ -24,27 +24,32 @@ const RecipeReducer = ((state = initialState, action) => {
 
         case ADD_RECIPE:
                 //might not need anything to return. the state will take care of the rest
-                console.log(action.payload)
+               
                 return {
                     recipes: [ ...state.recipes, action.payload.recipe]
                 }
-                
+        
+        case GET_RECIPES_BY_ID:
+    
+                let recipesArray = action.payload.recipes.filter(recipe => recipe.recipe_id === parseInt(action.payload.recipe_id) )
+                    // recipe.recipe_id === action.payload.recipe_id 
+                    
+                console.log(Object.keys(recipesArray[0]))
+            
+            return {...state, recipes: recipesArray}    
+        
         case GET_RECIPES_BY_TAG:                
                 
-                // if(action.payload.tag = null) {
-
-                // }
+               
                 
                 const tempArray = state.recipes.filter(recipes => recipes.bestdate.tag === action.payload.tag )
                 
-                if(action.payload.tag = null) {
-                    
-                }
+               
 
                 return {...state, recipes: [...tempArray]}
 
         case GET_RECIPES:
-                console.log(action.payload)
+              
                 return {
                     recipes: [ ...action.payload.recipes]
                 }
@@ -52,9 +57,6 @@ const RecipeReducer = ((state = initialState, action) => {
         case DELETE_RECIPE:
 
         const index = state.recipes.map(item => item.recipe_id).indexOf(action.payload.recipe_id)
-
-                //let index = state.recipes.findIndex(ele => ele.recipe_id === action.payload.recipe_id)
-                     console.log(index)
 
                 const stateTemp = [
                     ...state.recipes.slice(0, index),
@@ -74,13 +76,13 @@ const RecipeReducer = ((state = initialState, action) => {
             return state;
 
         case GET_SELECTED_RECIPE: 
-            console.log(action.payload)
+            
             //state = Object.assign({}, state, {recipes: state.recipes.filter(item => item.recipe_id === action.payload.recipe_id)})
             return {...state, selectedRecipe: action.payload}
             //change
 
         case ADD_RECIPE_SUCCESS:
-        console.log(state.recipes)
+        
             return state;
 
         default:
