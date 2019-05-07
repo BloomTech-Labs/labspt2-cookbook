@@ -219,6 +219,11 @@ h4{
     border:2px solid rgb(52, 98, 112);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
+/* #no-recipe{
+   
+
+} */
+
 @media screen and (max-width:1000px){
     .recipe-preview-img{
         height:250px;

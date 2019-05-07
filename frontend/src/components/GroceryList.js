@@ -36,8 +36,8 @@ class GroceryList extends Component{
     clickHandler = (event) =>{
         console.log("this is a link")
     }
-    onChangeDate = (event) =>{
-        this.setState({
+    onChangeDate = async(event) =>{
+        await this.setState({
             [event.target.name] : event.target.value
         })
     }
@@ -54,11 +54,12 @@ class GroceryList extends Component{
                     currentDate = moment(currentDate).add(1, 'days');
                 }
         
-                console.log(dateArray);
+                //console.log(dateArray);
             
                 await this.setState({
                     dateArr: dateArray
                 })
+                // console.log(this.state.dateArr.length)
         }
     }
 
@@ -121,68 +122,81 @@ class GroceryList extends Component{
     // }
     getRecipesByDate = async() =>{
         const dateArr = this.state.dateArr;
-        console.log(dateArr)
-        const userId = 1
-        // const userId = this.state.userId;
-        console.log(userId)
+        //  console.log(dateArr.length)
+        const userId = this.state.userId;
+        // console.log(userId)
         let recipeArrForDates = []
-        dateArr.forEach(date =>{
-          axios
+        await dateArr.forEach( async date =>{
+          await axios
             .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${date}`)
-                .then(res =>{
-                    // console.log(res);
-                    recipeArrForDates.push( ...Object.values(res.data))
+                .then( async res =>{
+                    if(res.data.length >= 1){
+                        for(let i = 0; i < res.data.length; i++){
+                            await recipeArrForDates.push(res.data[i])
+                        }
+                       
+                    }else if(res.data.length === 1){
+                        await recipeArrForDates.push(res.data)
+                    }
                 })
                 .catch(err =>{
                     console.log(err)
 
                 })
         })
-        await this.setState({
+         await this.setState({
             recipeArr : recipeArrForDates
         })
-      
+    //     console.log(this.state.recipeArr)
+    //   console.log(this.state.recipeArr.length)
        
     }
-    getRecipeData = () =>{
-        
+    getRecipeData = async() =>{
         const recipeArr = this.state.recipeArr
-        console.log('Recipe Arr from state:', recipeArr)
-        recipeArr.forEach(recipe =>{
-            console.log('Recipe Id:', recipe.recipe_id)
-        })
-        recipeArr.forEach(recipe =>{
-             axios
-            .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe.recipe_id}`)
-            .then(res =>{
-                // res.data.forEach((element,index)=>{
-                     console.log(res)
-                //     let tempIng ="";
-                //     if(element.amount !== null){
-                //         tempIng += formatQuantity(element.amount) + " ";
-                //     } 
-                //     if ( element.measurement !== null){
-                //         tempIng += element.measurement + " ";
-                //     } 
-                //     tempIng += element.name
-                // })
-            })
-            .catch(err =>{
-                console.log(err)
-            })
+        console.log(recipeArr, recipeArr.length)
+        await recipeArr.forEach(async recipe =>{
+             await axios
+                .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe.recipe_id}`)
+                .then(res =>{
+                    // res.data.forEach((element,index)=>{
+                        console.log(res)
+                    //     let tempIng ="";
+                    //     if(element.amount !== null){
+                    //         tempIng += formatQuantity(element.amount) + " ";
+                    //     } 
+                    //     if ( element.measurement !== null){
+                    //         tempIng += element.measurement + " ";
+                    //     } 
+                    //     tempIng += element.name
+                    // })
+                })
+                .catch(err =>{
+                    console.log(err)
+                })
         })
        
     }
+    timeoutFunction = () =>{
+        setTimeout(
+            function(){
+                console.log('Yo')
+                this.getRecipeData();
+        //         const recipeArr = this.state.recipeArr
+        // console.log(recipeArr, recipeArr.length)
+        // console.log(this.state)
+            }.bind(this),1000
+        )
+    }
+   
     ///get ingredients for recipes
     generateList = async() =>{
        await this.getDates();
        await this.getRecipesByDate();
-       await this.getRecipeData();
+       await this.timeoutFunction()
+   
     
     }
     render(){
-        // console.log(this.state.startDate);
-        // console.log(this.state.stopDate);
         return (
             <div className="GroceryList">
                 <NavBar />

@@ -40,8 +40,6 @@ class CreateRecipe extends React.Component{
     await this.setState({
          userId : Number(userId)
      });
-     this.testGetRecipe();
-     await console.log(this.state)
  }
 
  dropHandler = event =>{
@@ -65,8 +63,7 @@ postRecipe = async(event) =>{
         alert('Please enter a recipe url and try submitting again')
     }else {
     await axios
-        .post('http://localhost:4321/api/recipes', recipeAndUser)
-        // .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
+        .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
             .then(response =>{
                 console.log(response);
                 this.setState({
@@ -78,32 +75,10 @@ postRecipe = async(event) =>{
                 console.log(err.response)
               
             })
-    }        
+    }  
+    // console.log(this.state)      
 }
 
-testGetRecipe = async() =>{
-    await axios
-        .get(`https://kookr.herokuapp.com/api/recipes/user/1`)
-            .then(res =>{
-                this.setState({
-                    testRecipe : [ ...Object.values(res.data)]
-                }) 
-                 
-            })
-            .catch(err =>{
-                console.log(err);
-            })
-    await axios
-        .get('https://kookr.herokuapp.com/api/recipes/1')
-            .then(res =>{
-                this.setState({
-                    testRecipeData : [...Object.values(res.data)]
-                })
-            })
-            .catch(err =>{
-                console.log(err)
-            })
-}
 dayClick = (clickedDay) =>{
     var MyDate = clickedDay;
     var MyDateString;
@@ -120,7 +95,7 @@ clickHandle = async(event,  type) =>{
     await this.setState({
         tag:type
     })
-    console.log(this.state.tag);
+    // console.log(this.state.tag);
 }
 convertTagToId = (tag) =>{
     let tagId = null
@@ -151,14 +126,20 @@ postToSchedule = () =>{
     const tagId = this.convertTagToId(tag)
     const date = this.state.date;
     const userId = this.state.userId;
-    const servings = Number(this.state.servings);
-    // const recipeId = this.state.recipe.recipe_id;
-    const recipeId = this.state.testRecipeData[0];
+    let servings = Number(this.state.servings);
+    const recipeId = this.state.recipe.recipe_id;
+    if(servings === 0){
+        servings = this.state.recipe.servings
+    }
+    // const recipeId = this.state.testRecipeData[0];
     const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
     console.log(scheduleList)
     
-  if(date.length === 0){
+    if(date.length === 0){
         alert('Please  select a date for  your recipe')
+    }else if(recipeId === undefined){
+        alert('Please add a recipe before commiting to the schedule')
+    
     }else{
         axios
         // .post('http://localhost:4321/api/schedule', scheduleList)
@@ -211,6 +192,8 @@ closeNavigateModal = () =>{
         const {testRecipe} = this.state
         // console.log(this.state);
         const {testRecipeData} = this.state
+        const {recipe} = this.state
+    
         return(
             <div className='Create-Recipe'>
                 <NavBar /> 
@@ -230,24 +213,26 @@ closeNavigateModal = () =>{
                         </div>
                         <div className='recipe-preview'>
                             <div className='recipe-preview-title-and-info'>
-                                <h3 className='recipe-preview-header'>{testRecipe.length ? testRecipe[0].name : ''}</h3>
+                                <h3 className='recipe-preview-header'>{this.state.recipe.name}</h3>
+                                {/* {this.state.recipe.length ? this.state.recipe.name : ''} */}
+                                {/* {testRecipe.length ? testRecipe[0].name : ''} */}
                                 <div className='recipe-info-container'>  
                                     <div className='prep-time-container'>
                                         <p className='prep-time'>Prep Time:</p>
-                                        <p>{`${testRecipeData.length ? testRecipeData[4]: ''} min`} </p>
+                                        <p>{this.state.recipe.prep_time ? `${this.state.recipe.prep_time}  min` : 'N/A'} </p>
                                     </div>
                                     <div className='cook-time-container'>
                                         <p className = 'cook-time'>Cook Time:</p>
-                                        <p> {`${testRecipeData.length ? testRecipeData[5] : ''} min`}</p>
+                                        <p> {this.state.recipe.cook_time ? `${this.state.recipe.cook_time}  min` : 'N/A'}</p>
                                     </div>
                                     <div className='servings-amount-container'>
                                         <p className ='servings-amount'>Servings:</p>
-                                        <p> {`${testRecipeData.length ? testRecipeData[6] : ''}`}</p>
+                                        <p> {this.state.recipe.servings ? `${this.state.recipe.servings}` : 'N/A'}</p>
                                     </div>
                                 </div>
                                 <div className='recipe-preview-image'>
                                     <div className ='recipe-image-sub'>
-                                    <img className ='recipe-preview-img'src ={testRecipeData.length ? testRecipeData[2] : ''} alt ='recipe-img' />
+                                    <img id = {this.state.recipe.image ? ' ' : 'no-recipe' } src ={this.state.recipe.image ? `${this.state.recipe.image}`: '../images/logo-white.png'} className = 'recipe-preview-img' src ={this.state.recipe.image ? `${this.state.recipe.image}`: '../images/logo-white.png'} alt ='recipe-img' />
                                 </div> 
                             </div>      
                             </div>
