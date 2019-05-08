@@ -11,7 +11,7 @@ import {getRecipes} from '../actions/RecipeActions';
 import {addAllToCalendar} from '../actions/CalendarActions';
 import {bindActionCreators} from 'redux';
 
-const rangerDanger = extendMoment(Moment)
+//const rangerDanger = extendMoment(Moment)
 
 
 
@@ -444,23 +444,23 @@ class CalendarPage extends Component{
                                                 <div className='meal-tag-button-section'>
                                                     <div className={`calendar-meal-tag-mobile ${this.state.tag === 'breakfast' ? 'calendar-mobile-selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
                                                         <p>Breakfast</p>
-                                                        <img className = 'meal-tag-icon-mobile' src ='../images/fried-egg.png'/>
+                                                        <img className = 'meal-tag-icon-mobile' src ='../images/fried-egg.png' alt='Breakfast'/>
                                                     </div>
                                                     <div className={`calendar-meal-tag-mobile ${this.state.tag === 'lunch' ? 'calendar-mobile-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
                                                         <p>Lunch</p>
-                                                        <img className = 'meal-tag-icon-mobile' src ='../images/salad.png'/>
+                                                        <img className = 'meal-tag-icon-mobile' src ='../images/salad.png' alt='Lunch'/>
                                                     </div>
                                                     <div className={`calendar-meal-tag-mobile ${this.state.tag === 'dinner' ? 'calendar-mobile-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
                                                         <p>Dinner</p>
-                                                        <img className = 'meal-tag-icon-mobile' src ='../images/fish.png'/>
+                                                        <img className = 'meal-tag-icon-mobile' src ='../images/fish.png' alt='Dinner'/>
                                                     </div>
                                                     <div className={`calendar-meal-tag-mobile ${this.state.tag === 'dessert' ? 'calendar-mobile-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
                                                         <p>Dessert</p>
-                                                        <img className = 'meal-tag-icon-mobile' src ='../images/cupcake.png'/>
+                                                        <img className = 'meal-tag-icon-mobile' src ='../images/cupcake.png' alt='Dessert'/>
                                                     </div>
                                                     <div className={`calendar-meal-tag-mobile ${this.state.tag === 'snack' ? 'calendar-mobile-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
                                                         <p>Snack</p>
-                                                        <img className = 'meal-tag-icon-mobile' src ='../images/popcorn.png'/>
+                                                        <img className = 'meal-tag-icon-mobile' src ='../images/popcorn.png' alt='Snack'/>
                                                     </div>
                                                 </div>
                                             </div>        
