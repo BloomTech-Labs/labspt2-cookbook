@@ -4,7 +4,7 @@ import  '../css/LandingPage.css';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import {addUser} from '../actions/UserActions';
-import { bindActionCreators } from '../../../../../../../AppData/Local/Microsoft/TypeScript/3.4.3/node_modules/redux';
+//import { bindActionCreators } from '../../../../../../../AppData/Local/Microsoft/TypeScript/3.4.3/node_modules/redux';
 
 class LandingPage extends React.Component{
     state={ 
@@ -195,14 +195,15 @@ class LandingPage extends React.Component{
     }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({addUser}, dispatch)
+// const mapDispatchToProps = (dispatch) => bindActionCreators({addUser}, dispatch)
 
 
-const mapStateToProps = state => {
-    return {
-        user: state.UserReducer.user
-    }
-}
+// const mapStateToProps = state => {
+//     return {
+//         user: state.UserReducer.user
+//     }
+// }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
+// export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
+export default LandingPage;
