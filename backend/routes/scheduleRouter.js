@@ -47,7 +47,6 @@ router.get( '/user/:id/date/:date', async(req, res) => {
   const { id, date } = req.params;
   schedule.getByDate(id, date)
     .then( (list) => {
-      console.log(list)
       res.json(list);
     })
     .catch( (err) => {
@@ -61,7 +60,6 @@ router.put( '/:id', (req, res) => {
   const newSched = req.body;
   const { id } = req.params;
   
-console.log("id", newSched);
   // Check for required fields
   if( !newSched.user_id || !newSched.date || !newSched.recipe_id || !newSched.tag_id ) {
     res.status(400).json({ error: "Missing required field." });

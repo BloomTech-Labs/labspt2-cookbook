@@ -38,10 +38,9 @@ module.exports = {
    *   -- Used for checking if recipe exists already.
    */
   recipeExists: function(link) {
-    console.log('Line 41', link)
-     const linkInDb = db('recipes').where('recipe_id', 1).select('name')
-    console.log(linkInDb)
-    // return db('recipes').where('link', link).pluck('recipe_id');
+     //const linkInDb = db('recipes').where('recipe_id', 1).select('name')
+    
+    return db('recipes').where('link', link).pluck('recipe_id');
   },
 
   
@@ -51,7 +50,7 @@ module.exports = {
    *   -- Returns recipe id: int (1)
    */
   insert: async function(recipe) {
-    console.log('recipe link', recipe.link)
+    
     const [recId] = await this.recipeExists(recipe.link);
     
     // Check if recipe exists first.
@@ -90,7 +89,6 @@ module.exports = {
         user_id: recipe.user_id
       };
       recipe = newRecipe;
-      //console.log(recipe); 
 
       return db.transaction( (trans) => {
         return db('recipes')
@@ -103,7 +101,7 @@ module.exports = {
           .then( (result) => {
             // Add all ingredients
             const recipe_id = result[0];
-            console.log(`=== recipe_id: ${recipe_id} = result: ${result} ===`);
+
             if( recipe.ingredients && recipe.ingredients !== null ) {
               ingredientHelper.multiInsert(recipe_id, recipe.ingredients);
             }
@@ -132,7 +130,6 @@ module.exports = {
       })
       .then( (result) => {
         // Transaction success.
-        console.log(result)
         return(result);
       })
       .catch(function(err) {
