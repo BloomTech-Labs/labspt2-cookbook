@@ -199,6 +199,7 @@
     padding:10px 0%;
     color:white;
     font-family: 'Barlow Semi Condensed', sans-serif;
+    border:2px solid rgb(52, 98, 112);
 }
 .selected-recipe-header{
     margin:5px 1%;
