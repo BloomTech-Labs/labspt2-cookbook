@@ -6,6 +6,7 @@ import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import  {getUser} from '../actions/UserActions';
 import { deleteRecipe, getRecipesByTag,addRecipe, addRecipeSuccess, getSelectedRecipe, getRecipes} from '../actions/RecipeActions';
+import {addAllToCalendar} from '../actions/CalendarActions';
 import NavBar from "./NavBar";
 
 
@@ -18,9 +19,6 @@ class RecipeList extends Component{
 
     constructor(props) {
         super(props)
-        
-      
-       
             this.editModalOpen = this.editModalOpen.bind(this);
 
         this.state = {
@@ -62,7 +60,13 @@ deleteRecipeButton = (recipe_id) => {
 
     let userid = this.props.user[0].user_id
     console.log(userid)
-    this.props.deleteRecipe(recipe)
+    this.props.deleteRecipe(recipe, userid)
+}
+
+editRecipeButton = (recipe_id) => {
+    console.log(this.state.dateChange)
+
+    //this.props.addAllToCalendar()
 }
 
 filterRecipeButton = (tag) => {
@@ -179,7 +183,7 @@ onChangeDate = (event) =>{
                         <div className="recipe-list">
                             {this.props.recipes.map((item) => (
                             <div key={item.name} className='recipe-card'>
-                            {console.log(item)}
+                           
                                 <Link className = 'recipe-link' to={`/recipes/${item.recipe_id}`} >
                                             <div className='recipe-card-header'>{item.name}</div>
                                             {/* <div className='recipe-card-content'>text some card text</div> */}
@@ -188,11 +192,11 @@ onChangeDate = (event) =>{
                                     <img className = 'recipe-card-img' src = {item.image} alt = 'recipe-list-image'/>
                                 </div>
                                 <div>
-                                    {new Intl.DateTimeFormat('en-US', {
+                                    { item.bestdate.date ? new Intl.DateTimeFormat('en-US', {
                                         year: 'numeric',
                                         day: '2-digit',
                                         month: 'long'
-                                    }).format(new Date(`${item.bestdate.date}`))}
+                                    }).format(new Date(`${item.bestdate.date}`)) : 'Not Scheduled'}
                                 </div>
                                 <div>{item.bestdate.tag}</div>
                                 <div className='recipe-card-button-container'>
@@ -201,7 +205,6 @@ onChangeDate = (event) =>{
                                 </div>
                             </div>
                         )   )}
-
                                 <div className={this.state.editModal ? 'recipe-edit-modal-open' : 'recipe-edit-modal-closed'}>
                                     <div className ='recipe-edit-modal-header'>Edit {this.state.selectedItem.name}</div>
                                     <div className='recipe-edit-modal'>   
@@ -244,7 +247,7 @@ onChangeDate = (event) =>{
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className ='edit-modal-submit-button'>Submit</div>
+                                            <div className ='edit-modal-submit-button' onClick={() => this.editRecipeButton()}  >Submit</div>
                                         </form>
                                     </div>     
                                 </div>
@@ -258,10 +261,10 @@ onChangeDate = (event) =>{
     }
 } 
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({deleteRecipe, getRecipes, getUser, addRecipe, addRecipeSuccess, getSelectedRecipe, getRecipesByTag}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({addAllToCalendar,deleteRecipe, getRecipes, getUser, addRecipe, addRecipeSuccess, getSelectedRecipe, getRecipesByTag}, dispatch)
 
 const mapStateToProps = state => {
-    console.log(state)
+    console.log(state.RecipeReducer)
     return {
         user: state.UserReducer.user,
         recipes: state.RecipeReducer.recipes,
