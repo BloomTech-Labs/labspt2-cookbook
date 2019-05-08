@@ -31,7 +31,7 @@ router.get('/name', (req, res) => {
   }
   ingredients.getByName(ing.name)
     .then( (list) => {
-      console.log("length: ", list.length);
+
       if( list.length < 1 ) {
         res.status(404).json({ error: `Ingredient ${ing.name} not found.` });
       } else {

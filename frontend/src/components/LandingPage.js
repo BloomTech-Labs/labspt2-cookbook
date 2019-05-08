@@ -101,7 +101,7 @@ class LandingPage extends React.Component{
                         <i className="fab fa-twitter" ></i>
                     </div> 
                     <div className = 'landing-logo-container'>
-                        <img className = 'landing-logo'src= '../images/logo.png'/>
+                        <img className = 'landing-logo'src= '../images/logo.png' alt='Kookr'/>
                         <h1 className='landing-header'>Kookr</h1>
                     </div>
                     <div className='landing-page-nav-buttons'>
