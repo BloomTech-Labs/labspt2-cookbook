@@ -130,6 +130,8 @@ class CalendarPage extends Component{
         console.log(prevWeekRecipeArr, prevWeekRecipeArr.length);
         prevWeekRecipeArr.forEach((recipe, index )=>{    
             if(typeof recipe.name === 'string'){
+                // Shouldn't need to post if blank
+
                 const date = new Date(recipe.date);
                 date.setDate(date.getDate() + 7);
                 const newRecipeObj = {recipe_id: null, user_id : userId, date :  date, servings: null, tag_id : 6}
@@ -138,27 +140,33 @@ class CalendarPage extends Component{
             }else {
                 recipe.forEach(recipeMultiple =>{
                     const recipeId = recipeMultiple.recipe_id
-                    const date = new Date(recipeMultiple.date);
+                    let date = new Date(recipeMultiple.date);
                     date.setDate(date.getDate() + 8);
+                    date = moment(date).format("YYYY-MM-DD");
+                    console.log("Date: ",date);
                     const servings = recipeMultiple.servings
-                    const newRecipeObj = {recipe_id: recipeId, user_id : userId, date : date, servings: servings, tag_id : recipeMultiple.tagId}
+                    const newRecipeObj = {recipe_id: recipeId, user_id : userId, date : date, servings: servings, tag_id : recipeMultiple.tag_id}
                     postArr.push(newRecipeObj)
                     // console.log(recipeMultiple)
                 })
             }
         })
+        console.log("===PostArr:")
         console.log(postArr)
         //AXIOS POST IS NOW IN THE CALENDAR ACTIONS
         //  this.props.addAllToCalendar(postArr)
 
         postArr.forEach(async recipePost =>{
+            console.log("===recipePost:")
             console.log(recipePost)
             await axios
                 .post('https://kookr.herokuapp.com/api/schedule', recipePost)
                     .then(res =>{
+                        console.log("===Posted:")
                         console.log(res)
                     })
                     .catch(err =>{
+                        console.log("===Errored:")
                         console.log(err)
                     })
         })
