@@ -25,7 +25,7 @@ class NavBar extends React.Component{
             <div className = 'nav-container'>
                  <div className='nav-overlay'>
                  <div className = 'nav-logo-container'>
-                    <img className = 'nav-logo'src= '../images/logo-white.png'/>
+                    <img className = 'nav-logo'src= '../images/logo-white.png' alt='Kookr'/>
                  </div>
                 
                      <div className='nav-link-container'>
@@ -41,7 +41,7 @@ class NavBar extends React.Component{
                          <i className="fas fa-bars" id='nav-icon' onClick = {this.mobileMenuOpen}></i>
                      </div>
                      <div className='nav-break-logo-container'>
-                        <img className = 'nav-break-logo'src= '../images/logo.png'/>
+                        <img className = 'nav-break-logo'src= '../images/logo.png' alt='Kookr'/>
                      </div>
         
                      <div className= { this.state.mobileMenu ? 'nav-800-open' : 'nav-800-closed'}>
@@ -50,7 +50,7 @@ class NavBar extends React.Component{
                                 X
                             </div>
                              <div className='nav-logo-container'>
-                                <img className = 'nav-logo'src= '../images/logo-white.png'/>   
+                                <img className = 'nav-logo'src= '../images/logo-white.png' alt='Kookr'/>   
                              </div>   
                             <Link className='nav-800' to='/create'>Add Recipes</Link>
                             <Link className='nav-800' to="/recipes">Your Recipes</Link>

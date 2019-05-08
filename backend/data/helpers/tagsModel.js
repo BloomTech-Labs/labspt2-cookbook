@@ -49,7 +49,6 @@ update: function(id, change){
  *  -- Returns tag id
  */ 
 insert: async function(tag, recId) {
-    console.log("in async", tag.tag, recId)
     const [tagId] = await this.getId(tag.tag)
     
     //Check if tag exists

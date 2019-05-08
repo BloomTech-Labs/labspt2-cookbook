@@ -147,10 +147,10 @@ async componentDidUpdate(prevProps) {
                                 </div>
                                 <div className ='image-and-schedule-container'>
                                     <div className ='single-recipe-image-container'>
-                                        <img className="recipe-image" src={this.state.image} />
+                                        <img className="recipe-image" src={this.state.image} alt=''/>
                                     </div>
                                     <div className='scheduled-container'>
-                                        <img className='cookbook-img' src='../images/cookbook.png' />
+                                        <img className='cookbook-img' src='../images/cookbook.png' alt='' />
                                         <div>
                                             <div className="single-recipe-tag">{this.props.tags[0].tag}</div>
                                             <div className="single-recipe-date" >{this.state.bestdate.date}
