@@ -60,7 +60,7 @@ class CheckoutForm extends Component {
                 })
                 .then(()=>{
                     console.log("in next then", this.state.stripeId)
-                    axios.put(`https://kookr.herokuapp.com/api/user/${this.props.userId}`, {
+                    axios.put(`http://kookr.herokuapp.com/api/user/${this.props.userId}`, {
                         auth_id:this.props.auth,
                         email: this.props.name,
                         billing_date: this.state.today,
@@ -76,7 +76,7 @@ class CheckoutForm extends Component {
                 .then(()=>{
                     console.log("right before axios post after creating new user", {customer: this.state.stripeId})
                     axios
-                    .post("https://kookr.herokuapp.com/api/charge/", {customer: this.state.stripeId})
+                    .post("http://kookr.herokuapp.com/api/charge/", {customer: this.state.stripeId})
                     .then(response =>{
                         console.log("posting after user created", response)
                         alert("Payment Success");

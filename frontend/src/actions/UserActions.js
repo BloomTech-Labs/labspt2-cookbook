@@ -9,14 +9,20 @@ export const GET_USER = "GET_USER"
 
 
 
-
+function addUser2(user) {
+    return {
+        type: ADD_USER,
+        payload: {user, id: user.id}
+    }
+}
 
 export const addUser = (user) => (dispatch) => {
     
-    dispatch({
-        type: ADD_USER,
-        payload: {user, id: user.id}
-    })
+    return dispatch => {
+        //setTimeout(() => {
+            dispatch(addUser2(user))
+        //},1000)
+    }
 
 }
 
