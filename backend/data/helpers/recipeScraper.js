@@ -97,10 +97,11 @@ allRecipeScraper = async (url) => {
 
     // Grab the prep[0] and cook[1] times
     const timeArr = [];
-    $('.prepTime__item--time',html).each( (i, elem) => {
+   
+    $('time',html).each( (i, elem) => {
       timeArr[i] = $(elem).text();
     });
-    
+
     allRecipeJSON.prep_time = timeArr[0];
     allRecipeJSON.cook_time = timeArr[1];
 

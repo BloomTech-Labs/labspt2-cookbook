@@ -80,7 +80,6 @@ module.exports = {
         });
       // end db.where
     } else {
-      // // Might need to add another endpoint specifically for this.
       
       let newRecipe = await checkUrl.checkUrl(recipe);
       
@@ -96,7 +95,10 @@ module.exports = {
           .insert({
             name: recipe.name,
             image: recipe.image,
-            link: recipe.link
+            link: recipe.link,
+            prep_time: recipe.prep_time,
+            cook_time: recipe.cook_time,
+            servings: recipe.servings
           }).returning('recipe_id')
           .then( (result) => {
             // Add all ingredients
