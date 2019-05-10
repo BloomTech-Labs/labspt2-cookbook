@@ -12,8 +12,8 @@ checkUrl = async (newRecipeObj) => {
   }else if(checkRecipeUrl.indexOf('pinchofyum.com') !== -1 ){
       return await pinchOfYumScraper(checkRecipeUrl);
   }
-  else return{
-    checkRecipeUrl
+  else {
+    return await nameScraper(checkRecipeUrl);
   }
 }
 
@@ -61,6 +61,39 @@ const parseIngredients = (ingArr) => {
   });
 
   return(ingredientArray);
+};
+
+nameScraper = async (url) => {
+  return await rp(url)
+    .then( function(html) {
+      const recipeJSON = {name: '', image: '', link: url};
+
+      // // Lots of pages have more than one h2/h1 and we dont want them all mashed together
+      // const nameArr = [];
+      // $('h2',html).each( (i, elem) => {
+      //   nameArr[i] = $(elem).text();
+      // });
+      
+      // if( !nameArr[0] || nameArr[0] === '' ) {
+      //   // Try to grab from an H1 tag
+      //   $('h1',html).each( (i, elem) => {
+      //     nameArr[i] = $(elem).text();
+      //   });
+
+      //   if( !nameArr[0] || nameArr[0] === '' ) {
+      //     // _Still_ blank? Grab the title
+      //     nameArr[0] = ($('title', html).text());
+      //   }
+      // }
+      // recipeJSON.name = nameArr[0];
+        const recipeName = ($('title', html).text());
+        recipeJSON.name = recipeName;
+      return recipeJSON;
+    })
+    .catch(function(err){
+      //handle error
+      return({error: `Generic Scraper failed: ${err}`});
+    });
 };
 
 allRecipeScraper = async (url) => {
