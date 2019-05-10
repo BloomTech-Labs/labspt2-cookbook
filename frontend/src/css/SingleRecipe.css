@@ -9,6 +9,15 @@
     flex-direction:column;
     background-color: rgba(233, 221, 219, 0.164);
 }
+.single-recipe-no-show{
+    display:none;
+}
+.iframe-no-show{
+    display:none;
+}
+.iframe-show{
+    width:80%;
+}
 .single-recipe-page-sub{
     width:90%;
     display:flex;
@@ -26,6 +35,10 @@
     }
     .single-recipe-page-sub{
         flex-direction:column;
+    }
+    .iframe-show{
+        width:100%;
+        height:100vh;
     }
 }
 .column-one{

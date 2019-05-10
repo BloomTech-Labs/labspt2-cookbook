@@ -88,12 +88,12 @@ console.log(this.props.recipes)
     //  let recipeid = this.props.match.params.id
    
 
-axios.get(`https://kookr.herokuapp.com/api/recipes/${recipe_id}`).then(res => {
+await axios.get(`https://kookr.herokuapp.com/api/recipes/${recipe_id}`).then(async res => {
 
     console.log(res)
 
    
-    this.setState({
+    await this.setState({
         name: res.data.name, 
         link: res.data.link, 
         cook_time: res.data.cook_time, 
@@ -134,10 +134,12 @@ async componentDidUpdate(prevProps) {
 
     render(){
         console.log(this.props)
+       
         return (
-            <div className="SingleRecipe"> 
+            <div className= "SingleRecipe"> 
                 <NavBar />
-                <div className ='single-recipe-page-container'>
+                <iframe src = {this.state.link} className = {this.state.link.includes('allrecipes') || this.state.link.includes('pinchofyum') ? 'iframe-no-show' : 'iframe-show'} />
+                <div className ={this.state.link.includes('allrecipes') || this.state.link.includes('pinchofyum') ?'single-recipe-page-container' : 'single-recipe-no-show'}>
                     <div className = 'single-recipe-page-sub'>
                         <div className = 'column-one'>
                             <div className='column-one-sub'>

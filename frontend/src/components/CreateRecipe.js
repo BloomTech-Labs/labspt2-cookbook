@@ -32,7 +32,10 @@ class CreateRecipe extends React.Component{
         servings: '',
         calendarModal:false,
         date: '',
-        navigateModal:  false
+        navigateModal:  false,
+        accountType : null,
+        userRecipeAmount: null,
+        iframe: false
       }
   }
  async componentDidMount(){
@@ -40,7 +43,44 @@ class CreateRecipe extends React.Component{
     await this.setState({
          userId : Number(userId)
      });
+     await this.getUserData(this.state.userId);
+     await this.recipeLengther(this.state.userId);
  }
+
+getUserData = async(userId) =>{
+    console.log(userId)
+    await axios
+        .get(`https://kookr.herokuapp.com/api/user/${userId}`)
+            .then(async res =>{
+                console.log(res)
+                await this.setState({
+                    accountType: res.data.type
+                })
+                
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+
+            // console.log(typeof this.state.accountType)
+}
+recipeLengther = async(userId) =>{
+    await axios
+        .get(`https://kookr.herokuapp.com/api/recipes/user/${userId}`)
+            .then(async res =>{
+                const value =  Object.values(res.data).length
+                console.log(value)
+                await this.setState({
+                    userRecipeAmount : value
+                })
+               
+
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+            console.log(this.userRecipeAmount)
+}
 
  dropHandler = event =>{
       const url = event.dataTransfer.getData('text');
@@ -54,8 +94,32 @@ changeHandler  = event =>{
         recipeUrl:recipeUrl
     })
 }
-postRecipe = async(event) =>{
-    event.preventDefault();
+urlButtonClick = ()  =>{
+    const accountType = this.state.accountType;
+    // console.log(accountType)
+    const userRecipeAmount = this.state.userRecipeAmount;
+    const url = this.state.recipeUrl
+    // console.log(userRecipeAmount)
+    if(accountType === '0' && userRecipeAmount >  20){
+       alert('You have reached your limit for adding recipes as a free user. Please upgrade to Premium for unlimited recipe creation.')
+    }else{
+    //    console.log(this.state.recipeUrl)
+       if(url.includes('allrecipes') || url.includes('pinchofyum')){
+           console.log('includes')
+           this.setState({
+               iframe: false
+           })
+       }else{
+           console.log('doesnt include')
+           this.setState({
+               iframe:true
+           })
+       }
+        this.postRecipe()
+    }
+}
+postRecipe = async() =>{
+    
     const userId = this.state.userId;
     const recipeAndUser = { user_id : userId, link : `${this.state.recipeUrl}`};
     console.log(recipeAndUser)
@@ -209,11 +273,12 @@ closeNavigateModal = () =>{
                                 placeholder='  Drag and Drop Recipe URL Here'
                                 onDrop={this.dropHandler}
                                 onChange = {this.changeHandler}/>
-                            <div onClick = {this.postRecipe} className='url-add'>Add</div>        
+                            <div onClick = {this.urlButtonClick} className='url-add'>Add</div>        
                         </div>
                         <div className='recipe-preview'>
-                            <div className='recipe-preview-title-and-info'>
+                            <div className = {this.state.iframe ? 'no-show' : 'recipe-preview-title-and-info'}>
                                 <h3 className='recipe-preview-header'>{this.state.recipe.name}</h3>
+                                {/* <iframe src = {this.state.recipeUrl}/> */}
                                 {/* {this.state.recipe.length ? this.state.recipe.name : ''} */}
                                 {/* {testRecipe.length ? testRecipe[0].name : ''} */}
                                 <div className='recipe-info-container'>  
@@ -235,7 +300,10 @@ closeNavigateModal = () =>{
                                     <img id = {this.state.recipe.image ? ' ' : 'no-recipe' } src ={this.state.recipe.image ? `${this.state.recipe.image}`: '../images/logo-white.png'} className = 'recipe-preview-img' src ={this.state.recipe.image ? `${this.state.recipe.image}`: '../images/logo-white.png'} alt ='recipe-img' />
                                 </div> 
                             </div>      
-                            </div>
+                        </div>
+                    
+                            <iframe src = {this.state.recipeUrl} className =  {this.state.iframe ? 'iframe-container' : 'no-show'}></iframe>
+                       
                             <div className='meal-tag-section'>
                                 <h3 className='meal-tag-header'>For which meal?</h3>
                                 <div className={`meal-tag ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
