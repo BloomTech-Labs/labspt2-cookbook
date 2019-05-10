@@ -148,31 +148,31 @@ onChangeDate = (event) =>{
                                         <div className={`filter-meal-tag ${this.state.tag === 'breakfast' ? 'filter-selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
                                             <div className='filter-meal-tag-sub'>
                                                 <p className ='filter-meal-tag-p'>Breakfast</p>
-                                                <img className = 'filter-meal-tag-icon' src ='../images/fried-egg.png'/>
+                                                <img className = 'filter-meal-tag-icon' src ='../images/fried-egg.png' alt='Breakfast'/>
                                             </div>
                                         </div>
                                         <div className={`filter-meal-tag ${this.state.tag === 'lunch' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
                                             <div className='filter-meal-tag-sub'>  
                                                 <p className = 'filter-meal-tag-p'>Lunch</p>
-                                                <img className = 'filter-meal-tag-icon' src ='../images/salad.png'/>
+                                                <img className = 'filter-meal-tag-icon' src ='../images/salad.png' alt='Lunch'/>
                                             </div>
                                         </div>
                                         <div className={`filter-meal-tag ${this.state.tag === 'dinner' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
                                             <div className='filter-meal-tag-sub'>
                                                 <p className = 'filter-meal-tag-p'>Dinner</p>
-                                                <img className = 'filter-meal-tag-icon' src ='../images/fish.png'/>
+                                                <img className = 'filter-meal-tag-icon' src ='../images/fish.png' alt='Dinner'/>
                                             </div>
                                         </div>
                                         <div className={`filter-meal-tag ${this.state.tag === 'dessert' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
                                             <div className='filter-meal-tag-sub'>
                                                 <p className = 'filter-meal-tag-p'>Dessert</p>
-                                                <img className = 'filter-meal-tag-icon' src ='../images/cupcake.png'/>
+                                                <img className = 'filter-meal-tag-icon' src ='../images/cupcake.png' alt='Dessert'/>
                                             </div>
                                         </div>
                                         <div className={`filter-meal-tag ${this.state.tag === 'snack' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
                                             <div className='filter-meal-tag-sub'>
                                                 <p className = 'filter-meal-tag-p'>Snack</p>
-                                                <img className = 'filter-meal-tag-icon' src ='../images/popcorn.png'/>
+                                                <img className = 'filter-meal-tag-icon' src ='../images/popcorn.png' alt='Snack'/>
                                             </div>
                                         </div>
                                         </div>
@@ -189,7 +189,7 @@ onChangeDate = (event) =>{
                                             {/* <div className='recipe-card-content'>text some card text</div> */}
                                 </Link>
                                 <div className= 'recipe-card-img-container'>
-                                    <img className = 'recipe-card-img' src = {item.image} alt = 'recipe-list-image'/>
+                                    <img className = 'recipe-card-img' src = {item.image} alt ='recipe-list-image'/>
                                 </div>
                                 <div>
                                     { item.bestdate.date ? new Intl.DateTimeFormat('en-US', {
@@ -219,31 +219,31 @@ onChangeDate = (event) =>{
                                                 <div className={`edit-meal-tag ${this.state.tag === 'breakfast' ? 'edit-selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
                                                     <div className='edit-meal-tag-sub'>
                                                         <p className ='edit-meal-tag-p'>Breakfast</p>
-                                                        <img className = 'edit-meal-tag-icon' src ='../images/fried-egg.png'/>
+                                                        <img className = 'edit-meal-tag-icon' src ='../images/fried-egg.png' alt='Breakfast'/>
                                                     </div>
                                                 </div>
                                                 <div className={`edit-meal-tag ${this.state.tag === 'lunch' ? 'edit-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
                                                     <div className='edit-meal-tag-sub'>  
                                                         <p className = 'edit-meal-tag-p'>Lunch</p>
-                                                        <img className = 'edit-meal-tag-icon' src ='../images/salad.png'/>
+                                                        <img className = 'edit-meal-tag-icon' src ='../images/salad.png' alt='Lunch'/>
                                                     </div>
                                                 </div>
                                                 <div className={`edit-meal-tag ${this.state.tag === 'dinner' ? 'edit-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
                                                     <div className='edit-meal-tag-sub'>
                                                         <p className = 'edit-meal-tag-p'>Dinner</p>
-                                                        <img className = 'edit-meal-tag-icon' src ='../images/fish.png'/>
+                                                        <img className = 'edit-meal-tag-icon' src ='../images/fish.png' alt='Dinner'/>
                                                     </div>
                                                 </div>
                                                 <div className={`edit-meal-tag ${this.state.tag === 'dessert' ? 'edit-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
                                                     <div className='edit-meal-tag-sub'>
                                                         <p className = 'edit-meal-tag-p'>Dessert</p>
-                                                        <img className = 'edit-meal-tag-icon' src ='../images/cupcake.png'/>
+                                                        <img className = 'edit-meal-tag-icon' src ='../images/cupcake.png' alt='Dessert'/>
                                                     </div>
                                                 </div>
                                                 <div className={`edit-meal-tag ${this.state.tag === 'snack' ? 'edit-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
                                                     <div className='edit-meal-tag-sub'>
                                                         <p className = 'edit-meal-tag-p'>Snack</p>
-                                                        <img className = 'edit-meal-tag-icon' src ='../images/popcorn.png'/>
+                                                        <img className = 'edit-meal-tag-icon' src ='../images/popcorn.png' alt='Snack'/>
                                                     </div>
                                                 </div>
                                             </div>

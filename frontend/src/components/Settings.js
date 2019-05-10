@@ -39,7 +39,8 @@ getCurrentUser = async() =>{
                     email : res.data.email,
                     accountType : res.data.type,
                     formEmail : res.data.email,
-                    stripeId : res.data.stripe_id
+                    stripeId : res.data.stripe_id,
+                    subscriptionId : res.data.subscription_id
                 })
             })
             .catch(err =>{
@@ -97,7 +98,7 @@ checkSubscription=()=>{
                                 <div className="billing-form-container">
                                     <h1 className='premium-header'>Premium Subscription</h1>
                                     <Elements>
-                                        <CheckoutForm name={this.state.email} auth={this.state.authId} userId={this.state.userId} />
+                                        <CheckoutForm name={this.state.email} auth={this.state.authId} userId={this.state.userId} stripeId={this.state.stripeId} subscriptionId={this.state.subscriptionId} />
                                     </Elements>
                                 </div>
                             </StripeProvider>

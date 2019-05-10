@@ -35,5 +35,19 @@ router.post("/", (req, res)=>{
     })
 });
 
+router.put("/unsubscribe", (req, res) =>{
+    const subscription = req.body.subscription
+
+    stripe.subscriptions.update(subscription, {
+        cancel_at_period_end: true
+    })
+    .then(response =>{
+        res.status(200).json(response)
+    })
+    .catch(err =>{
+        res.status(500).json({error: "Could not update customers subscription"})
+    })
+}); 
+
 
 module.exports = router;

@@ -241,64 +241,64 @@ closeNavigateModal = () =>{
                                 <div className={`meal-tag ${this.state.tag === 'breakfast' ? 'selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
                                     <div className='meal-tag-sub'>
                                         <p className ='meal-tag-p'>Breakfast</p>
-                                        <img className = 'meal-tag-icon' src ='../images/fried-egg.png'/>
+                                        <img className = 'meal-tag-icon' src ='../images/fried-egg.png' alt='Breakfast'/>
                                     </div>
                                 </div>
                                 <div className={`meal-tag ${this.state.tag === 'lunch' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
                                     <div className='meal-tag-sub'>  
                                         <p className = 'meal-tag-p'>Lunch</p>
-                                        <img className = 'meal-tag-icon' src ='../images/salad.png'/>
+                                        <img className = 'meal-tag-icon' src ='../images/salad.png' alt='Lunch'/>
                                     </div>
                                 </div>
                                 <div className={`meal-tag ${this.state.tag === 'dinner' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
                                     <div className='meal-tag-sub'>
                                         <p className = 'meal-tag-p'>Dinner</p>
-                                        <img className = 'meal-tag-icon' src ='../images/fish.png'/>
+                                        <img className = 'meal-tag-icon' src ='../images/fish.png' alt='Dinner'/>
                                     </div>
                                 </div>
                                 <div className={`meal-tag ${this.state.tag === 'dessert' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
                                     <div className='meal-tag-sub'>
                                         <p className = 'meal-tag-p'>Dessert</p>
-                                        <img className = 'meal-tag-icon' src ='../images/cupcake.png'/>
+                                        <img className = 'meal-tag-icon' src ='../images/cupcake.png' alt='Dessert'/>
                                     </div>
                                 </div>
                                 <div className={`meal-tag ${this.state.tag === 'snack' ? 'selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
                                     <div className='meal-tag-sub'>
                                         <p className = 'meal-tag-p'>Snack</p>
-                                        <img className = 'meal-tag-icon' src ='../images/popcorn.png'/>
+                                        <img className = 'meal-tag-icon' src ='../images/popcorn.png' alt='Snack'/>
                                     </div>
                                 </div>
                             </div>
                             <div className='meal-tag-mobile-button'>
-                                <h3 className='meal-tag-header-mobile' onClick = {this.openTagsMobile}>Add Meal Tag <img className ='fork' src = '../images/fork.png'/></h3>
+                                <h3 className='meal-tag-header-mobile' onClick = {this.openTagsMobile}>Add Meal Tag <img className ='fork' src = '../images/fork.png' alt=''/></h3>
                                     <div className= {this.state.tagModal ? 'meal-tag-modal-mobile-open' : 'meal-tag-modal-mobile-closed'}>
                                         <div className='meal-tag-modal-sub'>
                                             <div className='meal-tag-close' onClick={this.closeTagsMobile}>X</div>
                                             <div className={`meal-tag-mobile ${this.state.tag === 'breakfast' ? 'selected-mobile' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
                                                 <p>Breakfast</p>
-                                                <img className = 'meal-tag-icon-mobile' src ='../images/fried-egg.png'/>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/fried-egg.png' alt='Breakfast'/>
                                             </div>
                                             <div className={`meal-tag-mobile ${this.state.tag === 'lunch' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
                                                 <p>Lunch</p>
-                                                <img className = 'meal-tag-icon-mobile' src ='../images/salad.png'/>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/salad.png' alt='Lunch'/>
                                             </div>
                                             <div className={`meal-tag-mobile ${this.state.tag === 'dinner' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
                                                 <p>Dinner</p>
-                                                <img className = 'meal-tag-icon-mobile' src ='../images/fish.png'/>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/fish.png' alt='Dinner'/>
                                             </div>
                                             <div className={`meal-tag-mobile ${this.state.tag === 'dessert' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
                                                 <p>Dessert</p>
-                                                <img className = 'meal-tag-icon-mobile' src ='../images/cupcake.png'/>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/cupcake.png' alt='Dessert'/>
                                             </div>
                                             <div className={`meal-tag-mobile ${this.state.tag === 'snack' ? 'selected-mobile' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
                                                 <p>Snack</p>
-                                                <img className = 'meal-tag-icon-mobile' src ='../images/popcorn.png'/>
+                                                <img className = 'meal-tag-icon-mobile' src ='../images/popcorn.png' alt='Snack'/>
                                             </div>
                                         </div>    
                                     </div>
                             </div>
                             <div className='calendar-mobile'>
-                                <h3  className = 'calendar-modal-click-header' onClick={this.openCalendarMobile}>Add Recipe to Calendar<img className = 'calendar-icon' src ='../images/calendar-yes.png' /></h3>
+                                <h3  className = 'calendar-modal-click-header' onClick={this.openCalendarMobile}>Add Recipe to Calendar<img className = 'calendar-icon' src ='../images/calendar-yes.png' alt=''/></h3>
                                 <div className={this.state.calendarModal ? 'calendar-mobile-open' : 'calendar-mobile-closed'}>
                                     <div className= 'mobile-calendar-modal'>
                                         <div className= 'mobile-calendar-header-section'>
