@@ -131,6 +131,9 @@
     margin-bottom:20px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
+.no-show{
+    display:none;
+}
 .recipe-preview-title-and-info{
     width:64%;
     border-radius:2px;
@@ -139,6 +142,11 @@
     flex-direction:column;
     background-color:white;
     /* border-right:2px solid rgba(184, 183, 180, 0.116); */
+}
+.iframe-container{
+    width:64%;
+    
+
 }
 .recipe-preview-header{
     font-size:32px;
@@ -219,6 +227,11 @@ h4{
     border:2px solid rgb(52, 98, 112);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
+/* #no-recipe{
+   
+
+} */
+
 @media screen and (max-width:1000px){
     .recipe-preview-img{
         height:250px;
@@ -681,4 +694,66 @@ h4{
     cursor:pointer;
     font-family: 'Barlow Semi Condensed', sans-serif;
    text-transform: uppercase;
+}
+.navigate-modal-closed{
+    display:none;
+}
+.navigate-modal-open{
+    position:fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(14, 21, 24, 0.87);
+}
+.navigate-modal{
+    position:fixed;
+    background-color:rgb(255, 255, 255);
+    width: 80%;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    display:flex;
+    flex-direction:column;
+    border-radius:5px;
+    border:5px solid rgb(52, 98, 112);
+    text-align: center;
+    padding:30px 2%;
+}
+.navigate-modal-header{
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size:24px;
+}
+.navigate-button-container{
+    display:flex;
+    flex-direction: column;
+}
+.leave-button{
+    text-decoration:none;
+    margin:0px auto;
+    background-color:rgb(91, 142, 158);
+    width:45%;
+    padding:15px 1%;
+    margin-bottom:10px;
+    margin-top:20px;
+    border-radius:3px;
+    cursor:pointer;
+    color:white;
+    font-size:24px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    
+   
+}
+.stay-button{
+    background-color:rgb(170, 67, 76);
+    margin:0px auto;
+    width:45%;
+    padding:15px 1%;
+    margin-bottom:30px;
+    margin-top:20px;
+    border-radius:3px;
+    cursor:pointer;
+    color:white;
+    font-size:24px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
 }

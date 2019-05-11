@@ -58,12 +58,14 @@ module.exports = {
         .transacting(trans)
         .where('name', ing.name).first().pluck('ing_id')
         .then( ([ing_id]) => {
+          
           if( !ing_id || ing_id <= 0 ) {
 
             // No ingredient found. Insert it.
             return db('ingredients')
               .transacting(trans)
               .insert({name: ing.name})
+              .returning('ing_id')
               .then(([id]) => {
                 return id;
               })
@@ -82,6 +84,7 @@ module.exports = {
               measurement: ing.measurement,
               ing_id: ing_id
             })
+            .returning('id')
             .then( ([id]) => {
               return id;
             });
@@ -91,7 +94,7 @@ module.exports = {
         .catch(trans.rollback)
     })
     .catch( (err) => {
-      console.log("error: ", err);
+      console.log("error in insert ingredient: ", err);
     })
   },
 

@@ -44,8 +44,6 @@ server.options("/*", function(req, res, next){
   res.send(200);
 });
 
-//server.use(require("body-parser").text());
-
 
 /* ---------- Routes ---------- */
 server.options('*', cors());
@@ -56,6 +54,7 @@ server.use('/api/ingredients', ingredRouter);
 server.use('/api/charge', chargeRouter);
 server.use('/api/list', shoppingRouter);
 server.use('/api/schedule', scheduleRouter);
+
 
 
 /* ---------- Listener ---------- */

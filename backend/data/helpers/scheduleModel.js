@@ -32,7 +32,8 @@ module.exports = {
    */
   insert: async function(sched) {
     return await db('schedule').insert(sched)
-    .then( ([id]) => this.getById(id) );
+     .returning('id')
+     .then( ([id]) => this.getById(id) );
   },
 
   /*
@@ -40,7 +41,7 @@ module.exports = {
    *   -- Edits a scheduled recipe
    */
   update: function(id, sched) {
-    return db('schedule').where('id', id).update(sched)
+    return db('schedule').where('id', id).update(sched).returning('id')
       .then( ([id]) => this.getById(id) );
   },
 

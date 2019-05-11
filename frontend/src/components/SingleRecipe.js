@@ -14,7 +14,9 @@ import '../css/SingleRecipe.css';
 class SingleRecipe extends Component{
 
  
- componentWillMount() {
+   
+componentWillMount() {
+    
 
     let userid = this.props.user[0].user_id
  let recipe_id = this.props.match.params.id
@@ -58,9 +60,12 @@ console.log(this.props.recipes)
 
  
 
+
 }
 
 componentWillReceiveProps() {
+
+
 
 }
 
@@ -89,17 +94,36 @@ componentWillReceiveProps() {
     }
    
 }
+clicked = async(index) =>{
+    const clicked = this.state.directionsClicked
+    if(clicked.includes(index)){
+        await this.setState({
+            directionsClicked: [...this.state.directionsClicked.filter(item => item !==  index)]
+        })
+    }else{
+        await this.setState({
+            directionsClicked : [...this.state.directionsClicked, index]
+        })
+    }
+    console.log(this.state.directionsClicked)
+}
 
 
 
     render(){
+
+
        
         return (
-            <div className="SingleRecipe"> 
+            <div className= "SingleRecipe"> 
                 <NavBar />
+
                 <div className ='single-recipe-page-container'>
                     {this.props.recipes.map((item) => (
                         
+
+                <iframe src = {item.link} className = {item.link.includes('allrecipes') || item.link.includes('pinchofyum') ? 'iframe-no-show' : 'iframe-show'} />
+
                     <div className = 'single-recipe-page-sub'>
                         <div className = 'column-one'>
                             <div className='column-one-sub'>
@@ -109,10 +133,12 @@ componentWillReceiveProps() {
                                 </div>
                                 <div className ='image-and-schedule-container'>
                                     <div className ='single-recipe-image-container'>
+
                                         <img className="recipe-image" src={item.image} />
+
                                     </div>
                                     <div className='scheduled-container'>
-                                        <img className='cookbook-img' src='../images/cookbook.png' />
+                                        <img className='cookbook-img' src='../images/cookbook.png' alt='' />
                                         <div>
                                             <div className="single-recipe-tag">{item.bestdate.tag}</div>
                                             <div className="single-recipe-date" >
@@ -168,11 +194,13 @@ componentWillReceiveProps() {
                                     <div  className='recipe-directions-sub'>
                                         <h3 className='directions-header'>Directions</h3>
                                         <div className='recipe-directions'>
+
                                             {
                                                 item.directions !== undefined ?
                                                 item.directions.map(item => <div className="directions" key={item.order}>{item.directions}</div>) 
                                                 : "Loading..."
                                             }
+
                                         </div>
                                     </div>    
                                 </div>

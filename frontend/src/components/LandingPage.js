@@ -4,7 +4,7 @@ import  '../css/LandingPage.css';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import {addUser} from '../actions/UserActions';
-import { bindActionCreators } from '../../../../../../../AppData/Local/Microsoft/TypeScript/3.4.3/node_modules/redux';
+//import { bindActionCreators } from '../../../../../../../AppData/Local/Microsoft/TypeScript/3.4.3/node_modules/redux';
 
 class LandingPage extends React.Component{
     state={ 
@@ -24,13 +24,13 @@ class LandingPage extends React.Component{
     };
     
     
-//Post user not working
-//How to grab user Id after post ?? res.data? set user Id to local storage -change instances of user id in routes on other pages
+
     submitHandler = async (googleObj) =>{
         await this.setState({
             email: googleObj.profileObj.email,
+            // email:"emailandstuff.com",
             authId: googleObj.googleId
-            // authId: "779802nnjs02iup2je2i498lkjdflkjadnflka"
+            // authId: "779802nnjs02iup2je2dflsd"
         });
         console.log(this.state);
         axios
@@ -45,12 +45,16 @@ class LandingPage extends React.Component{
                 }
             })
             .catch(err =>{
-                console.log(err)
+                // console.log(err.response)
+                if(err.response.status === 404){
+                    this.postNewUser();
+                }
+                
             })
     }
 
     postNewUser = async() =>{
-        console.log("from axios post", this.state)
+        // console.log("from axios post", this.state)
         const authId = this.state.authId;
         const email = this.state.email;
         const newUserObj = {auth_id:authId, email:email}
@@ -73,7 +77,7 @@ class LandingPage extends React.Component{
             })
     }
 
-    responseGoogleSuccess = (response) => {
+    responseGoogleSuccess = async(response) => {
         console.log(response)
         this.submitHandler(response);
         this.props.history.push('/create');
@@ -90,13 +94,13 @@ class LandingPage extends React.Component{
                 <div className = 'landing-page-background'></div>
                 <div className='landing-page-nav-bar'>
                     <div className='social-media-container'>
-                        <i class="fab fa-google-plus-g" ></i>
-                        <i class="fab fa-facebook-f" ></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-twitter" ></i>
+                        <i className="fab fa-google-plus-g" ></i>
+                        <i className="fab fa-facebook-f" ></i>
+                        <i className="fab fa-instagram"></i>
+                        <i className="fab fa-twitter" ></i>
                     </div> 
                     <div className = 'landing-logo-container'>
-                        <img className = 'landing-logo'src= '../images/logo.png'/>
+                        <img className = 'landing-logo'src= '../images/logo.png' alt='Kookr'/>
                         <h1 className='landing-header'>Kookr</h1>
                     </div>
                     <div className='landing-page-nav-buttons'>
@@ -190,14 +194,15 @@ class LandingPage extends React.Component{
     }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({addUser}, dispatch)
+// const mapDispatchToProps = (dispatch) => bindActionCreators({addUser}, dispatch)
 
 
-const mapStateToProps = state => {
-    return {
-        user: state.UserReducer.user
-    }
-}
+// const mapStateToProps = state => {
+//     return {
+//         user: state.UserReducer.user
+//     }
+// }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
+// export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
+export default LandingPage;

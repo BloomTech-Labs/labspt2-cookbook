@@ -38,34 +38,19 @@ module.exports = {
    *   -- Used for checking if recipe exists already.
    */
   recipeExists: function(link) {
+     //const linkInDb = db('recipes').where('recipe_id', 1).select('name')
+    
     return db('recipes').where('link', link).pluck('recipe_id');
   },
 
   
-  insertLink: async function(recipe) {
-    const [recId] = await this.recipeExists(recipe.link);
-    
-    // Check if recipe exists first.
-    if( recId > 0 ) {
-      return this.insert(recipe);
-    } else {
-      // Scrape the recipe data
-      let newRecipe = await checkUrl.checkUrl(recipe);
-      
-      newRecipe = {
-        ...newRecipe,
-        user_id: recipe.user_id
-      };
-      return (newRecipe);
-    }
-  },
-
   /*
    * insert:
    *   -- Insert a full recipe.
    *   -- Returns recipe id: int (1)
    */
   insert: async function(recipe) {
+    
     const [recId] = await this.recipeExists(recipe.link);
     
     // Check if recipe exists first.
@@ -95,7 +80,6 @@ module.exports = {
         });
       // end db.where
     } else {
-      // // Might need to add another endpoint specifically for this.
       
       let newRecipe = await checkUrl.checkUrl(recipe);
       
@@ -104,7 +88,6 @@ module.exports = {
         user_id: recipe.user_id
       };
       recipe = newRecipe;
-      console.log(recipe); 
 
       return db.transaction( (trans) => {
         return db('recipes')
@@ -112,11 +95,15 @@ module.exports = {
           .insert({
             name: recipe.name,
             image: recipe.image,
-            link: recipe.link
-          })
+            link: recipe.link,
+            prep_time: recipe.prep_time,
+            cook_time: recipe.cook_time,
+            servings: recipe.servings
+          }).returning('recipe_id')
           .then( (result) => {
             // Add all ingredients
             const recipe_id = result[0];
+
             if( recipe.ingredients && recipe.ingredients !== null ) {
               ingredientHelper.multiInsert(recipe_id, recipe.ingredients);
             }
@@ -145,7 +132,6 @@ module.exports = {
       })
       .then( (result) => {
         // Transaction success.
-        console.log(result)
         return(result);
       })
       .catch(function(err) {

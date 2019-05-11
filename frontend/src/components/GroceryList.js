@@ -21,7 +21,9 @@ class GroceryList extends Component{
           active: false,
           userId : null,
           dateArr: [], 
-          recipeArr: []
+          recipeArr: [],
+          clickedIndexArr: [],
+          clickedIndexArrTwo: [],
 
         }
     }
@@ -29,35 +31,38 @@ class GroceryList extends Component{
     componentDidMount(){
         const userId = localStorage.getItem('userId')
         this.setState({
-            userId : userId
+            userId : Number(userId)
         })
         this.getRecipe()
     }
     clickHandler = (event) =>{
         console.log("this is a link")
     }
-    onChangeDate = (event) =>{
-        this.setState({
+    onChangeDate = async(event) =>{
+        await this.setState({
             [event.target.name] : event.target.value
         })
     }
     getDates = async() => {
-        var dateArray = [];
-        var currentDate = moment(this.state.startDate);
+        if(this.state.startDate.length === 0 || this.state.stopDate.length === 0){
+            alert('Please make sure you  have enetered a start and stop date')
+        }else{
+            var dateArray = [];
+            var currentDate = moment(this.state.startDate);
+            var stopDate = moment(this.state.stopDate);
+                  // console.log(currentDate, stopDate)
+                  while (currentDate <= stopDate) {
+                    dateArray.push( moment(currentDate).format('YYYY-MM-DD') )
+                    currentDate = moment(currentDate).add(1, 'days');
+                }
         
-        var stopDate = moment(this.state.stopDate);
-        console.log(currentDate, stopDate)
-        while (currentDate <= stopDate) {
-            dateArray.push( moment(currentDate).format('YYYY-MM-DD') )
-            currentDate = moment(currentDate).add(1, 'days');
+                //console.log(dateArray);
+            
+                await this.setState({
+                    dateArr: dateArray
+                })
+                // console.log(this.state.dateArr.length)
         }
- 
-        console.log(dateArray);
-       
-        await this.setState({
-            dateArr: dateArray
-        })
-        
     }
 
     getRecipe = () =>{
@@ -65,7 +70,7 @@ class GroceryList extends Component{
         .get('https://kookr.herokuapp.com/api/ingredients/recipe/1')
         .then(res =>{
             res.data.forEach((element,index)=>{
-                console.log(res)
+                // console.log(res)
                 let tempIng ="";
                 if(element.amount !== null){
                     tempIng += formatQuantity(element.amount) + " ";
@@ -90,9 +95,11 @@ class GroceryList extends Component{
             console.log(err)
         })
     }
-    toggleClass = () =>{
+    toggleClass = async() =>{
         const currentState = this.state.active;
-        this.setState({ active: !currentState });
+        console.log(currentState)
+        await this.setState({ active: !currentState });
+        console.log('Line 99', this.state.active)
     };
     // servingsAdjustor = () =>{
     //     const testIngredients = this.state.testRecipeData.ingredients
@@ -115,39 +122,107 @@ class GroceryList extends Component{
     //         }
     //     }
     // }
-    getRecipesByDate = () =>{
+    getRecipesByDate = async() =>{
         const dateArr = this.state.dateArr;
-        console.log(dateArr)
+        //  console.log(dateArr.length)
         const userId = this.state.userId;
-        console.log(userId)
+        // console.log(userId)
         let recipeArrForDates = []
-        dateArr.forEach(date =>{
-          axios
+        await dateArr.forEach( async date =>{
+          await axios
             .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${date}`)
-                .then(res =>{
-                    console.log(res);
-                    recipeArrForDates.push(res.data)
+                .then( async res =>{
+                    if(res.data.length >= 1){
+                        for(let i = 0; i < res.data.length; i++){
+                            await recipeArrForDates.push(res.data[i])
+                        }
+                       
+                    }else if(res.data.length === 1){
+                        await recipeArrForDates.push(res.data)
+                    }
                 })
                 .catch(err =>{
                     console.log(err)
 
                 })
         })
-        this.setState({
+         await this.setState({
             recipeArr : recipeArrForDates
+        })
+    //     console.log(this.state.recipeArr)
+    //   console.log(this.state.recipeArr.length)
+       
+    }
+    getRecipeData = async() =>{
+        const recipeArr = this.state.recipeArr
+        console.log(recipeArr, recipeArr.length)
+        await recipeArr.forEach(async recipe =>{
+             await axios
+                .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe.recipe_id}`)
+                .then(res =>{
+                    // res.data.forEach((element,index)=>{
+                        console.log(res)
+                    //     let tempIng ="";
+                    //     if(element.amount !== null){
+                    //         tempIng += formatQuantity(element.amount) + " ";
+                    //     } 
+                    //     if ( element.measurement !== null){
+                    //         tempIng += element.measurement + " ";
+                    //     } 
+                    //     tempIng += element.name
+                    // })
+                })
+                .catch(err =>{
+                    console.log(err)
+                })
         })
        
     }
-
+    timeoutFunction = () =>{
+        setTimeout(
+            function(){
+                console.log('Yo')
+                this.getRecipeData();
+            }.bind(this),1000
+        )
+    }
+   
     ///get ingredients for recipes
     generateList = async() =>{
        await this.getDates();
        await this.getRecipesByDate();
-    
+       await this.timeoutFunction()
     }
+    clicked = async(index) =>{
+        const indexArr = this.state.clickedIndexArr
+        if(indexArr.includes(index)){
+            await this.setState({
+                clickedIndexArr: [...this.state.clickedIndexArr.filter(item => item !== index)]
+            })
+        
+       }else{
+            await this.setState({
+                clickedIndexArr: [...this.state.clickedIndexArr, index]
+            })
+       }
+       console.log(this.state.clickedIndexArr)
+    }
+    clickedTwo = async(index) =>{
+        const indexArr = this.state.clickedIndexArrTwo
+        if(indexArr.includes(index)){
+            await this.setState({
+                clickedIndexArrTwo: [...this.state.clickedIndexArrTwo.filter(item => item !== index)]
+            })
+        
+       }else{
+            await this.setState({
+                clickedIndexArrTwo: [...this.state.clickedIndexArrTwo, index]
+            })
+       }
+       console.log(this.state.clickedIndexArrTwo)
+    }
+   
     render(){
-        // console.log(this.state.startDate);
-        // console.log(this.state.stopDate);
         return (
             <div className="GroceryList">
                 <NavBar />
@@ -183,14 +258,14 @@ class GroceryList extends Component{
                                 <h1 className = 'shopping-list-paper-header'>Shopping List : </h1>
                                 <div className="shopping-list">
                                     <ul className = 'list-row-one'>
-                                        {this.state.ingArrOne.map(item =>(
-                                            <li className={this.state.active ? ' ing selected': 'ing'} 
-                                            onclick={this.toggleClass}>{item}</li>
+                                        {this.state.ingArrOne.map((item, index) =>(
+                                            <li  className ={this.state.clickedIndexArr.includes(index) ? 'selected-ing' : 'ing'} onClick = {() =>this.clicked(index)} >{item}</li>
+                            
                                         ))}
                                     </ul>
                                     <ul className = 'list-row-two'>
-                                        {this.state.ingArrTwo.map(item =>(
-                                            <li className = 'ing'>{item}</li>
+                                        {this.state.ingArrTwo.map((item,index) =>(
+                                              <li  className ={this.state.clickedIndexArrTwo.includes(index) ? 'selected-ing' : 'ing'} onClick = {() =>this.clickedTwo(index)} >{item}</li>
                                         ))}
                                     </ul>
                                 </div>
