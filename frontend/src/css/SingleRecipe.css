@@ -304,15 +304,21 @@
     font-weight:normal;
     text-align:center;
 }
-.directions{
+.direction{
     display: list-item;                                           
     list-style-type: disc;       
     list-style-position: inside;
     font-size:18px;
     margin-top:16px;
+    cursor:pointer;
+}
+.selected-direction{
+    color:rgb(170, 67, 76);
+    text-decoration:line-through;
+    cursor:pointer;
 }
 @media screen and (max-width:1000px){
-    .directions{
+    .direction{
         font-size:16px;
     }
 }

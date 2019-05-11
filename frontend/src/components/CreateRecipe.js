@@ -284,11 +284,11 @@ closeNavigateModal = () =>{
                                 <div className='recipe-info-container'>  
                                     <div className='prep-time-container'>
                                         <p className='prep-time'>Prep Time:</p>
-                                        <p>{this.state.recipe.prep_time ? `${this.state.recipe.prep_time}  min` : 'N/A'} </p>
+                                        <p>{this.state.recipe.prep_time ? `${this.state.recipe.prep_time}` : 'N/A'} </p>
                                     </div>
                                     <div className='cook-time-container'>
                                         <p className = 'cook-time'>Cook Time:</p>
-                                        <p> {this.state.recipe.cook_time ? `${this.state.recipe.cook_time}  min` : 'N/A'}</p>
+                                        <p> {this.state.recipe.cook_time ? `${this.state.recipe.cook_time}` : 'N/A'}</p>
                                     </div>
                                     <div className='servings-amount-container'>
                                         <p className ='servings-amount'>Servings:</p>

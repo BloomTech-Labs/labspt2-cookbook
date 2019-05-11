@@ -23,6 +23,7 @@ class SingleRecipe extends Component{
             recipe_id: '',
             servings: '',
             directions: [],
+            directionsClicked: [],
             ingredients: [],
             // name: this.props.recipes.name,
             // link: this.props.recipes.link,
@@ -129,6 +130,19 @@ async componentDidUpdate(prevProps) {
     }
     console.log(this.state)
 }
+clicked = async(index) =>{
+    const clicked = this.state.directionsClicked
+    if(clicked.includes(index)){
+        await this.setState({
+            directionsClicked: [...this.state.directionsClicked.filter(item => item !==  index)]
+        })
+    }else{
+        await this.setState({
+            directionsClicked : [...this.state.directionsClicked, index]
+        })
+    }
+    console.log(this.state.directionsClicked)
+}
 
 
 
@@ -198,7 +212,7 @@ async componentDidUpdate(prevProps) {
                                     <div  className='recipe-directions-sub'>
                                         <h3 className='directions-header'>Directions</h3>
                                         <div className='recipe-directions'>
-                                            {this.state.directions === [] ? this.state.directions.map(item => <div className="directions" key={item.order}>{item.directions}</div>) : 'loading...'}
+                                            {this.state.directions === [] ? this.state.directions.map((item, index) => <div className= {this.state.directionsClicked.includes(index) ? 'selected-direction' : 'direction'} key={item.order}>{item.directions}</div>) : 'loading...'}
                                         </div>
                                     </div>    
                                 </div>
