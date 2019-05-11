@@ -20,12 +20,12 @@ export const getRecipesByIDSTART = (recipe_id, userid) => {
     }
 }
 
-export const getRecipeByIdEND = (recipe_id, userid) => async (dispatch) => {
+export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
   
    let uniqueRecipeIds =[]
    let responseValue
    let finalValue
-   await axios.get(`https://kookr.herokuapp.com/api/recipes/user/${userid}`).then((res) => {
+     axios.get(`https://kookr.herokuapp.com/api/recipes/user/${userid}`).then((res) => {
         console.log(res)
    
        //makes the array and array of objects
@@ -35,7 +35,7 @@ export const getRecipeByIdEND = (recipe_id, userid) => async (dispatch) => {
        responseValue.map(obj => obj.bestdate = [])
     
        return responseValue
-   }).then(returnedValue => {
+    }).then(returnedValue => {
       
        
        let latestDates 
@@ -80,6 +80,7 @@ export const getRecipeByIdEND = (recipe_id, userid) => async (dispatch) => {
            return latestDates 
    
       }).then((latestDates) => {
+          //sets the object bestdate properly
                axios.get(`https://kookr.herokuapp.com/api/tags/`).then(res =>  {
                   
                for( let i = 0; i < res.data.length-1; i++) {
@@ -89,17 +90,13 @@ export const getRecipeByIdEND = (recipe_id, userid) => async (dispatch) => {
                        
                    } 
                }
-               // dispatch({
-               //     type: ADD_TAG,
-               //     payload: {recipe_id, tags: res.data}
-               // })
-                   
-               
-           
+              
                
                return latestDates
            }).then((latestDates) => {
                let i 
+               //loops through the tags api response and the recipes, 
+               //matches with the correct recipe and sets the bestdate object
                for(let i = 0; i < returnedValue.length; i++) {
                if(latestDates[i] === undefined){       
                 } else {
@@ -108,59 +105,47 @@ export const getRecipeByIdEND = (recipe_id, userid) => async (dispatch) => {
                     }
                 }  
                }
-               console.log(returnedValue)
-               finalValue = returnedValue
-               console.log(finalValue)
-      
+            
            return returnedValue
            })
            .then(needDetail => {
-
-            for(let k = 0; k < returnedValue.length; k++){
-                axios.get(`https://kookr.herokuapp.com/api/recipes/${returnedValue[k].recipe_id}`).then(res => {
-                    console.log(k)
-                //    res = JSON.parse(JSON.stringify(res))
-
-                //     needDetail = JSON.parse(JSON.stringify(needDetail))
-                //     console.log(needDetail)
-
-                    needDetail[k].something = ['SOMETHING ELSE']
+           
+            
+            const getRecipes = needDetail.map((detail) => {
+               return axios.get(`https://kookr.herokuapp.com/api/recipes/${detail.recipe_id}`)
                 
-                console.log(res.data.directions)
-                   // needDetail[k].directions = res.data.directions
-                let values = {
-                    directions: res.data.directions,
-                    ingredients: res.data.ingredients
-                }
-
-                    // needDetail[k] = {...needDetail[k], ...values}
-
-                   // needDetail[k].ingredients = res.data.ingredients
-               })
-            }
-            console.log(Object.keys(needDetail[0]))
-            dispatch({
-                type: GET_RECIPES_BY_ID,
-                payload: {recipe_id, recipes: needDetail}
             })
-            //    axios.get(`https://kookr.herokuapp.com/api/recipes/${recipe_id}`).then(res => {
-            //        console.log(res)
-            //    })
+
+
+            axios.all(getRecipes)
+                 .then(axios.spread((...res)=> {
+                            res.forEach((recipe, index) => {
+                            
+            
+                    let directions = 'directions'
+                    let ingredients = 'ingredients'
+                    
+                    needDetail[index].directions = recipe.data.directions
+                    needDetail[index].ingredients = recipe.data.ingredients
+     
+
+                            })
+                            console.log(needDetail)
+                            dispatch({
+                                type: GET_RECIPES_BY_ID,
+                                payload: {recipe_id, recipes: needDetail}
+                            })
+                    }
+                    ))
+                 .catch(err => console.log(err.response))
+         
+       
            })
 
       })
 
    })
-//    console.log(finalValue)
-   
-//    return {
-//     type: GET_RECIPES_BY_ID,
-//     payload: {recipe_id, recipes: finalValue}
-//     } 
-//    dispatch({
-//     type: GET_RECIPES_BY_ID,
-//     payload: {recipe_id, recipes: returnedValue}
-// })
+
 
 }
 
@@ -277,8 +262,8 @@ export const getRecipes2 = (userid) => (dispatch) => {
                 
                 return latestDates
             }).then((latestDates) => {
-                console.log(latestDates)
-                console.log(returnedValue)
+                // console.log(latestDates)
+                // console.log(returnedValue)
                 let i 
                 for(let i = 0; i < returnedValue.length; i++) {
                     let trueOrFalse =[]
