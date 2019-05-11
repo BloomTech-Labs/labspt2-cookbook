@@ -270,8 +270,11 @@
 .ing{
     cursor:pointer;
 }
-.selected{
-   font-size:24px;
+.selected-ing{
+    color:rgb(170, 67, 76);
+    text-decoration:line-through;
+    cursor:pointer;
+  
 }
 @media screen and (max-width:1100px){
     .shopping-list{

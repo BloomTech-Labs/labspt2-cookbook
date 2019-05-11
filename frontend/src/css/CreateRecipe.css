@@ -131,6 +131,9 @@
     margin-bottom:20px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
+.no-show{
+    display:none;
+}
 .recipe-preview-title-and-info{
     width:64%;
     border-radius:2px;
@@ -139,6 +142,11 @@
     flex-direction:column;
     background-color:white;
     /* border-right:2px solid rgba(184, 183, 180, 0.116); */
+}
+.iframe-container{
+    width:64%;
+    
+
 }
 .recipe-preview-header{
     font-size:32px;

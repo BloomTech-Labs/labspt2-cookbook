@@ -24,14 +24,13 @@ class LandingPage extends React.Component{
     };
     
     
-//Post user not working
-//How to grab user Id after post ?? res.data? set user Id to local storage -change instances of user id in routes on other pages
+
     submitHandler = async (googleObj) =>{
         await this.setState({
-            // email: googleObj.profileObj.email,
-            email:"emailandstuff.com",
-            // authId: googleObj.googleId
-            authId: "779802nnjs02iup2je2dflsd"
+            email: googleObj.profileObj.email,
+            // email:"emailandstuff.com",
+            authId: googleObj.googleId
+            // authId: "779802nnjs02iup2je2dflsd"
         });
         console.log(this.state);
         axios
