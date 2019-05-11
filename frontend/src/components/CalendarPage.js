@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Calendar from 'react-calendar';
 import NavBar from './NavBar';
+import {Link} from 'react-router-dom';
 import moment from 'moment';
 import Moment from 'moment';
 import axios from 'axios';
@@ -33,7 +34,8 @@ class CalendarPage extends Component{
             tag: null,
             servingsModal:false,
             tagModal:false,
-            duplicate:false
+            duplicate:false,
+            navigateModal:  false
          
         }
     }
@@ -81,22 +83,19 @@ class CalendarPage extends Component{
         await this.getWeek();
         await this.getRecipesForWeekArr();
         await this.timeoutFunction();
-        // await this.postNextWeekRecipeArr();  
+        await this.setState({
+            navigateModal:true
+        })  
     }
     getRecipesForWeekArr = async() =>{
         const userId = this.state.userId;
-        //replace the above with the below to tie to active userid based on google login
-        //this.props.user[0].user_id
-        // const userId = this.props.user[0].user_id
         const prevWeekArr = this.state.prevWeekArr;
         console.log('Line 106, preveweekarr', prevWeekArr)
         const prevWeekRecipeArr = []
         await prevWeekArr.forEach(async date =>{
-            // const date = date
            await axios
                 .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${encodeURIComponent(date)}`)
                     .then(res =>{
-                        // console.log(res)////Figure out how this is returning recipes
                         if(!res.data.length){
                             prevWeekRecipeArr.push({name: 'No recipes for this day', date: date})
                         }else{
@@ -116,10 +115,7 @@ class CalendarPage extends Component{
     timeoutFunction = () =>{
         setTimeout(
             function(){
-                console.log('Yo')
                this.postNextWeekRecipeArr();
-      
-        // console.log(this.state)
             }.bind(this),1000
         )
     }
@@ -131,12 +127,12 @@ class CalendarPage extends Component{
         prevWeekRecipeArr.forEach((recipe, index )=>{    
             if(typeof recipe.name === 'string'){
                 // Shouldn't need to post if blank
-
-                const date = new Date(recipe.date);
-                date.setDate(date.getDate() + 7);
-                const newRecipeObj = {recipe_id: null, user_id : userId, date :  date, servings: null, tag_id : 6}
-                console.log(newRecipeObj)
-                postArr.push(newRecipeObj)
+                console.log('no recipe here hombre')
+                // const date = new Date(recipe.date);
+                // date.setDate(date.getDate() + 7);
+                // const newRecipeObj = {recipe_id: null, user_id : userId, date :  date, servings: null, tag_id : 6}
+                // console.log(newRecipeObj)
+                // postArr.push(newRecipeObj)
             }else {
                 recipe.forEach(recipeMultiple =>{
                     const recipeId = recipeMultiple.recipe_id
@@ -480,6 +476,15 @@ class CalendarPage extends Component{
                         </div>
                         <div onClick = {this.onSaveFunction} className='save-button'>
                             Save 
+                        </div>
+                        <div className={this.state.navigateModal ? 'navigate-modal-open' : 'navigate-modal-closed'}>
+                            <div className='navigate-modal'>   
+                                <h2 className='navigate-modal-header'>Would you like to go to your Shopping List?</h2>
+                                <div  className='navigate-button-container'>
+                                    <Link to = "/grocery-list" className = 'leave-button'>Yes, take me there</Link>
+                                    <div className='stay-button' onClick ={this.closeNavigateModal}>No, I'll stay here</div>
+                                </div>
+                            </div>     
                         </div>  
                     </div>        
                 </div>

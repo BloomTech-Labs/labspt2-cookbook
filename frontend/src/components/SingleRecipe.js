@@ -23,6 +23,7 @@ class SingleRecipe extends Component{
             recipe_id: '',
             servings: '',
             directions: [],
+            directionsClicked: [],
             ingredients: [],
             // name: this.props.recipes.name,
             // link: this.props.recipes.link,
@@ -88,12 +89,12 @@ console.log(this.props.recipes)
     //  let recipeid = this.props.match.params.id
    
 
-axios.get(`https://kookr.herokuapp.com/api/recipes/${recipe_id}`).then(res => {
+await axios.get(`https://kookr.herokuapp.com/api/recipes/${recipe_id}`).then(async res => {
 
     console.log(res)
 
    
-    this.setState({
+    await this.setState({
         name: res.data.name, 
         link: res.data.link, 
         cook_time: res.data.cook_time, 
@@ -129,15 +130,30 @@ async componentDidUpdate(prevProps) {
     }
     console.log(this.state)
 }
+clicked = async(index) =>{
+    const clicked = this.state.directionsClicked
+    if(clicked.includes(index)){
+        await this.setState({
+            directionsClicked: [...this.state.directionsClicked.filter(item => item !==  index)]
+        })
+    }else{
+        await this.setState({
+            directionsClicked : [...this.state.directionsClicked, index]
+        })
+    }
+    console.log(this.state.directionsClicked)
+}
 
 
 
     render(){
         console.log(this.props)
+       
         return (
-            <div className="SingleRecipe"> 
+            <div className= "SingleRecipe"> 
                 <NavBar />
-                <div className ='single-recipe-page-container'>
+                <iframe src = {this.state.link} className = {this.state.link.includes('allrecipes') || this.state.link.includes('pinchofyum') ? 'iframe-no-show' : 'iframe-show'} />
+                <div className ={this.state.link.includes('allrecipes') || this.state.link.includes('pinchofyum') ?'single-recipe-page-container' : 'single-recipe-no-show'}>
                     <div className = 'single-recipe-page-sub'>
                         <div className = 'column-one'>
                             <div className='column-one-sub'>
@@ -196,7 +212,7 @@ async componentDidUpdate(prevProps) {
                                     <div  className='recipe-directions-sub'>
                                         <h3 className='directions-header'>Directions</h3>
                                         <div className='recipe-directions'>
-                                            {this.state.directions === [] ? this.state.directions.map(item => <div className="directions" key={item.order}>{item.directions}</div>) : 'loading...'}
+                                            {this.state.directions === [] ? this.state.directions.map((item, index) => <div className= {this.state.directionsClicked.includes(index) ? 'selected-direction' : 'direction'} key={item.order}>{item.directions}</div>) : 'loading...'}
                                         </div>
                                     </div>    
                                 </div>
