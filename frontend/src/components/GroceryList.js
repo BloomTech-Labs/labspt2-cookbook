@@ -14,18 +14,18 @@ class GroceryList extends Component{
     constructor(props){
         super()
         this.state ={
-          startDate : '',
-          stopDate:  '',
-          ingArrOne: [],
-          ingArrTwo: [],
-          active: false,
-          userId : null,
-          dateArr: [], 
-          recipeArr: [],
-          clickedIndexArr: [],
-          clickedIndexArrTwo: [],
-
-        }
+            startDate : '',
+            stopDate:  '',
+            ingArrOne: [],
+            ingArrTwo: [],
+            active: false,
+            userId : null,
+            dateArr: [], 
+            recipeArr: [],
+            clickedIndexArr: [],
+            clickedIndexArrTwo: [],
+            tempIngArr: [],
+            }
     }
 
     componentDidMount(){
@@ -33,11 +33,11 @@ class GroceryList extends Component{
         this.setState({
             userId : Number(userId)
         })
-        //this.getRecipe()
     }
-    clickHandler = (event) =>{
-        console.log("this is a link")
-    }
+
+    // clickHandler = (event) =>{
+    //     console.log("this is a link")
+    // }
     onChangeDate = async(event) =>{
         await this.setState({
             [event.target.name] : event.target.value
@@ -65,36 +65,6 @@ class GroceryList extends Component{
         }
     }
 
-    // getRecipe = () =>{
-    //     axios
-    //     .get('https://kookr.herokuapp.com/api/ingredients/recipe/1')
-    //     .then(res =>{
-    //         res.data.forEach((element,index)=>{
-    //             // console.log(res)
-    //             let tempIng ="";
-    //             if(element.amount !== null){
-    //                 tempIng += formatQuantity(element.amount) + " ";
-    //             } 
-    //             if ( element.measurement !== null){
-    //                 tempIng += element.measurement + " ";
-    //             } 
-    //             tempIng += element.name
-    //             if(index % 2){
-    //                 this.setState({
-    //                     ingArrOne : [...this.state.ingArrOne,tempIng]
-    //                 })
-    //             }else{
-    //                 this.setState({
-    //                     ingArrTwo : [...this.state.ingArrTwo, tempIng]
-    //                 })
-    //             }
-                
-    //         })
-    //     })
-    //     .catch(err =>{
-    //         console.log(err)
-    //     })
-    // }
     toggleClass = async() =>{
         const currentState = this.state.active;
         console.log(currentState)
@@ -102,12 +72,7 @@ class GroceryList extends Component{
         console.log('Line 99', this.state.active)
     };
     // servingsAdjustor = () =>{
-    //     const testIngredients = this.state.testRecipeData.ingredients
-    //     const testIngredientsAmount = this.state.testRecipeData.ingredients.amount
-    //     const testServings = this.state.testRecipeData.servings
-    //     // const ingredients = this.state.recipeData.ingredients
-    //     // const recipeServings = this.state.recipeData.servings
-    //     const servings = this.state.servings
+        
     //     for(let i = 0; i < testIngredients.length; i++){
     //         if(testServings > servings){ // given 3 want 2
     //            // amount = amount * (2 / 3)
@@ -149,56 +114,70 @@ class GroceryList extends Component{
          await this.setState({
             recipeArr : recipeArrForDates
         })
-    //     console.log(this.state.recipeArr)
+        console.log("The recipeArr", this.state.recipeArr)
     //   console.log(this.state.recipeArr.length)
        
     }
     getRecipeData = async() =>{
         const recipeArr = this.state.recipeArr
-        console.log(recipeArr, recipeArr.length)
+        console.log('the recipe arr in the get data function', recipeArr, recipeArr.length)
         await recipeArr.forEach(async recipe =>{
-             await axios
-                .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe.recipe_id}`)
-                .then(res =>{
-                    // res.data.forEach((element,index)=>{
-                        console.log(res)
-                        res.data.forEach((element,index)=>{
-                            // console.log(res)
-                            let tempIng ="";
-                            if(element.amount !== null){
-                                tempIng += formatQuantity(element.amount) + " ";
-                            } 
-                            if ( element.measurement !== null){
-                                tempIng += element.measurement + " ";
-                            } 
-                            tempIng += element.name
-                            if(index % 2){
+            //get recipe by id from recipe table
+            await axios
+            .get(`https://kookr.herokuapp.com/api/recipes/${recipe.recipe_id}`)
+            .then(res =>{
+                let originalRecipeServings = res.data.servings
+                let scheduledRecipeServings = recipe.servings
+                //Check if servings from original recipe match servings from schedule
+                //If yes all to tempIngArr
+                if(originalRecipeServings === scheduledRecipeServings ){
+                    axios
+                    .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe.recipe_id}`)
+                    .then(res =>{
+                            res.data.forEach((element)=>{
                                 this.setState({
-                                    ingArrOne : [...this.state.ingArrOne,tempIng]
+                                    tempIngArr : [...this.state.tempIngArr,element]
                                 })
-                            }else{
+                            })
+                    })
+                    .catch(err =>{
+                        console.log(err)
+                    })
+                } else {
+                    // if servings do not match fix servings to be accurate before adding to array
+                    axios
+                    .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe.recipe_id}`)
+                    .then(res =>{
+                            res.data.forEach((element)=>{
+                                if(element.amount !== null){
+                                    let tempElementAmount = element.amount
+                                    tempElementAmount = (tempElementAmount/originalRecipeServings)*scheduledRecipeServings
+                                    element.amount = tempElementAmount
+                                } 
                                 this.setState({
-                                    ingArrTwo : [...this.state.ingArrTwo, tempIng]
+                                    tempIngArr : [...this.state.tempIngArr,element]
                                 })
-                            }
-                            
-                        })
-                    //     let tempIng ="";
-                    //     if(element.amount !== null){
-                    //         tempIng += formatQuantity(element.amount) + " ";
-                    //     } 
-                    //     if ( element.measurement !== null){
-                    //         tempIng += element.measurement + " ";
-                    //     } 
-                    //     tempIng += element.name
-                    // })
-                })
-                .catch(err =>{
-                    console.log(err)
-                })
+                                
+                                
+                            })
+                            console.log("tempIngArr from inside getRecipeData after ingredient amount fix", this.state.tempIngArr)
+                    })
+                    .catch(err =>{
+                        console.log(err)
+                    })
+                }
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+            
         })
-       
     }
+
+    combineIngredients = () =>{
+        console.log("from combine ingredients func", this.state.tempIngArr)
+    }
+
     timeoutFunction = () =>{
         setTimeout(
             function(){
@@ -206,6 +185,7 @@ class GroceryList extends Component{
                 this.getRecipeData();
             }.bind(this),1000
         )
+
     }
    
     ///get ingredients for recipes
@@ -214,6 +194,7 @@ class GroceryList extends Component{
        await this.getRecipesByDate();
        await this.timeoutFunction()
     }
+
     clicked = async(index) =>{
         const indexArr = this.state.clickedIndexArr
         if(indexArr.includes(index)){
@@ -226,7 +207,7 @@ class GroceryList extends Component{
                 clickedIndexArr: [...this.state.clickedIndexArr, index]
             })
        }
-       console.log(this.state.clickedIndexArr)
+       //console.log(this.state.clickedIndexArr)
     }
     clickedTwo = async(index) =>{
         const indexArr = this.state.clickedIndexArrTwo
@@ -240,7 +221,7 @@ class GroceryList extends Component{
                 clickedIndexArrTwo: [...this.state.clickedIndexArrTwo, index]
             })
        }
-       console.log(this.state.clickedIndexArrTwo)
+       //console.log(this.state.clickedIndexArrTwo)
     }
    
     render(){
@@ -319,4 +300,21 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroceryList)
 
-
+//res.data.forEach((element,index)=>{
+// let tempIng ="";
+// if(element.amount !== null){
+//     tempIng += formatQuantity(element.amount) + " ";
+// } 
+// if ( element.measurement !== null){
+//     tempIng += element.measurement + " ";
+// } 
+// tempIng += element.name
+// if(index % 2){
+//     this.setState({
+//         ingArrOne : [...this.state.ingArrOne,tempIng]
+//     })
+// }else{
+//     this.setState({
+//         ingArrTwo : [...this.state.ingArrTwo, tempIng]
+//     })
+// }
