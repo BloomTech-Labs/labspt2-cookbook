@@ -47,7 +47,7 @@ router.put("/unsubscribe", (req, res) =>{
     .catch(err =>{
         res.status(500).json({error: "Could not update customers subscription"})
     })
-} 
+}); 
 
 
 module.exports = router;

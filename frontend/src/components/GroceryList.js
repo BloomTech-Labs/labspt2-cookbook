@@ -21,7 +21,9 @@ class GroceryList extends Component{
           active: false,
           userId : null,
           dateArr: [], 
-          recipeArr: []
+          recipeArr: [],
+          clickedIndexArr: [],
+          clickedIndexArrTwo: [],
 
         }
     }
@@ -202,9 +204,6 @@ class GroceryList extends Component{
             function(){
                 console.log('Yo')
                 this.getRecipeData();
-        //         const recipeArr = this.state.recipeArr
-        // console.log(recipeArr, recipeArr.length)
-        // console.log(this.state)
             }.bind(this),1000
         )
     }
@@ -214,9 +213,36 @@ class GroceryList extends Component{
        await this.getDates();
        await this.getRecipesByDate();
        await this.timeoutFunction()
-   
-    
     }
+    clicked = async(index) =>{
+        const indexArr = this.state.clickedIndexArr
+        if(indexArr.includes(index)){
+            await this.setState({
+                clickedIndexArr: [...this.state.clickedIndexArr.filter(item => item !== index)]
+            })
+        
+       }else{
+            await this.setState({
+                clickedIndexArr: [...this.state.clickedIndexArr, index]
+            })
+       }
+       console.log(this.state.clickedIndexArr)
+    }
+    clickedTwo = async(index) =>{
+        const indexArr = this.state.clickedIndexArrTwo
+        if(indexArr.includes(index)){
+            await this.setState({
+                clickedIndexArrTwo: [...this.state.clickedIndexArrTwo.filter(item => item !== index)]
+            })
+        
+       }else{
+            await this.setState({
+                clickedIndexArrTwo: [...this.state.clickedIndexArrTwo, index]
+            })
+       }
+       console.log(this.state.clickedIndexArrTwo)
+    }
+   
     render(){
         return (
             <div className="GroceryList">
@@ -253,14 +279,14 @@ class GroceryList extends Component{
                                 <h1 className = 'shopping-list-paper-header'>Shopping List : </h1>
                                 <div className="shopping-list">
                                     <ul className = 'list-row-one'>
-                                        {this.state.ingArrOne.map(item =>(
-                                            <li className={this.state.active ? ' ing selected': 'ing'} 
-                                            onclick={this.toggleClass}>{item}</li>
+                                        {this.state.ingArrOne.map((item, index) =>(
+                                            <li  className ={this.state.clickedIndexArr.includes(index) ? 'selected-ing' : 'ing'} onClick = {() =>this.clicked(index)} >{item}</li>
+                            
                                         ))}
                                     </ul>
                                     <ul className = 'list-row-two'>
-                                        {this.state.ingArrTwo.map(item =>(
-                                            <li className = 'ing'>{item}</li>
+                                        {this.state.ingArrTwo.map((item,index) =>(
+                                              <li  className ={this.state.clickedIndexArrTwo.includes(index) ? 'selected-ing' : 'ing'} onClick = {() =>this.clickedTwo(index)} >{item}</li>
                                         ))}
                                     </ul>
                                 </div>

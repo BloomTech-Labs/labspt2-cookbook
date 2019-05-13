@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Authenticate from './components/Authenticate';
+
 import LandingPage from './components/LandingPage';
 import CreateRecipe from './components/CreateRecipe';
 import RecipeList from "./components/RecipeList";
-import IndividualRecipe from "./components/IndividualRecipe";
+
 import CalendarPage from "./components/CalendarPage";
 import GroceryList from "./components/GroceryList";
 import Settings from "./components/Settings";
@@ -18,7 +18,6 @@ class App extends Component {
   }
  
   render() {
-    const App = () =>{
       return (
         <div className="App">
           <Router>
@@ -35,13 +34,6 @@ class App extends Component {
         </div>
       );
     }
-    const HigherOrderComponent = Authenticate(App);
-      return(
-            <HigherOrderComponent/>
-        
-        
-      )
-  }
 }
 
-export default Authenticate(App);
+export default App;
