@@ -31,7 +31,7 @@ class GroceryList extends Component{
         this.setState({
             userId : Number(userId)
         })
-        this.getRecipe()
+        //this.getRecipe()
     }
     clickHandler = (event) =>{
         console.log("this is a link")
@@ -43,7 +43,7 @@ class GroceryList extends Component{
     }
     getDates = async() => {
         if(this.state.startDate.length === 0 || this.state.stopDate.length === 0){
-            alert('Please make sure you  have enetered a start and stop date')
+            alert('Please make sure you  have entered a start and stop date')
         }else{
             var dateArray = [];
             var currentDate = moment(this.state.startDate);
@@ -63,36 +63,36 @@ class GroceryList extends Component{
         }
     }
 
-    getRecipe = () =>{
-        axios
-        .get('https://kookr.herokuapp.com/api/ingredients/recipe/1')
-        .then(res =>{
-            res.data.forEach((element,index)=>{
-                // console.log(res)
-                let tempIng ="";
-                if(element.amount !== null){
-                    tempIng += formatQuantity(element.amount) + " ";
-                } 
-                if ( element.measurement !== null){
-                    tempIng += element.measurement + " ";
-                } 
-                tempIng += element.name
-                if(index % 2){
-                    this.setState({
-                        ingArrOne : [...this.state.ingArrOne,tempIng]
-                    })
-                }else{
-                    this.setState({
-                        ingArrTwo : [...this.state.ingArrTwo, tempIng]
-                    })
-                }
+    // getRecipe = () =>{
+    //     axios
+    //     .get('https://kookr.herokuapp.com/api/ingredients/recipe/1')
+    //     .then(res =>{
+    //         res.data.forEach((element,index)=>{
+    //             // console.log(res)
+    //             let tempIng ="";
+    //             if(element.amount !== null){
+    //                 tempIng += formatQuantity(element.amount) + " ";
+    //             } 
+    //             if ( element.measurement !== null){
+    //                 tempIng += element.measurement + " ";
+    //             } 
+    //             tempIng += element.name
+    //             if(index % 2){
+    //                 this.setState({
+    //                     ingArrOne : [...this.state.ingArrOne,tempIng]
+    //                 })
+    //             }else{
+    //                 this.setState({
+    //                     ingArrTwo : [...this.state.ingArrTwo, tempIng]
+    //                 })
+    //             }
                 
-            })
-        })
-        .catch(err =>{
-            console.log(err)
-        })
-    }
+    //         })
+    //     })
+    //     .catch(err =>{
+    //         console.log(err)
+    //     })
+    // }
     toggleClass = async() =>{
         const currentState = this.state.active;
         console.log(currentState)
@@ -160,6 +160,27 @@ class GroceryList extends Component{
                 .then(res =>{
                     // res.data.forEach((element,index)=>{
                         console.log(res)
+                        res.data.forEach((element,index)=>{
+                            // console.log(res)
+                            let tempIng ="";
+                            if(element.amount !== null){
+                                tempIng += formatQuantity(element.amount) + " ";
+                            } 
+                            if ( element.measurement !== null){
+                                tempIng += element.measurement + " ";
+                            } 
+                            tempIng += element.name
+                            if(index % 2){
+                                this.setState({
+                                    ingArrOne : [...this.state.ingArrOne,tempIng]
+                                })
+                            }else{
+                                this.setState({
+                                    ingArrTwo : [...this.state.ingArrTwo, tempIng]
+                                })
+                            }
+                            
+                        })
                     //     let tempIng ="";
                     //     if(element.amount !== null){
                     //         tempIng += formatQuantity(element.amount) + " ";
