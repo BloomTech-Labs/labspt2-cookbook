@@ -112,9 +112,15 @@ editRecipeButton = (recipe_id) => {
 filterRecipeButton = (tag) => {
     //need to link to user reducer
     let id = 1
-    console.log('filter fires')
-    this.props.getRecipesByTag(tag)
-    this.props.getRecipes(id)
+    console.log('Tag!', tag)
+    if(tag === 'all'){
+        this.props.getRecipes(id)
+    }else{
+        this.props.getRecipesByTag(tag)
+        this.props.getRecipes(id)
+    }
+    // this.props.getRecipesByTag(tag)
+    // this.props.getRecipes(id)
 }
 
 filterAndCloseCombine = (tag, event) => {
@@ -188,36 +194,41 @@ cutterHeaderOff = (string) =>{
                                         <div className ='close-filter-modal' onClick={this.filterModalClose}>X</div>
                                         <div className='filter-modal-header'>Filter by Meal</div>
                                         <div className='filter-modal-inputs-container'>
-                                        <div className={`filter-meal-tag ${this.state.tag === 'breakfast' ? 'filter-selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
-                                            <div className='filter-meal-tag-sub'>
-                                                <p className ='filter-meal-tag-p'>Breakfast</p>
-                                                <img className = 'filter-meal-tag-icon' src ='../images/fried-egg.png' alt='Breakfast'/>
+                                            <div className={`filter-meal-tag ${this.state.tag === 'breakfast' ? 'filter-selected' : '' }`} onClick={(e) =>this.clickHandle(e, 'breakfast')}>
+                                                <div className='filter-meal-tag-sub'>
+                                                    <p className ='filter-meal-tag-p'>Breakfast</p>
+                                                    <img className = 'filter-meal-tag-icon' src ='../images/fried-egg.png' alt='Breakfast'/>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className={`filter-meal-tag ${this.state.tag === 'lunch' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
-                                            <div className='filter-meal-tag-sub'>  
-                                                <p className = 'filter-meal-tag-p'>Lunch</p>
-                                                <img className = 'filter-meal-tag-icon' src ='../images/salad.png' alt='Lunch'/>
+                                            <div className={`filter-meal-tag ${this.state.tag === 'lunch' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'lunch')}>
+                                                <div className='filter-meal-tag-sub'>  
+                                                    <p className = 'filter-meal-tag-p'>Lunch</p>
+                                                    <img className = 'filter-meal-tag-icon' src ='../images/salad.png' alt='Lunch'/>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className={`filter-meal-tag ${this.state.tag === 'dinner' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
-                                            <div className='filter-meal-tag-sub'>
-                                                <p className = 'filter-meal-tag-p'>Dinner</p>
-                                                <img className = 'filter-meal-tag-icon' src ='../images/fish.png' alt='Dinner'/>
+                                            <div className={`filter-meal-tag ${this.state.tag === 'dinner' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dinner')}>
+                                                <div className='filter-meal-tag-sub'>
+                                                    <p className = 'filter-meal-tag-p'>Dinner</p>
+                                                    <img className = 'filter-meal-tag-icon' src ='../images/fish.png' alt='Dinner'/>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className={`filter-meal-tag ${this.state.tag === 'dessert' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
-                                            <div className='filter-meal-tag-sub'>
-                                                <p className = 'filter-meal-tag-p'>Dessert</p>
-                                                <img className = 'filter-meal-tag-icon' src ='../images/cupcake.png' alt='Dessert'/>
+                                            <div className={`filter-meal-tag ${this.state.tag === 'dessert' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'dessert')}>
+                                                <div className='filter-meal-tag-sub'>
+                                                    <p className = 'filter-meal-tag-p'>Dessert</p>
+                                                    <img className = 'filter-meal-tag-icon' src ='../images/cupcake.png' alt='Dessert'/>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className={`filter-meal-tag ${this.state.tag === 'snack' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
-                                            <div className='filter-meal-tag-sub'>
-                                                <p className = 'filter-meal-tag-p'>Snack</p>
-                                                <img className = 'filter-meal-tag-icon' src ='../images/popcorn.png' alt='Snack'/>
+                                            <div className={`filter-meal-tag ${this.state.tag === 'snack' ? 'filter-selected' : '' }`}  onClick={(e) => this.clickHandle(e, 'snack')}>
+                                                <div className='filter-meal-tag-sub'>
+                                                    <p className = 'filter-meal-tag-p'>Snack</p>
+                                                    <img className = 'filter-meal-tag-icon' src ='../images/popcorn.png' alt='Snack'/>
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div className={`filter-meal-tag ${this.state.tag === 'all' ? 'filter-selected' : '' }`} onClick={(e) => this.clickHandle(e, 'all')}>
+                                                <div className='filter-meal-tag-sub'>
+                                                    <p className = 'filter-meal-tag-p'>Select All</p>
+                                                </div>
+                                            </div>  
                                         </div>
                                         <div className='filter-modal-submit-button' onClick={() => this.filterAndCloseCombine(this.state.tag)} >Submit</div>
                                     </div> 
@@ -225,12 +236,9 @@ cutterHeaderOff = (string) =>{
                             </div>
                         <div className="recipe-list">
                             {this.props.recipes.map((item) => (
-                                
                             <div key={item.name} className='recipe-card'>
-                            {/* className = 'recipe-link' */}
                                 <Link  className ='recipe-link' to={`/recipes/${item.recipe_id}`} >
-                                            <div className='recipe-card-header'>{this.cutterHeaderOff(item.name)}</div>
-                                            {/* <div className='recipe-card-content'>text some card text</div> */}
+                                    <div className='recipe-card-header'>{this.cutterHeaderOff(item.name)}</div>
                                 </Link>
                                 <div className= 'recipe-card-img-container'>
                                     <img className = {item.image ? 'recipe-card-img' : 'recipe-card-img chef'} src = {item.image ? item.image : '../images/logo-white.png'} alt ='recipe-list-image'/>

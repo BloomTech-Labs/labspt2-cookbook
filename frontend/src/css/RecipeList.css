@@ -311,6 +311,7 @@
     display:flex;
     justify-content: space-between;
     margin:0 auto;
+    cursor:pointer;
 }
 .filter-meal-tag-icon{
     width:30px;
