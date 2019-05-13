@@ -12,7 +12,12 @@ import '../css/SingleRecipe.css';
 
 
 class SingleRecipe extends Component{
-
+    constructor(){
+        super()
+        this.state = {
+            directionsClicked: []
+        }
+    }
  
    
 componentWillMount() {
@@ -111,9 +116,6 @@ clicked = async(index) =>{
 
 
     render(){
-
-
-       
         return (
             <div className= "SingleRecipe"> 
                 <NavBar />
@@ -123,14 +125,21 @@ clicked = async(index) =>{
                         
                 //Here div
                 <div>    
-                    <iframe src = {item.link} className = {item.link.includes('allrecipes') || item.link.includes('pinchofyum') ? 'iframe-no-show' : 'iframe-show'} />
-
+                    <iframe src = {item.link} className = {item.link.includes('allrecipes') || item.link.includes('pinchofyum') || item.link.includes('delish.com')? 'iframe-no-show' : 'iframe-show'} />
+                    <div className ={item.link.includes('delish.com') ? 'edge-case' : 'edge-case-no-show'}> 
+                        <div className ='single-recipe-error-container'>
+                            <h2 className ='single-recipe-error-header'>The recipe you requested cannot be viewed in an iframe due to a Content Security Policy directive. Please visit the link below to visit thge recipe.</h2>
+                            <div className ='single-recipe-error-link'>
+                                <a className ='recipe-error-a' href = {item.link} >LINK</a>
+                            </div>
+                        </div>
+                    </div>
                     <div className = {item.link.includes('allrecipes') || item.link.includes('pinchofyum') ? 'single-recipe-page-sub' : 'single-recipe-page-sub-none'}>
                         <div className = 'column-one'>
                             <div className='column-one-sub'>
                                 <div className = 'name-and-link-container'>
                                     <div className="single-recipe-name">{item.name}</div>
-                                    <button className='single-recipe-link' href={`${item.link}`}>LINK</button>
+                                    <a className='single-recipe-link' href={`${item.link}`}>LINK</a>
                                 </div>
                                 <div className ='image-and-schedule-container'>
                                     <div className ='single-recipe-image-container'>
@@ -198,7 +207,7 @@ clicked = async(index) =>{
 
                                             {
                                                 item.directions !== undefined ?
-                                                item.directions.map(item => <div className="directions" key={item.order}>{item.directions}</div>) 
+                                                item.directions.map((item,index) => <div className={this.state.directionsClicked.includes(index) ? 'selected-direction' : 'direction'} key={item.order} onClick = {() =>{this.clicked(index)}}>{item.directions}</div>) 
                                                 : "Loading..."
                                             }
 
