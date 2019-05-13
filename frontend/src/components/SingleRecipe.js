@@ -121,10 +121,11 @@ clicked = async(index) =>{
                 <div className ='single-recipe-page-container'>
                     {this.props.recipes.map((item) => (
                         
+                //Here div
+                <div>    
+                    <iframe src = {item.link} className = {item.link.includes('allrecipes') || item.link.includes('pinchofyum') ? 'iframe-no-show' : 'iframe-show'} />
 
-                <iframe src = {item.link} className = {item.link.includes('allrecipes') || item.link.includes('pinchofyum') ? 'iframe-no-show' : 'iframe-show'} />
-
-                    <div className = 'single-recipe-page-sub'>
+                    <div className = {item.link.includes('allrecipes') || item.link.includes('pinchofyum') ? 'single-recipe-page-sub' : 'single-recipe-page-sub-none'}>
                         <div className = 'column-one'>
                             <div className='column-one-sub'>
                                 <div className = 'name-and-link-container'>
@@ -209,6 +210,7 @@ clicked = async(index) =>{
                         
                    
                     </div>  
+                </div>    
                      ))}  
             </div>
         </div>         
