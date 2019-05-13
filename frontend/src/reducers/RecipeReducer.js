@@ -30,11 +30,10 @@ const RecipeReducer = ((state = initialState, action) => {
                 }
         
         case GET_RECIPES_BY_ID:
-    
+              
                 let recipesArray = action.payload.recipes.filter(recipe => recipe.recipe_id === parseInt(action.payload.recipe_id) )
                     // recipe.recipe_id === action.payload.recipe_id 
-                    
-                console.log(Object.keys(recipesArray[0]))
+               
             
             return {...state, recipes: recipesArray}    
         
