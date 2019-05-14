@@ -173,9 +173,29 @@ class GroceryList extends Component{
             
         })
     }
-
+    //Below function doesn't work
     combineIngredients = () =>{
+
+        //for each item in the ary compare each other item in the array. 
+        //if the id is the same
+            //combine the amounts and push to a sorted array
+            //remove other item from original array
+        //if no matching id is found push to sorted array
         console.log("from combine ingredients func", this.state.tempIngArr)
+        let sortedArr = []
+        sortedArr = this.state.tempIngArr.map(element =>{
+            for(let i=0;i<this.state.tempIngArr.length;i++){
+                if(element.id===this.state.tempIngArr[i].id){
+                    element.amount += this.state.tempIngArr[i].amount;
+                    this.setState({
+                        tempIngArr : this.state.tempIngArr.splice(i, 1)
+                    })
+                } else{
+                   return element
+                }
+            }
+            console.log(sortedArr)
+        })
     }
 
     timeoutFunction = () =>{
@@ -184,15 +204,23 @@ class GroceryList extends Component{
                 console.log('Yo')
                 this.getRecipeData();
             }.bind(this),1000
-        )
-
+        ) 
     }
+
+    anotherTimeoutFunction =() =>{
+        setTimeout(
+            function(){
+                this.combineIngredients();
+            }.bind(this),2000
+        )
+    } 
    
     ///get ingredients for recipes
     generateList = async() =>{
        await this.getDates();
        await this.getRecipesByDate();
-       await this.timeoutFunction()
+       await this.timeoutFunction();
+       await this.anotherTimeoutFunction();
     }
 
     clicked = async(index) =>{
