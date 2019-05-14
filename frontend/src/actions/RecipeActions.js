@@ -10,7 +10,8 @@ export const GET_SELECTED_RECIPE = "GET_SELECTED_RECIPE"
 export const GET_RECIPES_BY_TAG = "GET_RECIPES_BY_TAG"
 export const FILTER_RECIPES = "FILTER_RECIPES"
 export const GET_RECIPES_BY_ID = "GET_RECIPES_BY_ID"
-
+export const UPDATE_SCHEDULE_BY_ID = "UPDATE_SCHEDULE_BY_ID"
+export const ADD_RECIPE_SCH = "ADD_RECIPE_SCH"
 
 export const getRecipesByIDSTART = (recipe_id, userid) => {
     return dispatch => {
@@ -183,7 +184,7 @@ export const getRecipes2 = (userid) => (dispatch) => {
         
         let latestDates 
         axios.get(`https://kookr.herokuapp.com/api/schedule/user/${userid}`).then(res => {
-            
+            console.log(res.data)
             let i
             let Recip = [] 
         
@@ -199,7 +200,7 @@ export const getRecipes2 = (userid) => (dispatch) => {
             }
     
        
-    
+            
     
     
     
@@ -236,15 +237,19 @@ export const getRecipes2 = (userid) => (dispatch) => {
            
     
            
-    
+           latestDates.sort((a, b) => parseInt(a.id) - parseInt(b.id))
+           console.log(latestDates)
             return latestDates 
     
        }).then((latestDates) => {
        
      
-           
+           console.log(latestDates) 
+           latestDates.sort((a, b) => parseInt(a.id) - parseInt(b.id))
+          
+           console.log(latestDates)
                 axios.get(`https://kookr.herokuapp.com/api/tags/`).then(res =>  {
-                  
+                    
                 for( let i = 0; i < res.data.length-1; i++) {
                      
                     if(latestDates[i] && res.data[i].tag_id === latestDates[i].tag_id) {
@@ -258,7 +263,7 @@ export const getRecipes2 = (userid) => (dispatch) => {
                 // })
                     
                 
-            
+                console.log(latestDates)
                 
                 return latestDates
             }).then((latestDates) => {
@@ -278,6 +283,27 @@ export const getRecipes2 = (userid) => (dispatch) => {
                     //         trueOrFalse = true;
                     //     }
                     // });
+
+                    // latestDates.forEach((e1) => returnedValue.forEach((e2) =>{
+                    //     if(e1.recipe_id === e2.recipe_id){
+                    //         e2.bestdate = e1
+                    //         console.log(e2)
+                    //         console.log(e1)
+                    //     }
+                    // }))
+
+                    // console.log(latestDates)
+                    // console.log(returnedValue)
+
+
+
+
+
+
+
+
+                    console.log(latestDates)
+
                     if(latestDates[i] === undefined){
                        
                     } else {
@@ -413,3 +439,60 @@ export const getRecipesByTag = (tag) => {
     
 }
 
+function UpdateScheduleById2(scheduledDateID, scheduleObject) {
+    console.log(scheduleObject)
+    //axios call
+    axios.put(`https://kookr.herokuapp.com/api/schedule/${scheduledDateID}`,scheduleObject)
+        .then(res => console.log(res))
+        .catch(err => console.log(err.json()))
+
+    return {
+        type: UPDATE_SCHEDULE_BY_ID,
+        payload: scheduleObject
+    }
+}
+
+export const UpdateScheduleByID = (scheduledDateID, scheduleObject) => {
+
+    return dispatch => {
+        //setTimeout(() => {
+            dispatch(UpdateScheduleById2(scheduledDateID, scheduleObject))
+        //}, 1000)
+    }
+}
+
+// export const addRecipe = (recipe) => (dispatch) => {
+    
+//     // let id = 1
+//     // return dispatch => {
+//     //     dispatch(addRecipe2(recipe))
+//     // }
+//     dispatch({
+//         type: ADD_RECIPE,
+//         payload: {recipe, recipe_id: recipe.recipe_id}
+//     })
+
+// }
+
+
+function addRecipeSch2(recipeSch) {
+    console.log(recipeSch)
+    axios.post(`https://kookr.herokuapp.com/api/schedule/`,recipeSch)
+        .then(res => console.log(res))
+        .catch(err => console.log(err.json()))
+
+    return {
+        type: ADD_RECIPE_SCH,
+        payload: []
+    }
+} 
+
+export const addRecipeSch = (recipeSch) => (dispatch) => {
+    
+    // let id = 1
+    return dispatch => {
+        dispatch(addRecipeSch2(recipeSch))
+    }
+  
+
+}
