@@ -26,19 +26,20 @@ class LandingPage extends React.Component{
     
 
     submitHandler = async (googleObj) =>{
-        await this.setState({
+        this.setState({
             email: googleObj.profileObj.email,
             // email:"emailandstuff.com",
             authId: googleObj.googleId
             // authId: "779802nnjs02iup2je2dflsd"
         });
         console.log(this.state);
-        axios
-            .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
-            .then(response =>{
+        console.log(googleObj.googleId)
+        await axios
+            .get(`https://kookr.herokuapp.com/api/user/auth/${googleObj.googleId}`)
+            .then(async response =>{
                 console.log(response.data)
                 if(response.data.length){
-                     localStorage.setItem('userId', response.data[0])
+                     await localStorage.setItem('userId', response.data[0])
                         // this.props.addUser(response.data)
                     
                 }else{
@@ -52,6 +53,9 @@ class LandingPage extends React.Component{
                 }
                 
             })
+    }
+    getUserByAuth = async() =>{
+      
     }
 
     postNewUser = async() =>{
@@ -80,7 +84,7 @@ class LandingPage extends React.Component{
 
     responseGoogleSuccess = async(response) => {
         console.log(response)
-        this.submitHandler(response);
+        await this.submitHandler(response);
         this.props.history.push('/create');
       }
     
