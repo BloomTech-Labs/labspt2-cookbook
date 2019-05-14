@@ -4,7 +4,7 @@ import  '../css/LandingPage.css';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import {addUser} from '../actions/UserActions';
-//import { bindActionCreators } from '../../../../../../../AppData/Local/Microsoft/TypeScript/3.4.3/node_modules/redux';
+import { bindActionCreators } from 'redux';
 
 class LandingPage extends React.Component{
     state={ 
@@ -38,7 +38,8 @@ class LandingPage extends React.Component{
             .then(response =>{
                 console.log(response.data)
                 if(response.data.length){
-                    localStorage.setItem('userId', response.data[0])
+                     localStorage.setItem('userId', response.data[0])
+                        // this.props.addUser(response.data)
                     
                 }else{
                     this.postNewUser();
@@ -66,7 +67,7 @@ class LandingPage extends React.Component{
                 console.log(response[0]);
                 localStorage.setItem('userId', response.data[0]) //??  Test this bad boy Number(newUserId)
                 //adds the user to the reducer
-                //this.props.addUser(response.data[0])
+                this.props.addUser(response.data)
 
                 //to reference the user within the application use
                 //this.props.user[0].user_id
@@ -194,15 +195,15 @@ class LandingPage extends React.Component{
     }
 }
 
-// const mapDispatchToProps = (dispatch) => bindActionCreators({addUser}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({addUser}, dispatch)
 
 
-// const mapStateToProps = state => {
-//     return {
-//         user: state.UserReducer.user
-//     }
-// }
+const mapStateToProps = state => {
+    return {
+        user: state.UserReducer.user
+    }
+}
 
 
-// export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
-export default LandingPage;
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
+// export default LandingPage;
