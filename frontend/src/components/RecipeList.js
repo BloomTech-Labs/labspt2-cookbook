@@ -47,11 +47,14 @@ class RecipeList extends Component{
 
    
     async componentDidMount() {
-        let id = 1
         let addedRecipe = {
             recipe_id: 1
         }
         const userId = localStorage.getItem('userId');
+        // const userId = this.props.user[0].user_id
+        console.log(userId)
+        console.log(this.props.user)
+
         await this.setState({
              userId : Number(userId)
          });
@@ -61,7 +64,7 @@ class RecipeList extends Component{
         //  })
          
          console.log(this.state.recipes)
-        this.props.getRecipes(id)
+        this.props.getRecipes(userId)
         // await this.recipeGetById();
         // await this.iframer();
         // await this.timeoutFunction();
