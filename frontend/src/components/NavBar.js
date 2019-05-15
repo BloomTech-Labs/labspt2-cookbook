@@ -9,6 +9,12 @@ class NavBar extends React.Component{
             mobileMenu :false
         }
     }
+    logOut = async () =>{
+        await  this.removeUserId()
+    }
+    removeUserId = () =>{
+        localStorage.removeItem('userId')
+    }
     mobileMenuOpen = () =>{
         this.setState({
             mobileMenu : true
@@ -34,6 +40,7 @@ class NavBar extends React.Component{
                          <Link className='nav-link' to="/grocery-list">Grocery List</Link>
                          <Link className='nav-link' to='/calendar'>Calendar</Link>
                          <Link className='nav-link settings-link' to="/settings">User Portal</Link>
+                         <Link className ='nav-link logout-link' to ='/' onClick ={this.logOut}>Logout</Link>
                      </div>
                  </div>
                  <div className='nav-break-800'>
@@ -57,6 +64,7 @@ class NavBar extends React.Component{
                             <Link className='nav-800' to="/grocery-list">Grocery List</Link>
                             <Link className='nav-800' to='/calendar'>Calendar</Link>
                             <Link className='nav-800 settings-link-800' to="/settings">User Portal</Link>
+                            <Link className ='nav-800 logout-link-800' to ='/' onClick ={this.logOut}>Logout</Link>
                         </div>     
                      </div>
                  </div>    

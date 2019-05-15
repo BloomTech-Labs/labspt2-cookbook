@@ -61,8 +61,6 @@ getUserData = async(userId) =>{
             .catch(err =>{
                 console.log(err)
             })
-
-            // console.log(typeof this.state.accountType)
 }
 recipeLengther = async(userId) =>{
     await axios
@@ -79,7 +77,7 @@ recipeLengther = async(userId) =>{
             .catch(err =>{
                 console.log(err)
             })
-            console.log(this.userRecipeAmount)
+            console.log(this.state.userRecipeAmount)
 }
 
  dropHandler = event =>{

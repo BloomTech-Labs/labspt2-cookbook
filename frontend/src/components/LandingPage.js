@@ -22,23 +22,21 @@ class LandingPage extends React.Component{
         this.setState({show: false});
 
     };
-    
-    
-
     submitHandler = async (googleObj) =>{
-        await this.setState({
+        this.setState({
             email: googleObj.profileObj.email,
             // email:"emailandstuff.com",
             authId: googleObj.googleId
             // authId: "779802nnjs02iup2je2dflsd"
         });
-        console.log(this.state);
-        axios
-            .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
-            .then(response =>{
-                console.log(response.data)
+        // console.log(this.state);
+        console.log(googleObj.googleId)
+        await axios
+            .get(`https://kookr.herokuapp.com/api/user/auth/${googleObj.googleId}`)
+            .then(async response =>{
+                // console.log(response.data)
                 if(response.data.length){
-                     localStorage.setItem('userId', response.data[0])
+                     await localStorage.setItem('userId', response.data[0])
                         // this.props.addUser(response.data)
                     
                 }else{
@@ -53,18 +51,16 @@ class LandingPage extends React.Component{
                 
             })
     }
-
     postNewUser = async() =>{
         // console.log("from axios post", this.state)
         const authId = this.state.authId;
         const email = this.state.email;
         const newUserObj = {auth_id:authId, email:email}
-        console.log(newUserObj)
+        // console.log(newUserObj)
         await axios
             .post('https://kookr.herokuapp.com/api/user', newUserObj)
             .then(response => {
-                
-                console.log(response[0]);
+                // console.log(response[0]);
                 localStorage.setItem('userId', response.data[0]) //??  Test this bad boy Number(newUserId)
                 //adds the user to the reducer
                 this.props.addUser(response.data)
@@ -79,14 +75,14 @@ class LandingPage extends React.Component{
     }
 
     responseGoogleSuccess = async(response) => {
-        console.log(response)
-        this.submitHandler(response);
+        // console.log(response)
+        await this.submitHandler(response);
         this.props.history.push('/create');
       }
     
     
       responseGoogleFailure = (response) => {
-        console.log(response);
+        // console.log(response);
         alert('Failure logging in. Please try again');
     } 
     render(){
