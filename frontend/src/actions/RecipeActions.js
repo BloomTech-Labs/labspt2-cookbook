@@ -83,7 +83,7 @@ export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
       }).then((latestDates) => {
           //sets the object bestdate properly
                axios.get(`https://kookr.herokuapp.com/api/tags/`).then(res =>  {
-                  
+                
                for( let i = 0; i < res.data.length-1; i++) {
                    
                    if(latestDates[i] && res.data[i].tag_id === latestDates[i].tag_id) {
@@ -245,18 +245,35 @@ export const getRecipes2 = (userid) => (dispatch) => {
        
      
            console.log(latestDates) 
-           latestDates.sort((a, b) => parseInt(a.id) - parseInt(b.id))
-          
+           latestDates.sort((a, b) => {
+            let value = parseInt(a.id) - parseInt(b.id)
+            if(value !== 0) {
+                return value
+            }
+            return parseInt(a.tag_id) - parseInt(b.tag_id)
+           } )
+       
            console.log(latestDates)
                 axios.get(`https://kookr.herokuapp.com/api/tags/`).then(res =>  {
-                    
-                for( let i = 0; i < res.data.length-1; i++) {
+                   
+                let testValue = latestDates.forEach(latest => {
+                    console.log(latest)
+                    res.data.forEach(tag => {
+                        console.log(tag)
+                        if(latestDates && latest.tag_id === tag.tag_id) {
+                            latest.tag = tag.tag
+                        }
+                    })
+                })
+                // console.log(testValue)
+
+                // for( let i = 0; i < res.data.length-1; i++) {
                      
-                    if(latestDates[i] && res.data[i].tag_id === latestDates[i].tag_id) {
-                        latestDates[i].tag = res.data[i].tag
+                //     if(latestDates[i] && res.data[i].tag_id === latestDates[i].tag_id) {
+                //         latestDates[i].tag = res.data[i].tag
                        
-                    } 
-                }
+                //     } 
+                // }
                 // dispatch({
                 //     type: ADD_TAG,
                 //     payload: {userid, tags: res.data}
@@ -363,17 +380,17 @@ function deleteRecipe2(recipe, userid) {
     
     // dont want to delete yet
     // do no uncomment
-    // axios.delete(`https://kookr.herokuapp.com/api/recipes/${recipe.recipe_id}/user/${userid}`)
-    // .then(res => {
+    axios.delete(`https://kookr.herokuapp.com/api/recipes/${recipe.recipe_id}/user/${userid}`)
+    .then(res => {
 
-    //     return {
-    //         type: DELETE_RECIPE,
-    //         payload: {recipe, recipe_id: recipe.recipe_id}
-    //     };
+        // return {
+        //     type: DELETE_RECIPE,
+        //     payload: {recipe, recipe_id: recipe.recipe_id}
+        // };
 
-    //     console.log('deleted successfully')
-    // })
-    // .catch(err => console.log({err}))
+        console.log('deleted successfully')
+    })
+     .catch(err => console.log({err}))
     // comment out the below when the above is live.
     return {
         type: DELETE_RECIPE,
@@ -385,7 +402,7 @@ function deleteRecipe2(recipe, userid) {
 
 
 //reference the below to get the function to delay
-export function deleteRecipe(recipe, userid) {
+export const deleteRecipe = (recipe, userid) => {
     return dispatch => {
        // setTimeout(() => {
             dispatch(deleteRecipe2(recipe, userid))

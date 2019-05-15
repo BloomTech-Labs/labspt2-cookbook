@@ -49,9 +49,9 @@ class RecipeList extends Component{
    
     async componentDidMount() {
         this.props.getTags()
-        let id = 1
+        let id = 155
         let addedRecipe = {
-            recipe_id: 1
+            recipe_id: 155
         }
         const userId = localStorage.getItem('userId');
         await this.setState({
@@ -101,7 +101,7 @@ deleteRecipeButton = (recipe_id) => {
         recipe_id: recipe_id
     }
 
-    let userid = this.props.user[0].user_id
+    let userid = localStorage.getItem('userId');
     console.log(userid)
     this.props.deleteRecipe(recipe, userid)
 }
@@ -110,7 +110,7 @@ deleteRecipeButton = (recipe_id) => {
 
 filterRecipeButton = (tag) => {
     //need to link to user reducer
-    let id = 1
+    let id = 155
     console.log('Tag!', tag)
     if(tag === 'all'){
         this.props.getRecipes(id)
@@ -133,6 +133,10 @@ filterAndCloseCombine = (tag, event) => {
     
 }
 
+canNotEdit() {
+    alert('sorry this recipe website is not supported')
+}
+
 clickHandle = async(event,  type) =>{
     event.preventDefault();
     await this.setState({
@@ -141,7 +145,7 @@ clickHandle = async(event,  type) =>{
     console.log(this.state.tag);
     console.log(this.props.tags)
     let selectedTagId = this.props.tags[0].filter(tag => tag.tag === this.state.tag)
-    console.log(selectedTagId[0].tag_id)
+  
 
 }
 
@@ -175,7 +179,7 @@ editRecipeButton = (scheduledDateID) => {
 
     let selectedTagId = this.props.tags[0].filter(tag => tag.tag === this.state.tag)
     
-    let id = 1
+    let id = 155
     let stringUserId = id
     let stringTagID = selectedTagId[0].tag_id
     let stringRecipeId = this.state.selectedItem.recipe_id
@@ -187,9 +191,11 @@ editRecipeButton = (scheduledDateID) => {
         date: this.state.dateChange,
         
     }
+    console.log(scheduleObject)
     //does not work yet
-    if(scheduledDateID) {
+    if(scheduledDateID === undefined) {
     this.props.addRecipeSch(scheduleObject)
+    
     }
 
     console.log(scheduledDateID)
@@ -290,7 +296,7 @@ cutterHeaderOff = (string) =>{
                                 </div>
                                 <div className = 'recipe-card-meal-tag'>{item.bestdate.tag}</div>
                                 <div className='recipe-card-button-container'>
-                                    <div onClick={() => this.editModalOpen(item)} className='recipe-card-edit-button'>Edit</div>
+                                   <div onClick={ item.bestdate.user_id === undefined ? () => this.canNotEdit() : () => this.editModalOpen(item)} className='recipe-card-edit-button'>Edit</div>
                                     <div className="recipe-card-delete-button"  onClick={() => this.deleteRecipeButton(item.recipe_id)} >Delete</div>
                                 </div>
                             </div>
