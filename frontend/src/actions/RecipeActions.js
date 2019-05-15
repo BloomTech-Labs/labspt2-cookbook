@@ -15,9 +15,9 @@ export const ADD_RECIPE_SCH = "ADD_RECIPE_SCH"
 
 export const getRecipesByIDSTART = (recipe_id, userid) => {
     return dispatch => {
-      //  setTimeout(() => {
+      
         dispatch(getRecipeByIdEND(recipe_id, userid))
-       // }, 1000)
+       
     }
 }
 
@@ -152,7 +152,7 @@ export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
 
 export const addRecipe = (recipe) => (dispatch) => {
     
-    let id = 1
+    let id = localStorage.getItem('userId');
  
     dispatch({
         type: ADD_RECIPE,
@@ -378,20 +378,15 @@ export function getRecipes(userid) {
 
 function deleteRecipe2(recipe, userid) {
     
-    // dont want to delete yet
-    // do no uncomment
+
     axios.delete(`https://kookr.herokuapp.com/api/recipes/${recipe.recipe_id}/user/${userid}`)
     .then(res => {
 
-        // return {
-        //     type: DELETE_RECIPE,
-        //     payload: {recipe, recipe_id: recipe.recipe_id}
-        // };
 
         console.log('deleted successfully')
     })
      .catch(err => console.log({err}))
-    // comment out the below when the above is live.
+
     return {
         type: DELETE_RECIPE,
         payload: {recipe, recipe_id: recipe.recipe_id}
@@ -401,12 +396,11 @@ function deleteRecipe2(recipe, userid) {
 }
 
 
-//reference the below to get the function to delay
 export const deleteRecipe = (recipe, userid) => {
     return dispatch => {
-       // setTimeout(() => {
+      
             dispatch(deleteRecipe2(recipe, userid))
-      //  }, 3000)
+    
     }
 }
 
@@ -472,9 +466,9 @@ function UpdateScheduleById2(scheduledDateID, scheduleObject) {
 export const UpdateScheduleByID = (scheduledDateID, scheduleObject) => {
 
     return dispatch => {
-        //setTimeout(() => {
+       
             dispatch(UpdateScheduleById2(scheduledDateID, scheduleObject))
-        //}, 1000)
+        
     }
 }
 

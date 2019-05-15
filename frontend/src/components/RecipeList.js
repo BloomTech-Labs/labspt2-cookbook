@@ -49,20 +49,18 @@ class RecipeList extends Component{
    
     async componentDidMount() {
         this.props.getTags()
-        let id = 155
+        let id = localStorage.getItem('userId');
         let addedRecipe = {
-            recipe_id: 155
+            recipe_id: localStorage.getItem('userId')
         }
         const userId = localStorage.getItem('userId');
         await this.setState({
              userId : Number(userId)
          });
         
-        //  await this.setState({
-        //      recipes: this.props.getRecipes(id)
-        //  })
+     
          
-         console.log(this.state.recipes)
+         
         this.props.getRecipes(id)
         // await this.recipeGetById();
         // await this.iframer();
@@ -73,16 +71,16 @@ class RecipeList extends Component{
 
 iframer = () =>{
     const recipes = this.state.recipes;
-    console.log(recipes)
+   
     // recipes.forEach()
 }
 recipeGetById = async() =>{
-    console.log(this.state.userId);
+   
    //not sure if this is necessary considering this.props.getRecipes()
    await axios   
         .get(`https://kookr.herokuapp.com/api/recipes/user/${this.state.userId}`)
             .then(async response =>{
-                console.log(response)
+               
                 const recipes = Object.values(response.data)
                
                 await this.setState({
@@ -93,7 +91,7 @@ recipeGetById = async() =>{
             .catch(err =>{
                 console.log('Error fetching recipes by user Id', err);
             })        
-            // await console.log(this.state.recipes)
+            
 }
 
 deleteRecipeButton = (recipe_id) => {
@@ -102,7 +100,7 @@ deleteRecipeButton = (recipe_id) => {
     }
 
     let userid = localStorage.getItem('userId');
-    console.log(userid)
+    
     this.props.deleteRecipe(recipe, userid)
 }
 
@@ -110,7 +108,7 @@ deleteRecipeButton = (recipe_id) => {
 
 filterRecipeButton = (tag) => {
     //need to link to user reducer
-    let id = 155
+    let id = localStorage.getItem('userId');
     console.log('Tag!', tag)
     if(tag === 'all'){
         this.props.getRecipes(id)
@@ -179,7 +177,7 @@ editRecipeButton = (scheduledDateID) => {
 
     let selectedTagId = this.props.tags[0].filter(tag => tag.tag === this.state.tag)
     
-    let id = 155
+    let id = localStorage.getItem('userId');
     let stringUserId = id
     let stringTagID = selectedTagId[0].tag_id
     let stringRecipeId = this.state.selectedItem.recipe_id

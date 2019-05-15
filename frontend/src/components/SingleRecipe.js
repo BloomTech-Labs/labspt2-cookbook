@@ -23,7 +23,7 @@ class SingleRecipe extends Component{
 componentWillMount() {
     
 
-    let userid = this.props.user[0].user_id
+    let userid = localStorage.getItem('userId');
  let recipe_id = this.props.match.params.id
  
 //  try {
@@ -42,7 +42,7 @@ async componentDidMount()
    
     {
 
- let userid = this.props.user[0].user_id
+ let userid = localStorage.getItem('userId');
  let recipe_id = this.props.match.params.id
  let sendingObject = {
     recipe_id: this.props.match.params.id 
