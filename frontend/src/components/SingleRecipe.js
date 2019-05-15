@@ -42,7 +42,7 @@ async componentDidMount()
    
     {
 
- let userid = localStorage.getItem('userId');
+ let userid = localStorage.getItem('userId');   
  let recipe_id = this.props.match.params.id
  let sendingObject = {
     recipe_id: this.props.match.params.id 
