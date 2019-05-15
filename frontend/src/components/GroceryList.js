@@ -35,9 +35,6 @@ class GroceryList extends Component{
         })
     }
 
-    // clickHandler = (event) =>{
-    //     console.log("this is a link")
-    // }
     onChangeDate = async(event) =>{
         await this.setState({
             [event.target.name] : event.target.value
@@ -50,86 +47,55 @@ class GroceryList extends Component{
             var dateArray = [];
             var currentDate = moment(this.state.startDate);
             var stopDate = moment(this.state.stopDate);
-                  // console.log(currentDate, stopDate)
                   while (currentDate <= stopDate) {
                     dateArray.push( moment(currentDate).format('YYYY-MM-DD') )
                     currentDate = moment(currentDate).add(1, 'days');
                 }
-        
-                //console.log(dateArray);
             
                 await this.setState({
                     dateArr: dateArray
                 })
-                // console.log(this.state.dateArr.length)
         }
     }
 
     toggleClass = async() =>{
         const currentState = this.state.active;
-        console.log(currentState)
         await this.setState({ active: !currentState });
-        console.log('Line 99', this.state.active)
     };
-    // servingsAdjustor = () =>{
-        
-    //     for(let i = 0; i < testIngredients.length; i++){
-    //         if(testServings > servings){ // given 3 want 2
-    //            // amount = amount * (2 / 3)
-    //            testIngredientsAmount = testIngredientsAmount * (servings / testServings)
-    //            return testIngredientsAmount;
-    //         }else if(testServings < servings){ //given 2 want 6
-    //            let multiplier = servings / testServings  //6 /2 = 3
-    //             testIngredientsAmount = testIngredientsAmount * multiplier
-    //             return testIngredientsAmount
-    //         }else{
-    //             return testIngredientsAmount
-    //         }
-    //     }
-    // }
+    
     getRecipesByDate = async() =>{
         const dateArr = this.state.dateArr;
-        //  console.log(dateArr.length)
         const userId = this.state.userId;
-        // console.log(userId)
         let recipeArrForDates = []
         await dateArr.forEach( async date =>{
-          await axios
+            await axios
             .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/date/${date}`)
                 .then( async res =>{
                     if(res.data.length >= 1){
                         for(let i = 0; i < res.data.length; i++){
                             await recipeArrForDates.push(res.data[i])
                         }
-                       
                     }else if(res.data.length === 1){
                         await recipeArrForDates.push(res.data)
                     }
                 })
                 .catch(err =>{
                     console.log(err)
-
                 })
         })
-         await this.setState({
+            await this.setState({
             recipeArr : recipeArrForDates
         })
-        console.log("The recipeArr", this.state.recipeArr)
-    //   console.log(this.state.recipeArr.length)
-       
     }
+
     getRecipeData = async() =>{
         const recipeArr = this.state.recipeArr
-        console.log('the recipe arr in the get data function', recipeArr, recipeArr.length)
         await recipeArr.forEach(async recipe =>{
-            //get recipe by id from recipe table
             await axios
             .get(`https://kookr.herokuapp.com/api/recipes/${recipe.recipe_id}`)
             .then(res =>{
                 let originalRecipeServings = res.data.servings
                 let scheduledRecipeServings = recipe.servings
-                //Check if servings from original recipe match servings from schedule
-                //If yes all to tempIngArr
                 if(originalRecipeServings === scheduledRecipeServings ){
                     axios
                     .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe.recipe_id}`)
@@ -144,23 +110,22 @@ class GroceryList extends Component{
                         console.log(err)
                     })
                 } else {
-                    // if servings do not match fix servings to be accurate before adding to array
                     axios
                     .get(`https://kookr.herokuapp.com/api/ingredients/recipe/${recipe.recipe_id}`)
                     .then(res =>{
                             res.data.forEach((element)=>{
-                                if(element.amount !== null){
-                                    let tempElementAmount = element.amount
-                                    tempElementAmount = (tempElementAmount/originalRecipeServings)*scheduledRecipeServings
-                                    element.amount = tempElementAmount
-                                } 
-                                this.setState({
-                                    tempIngArr : [...this.state.tempIngArr,element]
-                                })
-                                
-                                
+                                if(element.amount == null && element.measurement == null){
+                                } else {
+                                    if(element.amount !== null){
+                                        let tempElementAmount = element.amount
+                                        tempElementAmount = (tempElementAmount/originalRecipeServings)*scheduledRecipeServings
+                                        element.amount = tempElementAmount
+                                    } 
+                                    this.setState({
+                                        tempIngArr : [...this.state.tempIngArr,element]
+                                    })
+                                }
                             })
-                            console.log("tempIngArr from inside getRecipeData after ingredient amount fix", this.state.tempIngArr)
                     })
                     .catch(err =>{
                         console.log(err)
@@ -170,29 +135,64 @@ class GroceryList extends Component{
             .catch(err =>{
                 console.log(err)
             })
-            
         })
     }
 
     combineIngredients = () =>{
-        console.log("from combine ingredients func", this.state.tempIngArr)
-    }
+        let {tempIngArr} = this.state 
+        let sortedArr = []
+        for(let i=0; i<tempIngArr.length;i++){
+            if((!sortedArr.some(ing => ing.name === tempIngArr[i].name))){
+                sortedArr.push(tempIngArr[i])    
+            } else {
+                const index = sortedArr.findIndex(element => element.name === tempIngArr[i].name)
+                sortedArr[index].amount = Math.ceil(sortedArr[index].amount + tempIngArr[i].amount)
+            }
+        };
+        sortedArr.forEach((element,index)=>{
+        let tempIng ="";
+        if(element.measurement !== null && element.amount !== null){
+            if(element.amount !== null){
+                tempIng += formatQuantity(element.amount) + " ";
+            } 
+            if ( element.measurement !== null){
+                tempIng += element.measurement + " ";
+            } 
+            tempIng += element.name
+            if(index % 2){
+                this.setState({
+                    ingArrOne : [...this.state.ingArrOne,tempIng]
+                })
+            }else{
+                this.setState({
+                    ingArrTwo : [...this.state.ingArrTwo, tempIng]
+                })
+            }
+        }
+    })
+}
 
     timeoutFunction = () =>{
         setTimeout(
             function(){
-                console.log('Yo')
                 this.getRecipeData();
             }.bind(this),1000
-        )
-
+        ) 
     }
-   
-    ///get ingredients for recipes
+
+    anotherTimeoutFunction =() =>{
+        setTimeout(
+            function(){
+                this.combineIngredients();
+            }.bind(this),1500
+        )
+    } 
+
     generateList = async() =>{
        await this.getDates();
        await this.getRecipesByDate();
-       await this.timeoutFunction()
+       await this.timeoutFunction();
+       await this.anotherTimeoutFunction();
     }
 
     clicked = async(index) =>{
@@ -207,8 +207,8 @@ class GroceryList extends Component{
                 clickedIndexArr: [...this.state.clickedIndexArr, index]
             })
        }
-       //console.log(this.state.clickedIndexArr)
     }
+
     clickedTwo = async(index) =>{
         const indexArr = this.state.clickedIndexArrTwo
         if(indexArr.includes(index)){
@@ -221,7 +221,6 @@ class GroceryList extends Component{
                 clickedIndexArrTwo: [...this.state.clickedIndexArrTwo, index]
             })
        }
-       //console.log(this.state.clickedIndexArrTwo)
     }
    
     render(){
@@ -299,22 +298,3 @@ const mapStateToProps = state => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroceryList)
-
-//res.data.forEach((element,index)=>{
-// let tempIng ="";
-// if(element.amount !== null){
-//     tempIng += formatQuantity(element.amount) + " ";
-// } 
-// if ( element.measurement !== null){
-//     tempIng += element.measurement + " ";
-// } 
-// tempIng += element.name
-// if(index % 2){
-//     this.setState({
-//         ingArrOne : [...this.state.ingArrOne,tempIng]
-//     })
-// }else{
-//     this.setState({
-//         ingArrTwo : [...this.state.ingArrTwo, tempIng]
-//     })
-// }
