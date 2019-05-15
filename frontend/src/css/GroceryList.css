@@ -195,6 +195,40 @@
         margin:10px auto
     }
 }
+.grocery-list-incoming-recipes-container{
+    width:100%;
+    margin:30px auto;
+    background-color: rgba(128, 113, 97, 0.123); 
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    display:flex;
+    justify-content: space-around;
+    padding:12px 0%;
+
+}
+.incoming-recipes-header{
+    text-align:center;
+    margin-top:0px;
+}
+.incoming-recipes-p{
+    text-align:center;
+    margin-top:-20px;
+}
+.scraped-recipes{
+    width:45%;
+    background-color:white;
+    border-radius:2px;
+    padding:10px 2%;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    
+}
+
+.unscraped-recipes{
+    width:45%;
+    background-color:white;
+    border-radius:2px;
+    padding:10px 2%;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+}
 .list-section-container{
     /* background-image:url('https://images.fabric.com/images/693/693/0473337.jpg'); */
     padding:18px 0%;
