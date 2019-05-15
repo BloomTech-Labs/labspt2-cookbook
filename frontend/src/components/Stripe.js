@@ -6,6 +6,7 @@ class CheckoutForm extends Component {
     constructor(props){
         super(props)
         this.submit = this.submit.bind(this);
+        this.cancelSubscription = this.cancelSubscription.bind(this)
         this.state = {
             today : "",
             userId : this.props.userId,
@@ -37,13 +38,9 @@ class CheckoutForm extends Component {
             alert("You have a current subscription to Kookr Premium")
         } else {
             if(this.props.stripeId){
-
-                console.log("right before axios post ", {customer: this.props.stripeId })
-                console.log(this.props.stripeId)
                 axios
                 .post("https://kookr.herokuapp.com/api/charge/", {customer: this.props.stripeId} )
                 .then(response =>{
-                    console.log("posting after user exists", response)
                     alert("Payment Success");
                 })
                 .catch(err =>{
@@ -55,15 +52,11 @@ class CheckoutForm extends Component {
                 axios
                     .post("https://kookr.herokuapp.com/api/charge/user", token)
                     .then(response => {
-                        console.log(response);
                         this.setState({
                             stripeId: response.data.id
                         })
-                        //
-                        
                     })
                     .then(()=>{
-                        console.log("in next then", this.state.stripeId)
                         axios.put(`https://kookr.herokuapp.com/api/user/${this.props.userId}`, {
                             auth_id:this.props.auth,
                             email: this.props.name,
@@ -78,11 +71,9 @@ class CheckoutForm extends Component {
                         })
                     })
                     .then(()=>{
-                        console.log("right before axios post after creating new user", {customer: this.state.stripeId})
                         axios
                         .post("https://kookr.herokuapp.com/api/charge/", {customer: this.state.stripeId})
                         .then(response =>{
-                            console.log("posting after user created", response)
                             alert("Payment Success");
                         })
                         .catch(err =>{
@@ -102,7 +93,6 @@ class CheckoutForm extends Component {
         axios
             .put("https://kookr.herokuapp.com/api/charge/unsubscribe/", {customer: this.props.subscriptionId} )
             .then(response =>{
-                console.log("updated subscription to cancel", response)
                 alert("Your subscription will cancel at the end of this period");
             })
             .catch(err =>{
