@@ -29,22 +29,19 @@ class LandingPage extends React.Component{
             authId: googleObj.googleId
             // authId: "779802nnjs02iup2je2dflsd"
         });
-        // console.log(this.state);
-        console.log(googleObj.googleId)
+        
         await axios
             .get(`https://kookr.herokuapp.com/api/user/auth/${googleObj.googleId}`)
             .then(async response =>{
-                // console.log(response.data)
                 if(response.data.length){
                      await localStorage.setItem('userId', response.data[0])
-                        // this.props.addUser(response.data)
                     
                 }else{
                     this.postNewUser();
                 }
             })
             .catch(err =>{
-                // console.log(err.response)
+
                 if(err.response.status === 404){
                     this.postNewUser();
                 }
@@ -52,15 +49,15 @@ class LandingPage extends React.Component{
             })
     }
     postNewUser = async() =>{
-        // console.log("from axios post", this.state)
+
         const authId = this.state.authId;
         const email = this.state.email;
         const newUserObj = {auth_id:authId, email:email}
-        // console.log(newUserObj)
+
         await axios
             .post('https://kookr.herokuapp.com/api/user', newUserObj)
             .then(response => {
-                // console.log(response[0]);
+
                 localStorage.setItem('userId', response.data[0]) //??  Test this bad boy Number(newUserId)
                 //adds the user to the reducer
                 this.props.addUser(response.data)
@@ -70,19 +67,17 @@ class LandingPage extends React.Component{
 
             })
             .catch( err =>{
-                console.log(err.response);
+                console.error(err.response);
             })
     }
 
     responseGoogleSuccess = async(response) => {
-        // console.log(response)
         await this.submitHandler(response);
         this.props.history.push('/create');
       }
     
     
       responseGoogleFailure = (response) => {
-        // console.log(response);
         alert('Failure logging in. Please try again');
     } 
     render(){

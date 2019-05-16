@@ -30,10 +30,8 @@ try {
  await this.props.getRecipesByIDSTART(recipe_id, userid)
 
 
-console.log(this.props.recipes)
-
 } catch (err ) {
-    console.log(err)
+    console.error(err)
 }
   
 
@@ -49,12 +47,11 @@ componentWillReceiveProps() {
 }
 
  componentDidUpdate(prevProps) {
-    console.log(this.state)
-    console.log(prevProps.recipes, this.props.recipes)
+
     if( prevProps.recipes.length !== this.props.recipes.length) {
-        console.log(this.state)
+
         let directions = this.props.recipes[0]
-        console.log(directions)
+
     }
    
 }
@@ -69,7 +66,7 @@ clicked = async(index) =>{
             directionsClicked : [...this.state.directionsClicked, index]
         })
     }
-    console.log(this.state.directionsClicked)
+
 }
 
 

@@ -48,18 +48,18 @@ class CreateRecipe extends React.Component{
  }
 
 getUserData = async(userId) =>{
-    console.log(userId)
+    
     await axios
         .get(`https://kookr.herokuapp.com/api/user/${userId}`)
             .then(async res =>{
-                console.log(res)
+                
                 await this.setState({
                     accountType: res.data.type
                 })
                 
             })
             .catch(err =>{
-                console.log(err)
+                console.error(err)
             })
 }
 recipeLengther = async(userId) =>{
@@ -67,7 +67,7 @@ recipeLengther = async(userId) =>{
         .get(`https://kookr.herokuapp.com/api/recipes/user/${userId}`)
             .then(async res =>{
                 const value =  Object.values(res.data).length
-                console.log(value)
+
                 await this.setState({
                     userRecipeAmount : value
                 })
@@ -75,9 +75,9 @@ recipeLengther = async(userId) =>{
 
             })
             .catch(err =>{
-                console.log(err)
+                console.error(err)
             })
-            console.log(this.state.userRecipeAmount)
+
 }
 
  dropHandler = event =>{
@@ -94,21 +94,20 @@ changeHandler  = event =>{
 }
 urlButtonClick = ()  =>{
     const accountType = this.state.accountType;
-    // console.log(accountType)
     const userRecipeAmount = this.state.userRecipeAmount;
     const url = this.state.recipeUrl
-    // console.log(userRecipeAmount)
+    
     if(accountType === '0' && userRecipeAmount >  20){
        alert('You have reached your limit for adding recipes as a free user. Please upgrade to Premium for unlimited recipe creation.')
     }else{
-    //    console.log(this.state.recipeUrl)
+
        if(url.includes('allrecipes') || url.includes('pinchofyum')){
-           console.log('includes')
+
            this.setState({
                iframe: false
            })
        }else{
-           console.log('doesnt include')
+
            this.setState({
                iframe:true
            })
@@ -120,25 +119,24 @@ postRecipe = async() =>{
     
     const userId = this.state.userId;
     const recipeAndUser = { user_id : userId, link : `${this.state.recipeUrl}`};
-    console.log(recipeAndUser)
+
     if(recipeAndUser.link.length === 0){
         alert('Please enter a recipe url and try submitting again')
     }else {
     await axios
         .post('https://kookr.herokuapp.com/api/recipes', recipeAndUser)
             .then(response =>{
-                console.log(response);
+
                 this.setState({
                     recipe : response.data ///Make sure that is right
                 })
             })
             .catch(err =>{
-                console.log('Could not add new recipe obj', err);
-                console.log(err.response)
-              
+                console.error('Could not add new recipe obj', err);
+            
             })
     }  
-    // console.log(this.state)      
+    
 }
 
 dayClick = (clickedDay) =>{
@@ -157,7 +155,7 @@ clickHandle = async(event,  type) =>{
     await this.setState({
         tag:type
     })
-    // console.log(this.state.tag);
+    
 }
 convertTagToId = (tag) =>{
     let tagId = null
@@ -183,7 +181,7 @@ convertTagToId = (tag) =>{
 }
 
 postToSchedule = () =>{
-    // console.log(this.state)
+
     const tag = this.state.tag;
     const tagId = this.convertTagToId(tag)
     const date = this.state.date;
@@ -193,9 +191,9 @@ postToSchedule = () =>{
     if(servings === 0){
         servings = this.state.recipe.servings
     }
-    // const recipeId = this.state.testRecipeData[0];
+
     const scheduleList = {date: date, user_id:userId, recipe_id: recipeId, servings: servings, tag_id :tagId}
-    console.log(scheduleList)
+
     
     if(date.length === 0){
         alert('Please  select a date for  your recipe')
@@ -207,10 +205,10 @@ postToSchedule = () =>{
         // .post('http://localhost:4321/api/schedule', scheduleList)
             .post(`https://kookr.herokuapp.com/api/schedule`, scheduleList)
                 .then(res =>{
-                    console.log(res);
+
                 })
                 .catch(err =>{
-                    console.log(err);
+                    console.error(err);
                 })
         this.setState({
             navigateModal:true
@@ -222,7 +220,7 @@ servingsAdjustor = async (event) =>{
     await this.setState({
         [event.target.name] : event.target.value
     });
-    // console.log(this.state.servings); 
+
 }
 openTagsMobile = () =>{
     this.setState({
@@ -416,7 +414,7 @@ closeNavigateModal = () =>{
 const mapDispatchtoProps = (dispatch) => bindActionCreators({addDirections, addIngredients, addRecipe, addRecipeIngredients, addTag},dispatch)
 
 const mapStateToProps = state => {
-    // console.log(state)
+    
     return {
         user: state.UserReducer.user,
         recipes: state.RecipeReducer.recipes,

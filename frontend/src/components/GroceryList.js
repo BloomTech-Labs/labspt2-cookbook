@@ -82,7 +82,7 @@ class GroceryList extends Component{
                     }
                 })
                 .catch(err =>{
-                    console.log(err)
+                    console.error(err)
                 })
         })
             await this.setState({
@@ -98,7 +98,7 @@ class GroceryList extends Component{
             await axios
             .get(`https://kookr.herokuapp.com/api/recipes/${recipe.recipe_id}`)
             .then(async res =>{
-                 console.log('I am line 97', res)
+
                  if(res.data.link.includes('allrecipes') || res.data.link.includes('pinchofyum')){
                     scraped.push(res.data) 
                     await this.setState({
@@ -124,7 +124,7 @@ class GroceryList extends Component{
                             })
                     })
                     .catch(err =>{
-                        console.log(err)
+                        console.error(err)
                     })
                 } else {
                     axios
@@ -145,12 +145,12 @@ class GroceryList extends Component{
                             })
                     })
                     .catch(err =>{
-                        console.log(err)
+                        console.error(err)
                     })
                 }
             })
             .catch(err =>{
-                console.log(err)
+                console.error(err)
             })
         })
     }
@@ -210,16 +210,7 @@ class GroceryList extends Component{
        await this.getRecipesByDate();
        await this.timeoutFunction();
        await this.anotherTimeoutFunction();
-    //    await this.finalCountdown();
     }
-    // finalCountdown = async() =>{
-    //     setTimeout(
-    //         function(){
-    //             console.log('Scraped', this.state.recipeDataArrScraped)
-    //             console.log('Not Scraped', this.state.recipeDataArrNotScraped)
-    //         }.bind(this), 1000
-    //     )
-    // }
 
     clicked = async(index) =>{
         const indexArr = this.state.clickedIndexArr

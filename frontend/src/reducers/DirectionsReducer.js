@@ -34,8 +34,7 @@ const DirectionsReducer = ((state = initialState, action) => {
         case GET_DIRECTIONS:
         //need to have a filter by recipe_id
             //need to review the filter requirements
-           console.log(action)
-           console.log(state)
+
             return Object.assign({}, state, {directions: state.directions.filter(item => action.payload.recipe_id === item.recipe_id)} )
             
            //return [...]

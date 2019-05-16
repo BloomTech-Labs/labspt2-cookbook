@@ -53,7 +53,7 @@ export const getTags2 = () => (dispatch) => {
 
 
         })
-        .catch((err) => console.log(err.json()))
+        .catch((err) => console.error("Error in getTags2: ",err))
 }
 
 export const getTags = () =>  {

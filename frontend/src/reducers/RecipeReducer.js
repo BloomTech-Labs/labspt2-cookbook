@@ -24,7 +24,7 @@ const RecipeReducer = ((state = initialState, action) => {
                 
                 let recipesArray = action.payload.recipes.filter(recipe => recipe.recipe_id === parseInt(action.payload.recipe_id) )
                     // recipe.recipe_id === action.payload.recipe_id 
-                console.log(action.payload)
+
             
             return {...state, recipes: recipesArray}    
         

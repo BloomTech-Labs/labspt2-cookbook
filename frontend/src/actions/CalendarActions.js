@@ -151,10 +151,10 @@ export function addAllToCalendar(arrayOfSchedules) {
         axios
             .post(`https://kookr.herokuapp.com/api/schedule`, recipePost)
             .then(res => {
-                console.log(res)
+
             })
             .catch(err => {
-                console.log(err)
+                console.error("Error in addAlltoCalendar: ", err);
             })
     })
     return dispatch => {
