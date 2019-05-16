@@ -81,7 +81,7 @@ recipeGetById = async() =>{
             
             })
             .catch(err =>{
-                console.log('Error fetching recipes by user Id', err);
+                console.error('Error fetching recipes by user Id', err);
             })        
             
 }
