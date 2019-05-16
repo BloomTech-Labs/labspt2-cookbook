@@ -58,7 +58,9 @@ module.exports = {
       .then( () => {
         return this.getUserDate(sched.user_id, date);
       })
-      .catch( (err) => { console.log(err); });
+      .catch( (err) => { 
+        console.error(`Error in shopping schedule: ${err}`); 
+      });
   },
 
 

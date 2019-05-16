@@ -23,7 +23,7 @@ const TagsReducer = ((state = initialState, action) => {
     switch (action.type) {
 
         case GET_TAGS:
-       console.log(action.payload)
+
         return {
             tags: [action.payload]
         }

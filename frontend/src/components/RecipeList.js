@@ -39,9 +39,8 @@ class RecipeList extends Component{
                     name: 'A potato'
                 },
             ], 
-            userId: null,
-            recipes: [],
-            recipeData: []
+            userId: null
+            
         }
 
     }
@@ -53,11 +52,8 @@ class RecipeList extends Component{
         this.props.getTags()
         let id = localStorage.getItem('userId');
 
-        let addedRecipe = {
-            recipe_id: localStorage.getItem('userId')
-        }
         const userId = localStorage.getItem('userId');
-        // const userId = this.props.user[0].user_id
+        
         console.log(userId)
         console.log(this.props.user)
 
@@ -69,10 +65,7 @@ class RecipeList extends Component{
         await this.deleteSchedule();
         // await this.getRecipeData();
 
-        // await this.recipeGetById();
-        // await this.iframer();
-        // await this.timeoutFunction();
-        // console.log(this.state.recipes)
+
         console.log(this.props.tags)
 }
 // getRecipeData = async() =>{
@@ -91,11 +84,7 @@ class RecipeList extends Component{
       
 // }
 
-iframer = () =>{
-    const recipes = this.state.recipes;
-   
-    // recipes.forEach()
-}
+
 recipeGetById = async() =>{
    
    //not sure if this is necessary considering this.props.getRecipes()
@@ -194,9 +183,6 @@ clickHandle = async(event,  type) =>{
     })
     console.log(this.state.tag);
     console.log(this.props.tags)
-    let selectedTagId = this.props.tags[0].filter(tag => tag.tag === this.state.tag)
-  
-
 }
 
 filterModalOpen = () =>{
