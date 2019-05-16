@@ -97,6 +97,17 @@ router.post( '/', (req, res) => {
 
 
 /* DELETE */
+router.delete( '/:id', (req, res) => {
+  const { id } = req.params;
+
+  schedule.delete(id)
+    .then( () => {
+      res.json({ success: "Deleted" });
+    })
+    .catch( (err) => {
+      res.status(500).json({ error: `Could not delete: ${err}`});
+    })
+});
 
 
 /* ---------- Export ---------- */

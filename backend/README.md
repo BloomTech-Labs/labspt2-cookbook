@@ -118,3 +118,4 @@ Startup: *yarn server*
 * **PUT : /api/schedule/:id** -- Edits a schedule by id
 * **POST : /api/schedule/** -- Adds a new schedule
 * * -- Requires: user_id, date, recipe_id, tag_id
+* **DELETE : /api/schedule/:id** -- Deletes a schedule by id

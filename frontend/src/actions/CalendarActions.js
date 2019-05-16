@@ -19,14 +19,12 @@ function getScheduleItems2(sch) {
 }
 
 export function getScheduleItems(userid) {
-    let values
     let id = 1
 
     let latestDates 
     axios.get(`https://kookr.herokuapp.com/api/schedule/user/${id}`).then(res => {
        
         let i
-        let Recip = [] 
        
         let uniqueRecipeIds =[]
         
@@ -52,9 +50,6 @@ export function getScheduleItems(userid) {
        
 
 
-
-        let length = arrayOfArrays[0].length
-        let uptoDateArray = []
        
         const today = new Date().toISOString()
             //inserts todays date into every array within the arrayofarrays and sorts
@@ -156,10 +151,10 @@ export function addAllToCalendar(arrayOfSchedules) {
         axios
             .post(`https://kookr.herokuapp.com/api/schedule`, recipePost)
             .then(res => {
-                console.log(res)
+
             })
             .catch(err => {
-                console.log(err)
+                console.error("Error in addAlltoCalendar: ", err);
             })
     })
     return dispatch => {

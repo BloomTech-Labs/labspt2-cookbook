@@ -12,10 +12,7 @@ import SingleRecipe from "./components/SingleRecipe";
 
 
 class App extends Component {
-  constructor(){
-    super()
-   
-  }
+
  
   render() {
       return (

@@ -4,16 +4,7 @@ import {ADD_RECIPE_SCH, UPDATE_SCHEDULE_BY_ID, GET_RECIPES_BY_ID, GET_RECIPES_BY
 
 const initialState = {
    recipes: [
-//        {
-//     recipe_id: 0,
-//     name: 'name string1',
-//     image: 'image url string',
-//     link: 'recipe url string',
-//     prep_time: 0,
-//     cook_time: 0,
-//     servings: 0,
-//     isSelected: false
-// }
+
    ],
    selectedRecipe: null
 }
@@ -33,7 +24,7 @@ const RecipeReducer = ((state = initialState, action) => {
                 
                 let recipesArray = action.payload.recipes.filter(recipe => recipe.recipe_id === parseInt(action.payload.recipe_id) )
                     // recipe.recipe_id === action.payload.recipe_id 
-                console.log(action.payload)
+
             
             return {...state, recipes: recipesArray}    
         

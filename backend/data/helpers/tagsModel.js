@@ -101,7 +101,7 @@ insert: async function(tag, recId) {
             return(result);
         })
         .catch(function(err) {
-            console.log("error: ", err)
+            console.error("Error in tag insert: ", err)
         })
     }
     
