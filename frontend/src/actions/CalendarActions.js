@@ -50,7 +50,6 @@ export function getScheduleItems(userid) {
        
 
 
-
        
         const today = new Date().toISOString()
             //inserts todays date into every array within the arrayofarrays and sorts

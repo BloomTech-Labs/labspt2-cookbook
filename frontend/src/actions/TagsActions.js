@@ -41,7 +41,7 @@ export const updateTag = (tag) => (dispatch) => {
 
 export const getTags2 = () => (dispatch) => {
 ///api/tags
-let waitingValue
+
     Axios.get('https://kookr.herokuapp.com/api/tags')
         .then(res => {
         

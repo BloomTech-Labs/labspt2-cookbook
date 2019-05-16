@@ -251,10 +251,6 @@ closeNavigateModal = () =>{
 }
 
     render(){
-        const {testRecipe} = this.state
-        // console.log(this.state);
-        const {testRecipeData} = this.state
-        const {recipe} = this.state
     
         return(
             <div className='Create-Recipe'>
@@ -295,12 +291,16 @@ closeNavigateModal = () =>{
                                 </div>
                                 <div className='recipe-preview-image'>
                                     <div className ='recipe-image-sub'>
-                                    <img id = {this.state.recipe.image ? ' ' : 'no-recipe' } src ={this.state.recipe.image ? `${this.state.recipe.image}`: '../images/logo-white.png'} className = 'recipe-preview-img' src ={this.state.recipe.image ? `${this.state.recipe.image}`: '../images/logo-white.png'} alt ='recipe-img' />
+                                    <img id = {this.state.recipe.image ? ' ' : 'no-recipe' } 
+                                        src ={this.state.recipe.image ? `${this.state.recipe.image}`: '../images/logo-white.png'} 
+                                        className = 'recipe-preview-img' 
+                                        // src ={this.state.recipe.image ? `${this.state.recipe.image}`: '../images/logo-white.png'} 
+                                        alt ='recipe-img' />
                                 </div> 
                             </div>      
                         </div>
                     
-                            <iframe src = {this.state.recipeUrl} className =  {this.state.iframe ? 'iframe-container' : 'no-show'}></iframe>
+                            <iframe title='recipe' src = {this.state.recipeUrl} className =  {this.state.iframe ? 'iframe-container' : 'no-show'}></iframe>
                        
                             <div className='meal-tag-section'>
                                 <h3 className='meal-tag-header'>For which meal?</h3>

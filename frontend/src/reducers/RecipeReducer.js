@@ -4,16 +4,7 @@ import {ADD_RECIPE_SCH, UPDATE_SCHEDULE_BY_ID, GET_RECIPES_BY_ID, GET_RECIPES_BY
 
 const initialState = {
    recipes: [
-//        {
-//     recipe_id: 0,
-//     name: 'name string1',
-//     image: 'image url string',
-//     link: 'recipe url string',
-//     prep_time: 0,
-//     cook_time: 0,
-//     servings: 0,
-//     isSelected: false
-// }
+
    ],
    selectedRecipe: null
 }
