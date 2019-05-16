@@ -1,4 +1,3 @@
-import { createStore } from 'redux'
 import { ADD_INGREDIENTS, DELETE_INGREDIENTS, UPDATE_INGREDIENTS, GET_INGREDIENTS } from '../actions/IngredientsActions';
 
 
