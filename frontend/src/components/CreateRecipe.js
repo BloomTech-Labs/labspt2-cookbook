@@ -199,7 +199,8 @@ postToSchedule = () =>{
         alert('Please  select a date for  your recipe')
     }else if(recipeId === undefined){
         alert('Please add a recipe before commiting to the schedule')
-    
+    // }else if(){
+
     }else{
         axios
         // .post('http://localhost:4321/api/schedule', scheduleList)

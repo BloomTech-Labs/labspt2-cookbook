@@ -27,7 +27,7 @@ export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
    let responseValue
    let finalValue
      axios.get(`https://kookr.herokuapp.com/api/recipes/user/${userid}`).then((res) => {
-        console.log(res)
+        // console.log(res)
    
        //makes the array and array of objects
        responseValue = Object.values(res.data)
@@ -206,15 +206,10 @@ export const getRecipes2 = (userid) => (dispatch) => {
     
             //groups scheduled dates by recipe_ids
             let arrayOfArrays = []
-            for(i = 0; i < uniqueRecipeIds.length; i++) {
+            for(i = 0; i < res.data.length; i++) {
                 arrayOfArrays.push(res.data.filter(item => res.data[i].recipe_id === item.recipe_id))
-                }
-    
-           
-          
-    
-    
-    
+                // console.log(arrayOfArrays)
+            }
             let length = arrayOfArrays[0].length
             let uptoDateArray = []
            
@@ -257,28 +252,14 @@ export const getRecipes2 = (userid) => (dispatch) => {
                 axios.get(`https://kookr.herokuapp.com/api/tags/`).then(res =>  {
                    
                 let testValue = latestDates.forEach(latest => {
-                    console.log(latest)
+                    // console.log(latest)
                     res.data.forEach(tag => {
-                        console.log(tag)
+                        // console.log(tag)
                         if(latestDates && latest.tag_id === tag.tag_id) {
                             latest.tag = tag.tag
                         }
                     })
                 })
-                // console.log(testValue)
-
-                // for( let i = 0; i < res.data.length-1; i++) {
-                     
-                //     if(latestDates[i] && res.data[i].tag_id === latestDates[i].tag_id) {
-                //         latestDates[i].tag = res.data[i].tag
-                       
-                //     } 
-                // }
-                // dispatch({
-                //     type: ADD_TAG,
-                //     payload: {userid, tags: res.data}
-                // })
-                    
                 
                 console.log(latestDates)
                 
@@ -290,43 +271,24 @@ export const getRecipes2 = (userid) => (dispatch) => {
                 for(let i = 0; i < returnedValue.length; i++) {
                     let trueOrFalse =[]
                     let badValues
-                    // if(returnedValue.length > latestDates.length) {
-
-                    // }
-                    // returnedValue.array.forEach(element => {
-                    //     if(element.recipe_id !== latestDates[i].recipe_id) {
-                    //         trueOrFalse = false;
-                    //     } else {
-                    //         trueOrFalse = true;
-                    //     }
-                    // });
-
-                    // latestDates.forEach((e1) => returnedValue.forEach((e2) =>{
-                    //     if(e1.recipe_id === e2.recipe_id){
-                    //         e2.bestdate = e1
-                    //         console.log(e2)
-                    //         console.log(e1)
-                    //     }
-                    // }))
-
-                    // console.log(latestDates)
-                    // console.log(returnedValue)
-
-
-
-
-
-
-
-
+            
                     console.log(latestDates)
+                    console.log('Line 276', returnedValue)
+                    console.log(latestDates[i].recipe_id, returnedValue[i].recipe_id)
 
                     if(latestDates[i] === undefined){
                        
                     } else {
-                        if(latestDates[i].recipe_id === returnedValue[i].recipe_id){
-                            returnedValue[i].bestdate = latestDates[i]
-                        }
+                        const index = latestDates.findIndex(element => element.recipe_id === returnedValue[i].recipe_id)
+                        console.log('Index', index)
+                        returnedValue[i].bestdate = latestDates[index]
+
+
+
+
+                        // if(latestDates[i].recipe_id === returnedValue[i].recipe_id){
+                        //     returnedValue[i].bestdate = latestDates[i]
+                        // }
                     }
                     // if(latestDates[i].recipe_id === returnedValue[i].recipe_id){
                     //     returnedValue[i].bestdate = latestDates[i]
@@ -452,6 +414,7 @@ export const getRecipesByTag = (tag) => {
 
 function UpdateScheduleById2(scheduledDateID, scheduleObject) {
     console.log(scheduleObject)
+    // console.log('Line455', scheduleDateID)
     //axios call
     axios.put(`https://kookr.herokuapp.com/api/schedule/${scheduledDateID}`,scheduleObject)
         .then(res => console.log(res))
@@ -465,10 +428,10 @@ function UpdateScheduleById2(scheduledDateID, scheduleObject) {
 
 export const UpdateScheduleByID = (scheduledDateID, scheduleObject) => {
 
-    return dispatch => {
+    return  dispatch => {
        
             dispatch(UpdateScheduleById2(scheduledDateID, scheduleObject))
-        
+           
     }
 }
 
@@ -488,9 +451,12 @@ export const UpdateScheduleByID = (scheduledDateID, scheduleObject) => {
 
 function addRecipeSch2(recipeSch) {
     console.log(recipeSch)
-    axios.post(`https://kookr.herokuapp.com/api/schedule/`,recipeSch)
+    axios.post(`https://kookr.herokuapp.com/api/schedule`,recipeSch)
         .then(res => console.log(res))
-        .catch(err => console.log(err.json()))
+
+        .catch(err => {
+            console.log(err)
+        })
 
     return {
         type: ADD_RECIPE_SCH,
@@ -498,7 +464,7 @@ function addRecipeSch2(recipeSch) {
     }
 } 
 
-export const addRecipeSch = (recipeSch) => (dispatch) => {
+export const addRecipeSch = (recipeSch)  => {
     
     // let id = 1
     return dispatch => {
