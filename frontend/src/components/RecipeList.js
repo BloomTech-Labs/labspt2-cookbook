@@ -40,7 +40,8 @@ class RecipeList extends Component{
                 },
             ], 
             userId: null,
-            recipes: []
+            recipes: [],
+            recipeData: []
         }
 
     }
@@ -63,12 +64,10 @@ class RecipeList extends Component{
         await this.setState({
              userId : Number(userId)
          });
-        
-     
-         
-         
-
-        this.props.getRecipes(id)
+        await this.props.getRecipes(id)
+        await this.recipeGetById()
+        await this.deleteSchedule();
+        // await this.getRecipeData();
 
         // await this.recipeGetById();
         // await this.iframer();
@@ -76,6 +75,21 @@ class RecipeList extends Component{
         // console.log(this.state.recipes)
         console.log(this.props.tags)
 }
+// getRecipeData = async() =>{
+//     const {recipes} =this.state
+//     console.log('Line 77', recipes)
+//     await recipes.forEach(async recipe =>{
+//         axios
+//             .get(`https://kookr.herokuapp.com/api/recipes/${recipe.recipe_id}`)
+//                 .then(res =>{
+//                     console.log('Line 82', res)
+//                 })
+//                 .catch(err =>{
+//                     console.log(err)
+//                 })
+//     })
+      
+// }
 
 iframer = () =>{
     const recipes = this.state.recipes;
@@ -101,8 +115,38 @@ recipeGetById = async() =>{
             })        
             
 }
+deleteSchedule = async () =>{
+    const id = localStorage.getItem('userId');
+    let recipeIdArr = []
+    await axios
+        .get(`https://kookr.herokuapp.com/api/recipes/user/${id}`)
+        .then(res =>{
+            console.log('Yooooo', res)
+            recipeIdArr.push(res.data.recipe_id)
 
+            axios   
+                .get(`https://kookr.herokuapp.com/api/schedule/user/${id}`)
+                .then(res =>{
+                for(let i = 0; i < recipeIdArr.length; i++){
+                    if(recipeIdArr[i] === res.data.recipe_id){
+                        // axios   
+                        //     .delete(``)
+                        console.log('this')
+                    }
+                }
+            })
+            .catch(err =>{
+
+            })
+          
+        })
+        .catch(err =>{
+            console.log(err)
+        })
+}
 deleteRecipeButton = (recipe_id) => {
+   
+    
     let recipe = {
         recipe_id: recipe_id
     }
@@ -189,25 +233,33 @@ editRecipeButton = (scheduledDateID) => {
     let stringUserId = id
     let stringTagID = selectedTagId[0].tag_id
     let stringRecipeId = this.state.selectedItem.recipe_id
-
+    const date = this.state.dateChange
+    if(!date){
+        date = Date.now()
+    }
+        
     let scheduleObject = {
         recipe_id: stringRecipeId,
         user_id: stringUserId,
         tag_id: stringTagID,
-        date: this.state.dateChange,
+        date: date,
         
     }
     console.log(scheduleObject)
-    //does not work yet
-    if(scheduledDateID === undefined) {
-    this.props.addRecipeSch(scheduleObject)
-    
-    }
+    // //does not work yet
+     if(scheduledDateID === undefined) {
+     this.props.addRecipeSch(scheduleObject)
+    //  this.props.UpdateScheduleByID(scheduledDateID, scheduleObject)
+     }else{
+        
+        this.props.UpdateScheduleByID(scheduledDateID, scheduleObject)
+        this.props.getRecipes(id)
+     }
 
     console.log(scheduledDateID)
     
 
-    this.props.UpdateScheduleByID(scheduledDateID, scheduleObject)
+    //this.props.UpdateScheduleByID(scheduledDateID, scheduleObject)
     console.log(this.state.dateChange)
 
     //this.props.addAllToCalendar()
@@ -224,6 +276,9 @@ cutterHeaderOff = (string) =>{
 }
 
     render(){
+        console.log(this.props.recipes)
+        console.log(this.state.recipes)
+      
         return (
              <div className="Recipe-List-Page">
                 <NavBar/>
@@ -302,7 +357,8 @@ cutterHeaderOff = (string) =>{
                                 </div>
                                 <div className = 'recipe-card-meal-tag'>{item.bestdate.tag}</div>
                                 <div className='recipe-card-button-container'>
-                                   <div onClick={ item.bestdate.user_id === undefined ? () => this.canNotEdit() : () => this.editModalOpen(item)} className='recipe-card-edit-button'>Edit</div>
+                                {/* //item.bestdate.user_id === undefined ? () => this.canNotEdit() : */}
+                                   <div onClick={  () => this.editModalOpen(item)} className='recipe-card-edit-button'>Edit</div>
                                     <div className="recipe-card-delete-button"  onClick={() => this.deleteRecipeButton(item.recipe_id)} >Delete</div>
                                 </div>
                             </div>
@@ -367,6 +423,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({addRecipeSch, getTa
 
 const mapStateToProps = state => {
     console.log(state.RecipeReducer)
+    console.log('429',state.RecipeReducer.recipes)
     return {
         user: state.UserReducer.user,
         recipes: state.RecipeReducer.recipes,
