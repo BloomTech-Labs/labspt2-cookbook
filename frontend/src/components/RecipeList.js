@@ -39,14 +39,12 @@ class RecipeList extends Component{
                     name: 'A potato'
                 },
             ], 
-            userId: null
+            userId: null,
+            recipeIdArr: []
             
         }
 
-    }
-
-
-   
+    }   
     async componentDidMount() {
 
         this.props.getTags()
@@ -62,29 +60,12 @@ class RecipeList extends Component{
          });
         await this.props.getRecipes(id)
         await this.recipeGetById()
-        await this.deleteSchedule();
+       
         // await this.getRecipeData();
 
 
         console.log(this.props.tags)
 }
-// getRecipeData = async() =>{
-//     const {recipes} =this.state
-//     console.log('Line 77', recipes)
-//     await recipes.forEach(async recipe =>{
-//         axios
-//             .get(`https://kookr.herokuapp.com/api/recipes/${recipe.recipe_id}`)
-//                 .then(res =>{
-//                     console.log('Line 82', res)
-//                 })
-//                 .catch(err =>{
-//                     console.log(err)
-//                 })
-//     })
-      
-// }
-
-
 recipeGetById = async() =>{
    
    //not sure if this is necessary considering this.props.getRecipes()
@@ -109,18 +90,26 @@ deleteSchedule = async () =>{
     let recipeIdArr = []
     await axios
         .get(`https://kookr.herokuapp.com/api/recipes/user/${id}`)
-        .then(res =>{
+        .then(async res =>{
             console.log('Yooooo', res)
             recipeIdArr.push(res.data.recipe_id)
+            // await this.setState({
+            //     recipeIdArr : res.data.recipe_id
+            // })
 
             axios   
                 .get(`https://kookr.herokuapp.com/api/schedule/user/${id}`)
                 .then(res =>{
                 for(let i = 0; i < recipeIdArr.length; i++){
                     if(recipeIdArr[i] === res.data.recipe_id){
-                        // axios   
-                        //     .delete(``)
-                        console.log('this')
+                        axios   
+                            .delete(`https://kookr.herokuapp.com/api/schedule/${res.data.recipe_id}`)
+                                .then(res =>{
+                                    console.log('Deleted !', res)
+                                })
+                                .catch(err =>{
+                                    console.log(err)
+                                })
                     }
                 }
             })
@@ -132,8 +121,17 @@ deleteSchedule = async () =>{
         .catch(err =>{
             console.log(err)
         })
+        await this.logger()
 }
-deleteRecipeButton = (recipe_id) => {
+logger = () =>{
+    setTimeout(
+        function(){
+            console.log('IDS', this.state.recipeIdArr)
+        }.bind(this),1500
+    )
+    // console.log('IDS', this.state.recipeIdArr)
+}
+deleteRecipeButton = async(recipe_id) => {
    
     
     let recipe = {
@@ -142,7 +140,8 @@ deleteRecipeButton = (recipe_id) => {
 
     let userid = localStorage.getItem('userId');
     
-    this.props.deleteRecipe(recipe, userid)
+    await this.props.deleteRecipe(recipe, userid)
+    await this.deleteSchedule();
 }
 
 
@@ -262,8 +261,7 @@ cutterHeaderOff = (string) =>{
 }
 
     render(){
-        console.log(this.props.recipes)
-        console.log(this.state.recipes)
+        console.log(this.state.recipeIdArr)
       
         return (
              <div className="Recipe-List-Page">
@@ -335,13 +333,13 @@ cutterHeaderOff = (string) =>{
                                     <img className = {item.image ? 'recipe-card-img' : 'recipe-card-img chef'} src = {item.image ? item.image : '../images/logo-white.png'} alt ='recipe-list-image'/>
                                 </div>
                                 <div className = 'recipe-card-time'>
-                                    { item.bestdate.date ? new Intl.DateTimeFormat('en-US', {
+                                    { item.bestdate ? new Intl.DateTimeFormat('en-US', {
                                         year: 'numeric',
                                         day: '2-digit',
                                         month: 'long'
                                     }).format(new Date(`${item.bestdate.date}`)) : 'Not Scheduled'}
                                 </div>
-                                <div className = 'recipe-card-meal-tag'>{item.bestdate.tag}</div>
+                                <div className = 'recipe-card-meal-tag'>{item.bestdate ? item.bestdate.tag : 'No tag provided'}</div>
                                 <div className='recipe-card-button-container'>
                                 {/* //item.bestdate.user_id === undefined ? () => this.canNotEdit() : */}
                                    <div onClick={  () => this.editModalOpen(item)} className='recipe-card-edit-button'>Edit</div>
