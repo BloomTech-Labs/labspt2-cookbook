@@ -85,43 +85,21 @@ recipeGetById = async() =>{
             })        
             
 }
-deleteSchedule = async () =>{
-    const id = localStorage.getItem('userId');
-    let recipeIdArr = []
+deleteSchedule = async (recId, userId) =>{
+    
     await axios
-        .get(`https://kookr.herokuapp.com/api/recipes/user/${id}`)
-        .then(async res =>{
-            console.log('Yooooo', res)
-            recipeIdArr.push(res.data.recipe_id)
-            // await this.setState({
-            //     recipeIdArr : res.data.recipe_id
-            // })
-
-            axios   
-                .get(`https://kookr.herokuapp.com/api/schedule/user/${id}`)
-                .then(res =>{
-                for(let i = 0; i < recipeIdArr.length; i++){
-                    if(recipeIdArr[i] === res.data.recipe_id){
-                        axios   
-                            .delete(`https://kookr.herokuapp.com/api/schedule/${res.data.recipe_id}`)
-                                .then(res =>{
-                                    console.log('Deleted !', res)
-                                })
-                                .catch(err =>{
-                                    console.log(err)
-                                })
-                    }
-                }
-            })
-            .catch(err =>{
-
-            })
-          
+        .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/recipe/${recId}`)
+        .then( async (res) => {
+            axios
+                .delete(`https://kookr.herokuapp.com/api/schedule/${res.id}`)
+                .then( (delRes) => {
+                    console.log("Deleted: ", res.id);
+                })
         })
-        .catch(err =>{
-            console.log(err)
-        })
-        await this.logger()
+        .catch( (err) => {
+            console.error( "Could not delete scheduled entry: ", err);
+        });
+    // end axios
 }
 logger = () =>{
     setTimeout(
@@ -141,7 +119,7 @@ deleteRecipeButton = async(recipe_id) => {
     let userid = localStorage.getItem('userId');
     
     await this.props.deleteRecipe(recipe, userid)
-    await this.deleteSchedule();
+    await this.deleteSchedule(recipe_id, userid);
 }
 
 
