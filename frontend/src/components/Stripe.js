@@ -91,7 +91,7 @@ class CheckoutForm extends Component {
 
     cancelSubscription = () =>{
         axios
-            .put("https://kookr.herokuapp.com/api/charge/unsubscribe/", {customer: this.props.subscriptionId} )
+            .put("https://kookr.herokuapp.com/api/charge/unsubscribe/", {subscription: this.props.subscriptionId} )
             .then(response =>{
                 alert("Your subscription will cancel at the end of this period");
             })

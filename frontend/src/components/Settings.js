@@ -17,7 +17,8 @@ class Settings extends Component {
             accountType: '',
             formEmail:'',
             message: '',
-            stripeId : ''
+            stripeId : '',
+            subscriptionId: ''
         }
     }    
 async componentDidMount(){
