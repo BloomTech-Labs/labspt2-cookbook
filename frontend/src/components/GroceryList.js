@@ -22,6 +22,8 @@ class GroceryList extends Component{
             userId : null,
             dateArr: [], 
             recipeArr: [],
+            recipeDataArrScraped: [],
+            recipeDataArrNotScraped: [],
             clickedIndexArr: [],
             clickedIndexArrTwo: [],
             tempIngArr: [],
@@ -80,7 +82,7 @@ class GroceryList extends Component{
                     }
                 })
                 .catch(err =>{
-                    console.log(err)
+                    console.error(err)
                 })
         })
             await this.setState({
@@ -90,10 +92,25 @@ class GroceryList extends Component{
 
     getRecipeData = async() =>{
         const recipeArr = this.state.recipeArr
+        let scraped = []
+        let unscraped = []
         await recipeArr.forEach(async recipe =>{
             await axios
             .get(`https://kookr.herokuapp.com/api/recipes/${recipe.recipe_id}`)
-            .then(res =>{
+            .then(async res =>{
+
+                 if(res.data.link.includes('allrecipes') || res.data.link.includes('pinchofyum')){
+                    scraped.push(res.data) 
+                    await this.setState({
+                         recipeDataArrScraped: scraped
+                     })
+                 }else{
+                     unscraped.push(res.data)
+                     await this.setState({
+                         recipeDataArrNotScraped: unscraped
+                     })
+                 }
+          
                 let originalRecipeServings = res.data.servings
                 let scheduledRecipeServings = recipe.servings
                 if(originalRecipeServings === scheduledRecipeServings ){
@@ -107,7 +124,7 @@ class GroceryList extends Component{
                             })
                     })
                     .catch(err =>{
-                        console.log(err)
+                        console.error(err)
                     })
                 } else {
                     axios
@@ -128,12 +145,12 @@ class GroceryList extends Component{
                             })
                     })
                     .catch(err =>{
-                        console.log(err)
+                        console.error(err)
                     })
                 }
             })
             .catch(err =>{
-                console.log(err)
+                console.error(err)
             })
         })
     }
@@ -253,6 +270,25 @@ class GroceryList extends Component{
                                 Generate Grocery List 
                                 </div>
                             </div>
+                        </div>
+                        <div className ='grocery-list-incoming-recipes-container'>
+                            <div className ='scraped-recipes'>
+                                <h3 className = 'incoming-recipes-header'>Recipes supported by this page:</h3>
+                                {this.state.recipeDataArrScraped.map(recipe =>(
+                                    <div>- {recipe.name}</div>
+                                ))}
+                            </div>
+                            <div className = 'unscraped-recipes'>
+                                <h3 className ='incoming-recipes-header'>Recipes not supported by this page:</h3>
+                                <p className = 'incoming-recipes-p'>Please visit ink for ingredients</p>
+                                {this.state.recipeDataArrNotScraped.map(recipe =>(
+                                    <div>
+                                        <div>-{recipe.name}</div>
+                                        <a href = {recipe.link}>Recipe Link</a>
+                                    </div>    
+                                ))}
+                            </div>
+                        
                         </div>
                         <div className="list-section-container">
                             <div className ='list-section-sub-container'>

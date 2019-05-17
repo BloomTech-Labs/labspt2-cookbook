@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import { GET_DIRECTIONS, getDirections } from '../actions/DirectionsActions';
+import { getDirections } from '../actions/DirectionsActions';
 import { getIngredients } from '../actions/IngredientsActions';
 import {getRecipesByIDSTART, getRecipes, getSelectedRecipe } from '../actions/RecipeActions';
 import { getCalendarItem,getScheduleItems } from '../actions/CalendarActions';
@@ -19,47 +18,20 @@ class SingleRecipe extends Component{
         }
     }
  
-   
-componentWillMount() {
-    
-
-    let userid = this.props.user[0].user_id
- let recipe_id = this.props.match.params.id
- 
-//  try {
-//     await this.props.getRecipesByIDSTART(recipe_id, userid)
-   
-   
-//    console.log(this.props.recipes)
-   
-//    } catch (err ) {
-//        console.log(err)
-//    }
-//  this.props.getRecipeById(recipe_id, userid)
-}
 
 async componentDidMount()
    
     {
 
- let userid = this.props.user[0].user_id
+ let userid = localStorage.getItem('userId');   
  let recipe_id = this.props.match.params.id
- let sendingObject = {
-    recipe_id: this.props.match.params.id 
-}
-let tagObject = {
-    tag_id: this.props.calendar[0].tag_id
-}
-//this.props.getCalendarItem(sendingObject)
-//this.props.getTags(tagObject)
+
 try {
  await this.props.getRecipesByIDSTART(recipe_id, userid)
 
 
-console.log(this.props.recipes)
-
 } catch (err ) {
-    console.log(err)
+    console.error(err)
 }
   
 
@@ -75,27 +47,11 @@ componentWillReceiveProps() {
 }
 
  componentDidUpdate(prevProps) {
-    console.log(this.state)
-    console.log(prevProps.recipes, this.props.recipes)
-    if( prevProps.recipes.length !== this.props.recipes.length) {
-        console.log(this.state)
-        let directions = this.props.recipes[0]
-        console.log(directions)
 
-      
-    //      this.setState({
-    //     //     name: this.props.recipes[0].name,
-    //     //     link: this.props.recipes[0].link,
-    //     //     cook_time: this.props.recipes[0].cook_time,
-    //     //     image: this.props.recipes[0].image,
-    //     //     prep_time: this.props.recipes[0].prep_time,
-    //     //     recipe_id: this.props.recipes[0].recipe_id,
-    //     //     servings: this.props.recipes[0].servings,
-    //          directions: [this.props.recipes[0].directions],
-    //          ingredients: [this.props.recipes[0].ingredients],
-    //     //     bestdate: [this.props.recipes[0].bestdate]
-    //      })
-   
+    if( prevProps.recipes.length !== this.props.recipes.length) {
+
+        let directions = this.props.recipes[0]
+
     }
    
 }
@@ -110,7 +66,7 @@ clicked = async(index) =>{
             directionsClicked : [...this.state.directionsClicked, index]
         })
     }
-    console.log(this.state.directionsClicked)
+
 }
 
 
@@ -125,7 +81,7 @@ clicked = async(index) =>{
                         
                 //Here div
                 <div>    
-                    <iframe src = {item.link} className = {item.link.includes('allrecipes') || item.link.includes('pinchofyum') || item.link.includes('delish.com')? 'iframe-no-show' : 'iframe-show'} />
+                    <iframe title='recipe' src = {item.link} className = {item.link.includes('allrecipes') || item.link.includes('pinchofyum') || item.link.includes('delish.com')? 'iframe-no-show' : 'iframe-show'} />
                     <div className ={item.link.includes('delish.com') ? 'edge-case' : 'edge-case-no-show'}> 
                         <div className ='single-recipe-error-container'>
                             <h2 className ='single-recipe-error-header'>The recipe you requested cannot be viewed in an iframe due to a Content Security Policy directive. Please visit the link below to visit thge recipe.</h2>
@@ -144,7 +100,7 @@ clicked = async(index) =>{
                                 <div className ='image-and-schedule-container'>
                                     <div className ='single-recipe-image-container'>
 
-                                        <img className="recipe-image" src={item.image} />
+                                        <img className="recipe-image" src={item.image} alt=''/>
 
                                     </div>
                                     <div className='scheduled-container'>

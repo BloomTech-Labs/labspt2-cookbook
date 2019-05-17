@@ -15,6 +15,7 @@ const initialState = {
     }]
 }
 
+
 // not complete
 const UserReducer = ((state = initialState, action) => {
     switch (action.type) {

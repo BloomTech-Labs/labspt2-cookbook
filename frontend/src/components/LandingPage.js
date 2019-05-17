@@ -4,7 +4,7 @@ import  '../css/LandingPage.css';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import {addUser} from '../actions/UserActions';
-//import { bindActionCreators } from '../../../../../../../AppData/Local/Microsoft/TypeScript/3.4.3/node_modules/redux';
+import { bindActionCreators } from 'redux';
 
 class LandingPage extends React.Component{
     state={ 
@@ -22,70 +22,62 @@ class LandingPage extends React.Component{
         this.setState({show: false});
 
     };
-    
-    
-
     submitHandler = async (googleObj) =>{
-        await this.setState({
+        this.setState({
             email: googleObj.profileObj.email,
             // email:"emailandstuff.com",
             authId: googleObj.googleId
             // authId: "779802nnjs02iup2je2dflsd"
         });
-        console.log(this.state);
-        axios
-            .get(`https://kookr.herokuapp.com/api/user/auth/${this.state.authId}`)
-            .then(response =>{
-                console.log(response.data)
+        
+        await axios
+            .get(`https://kookr.herokuapp.com/api/user/auth/${googleObj.googleId}`)
+            .then(async response =>{
                 if(response.data.length){
-                    localStorage.setItem('userId', response.data[0])
+                     await localStorage.setItem('userId', response.data[0])
                     
                 }else{
                     this.postNewUser();
                 }
             })
             .catch(err =>{
-                // console.log(err.response)
+
                 if(err.response.status === 404){
                     this.postNewUser();
                 }
                 
             })
     }
-
     postNewUser = async() =>{
-        // console.log("from axios post", this.state)
+
         const authId = this.state.authId;
         const email = this.state.email;
         const newUserObj = {auth_id:authId, email:email}
-        console.log(newUserObj)
+
         await axios
             .post('https://kookr.herokuapp.com/api/user', newUserObj)
             .then(response => {
-                
-                console.log(response[0]);
+
                 localStorage.setItem('userId', response.data[0]) //??  Test this bad boy Number(newUserId)
                 //adds the user to the reducer
-                //this.props.addUser(response.data[0])
+                this.props.addUser(response.data)
 
                 //to reference the user within the application use
                 //this.props.user[0].user_id
 
             })
             .catch( err =>{
-                console.log(err.response);
+                console.error(err.response);
             })
     }
 
     responseGoogleSuccess = async(response) => {
-        console.log(response)
-        this.submitHandler(response);
+        await this.submitHandler(response);
         this.props.history.push('/create');
       }
     
     
       responseGoogleFailure = (response) => {
-        console.log(response);
         alert('Failure logging in. Please try again');
     } 
     render(){
@@ -194,15 +186,15 @@ class LandingPage extends React.Component{
     }
 }
 
-// const mapDispatchToProps = (dispatch) => bindActionCreators({addUser}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({addUser}, dispatch)
 
 
-// const mapStateToProps = state => {
-//     return {
-//         user: state.UserReducer.user
-//     }
-// }
+const mapStateToProps = state => {
+    return {
+        user: state.UserReducer.user
+    }
+}
 
 
-// export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
-export default LandingPage;
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
+// export default LandingPage;

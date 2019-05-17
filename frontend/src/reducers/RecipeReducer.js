@@ -1,19 +1,10 @@
 
-import {GET_RECIPES_BY_ID, GET_RECIPES_BY_TAG, GET_RECIPES, ADD_RECIPE, DELETE_RECIPE, UPDATE_RECIPE, GET_SELECTED_RECIPE, ADD_RECIPE_SUCCESS} from '../actions/RecipeActions';
+import {ADD_RECIPE_SCH, UPDATE_SCHEDULE_BY_ID, GET_RECIPES_BY_ID, GET_RECIPES_BY_TAG, GET_RECIPES, ADD_RECIPE, DELETE_RECIPE, UPDATE_RECIPE, GET_SELECTED_RECIPE, ADD_RECIPE_SUCCESS} from '../actions/RecipeActions';
 
 
 const initialState = {
    recipes: [
-//        {
-//     recipe_id: 0,
-//     name: 'name string1',
-//     image: 'image url string',
-//     link: 'recipe url string',
-//     prep_time: 0,
-//     cook_time: 0,
-//     servings: 0,
-//     isSelected: false
-// }
+
    ],
    selectedRecipe: null
 }
@@ -30,20 +21,15 @@ const RecipeReducer = ((state = initialState, action) => {
                 }
         
         case GET_RECIPES_BY_ID:
-              
+                
                 let recipesArray = action.payload.recipes.filter(recipe => recipe.recipe_id === parseInt(action.payload.recipe_id) )
                     // recipe.recipe_id === action.payload.recipe_id 
-               
+
             
             return {...state, recipes: recipesArray}    
         
         case GET_RECIPES_BY_TAG:                
-                
-               
-                
                 const tempArray = state.recipes.filter(recipes => recipes.bestdate.tag === action.payload.tag )
-                
-               
 
                 return {...state, recipes: [...tempArray]}
 
@@ -84,6 +70,14 @@ const RecipeReducer = ((state = initialState, action) => {
         
             return state;
 
+        case UPDATE_SCHEDULE_BY_ID:
+            //need to return all new to the state with the updated one.
+            return state;
+        
+
+        case ADD_RECIPE_SCH:
+            return state;
+
         default:
             //makes .isSelected === false if something was still true
             //state = state.recipes.map(item => {if(item.isSelected === true) {item.isSelected = false}})
@@ -94,44 +88,3 @@ const RecipeReducer = ((state = initialState, action) => {
 
 export {RecipeReducer}
 
-
-// {
-//     recipe_id: 0,
-//     name: 'name string1',
-//     image: 'image url string',
-//     link: 'recipe url string',
-//     prep_time: 0,
-//     cook_time: 0,
-//     servings: 0,
-//     isSelected: false
-// },
-// {
-// recipe_id: 1,
-// name: 'name string2',
-// image: 'image url string',
-// link: 'recipe url string',
-// prep_time: 0,
-// cook_time: 0,
-// servings: 0,
-// isSelected: false
-// },
-// {
-// recipe_id: 2,
-// name: 'name string3',
-// image: 'image url string',
-// link: 'recipe url string',
-// prep_time: 0,
-// cook_time: 0,
-// servings: 0,
-// isSelected: false
-// },
-// {
-// recipe_id: 3,
-// name: 'name string4',
-// image: 'image url string',
-// link: 'recipe url string',
-// prep_time: 0,
-// cook_time: 0,
-// servings: 0,
-// isSelected: false
-// }

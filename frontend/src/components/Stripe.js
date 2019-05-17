@@ -44,7 +44,7 @@ class CheckoutForm extends Component {
                     alert("Payment Success");
                 })
                 .catch(err =>{
-                    console.log(err)
+                    console.error(err)
                 })
                 
             } else {
@@ -67,7 +67,7 @@ class CheckoutForm extends Component {
                         .then(response =>{
                         })
                         .catch(err=>{
-                            console.log(err)
+                            console.error(err)
                         })
                     })
                     .then(()=>{
@@ -77,11 +77,11 @@ class CheckoutForm extends Component {
                             alert("Payment Success");
                         })
                         .catch(err =>{
-                            console.log(err)
+                            console.error(err)
                         })
                     })
                     .catch(err => {
-                        console.log("Payment Error: ", err);
+                        console.error("Payment Error: ", err);
                         alert("Payment Error");
                     });
             }
@@ -96,7 +96,7 @@ class CheckoutForm extends Component {
                 alert("Your subscription will cancel at the end of this period");
             })
             .catch(err =>{
-                console.log(err)
+                console.error(err)
             })
     } 
     render(){

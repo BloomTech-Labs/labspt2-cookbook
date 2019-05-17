@@ -1,3 +1,4 @@
+import Axios from "axios";
 
 export const ADD_TAG = "ADD_TAG"
 export const DELETE_TAG = "DELETE_TAG"
@@ -37,11 +38,28 @@ export const updateTag = (tag) => (dispatch) => {
     })
 
 }
-export const getTags = (tag) => (dispatch) => {
-    console.log(tag)
-    dispatch({
-        type: GET_TAGS,
-        payload: {tag, tag_id: tag.tag_id}
-    })
+
+export const getTags2 = () => (dispatch) => {
+///api/tags
+
+    Axios.get('https://kookr.herokuapp.com/api/tags')
+        .then(res => {
+        
+            dispatch({
+                type: GET_TAGS,
+                payload: res.data
+            })
+        
+
+
+        })
+        .catch((err) => console.error("Error in getTags2: ",err))
+}
+
+export const getTags = () =>  {
+
+    return dispatch => {
+        dispatch(getTags2())
+    }
 
 }
