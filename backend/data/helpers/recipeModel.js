@@ -135,7 +135,7 @@ module.exports = {
         return(result);
       })
       .catch(function(err) {
-        console.log("error: ", err);
+        console.error("Error in recipe insert: ", err);
       })
     }
   },

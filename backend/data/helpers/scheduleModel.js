@@ -19,6 +19,14 @@ module.exports = {
   },
 
   /*
+   * getByUserAndRecipe
+   *   -- Gets a list of scheduled recipes by UserID & RecipeID
+   */
+  getByUserRecipe: function(userId, recipeId) {
+    return db('schedule').where('user_id', userId).andWhere('recipe_id',recipeId);
+  },
+  
+  /*
    * getByDate:
    *  -- Gets a list of scheduled recipes by User ID for date
    */ 

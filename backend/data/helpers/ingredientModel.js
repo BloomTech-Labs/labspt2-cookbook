@@ -94,7 +94,7 @@ module.exports = {
         .catch(trans.rollback)
     })
     .catch( (err) => {
-      console.log("error in insert ingredient: ", err);
+      console.error("Error in insert ingredient: ", err);
     })
   },
 
