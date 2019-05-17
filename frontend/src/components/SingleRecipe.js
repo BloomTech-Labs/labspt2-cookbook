@@ -40,21 +40,9 @@ try {
 
 }
 
-componentWillReceiveProps() {
 
 
 
-}
-
- componentDidUpdate(prevProps) {
-
-    if( prevProps.recipes.length !== this.props.recipes.length) {
-
-        let directions = this.props.recipes[0]
-
-    }
-   
-}
 clicked = async(index) =>{
     const clicked = this.state.directionsClicked
     if(clicked.includes(index)){

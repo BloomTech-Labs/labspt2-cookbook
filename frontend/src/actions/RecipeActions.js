@@ -74,19 +74,34 @@ export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
                return element[todayIndex - 1]
              }
            })
+           latestDates.sort((a, b) => parseInt(a.id) - parseInt(b.id))
            return latestDates 
    
       }).then((latestDates) => {
           //sets the object bestdate properly
+
+          latestDates.sort((a, b) => {
+            let value = parseInt(a.id) - parseInt(b.id)
+            if(value !== 0) {
+                return value
+            }
+            return parseInt(a.tag_id) - parseInt(b.tag_id)
+           } )
+
+
+
+
                axios.get(`https://kookr.herokuapp.com/api/tags/`).then(res =>  {
                 
-               for( let i = 0; i < res.data.length-1; i++) {
-                   
-                   if(latestDates[i] && res.data[i].tag_id === latestDates[i].tag_id) {
-                       latestDates[i].tag = res.data[i].tag
-                       
-                   } 
-               }
+                latestDates.forEach(latest => {
+
+                    res.data.forEach(tag => {
+
+                        if(latestDates && latest.tag_id === tag.tag_id) {
+                            latest.tag = tag.tag
+                        }
+                    })
+                })
               
                
                return latestDates
@@ -95,13 +110,15 @@ export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
                //loops through the tags api response and the recipes, 
                //matches with the correct recipe and sets the bestdate object
                for(let i = 0; i < returnedValue.length; i++) {
-               if(latestDates[i] === undefined){       
+
+                if(latestDates[i] === undefined){
+
                 } else {
-                    if(latestDates[i].recipe_id === returnedValue[i].recipe_id){
-                        returnedValue[i].bestdate = latestDates[i]
-                    }
-                }  
-               }
+                    const index = latestDates.findIndex(element => element.recipe_id === returnedValue[i].recipe_id)
+                    returnedValue[i].bestdate = latestDates[index]
+                }
+                
+            }
             
            return returnedValue
            })
@@ -238,7 +255,7 @@ export const getRecipes2 = (userid) => (dispatch) => {
 
                 axios.get(`https://kookr.herokuapp.com/api/tags/`).then(res =>  {
                    
-                let testValue = latestDates.forEach(latest => {
+                latestDates.forEach(latest => {
 
                     res.data.forEach(tag => {
 
