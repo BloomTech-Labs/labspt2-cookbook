@@ -118,3 +118,17 @@ Startup: *yarn server*
 * **PUT : /api/schedule/:id** -- Edits a schedule by id
 * **POST : /api/schedule/** -- Adds a new schedule
 * * -- Requires: user_id, date, recipe_id, tag_id
+
+---
+
+## Charge(Stripe)
+
+### Routes:
+* **POST : /api/charge/user**  -- Creates a new user in Stripe
+* * -- Requires: Stripe Token
+* **POST : /api/charge/** -- Adds a user to a subscription plan
+* * -- Requires: Stripe Customer ID
+* **PUT : /api/charge/unsubscribe** -- Edits a users subscription to cancel at the end of the current payment period
+* * -- Requires: Stripe Subscription ID
+
+
