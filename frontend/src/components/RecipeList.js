@@ -52,9 +52,6 @@ class RecipeList extends Component{
 
         const userId = localStorage.getItem('userId');
         
-        console.log(userId)
-        console.log(this.props.user)
-
         await this.setState({
              userId : Number(userId)
          });
@@ -64,7 +61,6 @@ class RecipeList extends Component{
         // await this.getRecipeData();
 
 
-        console.log(this.props.tags)
 }
 recipeGetById = async() =>{
    
@@ -81,56 +77,29 @@ recipeGetById = async() =>{
             
             })
             .catch(err =>{
-                console.log('Error fetching recipes by user Id', err);
+                console.error('Error fetching recipes by user Id', err);
             })        
             
 }
-deleteSchedule = async () =>{
-    const id = localStorage.getItem('userId');
-    let recipeIdArr = []
+
+
+deleteSchedule = async (recId, userId) =>{
+    
     await axios
-        .get(`https://kookr.herokuapp.com/api/recipes/user/${id}`)
-        .then(async res =>{
-            console.log('Yooooo', res)
-            recipeIdArr.push(res.data.recipe_id)
-            // await this.setState({
-            //     recipeIdArr : res.data.recipe_id
-            // })
-
-            axios   
-                .get(`https://kookr.herokuapp.com/api/schedule/user/${id}`)
-                .then(res =>{
-                for(let i = 0; i < recipeIdArr.length; i++){
-                    if(recipeIdArr[i] === res.data.recipe_id){
-                        axios   
-                            .delete(`https://kookr.herokuapp.com/api/schedule/${res.data.recipe_id}`)
-                                .then(res =>{
-                                    console.log('Deleted !', res)
-                                })
-                                .catch(err =>{
-                                    console.log(err)
-                                })
-                    }
-                }
-            })
-            .catch(err =>{
-
-            })
-          
+        .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/recipe/${recId}`)
+        .then( async (res) => {
+            const data = res.data;
+            data.forEach( (schedule) => {
+                axios
+                    .delete(`https://kookr.herokuapp.com/api/schedule/${schedule.id}`)
+            })        
         })
-        .catch(err =>{
-            console.log(err)
-        })
-        await this.logger()
+        .catch( (err) => {
+            console.error( "Could not delete scheduled entry: ", err);
+        });
+    // end axios
 }
-logger = () =>{
-    setTimeout(
-        function(){
-            console.log('IDS', this.state.recipeIdArr)
-        }.bind(this),1500
-    )
-    // console.log('IDS', this.state.recipeIdArr)
-}
+
 deleteRecipeButton = async(recipe_id) => {
    
     
@@ -141,7 +110,7 @@ deleteRecipeButton = async(recipe_id) => {
     let userid = localStorage.getItem('userId');
     
     await this.props.deleteRecipe(recipe, userid)
-    await this.deleteSchedule();
+    await this.deleteSchedule(recipe_id, userid);
 }
 
 
@@ -149,7 +118,7 @@ deleteRecipeButton = async(recipe_id) => {
 filterRecipeButton = (tag) => {
     //need to link to user reducer
     let id = localStorage.getItem('userId');
-    console.log('Tag!', tag)
+
     if(tag === 'all'){
         this.props.getRecipes(id)
     }else{
@@ -161,8 +130,6 @@ filterRecipeButton = (tag) => {
 }
 
 filterAndCloseCombine = (tag, event) => {
-    console.log(tag)
-    //console.log(event)
     this.filterRecipeButton(tag)
 
     this.setState({
@@ -180,8 +147,6 @@ clickHandle = async(event,  type) =>{
     await this.setState({
         tag:type
     })
-    console.log(this.state.tag);
-    console.log(this.props.tags)
 }
 
 filterModalOpen = () =>{
@@ -218,7 +183,7 @@ editRecipeButton = (scheduledDateID) => {
     let stringUserId = id
     let stringTagID = selectedTagId[0].tag_id
     let stringRecipeId = this.state.selectedItem.recipe_id
-    const date = this.state.dateChange
+    let date = this.state.dateChange
     if(!date){
         date = Date.now()
     }
@@ -230,7 +195,7 @@ editRecipeButton = (scheduledDateID) => {
         date: date,
         
     }
-    console.log(scheduleObject)
+    
     // //does not work yet
      if(scheduledDateID === undefined) {
      this.props.addRecipeSch(scheduleObject)
@@ -241,11 +206,11 @@ editRecipeButton = (scheduledDateID) => {
         this.props.getRecipes(id)
      }
 
-    console.log(scheduledDateID)
+    
     
 
     //this.props.UpdateScheduleByID(scheduledDateID, scheduleObject)
-    console.log(this.state.dateChange)
+    
 
     //this.props.addAllToCalendar()
     this.editModalClose()
@@ -261,7 +226,6 @@ cutterHeaderOff = (string) =>{
 }
 
     render(){
-        console.log(this.state.recipeIdArr)
       
         return (
              <div className="Recipe-List-Page">
@@ -330,7 +294,7 @@ cutterHeaderOff = (string) =>{
                                     <div className='recipe-card-header'>{this.cutterHeaderOff(item.name)}</div>
                                 </Link>
                                 <div className= 'recipe-card-img-container'>
-                                    <img className = {item.image ? 'recipe-card-img' : 'recipe-card-img chef'} src = {item.image ? item.image : '../images/logo-white.png'} alt ='recipe-list-image'/>
+                                    <img className = {item.image ? 'recipe-card-img' : 'recipe-card-img chef'} src = {item.image ? item.image : '../images/logo-white.png'} alt ='recipe-list'/>
                                 </div>
                                 <div className = 'recipe-card-time'>
                                     { item.bestdate ? new Intl.DateTimeFormat('en-US', {
@@ -406,8 +370,7 @@ cutterHeaderOff = (string) =>{
 const mapDispatchToProps = (dispatch) => bindActionCreators({addRecipeSch, getTags, UpdateScheduleByID, addAllToCalendar,deleteRecipe, getRecipes, getUser, addRecipe, addRecipeSuccess, getSelectedRecipe, getRecipesByTag}, dispatch)
 
 const mapStateToProps = state => {
-    console.log(state.RecipeReducer)
-    console.log('429',state.RecipeReducer.recipes)
+
     return {
         user: state.UserReducer.user,
         recipes: state.RecipeReducer.recipes,

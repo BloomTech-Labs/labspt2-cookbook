@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ADD_TAG} from '../actions/TagsActions';
+
 export const ADD_RECIPE = "ADD_RECIPE"
 
 export const ADD_RECIPE_SUCCESS = "ADD_RECIPE_SUCCESS"
@@ -23,11 +23,10 @@ export const getRecipesByIDSTART = (recipe_id, userid) => {
 
 export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
   
-   let uniqueRecipeIds =[]
    let responseValue
-   let finalValue
+
      axios.get(`https://kookr.herokuapp.com/api/recipes/user/${userid}`).then((res) => {
-        // console.log(res)
+
    
        //makes the array and array of objects
        responseValue = Object.values(res.data)
@@ -43,7 +42,6 @@ export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
        axios.get(`https://kookr.herokuapp.com/api/schedule/user/${userid}`).then(res => {
            
            let i
-           let Recip = [] 
   
            let uniqueRecipeIds =[]
            
@@ -60,8 +58,6 @@ export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
            for(i = 0; i < uniqueRecipeIds.length; i++) {
                arrayOfArrays.push(res.data.filter(item => res.data[i].recipe_id === item.recipe_id))
                }
-           let length = arrayOfArrays[0].length
-           let uptoDateArray = []
           
            const today = new Date().toISOString()
                //inserts todays date into every array within the arrayofarrays and sorts
@@ -95,7 +91,7 @@ export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
                
                return latestDates
            }).then((latestDates) => {
-               let i 
+
                //loops through the tags api response and the recipes, 
                //matches with the correct recipe and sets the bestdate object
                for(let i = 0; i < returnedValue.length; i++) {
@@ -122,23 +118,20 @@ export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
                  .then(axios.spread((...res)=> {
                             res.forEach((recipe, index) => {
                             
-            
-                    let directions = 'directions'
-                    let ingredients = 'ingredients'
                     
                     needDetail[index].directions = recipe.data.directions
                     needDetail[index].ingredients = recipe.data.ingredients
      
 
                             })
-                            console.log(needDetail)
+
                             dispatch({
                                 type: GET_RECIPES_BY_ID,
                                 payload: {recipe_id, recipes: needDetail}
                             })
                     }
                     ))
-                 .catch(err => console.log(err.response))
+                 .catch(err => console.error(err.response))
          
        
            })
@@ -152,8 +145,6 @@ export const getRecipeByIdEND = (recipe_id, userid) =>  (dispatch) => {
 
 export const addRecipe = (recipe) => (dispatch) => {
     
-    let id = localStorage.getItem('userId');
- 
     dispatch({
         type: ADD_RECIPE,
         payload: {recipe, recipe_id: recipe.recipe_id}
@@ -168,7 +159,6 @@ export const addRecipe = (recipe) => (dispatch) => {
 export const getRecipes2 = (userid) => (dispatch) => {
 
  
-    let uniqueRecipeIds =[]
     let responseValue
     axios.get(`https://kookr.herokuapp.com/api/recipes/user/${userid}`).then((res) => {
    
@@ -184,9 +174,8 @@ export const getRecipes2 = (userid) => (dispatch) => {
         
         let latestDates 
         axios.get(`https://kookr.herokuapp.com/api/schedule/user/${userid}`).then(res => {
-            console.log(res.data)
+
             let i
-            let Recip = [] 
         
             let uniqueRecipeIds =[]
             
@@ -208,10 +197,9 @@ export const getRecipes2 = (userid) => (dispatch) => {
             let arrayOfArrays = []
             for(i = 0; i < res.data.length; i++) {
                 arrayOfArrays.push(res.data.filter(item => res.data[i].recipe_id === item.recipe_id))
-                // console.log(arrayOfArrays)
+
             }
-            let length = arrayOfArrays[0].length
-            let uptoDateArray = []
+
            
             const today = new Date().toISOString()
                 //inserts todays date into every array within the arrayofarrays and sorts
@@ -233,13 +221,12 @@ export const getRecipes2 = (userid) => (dispatch) => {
     
            
            latestDates.sort((a, b) => parseInt(a.id) - parseInt(b.id))
-           console.log(latestDates)
+
             return latestDates 
     
        }).then((latestDates) => {
        
-     
-           console.log(latestDates) 
+
            latestDates.sort((a, b) => {
             let value = parseInt(a.id) - parseInt(b.id)
             if(value !== 0) {
@@ -248,53 +235,31 @@ export const getRecipes2 = (userid) => (dispatch) => {
             return parseInt(a.tag_id) - parseInt(b.tag_id)
            } )
        
-           console.log(latestDates)
+
                 axios.get(`https://kookr.herokuapp.com/api/tags/`).then(res =>  {
                    
                 let testValue = latestDates.forEach(latest => {
-                    // console.log(latest)
+
                     res.data.forEach(tag => {
-                        // console.log(tag)
+
                         if(latestDates && latest.tag_id === tag.tag_id) {
                             latest.tag = tag.tag
                         }
                     })
                 })
                 
-                console.log(latestDates)
                 
                 return latestDates
             }).then((latestDates) => {
-                // console.log(latestDates)
-                // console.log(returnedValue)
-                let i 
+
                 for(let i = 0; i < returnedValue.length; i++) {
-                    let trueOrFalse =[]
-                    let badValues
-            
-                    console.log(latestDates)
-                    console.log('Line 276', returnedValue)
-                    console.log(latestDates[i].recipe_id, returnedValue[i].recipe_id)
 
                     if(latestDates[i] === undefined){
                        
                     } else {
                         const index = latestDates.findIndex(element => element.recipe_id === returnedValue[i].recipe_id)
-                        console.log('Index', index)
                         returnedValue[i].bestdate = latestDates[index]
-
-
-
-
-                        // if(latestDates[i].recipe_id === returnedValue[i].recipe_id){
-                        //     returnedValue[i].bestdate = latestDates[i]
-                        // }
                     }
-                    // if(latestDates[i].recipe_id === returnedValue[i].recipe_id){
-                    //     returnedValue[i].bestdate = latestDates[i]
-                    // } else {
-                    //     badValues = returnedValue[0].recipe_id
-                    // }
                     
                 }
                  dispatch({
@@ -342,12 +307,7 @@ function deleteRecipe2(recipe, userid) {
     
 
     axios.delete(`https://kookr.herokuapp.com/api/recipes/${recipe.recipe_id}/user/${userid}`)
-    .then(res => {
-
-
-        console.log('deleted successfully')
-    })
-     .catch(err => console.log({err}))
+     .catch(err => console.error({err}))
 
     return {
         type: DELETE_RECIPE,
@@ -413,12 +373,10 @@ export const getRecipesByTag = (tag) => {
 }
 
 function UpdateScheduleById2(scheduledDateID, scheduleObject) {
-    console.log(scheduleObject)
-    // console.log('Line455', scheduleDateID)
     //axios call
     axios.put(`https://kookr.herokuapp.com/api/schedule/${scheduledDateID}`,scheduleObject)
-        .then(res => console.log(res))
-        .catch(err => console.log(err.json()))
+
+        .catch(err => console.error(err))
 
     return {
         type: UPDATE_SCHEDULE_BY_ID,
@@ -450,12 +408,11 @@ export const UpdateScheduleByID = (scheduledDateID, scheduleObject) => {
 
 
 function addRecipeSch2(recipeSch) {
-    console.log(recipeSch)
+    
     axios.post(`https://kookr.herokuapp.com/api/schedule`,recipeSch)
-        .then(res => console.log(res))
-
+    
         .catch(err => {
-            console.log(err)
+            console.error(err)
         })
 
     return {

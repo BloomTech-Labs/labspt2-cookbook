@@ -55,6 +55,19 @@ router.get( '/user/:id/date/:date', async(req, res) => {
 });
 
 
+/* GET schedule by UserID & RecipeID */
+router.get( '/user/:id/recipe/:recId', (req, res) => {
+  const { id, recId } = req.params;
+  schedule.getByUserRecipe( id, recId )
+    .then( (list) => {
+      res.json(list);
+    })
+    .catch( (err) => {
+      res.status(500).json({ error: `Could not get schedule by user/recipe: ${err}` });
+    })
+});
+
+
 /* PUT */
 router.put( '/:id', (req, res) => {
   const newSched = req.body;

@@ -53,7 +53,7 @@ inputHandler=(e) =>{
 }
 
 checkSubscription=()=>{
-    let expDate = this.state.billingDate
+    
     if(this.state.accountType === "0"){
         this.setState({
             message : "You do not have a subscription to Kookr. Subscribe below"})
