@@ -86,15 +86,18 @@ recipeGetById = async() =>{
             
 }
 deleteSchedule = async (recId, userId) =>{
-    
+    console.log("Inside deleteSchedule");
     await axios
         .get(`https://kookr.herokuapp.com/api/schedule/user/${userId}/recipe/${recId}`)
         .then( async (res) => {
-            axios
-                .delete(`https://kookr.herokuapp.com/api/schedule/${res.id}`)
-                .then( (delRes) => {
-                    console.log("Deleted: ", res.id);
-                })
+            const data = res.data;
+            data.forEach( (schedule) => {
+                axios
+                    .delete(`https://kookr.herokuapp.com/api/schedule/${schedule.id}`)
+                    .then( (delRes) => {
+                        console.log("Deleted: ", delRes);
+                    })
+            })        
         })
         .catch( (err) => {
             console.error( "Could not delete scheduled entry: ", err);
